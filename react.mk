@@ -22,11 +22,11 @@ test: $(JS_SENTINAL) eslint
 deploy-stage: $(JS_SENTINAL) 
 	npm run stage \
 	&& $(INTERMEDIATE_STEPS) \
-	&& $(S3CMD) $(S3_FLAGS) --exclude-from=node_modules sync ./* s3://$(STAGING_BUCKET)/
+	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
 deploy-prod: $(JS_SENTINAL) 
 	npm run prod \
 	&& $(INTERMEDIATE_STEPS) \
-	&& $(S3CMD) $(S3_FLAGS) --exclude-from=node_modules sync ./* s3://$(PROD_BUCKET)/
+	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
 .PHONY: runserver build dev eslint test deploy-stage deploy-prod
