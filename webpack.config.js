@@ -8,12 +8,13 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: "bundle.min.js",
-        publicPath: "/dist/"
+        publicPath: "/dist/",
     },
     devServer: {
         inline: true,
         contentBase: './',
-        port: 3000
+        port: 3000,
+        historyApiFallback: true,
     },
     module: {
         rules: [
@@ -21,6 +22,33 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: ['babel-loader']
+            },
+            {
+                test: /\.(scss)$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            options: {
+                                plugins: function() {
+                                    return [
+                                        require('precss'),
+                                        require('autoprefixer')
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
