@@ -227,7 +227,7 @@ export class CentralLimitGraph extends Component {
     }
     render() {
         return (
-            <>
+            <div className="container">
             <h2>Central Limit Theorem</h2>
             <GraphForm populationGraphData={this.state.populationGraphData}
                 sampleMeansGraphData={this.state.sampleMeansGraphData}/>
@@ -239,7 +239,7 @@ export class CentralLimitGraph extends Component {
                 numberOfSamples={this.state.numberOfSamples}
                 handleChange={this.handleChange}
                 runSample={this.runSample}/>
-            </>
+            </div>
         )
     }
 }
