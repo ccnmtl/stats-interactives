@@ -57,11 +57,9 @@ module.exports = {
                             loader: 'file-loader',
                             options: {
                                 disable: true,
-                                publicPath: (() => {
-                                    if (typeof env === "undefined") return 'dist/'
-                                    else if (env.production) return PROD_URL
-                                    else if (env.stage) return STAGE_URL
-                                })()
+                                outputPath: 'images/',
+                                name: '[name].[ext]',
+                                emitFile: true
                             }
                         }
                     ]
