@@ -4,7 +4,7 @@ const PROD_URL = 'https://stats-interactives.ctl.columbia.edu/';
 const STAGE_URL = 'https://stats-interactives.stage.ctl.columbia.edu/';
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.jsx",
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: "bundle.min.js",
@@ -16,10 +16,13 @@ module.exports = {
         port: 3000,
         historyApiFallback: true,
     },
+    resolve: {
+        extensions: ['*', '.js', '.jsx']
+    },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /(node_modules)/,
                 loader: ['babel-loader']
             },
