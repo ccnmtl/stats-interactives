@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
+    "snapshot": "jest -u",
     "serve": "webpack-dev-server --mode development",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
@@ -23,19 +24,37 @@
   },
   "dependencies": {
     "autoprefixer": "^9.3.1",
+    "babel-core": "^7.0.0-bridge.0",
     "bootstrap": "^4.1.3",
     "css-loader": "^1.0.1",
+    "enzyme": "^3.7.0",
     "jStat": "^1.7.1",
+    "jest": "^23.6.0",
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-router-dom": "^4.3.1",
+    "react-test-renderer": "^16.6.1",
     "sass-loader": "^7.1.0",
     "seedrandom": "^2.4.4",
     "style-loader": "^0.23.1",
     "victory": "^30.3.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

@@ -16,8 +16,10 @@ eslint: $(JS_SENTINAL)
 	echo "Stub for eslint"
 
 test: $(JS_SENTINAL) eslint
-	#npm run test
-	echo "Stub for tests"
+	npm run test
+
+snapshot: $(JS_SENTINAL)
+	npm run snapshot
 
 deploy-stage: $(JS_SENTINAL) 
 	npm run stage \
