@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "snapshot": "jest -u",
+    "eslint": "eslint src/*.jsx",
     "serve": "webpack-dev-server --mode development",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
@@ -18,7 +19,11 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.2",
+    "eslint": "^5.9.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "webpack": "^4.19.0"
   },

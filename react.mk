@@ -12,8 +12,7 @@ dev: $(JS_SENTINAL)
 	npm run dev 
 
 eslint: $(JS_SENTINAL)
-	#npm run eslint
-	echo "Stub for eslint"
+	npm run eslint
 
 test: $(JS_SENTINAL) eslint
 	npm run test
