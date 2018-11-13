@@ -1,3 +1,4 @@
+import React from 'react';
 import { CentralLimitGraph } from './CentralLimitGraph'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
@@ -44,7 +45,7 @@ const PreviewData = [
 ]
 
 const PreviewBlock = (props) => (
-    <div className="col-md-4">
+    <div key={props.slug} className="col-md-4">
         <h2>
             <Link to={props.slug}>{ props.title }</Link>
         </h2>
@@ -81,3 +82,5 @@ const Home = () => (
     </div>
     </>
 )
+
+export {Nav, PreviewBlock, Preview};

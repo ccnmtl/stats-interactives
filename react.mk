@@ -12,12 +12,13 @@ dev: $(JS_SENTINAL)
 	npm run dev 
 
 eslint: $(JS_SENTINAL)
-	#npm run eslint
-	echo "Stub for eslint"
+	npm run eslint
 
 test: $(JS_SENTINAL) eslint
-	#npm run test
-	echo "Stub for tests"
+	npm run test
+
+snapshot: $(JS_SENTINAL)
+	npm run snapshot
 
 deploy-stage: $(JS_SENTINAL) 
 	npm run stage \

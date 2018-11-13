@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nav elements render as expected 1`] = `
+<nav
+  className="navbar navbar-expand-lg navbar-darkt"
+>
+  <a
+    className="navbar-brand"
+    href="/"
+    onClick={[Function]}
+  >
+    Theoremicious
+  </a>
+  <div
+    className="navbar-nav-scroll"
+  >
+    <ul
+      className="navbar-nav bd-navbar-nav flex-row"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/central-limit-theorem"
+          onClick={[Function]}
+        >
+          Central Limit Theorem
+        </a>
+      </li>
+    </ul>
+  </div>
+  <button
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    className="navbar-toggler"
+    data-target="#navbarSupportedContent"
+    data-toggle="collapse"
+    type="button"
+  >
+     
+    <span
+      className="navbar-toggler-icon"
+    />
+     
+  </button>
+  <div
+    className="collapse navbar-collapse"
+    id="navbarSupportedContent"
+  />
+</nav>
+`;
+
+exports[`Preview elements render as expected 1`] = `
+Array [
+  <div
+    className="col-md-4"
+  >
+    <h2>
+      <a
+        href="/central-limit-theorem"
+        onClick={[Function]}
+      >
+        Central Limit Theorem
+      </a>
+    </h2>
+    <p>
+      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+    </p>
+  </div>,
+  <div
+    className="col-md-4"
+  >
+    <h2>
+      <a
+        href="/ols-regression"
+        onClick={[Function]}
+      >
+        OLS Regression
+      </a>
+    </h2>
+    <p>
+      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+    </p>
+  </div>,
+]
+`;

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { VictoryChart, VictoryTheme, VictoryBar, VictoryArea, VictoryLine } from 'victory';
 import * as _ from 'lodash';
 var seedrandom = require('seedrandom');
