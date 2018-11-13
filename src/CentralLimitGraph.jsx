@@ -6,7 +6,7 @@ var jStat = require('jStat').jStat;
 
 const roundFloat = (n) => {
     return parseFloat(n.toFixed(1));
-}
+};
 
 const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
@@ -15,7 +15,7 @@ const createHistogramArray = (dist) => {
     const setRedux = (acc, val) => {
         acc.push([val[0], 0]);
         return acc;
-    }
+    };
 
     let xSetList = [...xSet.entries()].reduce(setRedux, new Array(0));
 
@@ -28,10 +28,10 @@ const createHistogramArray = (dist) => {
             acc[idx][1] += 1;
         }
         return acc;
-    }
+    };
 
     return dist.reduce(redux, xSetList);
-}
+};
 
 const PopulationGraph  = ({populationGraphData}) => {
     return (
@@ -43,8 +43,8 @@ const PopulationGraph  = ({populationGraphData}) => {
                 y={1}/>
         </VictoryChart>
         </>
-    )
-}
+    );
+};
 
 const SampleMeansGraph = ({sampleMeansGraphData}) => {
     return (
@@ -58,10 +58,11 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
             }
         </VictoryChart>
         </>
-    )
-}
+    );
+};
 
-const PopulationForm  = ({seed, populationSize, mean, stdDev, handleChange}) => {
+const PopulationForm  = ({seed,
+    populationSize, mean, stdDev, handleChange}) => {
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
     };
@@ -100,8 +101,8 @@ const PopulationForm  = ({seed, populationSize, mean, stdDev, handleChange}) => 
             </div>
         </form>
         </>
-    )
-}
+    );
+};
 
 const SampleForm = ({sampleSize, numberOfSamples, handleChange, runSample}) => {
 
@@ -112,7 +113,7 @@ const SampleForm = ({sampleSize, numberOfSamples, handleChange, runSample}) => {
     const handleRunSample = (e) => {
         e.preventDefault();
         runSample();
-    }
+    };
     return (
         <>
         <h3>Sample Params</h3>
@@ -136,45 +137,45 @@ const SampleForm = ({sampleSize, numberOfSamples, handleChange, runSample}) => {
             </div>
         </form>
         </>
-    )
-}
+    );
+};
 
 const DebugData = ({seed, populationSize, mean, stdDev,
     sampleSize, numberOfSamples}) => {
-        return (
-            <>
-            <h3>Debug Data</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>seed</td>
-                        <td>{seed}</td>
-                    </tr>
-                    <tr>
-                        <td>populationSize</td>
-                        <td>{populationSize}</td>
-                    </tr>
-                    <tr>
-                        <td>mean</td>
-                        <td>{mean}</td>
-                    </tr>
-                    <tr>
-                        <td>Standard Deviation</td>
-                        <td>{stdDev}</td>
-                    </tr>
-                    <tr>
-                        <td>Sample Size</td>
-                        <td>{sampleSize}</td>
-                    </tr>
-                    <tr>
-                        <td>Number of samples</td>
-                        <td>{numberOfSamples}</td>
-                    </tr>
-                </tbody>
-            </table>
-            </>
-        )
-}
+    return (
+        <>
+        <h3>Debug Data</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>seed</td>
+                    <td>{seed}</td>
+                </tr>
+                <tr>
+                    <td>populationSize</td>
+                    <td>{populationSize}</td>
+                </tr>
+                <tr>
+                    <td>mean</td>
+                    <td>{mean}</td>
+                </tr>
+                <tr>
+                    <td>Standard Deviation</td>
+                    <td>{stdDev}</td>
+                </tr>
+                <tr>
+                    <td>Sample Size</td>
+                    <td>{sampleSize}</td>
+                </tr>
+                <tr>
+                    <td>Number of samples</td>
+                    <td>{numberOfSamples}</td>
+                </tr>
+            </tbody>
+        </table>
+        </>
+    );
+};
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
@@ -183,7 +184,7 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         //this.sampleMeanIterator = this.sampleMeanIterator.bind(this);
-        seedrandom("cojoc", {glabal: true});
+        seedrandom('cojoc', {glabal: true});
 
         const populationSize = 1000;
         const mean = 0;
@@ -196,7 +197,7 @@ export class CentralLimitGraph extends Component {
         const populationGraphData = createHistogramArray(population);
 
         this.state = {
-            seed: "cojoc",
+            seed: 'cojoc',
             populationSize: populationSize,
             population: population,
             populationGraphData: populationGraphData,
@@ -206,13 +207,13 @@ export class CentralLimitGraph extends Component {
             numberOfSamples: 10,
             sampleMeans: [],
             sampleMeansGraphData: []
-        }
+        };
     }
     handleChange(key, value) {
         const population = this.generatePopulation(
-                key === "populationSize" ? value : this.state.populationSize,
-                key === "mean" ? value : this.state.mean,
-                key === "stdDev" ? value : this.state.stdDev);
+            key === 'populationSize' ? value : this.state.populationSize,
+            key === 'mean' ? value : this.state.mean,
+            key === 'stdDev' ? value : this.state.stdDev);
         const populationGraphData = createHistogramArray(population);
         this.setState({
             population: population,
@@ -223,7 +224,7 @@ export class CentralLimitGraph extends Component {
     generatePopulation(size, mean, stdDev) {
         return jStat.create(1, size, (row) => {
             // check this
-            row
+            row;
             let i = jStat.normal.sample(mean, stdDev);
             return roundFloat(i);
         })[0];
@@ -249,14 +250,14 @@ export class CentralLimitGraph extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className='container'>
                 <h2>Central Limit Theorem</h2>
-                <div className="row">
-                    <div className="col-md-6">
-                        <PopulationGraph
-                            populationGraphData={this.state.populationGraphData}/>
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <PopulationGraph populationGraphData={
+                            this.state.populationGraphData}/>
                     </div>
-                    <div className="col-md-6">
+                    <div className='col-md-6'>
                         <PopulationForm seed={this.state.seed}
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
@@ -264,12 +265,12 @@ export class CentralLimitGraph extends Component {
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <SampleMeansGraph
-                            sampleMeansGraphData={this.state.sampleMeansGraphData}/>
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <SampleMeansGraph sampleMeansGraphData={
+                            this.state.sampleMeansGraphData}/>
                     </div>
-                    <div className="col-md-6">
+                    <div className='col-md-6'>
                         <SampleForm
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
@@ -277,8 +278,8 @@ export class CentralLimitGraph extends Component {
                             runSample={this.runSample}/>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
+                <div className='row'>
+                    <div className='col-md-6'>
                         <DebugData seed={this.state.seed}
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
@@ -288,6 +289,6 @@ export class CentralLimitGraph extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
