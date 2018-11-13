@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryArea, VictoryLine } from 'victory';
+import { VictoryChart, VictoryTheme, VictoryBar} from 'victory';
 import * as _ from 'lodash';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -33,8 +33,7 @@ const createHistogramArray = (dist) => {
     return dist.reduce(redux, xSetList);
 }
 
-const GraphForm = ({seed, populationGraphData, populationSize, mean, sampleMeansGraphData, handleChange}) => {
-    console.log(sampleMeansGraphData);
+const PopulationGraph  = ({populationGraphData}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
@@ -42,8 +41,18 @@ const GraphForm = ({seed, populationGraphData, populationSize, mean, sampleMeans
             <VictoryBar data={populationGraphData}
                 x={0}
                 y={1}/>
+        </VictoryChart>
+        </>
+    )
+}
+
+const SampleMeansGraph = ({sampleMeansGraphData}) => {
+    return (
+        <>
+        <VictoryChart theme={VictoryTheme.material}
+            height={200}>
             { sampleMeansGraphData &&
-                <VictoryLine data={sampleMeansGraphData}
+                <VictoryBar data={sampleMeansGraphData}
                     x={0}
                     y={1}/>
             }
@@ -52,8 +61,49 @@ const GraphForm = ({seed, populationGraphData, populationSize, mean, sampleMeans
     )
 }
 
-const GraphData = ({seed, populationSize, mean, stdDev,
-    sampleSize, numberOfSamples, handleChange, runSample}) => {
+const PopulationForm  = ({seed, populationSize, mean, stdDev, handleChange}) => {
+    const handleFormChange = (e) => {
+        handleChange(e.target.id, e.target.value);
+    };
+
+    return (
+        <>
+        <h3>Population Params</h3>
+        <form action="">
+            <div>
+                <label htmlFor="seed">Seed: </label>
+                <input type="text"
+                    id="seed"
+                    value={seed}
+                    onChange={handleFormChange}/>
+            </div>
+            <div>
+                <label htmlFor="populationSize">Population Size: </label>
+                <input type="number"
+                    id="populationSize"
+                    value={populationSize}
+                    onChange={handleFormChange}/>
+            </div>
+            <div>
+                <label htmlFor="mean">Mean: </label>
+                <input type="number"
+                    id="mean"
+                    value={mean}
+                    onChange={handleFormChange}/>
+            </div>
+            <div>
+                <label htmlFor="stdDev">StdDev: </label>
+                <input type="number"
+                    id="stdDev"
+                    value={stdDev}
+                    onChange={handleFormChange}/>
+            </div>
+        </form>
+        </>
+    )
+}
+
+const SampleForm = ({sampleSize, numberOfSamples, handleChange, runSample}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -64,97 +114,67 @@ const GraphData = ({seed, populationSize, mean, stdDev,
         runSample();
     }
     return (
-        <div className={"row"}>
-            <div className={"col-4"}>
-                <h3>Debug Data</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>seed</td>
-                            <td>{seed}</td>
-                        </tr>
-                        <tr>
-                            <td>populationSize</td>
-                            <td>{populationSize}</td>
-                        </tr>
-                        <tr>
-                            <td>mean</td>
-                            <td>{mean}</td>
-                        </tr>
-                        <tr>
-                            <td>Standard Deviation</td>
-                            <td>{stdDev}</td>
-                        </tr>
-                        <tr>
-                            <td>Sample Size</td>
-                            <td>{sampleSize}</td>
-                        </tr>
-                        <tr>
-                            <td>Number of samples</td>
-                            <td>{numberOfSamples}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <>
+        <h3>Sample Params</h3>
+        <form onClick={handleRunSample} >
+            <div>
+                <label htmlFor="sampleSize">Sample Size: </label>
+                <input type="number"
+                    id="sampleSize"
+                    value={sampleSize}
+                    onChange={handleFormChange}/>
             </div>
-            <div className={"col-4"}>
-                <h3>Population Params</h3>
-                <form action="">
-                    <div>
-                        <label htmlFor="seed">Seed: </label>
-                        <input type="text"
-                            id="seed"
-                            value={seed}
-                            onChange={handleFormChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="populationSize">Population Size: </label>
-                        <input type="number"
-                            id="populationSize"
-                            value={populationSize}
-                            onChange={handleFormChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="mean">Mean: </label>
-                        <input type="number"
-                            id="mean"
-                            value={mean}
-                            onChange={handleFormChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="stdDev">StdDev: </label>
-                        <input type="number"
-                            id="stdDev"
-                            value={stdDev}
-                            onChange={handleFormChange}/>
-                    </div>
-                </form>
+            <div>
+                <label htmlFor="numberOfSamples">Number of samples: </label>
+                <input type="number"
+                    id="numberOfSamples"
+                    value={numberOfSamples}
+                    onChange={handleFormChange}/>
             </div>
-            <div className={"col-4"}>
-                <h3>Sample Params</h3>
-                <form onClick={handleRunSample} >
-                    <div>
-                        <label htmlFor="sampleSize">Sample Size: </label>
-                        <input type="number"
-                            id="sampleSize"
-                            value={sampleSize}
-                            onChange={handleFormChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="numberOfSamples">Number of samples: </label>
-                        <input type="number"
-                            id="numberOfSamples"
-                            value={numberOfSamples}
-                            onChange={handleFormChange}/>
-                    </div>
-                    <div>
-                        <input type="submit" value="Run Sample"/>
-                    </div>
-                </form>
+            <div>
+                <input type="submit" value="Run Sample"/>
             </div>
-        </div>
+        </form>
+        </>
     )
 }
 
+const DebugData = ({seed, populationSize, mean, stdDev,
+    sampleSize, numberOfSamples}) => {
+        return (
+            <>
+            <h3>Debug Data</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>seed</td>
+                        <td>{seed}</td>
+                    </tr>
+                    <tr>
+                        <td>populationSize</td>
+                        <td>{populationSize}</td>
+                    </tr>
+                    <tr>
+                        <td>mean</td>
+                        <td>{mean}</td>
+                    </tr>
+                    <tr>
+                        <td>Standard Deviation</td>
+                        <td>{stdDev}</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Size</td>
+                        <td>{sampleSize}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of samples</td>
+                        <td>{numberOfSamples}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </>
+        )
+}
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
@@ -202,6 +222,8 @@ export class CentralLimitGraph extends Component {
     }
     generatePopulation(size, mean, stdDev) {
         return jStat.create(1, size, (row) => {
+            // check this
+            row
             let i = jStat.normal.sample(mean, stdDev);
             return roundFloat(i);
         })[0];
@@ -228,17 +250,43 @@ export class CentralLimitGraph extends Component {
     render() {
         return (
             <div className="container">
-            <h2>Central Limit Theorem</h2>
-            <GraphForm populationGraphData={this.state.populationGraphData}
-                sampleMeansGraphData={this.state.sampleMeansGraphData}/>
-            <GraphData seed={this.state.seed}
-                populationSize={this.state.populationSize}
-                mean={this.state.mean}
-                stdDev={this.state.stdDev}
-                sampleSize={this.state.sampleSize}
-                numberOfSamples={this.state.numberOfSamples}
-                handleChange={this.handleChange}
-                runSample={this.runSample}/>
+                <h2>Central Limit Theorem</h2>
+                <div className="row">
+                    <div className="col-md-6">
+                        <PopulationGraph
+                            populationGraphData={this.state.populationGraphData}/>
+                    </div>
+                    <div className="col-md-6">
+                        <PopulationForm seed={this.state.seed}
+                            populationSize={this.state.populationSize}
+                            mean={this.state.mean}
+                            stdDev={this.state.stdDev}
+                            handleChange={this.handleChange}/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <SampleMeansGraph
+                            sampleMeansGraphData={this.state.sampleMeansGraphData}/>
+                    </div>
+                    <div className="col-md-6">
+                        <SampleForm
+                            sampleSize={this.state.sampleSize}
+                            numberOfSamples={this.state.numberOfSamples}
+                            handleChange={this.handleChange}
+                            runSample={this.runSample}/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <DebugData seed={this.state.seed}
+                            populationSize={this.state.populationSize}
+                            mean={this.state.mean}
+                            stdDev={this.state.stdDev}
+                            sampleSize={this.state.sampleSize}
+                            numberOfSamples={this.state.numberOfSamples}/>
+                    </div>
+                </div>
             </div>
         )
     }
