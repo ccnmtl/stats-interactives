@@ -23,7 +23,10 @@
     "babel-loader": "^8.0.2",
     "eslint": "^5.9.0",
     "eslint-loader": "^2.1.1",
+    "eslint-plugin-no-unsafe-innerhtml": "^1.0.16",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-scanjs-rules": "^0.2.1",
+    "eslint-plugin-security": "^1.4.0",
     "file-loader": "^2.0.0",
     "webpack": "^4.19.0"
   },
