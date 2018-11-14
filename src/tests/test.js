@@ -1,8 +1,10 @@
+/* eslint-disable */
 import React, {Component} from 'react';
 import {shallow} from 'enzyme';
 import renderer from 'react-test-renderer';
 import {MemoryRouter} from 'react-router-dom';
-import {Nav, Preview} from '../App.jsx';
+import {Preview} from '../App.jsx';
+import {Nav} from '../Nav.jsx';
 
 test('Nav elements render as expected', () => {
     const component = renderer.create(
