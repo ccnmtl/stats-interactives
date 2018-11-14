@@ -10,11 +10,15 @@ JS_SENTINAL ?= $(NODE_MODULES)/sentinal
 include *.mk
 
 $(JS_SENTINAL): package.json
-	rm -rf $(NODE_MODULES)
+	-rm -rf $(NODE_MODULES)
 	npm install
 	touch $(JS_SENTINAL)
+
+install:
+	touch package.json 
+	make $(JS_SENTINAL)
 
 clean:
 	rm -rf $(NODE_MODULES) $(DIST) 
 
-.PHONY: clean
+.PHONY: clean install
