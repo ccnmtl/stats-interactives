@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { VictoryChart, VictoryTheme, VictoryBar} from 'victory';
 import * as _ from 'lodash';
+import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
 
@@ -179,12 +180,22 @@ const DebugData = ({seed, populationSize, mean, stdDev,
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
+        let params = new URLSearchParams(location.search);
 
         this.handleChange = this.handleChange.bind(this);
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
-        //this.sampleMeanIterator = this.sampleMeanIterator.bind(this);
-        seedrandom('cojoc', {glabal: true});
+        let seed = '';
+        if (!params.get('seed')) {
+            // generate a seed
+            let d = new Date;
+            seed = String(d.valueOf());
+            params.set('seed', seed);
+            window.history.replaceState(null, '', '?' + params.toString());
+        } else {
+            seed = String(params.get('seed'));
+        }
+        seedrandom(seed, {glabal: true});
 
         const populationSize = 1000;
         const mean = 0;
@@ -197,7 +208,7 @@ export class CentralLimitGraph extends Component {
         const populationGraphData = createHistogramArray(population);
 
         this.state = {
-            seed: 'cojoc',
+            seed: seed,
             populationSize: populationSize,
             population: population,
             populationGraphData: populationGraphData,
@@ -206,7 +217,10 @@ export class CentralLimitGraph extends Component {
             sampleSize: 5,
             numberOfSamples: 10,
             sampleMeans: [],
-            sampleMeansGraphData: []
+            sampleMeansGraphData: [],
+            embed: (() => {
+                return params.get('embed') === 'true' ? true : false;
+            })(),
         };
     }
     handleChange(key, value) {
@@ -248,8 +262,22 @@ export class CentralLimitGraph extends Component {
             sampleMeansGraphData: sampleMeansData
         });
     }
+    componentDidUpdate() {
+        let params = new URLSearchParams(location.search);
+        params.set('seed', this.state.seed);
+        params.set('populationSize', this.state.populationSize);
+        params.set('mean', this.state.mean);
+        params.set('stdDev', this.state.stdDev);
+        params.set('sampleSize', this.state.sampleSize);
+        params.set('numberOfSamples', this.state.numberOfSamples);
+        window.history.replaceState(null, '', '?' + params.toString());
+    }
     render() {
         return (
+            <>
+            {
+                !this.state.embed && <Nav />
+            }
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
@@ -289,6 +317,7 @@ export class CentralLimitGraph extends Component {
                     </div>
                 </div>
             </div>
+            </>
         );
     }
 }
