@@ -50,7 +50,6 @@ exports[`Nav elements render as expected 1`] = `
     data-toggle="collapse"
     type="button"
   >
-     
     <span
       className="navbar-toggler-icon"
     />
