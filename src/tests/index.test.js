@@ -1,10 +1,13 @@
 /* eslint-disable */
 import React, {Component} from 'react';
-import {shallow} from 'enzyme';
+import ReactDOM from 'react-dom';
+import {configure, shallow, mount, render} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import {MemoryRouter} from 'react-router-dom';
 import {Preview} from '../App.jsx';
 import {Nav} from '../Nav.jsx';
+import { CentralLimitGraph } from '../CentralLimitGraph';
 
 test('Nav elements render as expected', () => {
     const component = renderer.create(

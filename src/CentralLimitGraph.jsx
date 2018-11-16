@@ -13,6 +13,7 @@ const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
 
     // Build an array: [[val, 0], ...]
+    // where 0 is an initial value for some val's frquency
     const setRedux = (acc, val) => {
         acc.push([val[0], 0]);
         return acc;
@@ -25,6 +26,7 @@ const createHistogramArray = (dist) => {
         // create a closure with val
         let findVal = (el) => el[0] == val;
         let idx = acc.findIndex(findVal);
+        // When an index is found, increase its frequency by one
         if (idx > -1) {
             acc[idx][1] += 1;
         }
@@ -180,16 +182,16 @@ const DebugData = ({seed, populationSize, mean, stdDev,
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
-        let params = new URLSearchParams(location.search);
 
         this.handleChange = this.handleChange.bind(this);
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
+
+        let params = new URLSearchParams(location.search);
         let seed = '';
         if (!params.get('seed')) {
             // generate a seed
-            let d = new Date;
-            seed = String(d.valueOf());
+            seed = String(Date.now());
             params.set('seed', seed);
             window.history.replaceState(null, '', '?' + params.toString());
         } else {
@@ -197,7 +199,7 @@ export class CentralLimitGraph extends Component {
         }
         seedrandom(seed, {glabal: true});
 
-        const populationSize = 1000;
+        const populationSize = 100000;
         const mean = 0;
         const stdDev = 1;
         const population = this.generatePopulation(
