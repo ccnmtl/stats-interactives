@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
@@ -112,52 +111,72 @@ const PopulationForm  = ({seed,
         }
     };
     return (
-        <>
-        <h3>Population Params</h3>
         <form action="">
-            { !embed &&
-                <div>
-                    <label htmlFor="seed">Seed: </label>
-                    <input type="text"
-                        id="seed"
-                        value={seed}
-                        onChange={handleFormChange}/>
-                </div> }
-            { !embed &&
-                <div>
-                    <label htmlFor="populationSize">Population Size: </label>
-                    <input type="number"
-                        id="populationSize"
-                        value={populationSize}
-                        onChange={handleFormChange}/>
-                </div> }
-            <div>
-                <label htmlFor="distributionType">Distribution Type: </label>
-                <select id="distType" onChange={handleFormChange} value={distType}>
-                    { DISTRIBUTION_TYPE.map(
-                        (e) => (<option key={e.value} value={e.value}>{e.display}</option>)) }
-                </select>
-            </div>
-            <div>
-                <label htmlFor="mean">Mean: </label>
-                <input type="number"
-                    id="mean"
-                    min="-10"
-                    max="10"
-                    value={mean}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="stdDev">StdDev: </label>
-                <input type="number"
-                    id="stdDev"
-                    min="-6"
-                    max="6"
-                    value={stdDev}
-                    onChange={handleFormChange}/>
-            </div>
+            <fieldset>
+                <legend>Population Parameters</legend>
+                { !embed &&
+                    <div className="form-row">
+                        <div className="form-group col-md-4">
+                            <label htmlFor="seed" className="float-right">Seed: </label>
+                        </div>
+                        <div className="form-group col-md-8">
+                            <input type="text"
+                                id="seed"
+                                value={seed}
+                                onChange={handleFormChange}/>
+                        </div>
+                    </div> }
+                { !embed &&
+                    <div className="form-row">
+                        <div className="form-group col-md-4">
+                            <label htmlFor="populationSize" className="float-right">Population Size: </label>
+                        </div>
+                        <div className="form-group col-md-8">
+                            <input type="number"
+                                id="populationSize"
+                                value={populationSize}
+                                onChange={handleFormChange}/>
+                        </div>
+                    </div> }
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="distType" className="float-right">Distribution Type: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <select id="distType" onChange={handleFormChange} value={distType}>
+                        { DISTRIBUTION_TYPE.map(
+                            (e) => (<option key={e.value} value={e.value}>{e.display}</option>)) }
+                        </select>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="mean" className="float-right">Mean:</label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="mean"
+                            min="-10"
+                            max="10"
+                            value={mean}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="stdDev"  className="float-right">StdDev: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="stdDev"
+                            min="-6"
+                            max="6"
+                            value={stdDev}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+            </fieldset>
         </form>
-        </>
     );
 };
 
@@ -179,28 +198,36 @@ const SampleForm = ({
     };
     return (
         <>
-        <h3>Sample Params</h3>
         <form onClick={handleRunSample} >
-            <div>
-                <label htmlFor="sampleSize">Sample Size: </label>
-                <input type="number"
-                    id="sampleSize"
-                    min="1"
-                    max="1000"
-                    value={sampleSize}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="numberOfSamples">Number of samples: </label>
-                <input type="number"
-                    id="numberOfSamples"
-                    min="1"
-                    value={numberOfSamples}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <input type="submit" value="Run Sample"/>
-            </div>
+            <fieldset>
+                <legend>Sample Parameters</legend>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="sampleSize" className="float-right">Sample Size: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="sampleSize"
+                            min="1"
+                            max="1000"
+                            value={sampleSize}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="numberOfSamples" className="float-right">Number of samples:</label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="numberOfSamples"
+                            min="1"
+                            value={numberOfSamples}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+            </fieldset>
+            <input className="btn btn-primary shim-top" type="submit"  value="Run Sample"/>
         </form>
         <form>
             <div>
@@ -221,31 +248,32 @@ const DebugData = ({seed, populationSize, mean, stdDev,
     sampleSize, numberOfSamples, sampleMeansIdx}) => {
     return (
         <>
+        <div className="alert alert-warning">
         <h3>Debug Data</h3>
         <table>
             <tbody>
                 <tr>
-                    <td>seed</td>
+                    <th className="float-right">seed:</th>
                     <td>{seed}</td>
                 </tr>
                 <tr>
-                    <td>populationSize</td>
+                    <th className="float-right">populationSize:</th>
                     <td>{populationSize}</td>
                 </tr>
                 <tr>
-                    <td>mean</td>
+                    <th className="float-right">mean:</th>
                     <td>{mean}</td>
                 </tr>
                 <tr>
-                    <td>Standard Deviation</td>
+                    <th className="float-right">Standard Deviation:</th>
                     <td>{stdDev}</td>
                 </tr>
                 <tr>
-                    <td>Sample Size</td>
+                    <th className="float-right">Sample Size:</th>
                     <td>{sampleSize}</td>
                 </tr>
                 <tr>
-                    <td>Number of samples</td>
+                    <th className="float-right">Number of samples:</th>
                     <td>{numberOfSamples}</td>
                 </tr>
                 <tr>
@@ -254,6 +282,7 @@ const DebugData = ({seed, populationSize, mean, stdDev,
                 </tr>
             </tbody>
         </table>
+        </div>
         </>
     );
 };

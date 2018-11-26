@@ -45,7 +45,7 @@ const Home = () => (
     <div className="jumbotron">
         <div className="container">
             <h1 className="display-3">
-                Theoremicious
+                Theorem7
             </h1>
             <p className="lead">
                 Seven Interactive Simulations of Statistics Theorems
