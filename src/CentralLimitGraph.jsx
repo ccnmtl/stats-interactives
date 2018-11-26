@@ -105,7 +105,7 @@ const PopulationForm  = ({seed,
 };
 
 const SampleForm = (
-    {sampleSize, numberOfSamples, handleChange, runSample}) => {
+    {sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx, handleSampleMeansIdx}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -114,6 +114,11 @@ const SampleForm = (
     const handleRunSample = (e) => {
         e.preventDefault();
         runSample();
+    };
+
+    const handleSampleMeans = (e) => {
+        e.preventDefault();
+        handleSampleMeansIdx(e.target.value);
     };
     return (
         <>
@@ -137,12 +142,22 @@ const SampleForm = (
                 <input type="submit" value="Run Sample"/>
             </div>
         </form>
+        <form>
+            <div>
+                <input type="range"
+                    min="1"
+                    max={numberOfSamples}
+                    defaultValue="1"
+                    value={sampleMeansIdx}
+                    onChange={handleSampleMeans} />
+            </div>
+        </form>
         </>
     );
 };
 
 const DebugData = ({seed, populationSize, mean, stdDev,
-    sampleSize, numberOfSamples}) => {
+    sampleSize, numberOfSamples, sampleMeansIdx}) => {
     return (
         <>
         <h3>Debug Data</h3>
@@ -172,6 +187,10 @@ const DebugData = ({seed, populationSize, mean, stdDev,
                     <td>Number of samples</td>
                     <td>{numberOfSamples}</td>
                 </tr>
+                <tr>
+                    <td>Samples Index Slider</td>
+                    <td>{sampleMeansIdx}</td>
+                </tr>
             </tbody>
         </table>
         </>
@@ -184,6 +203,7 @@ export class CentralLimitGraph extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
+        this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
 
         let params = new URLSearchParams(location.search);
         let seed = '';
@@ -219,6 +239,7 @@ export class CentralLimitGraph extends Component {
             // number of samples is the overall samples taken of a population
             numberOfSamples: 1000,
             sampleMeans: [],
+            sampleMeansIdx: 0,
             sampleMeansGraphData: [],
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
@@ -237,6 +258,14 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             [key]: value
+        });
+    }
+    handleSampleMeansIdx(idx) {
+        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
+        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        this.setState({
+            sampleMeansIdx: idx,
+            sampleMeansGraphData: currentSampleMeansData
         });
     }
     generatePopulation(size, mean, stdDev, seed) {
@@ -317,7 +346,9 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
                             handleChange={this.handleChange}
-                            runSample={this.runSample}/>
+                            runSample={this.runSample}
+                            sampleMeansIdx={this.SampleMeansIdx}
+                            handleSampleMeansIdx={this.handleSampleMeansIdx} />
                     </div>
                 </div>
                 <div className='row'>
@@ -327,7 +358,8 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             sampleSize={this.state.sampleSize}
-                            numberOfSamples={this.state.numberOfSamples}/>
+                            numberOfSamples={this.state.numberOfSamples}
+                            sampleMeansIdx={this.state.sampleMeansIdx} />
                     </div>
                 </div>
             </div>

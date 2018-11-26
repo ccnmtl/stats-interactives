@@ -162,3 +162,23 @@ describe('Ensure that the same seed generates the same population and samples', 
         expect(sampleData1).toEqual(sampleData3);
     })
 });
+
+test('The getSampleHistorgram function renders a histogram of the correct size', () => {
+    const wrapper = mount(
+        <MemoryRouter>
+            <CentralLimitGraph />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('CentralLimitGraph')
+    let clg_instance = clg.instance()
+
+    // The sum of the values in the histogram should equal the value of the
+    // range input
+    for (var i = 0; i < clg.state('numberOfSamples'); i++) {
+
+    }
+    let histogramSum = null;
+    let rangeValue = 'foo';
+
+    expect(histogramSum).toEqual(rangeValue);
+});
