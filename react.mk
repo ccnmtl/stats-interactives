@@ -17,6 +17,9 @@ eslint: $(JS_SENTINAL)
 test: $(JS_SENTINAL) eslint
 	npm run test
 
+watch-test: $(JS_SENTINAL)
+	npm run watch-test
+
 snapshot: $(JS_SENTINAL)
 	npm run snapshot
 
