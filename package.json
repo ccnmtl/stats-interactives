@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "watch-test": "nodemon --watch src --verbose -x 'make test'",
     "snapshot": "jest -u",
     "eslint": "eslint src/*.jsx",
     "serve": "webpack-dev-server --mode development",
@@ -29,6 +30,7 @@
     "eslint-plugin-scanjs-rules": "^0.2.1",
     "eslint-plugin-security": "^1.4.0",
     "file-loader": "^2.0.0",
+    "nodemon": "^1.18.6",
     "webpack": "^4.19.0"
   },
   "dependencies": {
@@ -39,6 +41,7 @@
     "enzyme": "^3.7.0",
     "jStat": "^1.7.1",
     "jest": "^23.6.0",
+    "mathjs": "^5.2.3",
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.2",
