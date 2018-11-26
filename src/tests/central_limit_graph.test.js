@@ -86,7 +86,7 @@ describe('Conditionally show the nav based on embed query string param', () => {
 
 describe('Ensure that the same seed generates the same population and samples', () => {
     test('The same seed generates the same population', () => {
-        // render the graph with a seed, save the pop values
+        // Render the graph with a seed, save the pop values
         // Render it with a different seed, test that its different
         // Render it again with the first seed and check its the same as the first
 
@@ -95,20 +95,23 @@ describe('Ensure that the same seed generates the same population and samples', 
                 <CentralLimitGraph />
             </MemoryRouter>
         );
+        let clg = wrapper.find('CentralLimitGraph')
+        let clg_instance = clg.instance()
+
         // Render same data with a seed
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
-        let pop1 = wrapper.find('CentralLimitGraph').state('population');
-        let popData1 = wrapper.find('CentralLimitGraph').state('populationGraphData');
+        clg_instance.handleChange('seed', 'my-new-seed');
+        let pop1 = clg.state('population');
+        let popData1 = clg.state('populationGraphData');
 
         // Render it with a different seed
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'a-different-seed');
-        let pop2 = wrapper.find('CentralLimitGraph').state('population');
-        let popData2 = wrapper.find('CentralLimitGraph').state('populationGraphData');
+        clg_instance.handleChange('seed', 'a-different-seed');
+        let pop2 = clg.state('population');
+        let popData2 = clg.state('populationGraphData');
 
         // Render it again with the same seed as the first time
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
-        let pop3 = wrapper.find('CentralLimitGraph').state('population');
-        let popData3 = wrapper.find('CentralLimitGraph').state('populationGraphData');
+        clg_instance.handleChange('seed', 'my-new-seed');
+        let pop3 = clg.state('population');
+        let popData3 = clg.state('populationGraphData');
 
         // Expect that data generated from different seeds is different
         expect(pop1).not.toEqual(pop2);
@@ -120,7 +123,7 @@ describe('Ensure that the same seed generates the same population and samples', 
     });
 
     test('The same seed generates the same samples', () => {
-        // render the graph with a seed, save the pop values
+        // Render the graph with a seed, save the pop values
         // Render it with a different seed, test that its different
         // Render it again with the first seed and check its the same as the first
 
@@ -129,23 +132,26 @@ describe('Ensure that the same seed generates the same population and samples', 
                 <CentralLimitGraph />
             </MemoryRouter>
         );
+        let clg = wrapper.find('CentralLimitGraph')
+        let clg_instance = clg.instance()
+
         // Render same data with a seed
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
-        wrapper.find('CentralLimitGraph').instance().runSample();
-        let sample1 = wrapper.find('CentralLimitGraph').state('sampleMeans');
-        let sampleData1 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
+        clg_instance.handleChange('seed', 'my-new-seed');
+        clg_instance.runSample();
+        let sample1 = clg.state('sampleMeans');
+        let sampleData1 = clg.state('sampleMeansGraphData');
 
         // Render it with a different seed
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'a-different-seed');
-        wrapper.find('CentralLimitGraph').instance().runSample();
-        let sample2 = wrapper.find('CentralLimitGraph').state('sampleMeans');
-        let sampleData2 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
+        clg_instance.handleChange('seed', 'a-different-seed');
+        clg_instance.runSample();
+        let sample2 = clg.state('sampleMeans');
+        let sampleData2 = clg.state('sampleMeansGraphData');
 
         // Render it again with the same seed as the first time
-        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
-        wrapper.find('CentralLimitGraph').instance().runSample();
-        let sample3 = wrapper.find('CentralLimitGraph').state('sampleMeans');
-        let sampleData3 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
+        clg_instance.handleChange('seed', 'my-new-seed');
+        clg_instance.runSample();
+        let sample3 = clg.state('sampleMeans');
+        let sampleData3 = clg.state('sampleMeansGraphData');
 
         // Expect that data generated from different seeds is different
         expect(sample1).not.toEqual(sample2);
