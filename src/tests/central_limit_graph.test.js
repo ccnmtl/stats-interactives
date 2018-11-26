@@ -96,29 +96,26 @@ describe('Ensure that the same seed generates the same population and samples', 
             </MemoryRouter>
         );
         // Render same data with a seed
-        wrapper.find('CentralLimitGraph').setState({seed: 'my-new-seed'});
-        expect(wrapper.find('#seed').props().value).toEqual('my-new-seed');
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
         let pop1 = wrapper.find('CentralLimitGraph').state('population');
         let popData1 = wrapper.find('CentralLimitGraph').state('populationGraphData');
 
         // Render it with a different seed
-        wrapper.find('CentralLimitGraph').setState({seed: 'a-different-seed'});
-        expect(wrapper.find('#seed').props().value).toEqual('a-different-seed');
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'a-different-seed');
         let pop2 = wrapper.find('CentralLimitGraph').state('population');
         let popData2 = wrapper.find('CentralLimitGraph').state('populationGraphData');
 
         // Render it again with the same seed as the first time
-        wrapper.find('CentralLimitGraph').setState({seed: 'my-new-seed'});
-        expect(wrapper.find('#seed').props().value).toEqual('my-new-seed');
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
         let pop3 = wrapper.find('CentralLimitGraph').state('population');
         let popData3 = wrapper.find('CentralLimitGraph').state('populationGraphData');
 
         // Expect that data generated from different seeds is different
-        expect(pop1).not.toContainEqual(pop2);
+        expect(pop1).not.toEqual(pop2);
         expect(popData1).not.toEqual(popData2);
 
         // Expect that data generated from the same seed is the same
-        expect(pop1).toContainEqual(pop3);
+        expect(pop1).toEqual(pop3);
         expect(popData1).toEqual(popData3);
     });
 
@@ -133,32 +130,29 @@ describe('Ensure that the same seed generates the same population and samples', 
             </MemoryRouter>
         );
         // Render same data with a seed
-        wrapper.find('CentralLimitGraph').setState({seed: 'my-new-seed'});
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
         wrapper.find('CentralLimitGraph').instance().runSample();
-        expect(wrapper.find('#seed').props().value).toEqual('my-new-seed');
         let sample1 = wrapper.find('CentralLimitGraph').state('sampleMeans');
         let sampleData1 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
 
         // Render it with a different seed
-        wrapper.find('CentralLimitGraph').setState({seed: 'a-different-seed'});
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'a-different-seed');
         wrapper.find('CentralLimitGraph').instance().runSample();
-        expect(wrapper.find('#seed').props().value).toEqual('a-different-seed');
         let sample2 = wrapper.find('CentralLimitGraph').state('sampleMeans');
         let sampleData2 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
 
         // Render it again with the same seed as the first time
-        wrapper.find('CentralLimitGraph').setState({seed: 'my-new-seed'});
+        wrapper.find('CentralLimitGraph').instance().handleChange('seed', 'my-new-seed');
         wrapper.find('CentralLimitGraph').instance().runSample();
-        expect(wrapper.find('#seed').props().value).toEqual('my-new-seed');
         let sample3 = wrapper.find('CentralLimitGraph').state('sampleMeans');
         let sampleData3 = wrapper.find('CentralLimitGraph').state('sampleMeansGraphData');
 
         // Expect that data generated from different seeds is different
-        expect(sample1).not.toContainEqual(sample2);
+        expect(sample1).not.toEqual(sample2);
         expect(sampleData1).not.toEqual(sampleData2);
 
         // Expect that data generated from the same seed is the same
-        expect(sample1).toContainEqual(sample3);
+        expect(sample1).toEqual(sample3);
         expect(sampleData1).toEqual(sampleData3);
     })
 });

@@ -1,13 +1,10 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { VictoryChart, VictoryTheme, VictoryBar} from 'victory';
-import * as _ from 'lodash';
+import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
-
-const roundFloat = (n) => {
-    return parseFloat(n.toFixed(1));
-};
 
 const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
@@ -107,7 +104,8 @@ const PopulationForm  = ({seed,
     );
 };
 
-const SampleForm = ({sampleSize, numberOfSamples, handleChange, runSample}) => {
+const SampleForm = (
+    {sampleSize, numberOfSamples, handleChange, runSample}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -197,7 +195,6 @@ export class CentralLimitGraph extends Component {
         } else {
             seed = String(params.get('seed'));
         }
-        seedrandom(seed, {glabal: true});
 
         const populationSize = 100000;
         const mean = 0;
@@ -205,7 +202,8 @@ export class CentralLimitGraph extends Component {
         const population = this.generatePopulation(
             populationSize,
             mean,
-            stdDev
+            stdDev,
+            seed
         );
         const populationGraphData = createHistogramArray(population);
 
@@ -216,8 +214,10 @@ export class CentralLimitGraph extends Component {
             populationGraphData: populationGraphData,
             mean: mean,
             stdDev: stdDev,
-            sampleSize: 5,
-            numberOfSamples: 10,
+            // sampleSize is the number of observations within each sample
+            sampleSize: 30,
+            // number of samples is the overall samples taken of a population
+            numberOfSamples: 1000,
             sampleMeans: [],
             sampleMeansGraphData: [],
             embed: (() => {
@@ -229,7 +229,9 @@ export class CentralLimitGraph extends Component {
         const population = this.generatePopulation(
             key === 'populationSize' ? value : this.state.populationSize,
             key === 'mean' ? value : this.state.mean,
-            key === 'stdDev' ? value : this.state.stdDev);
+            key === 'stdDev' ? value : this.state.stdDev,
+            key === 'seed' ? value : this.state.seed
+        );
         const populationGraphData = createHistogramArray(population);
         this.setState({
             population: population,
@@ -237,27 +239,37 @@ export class CentralLimitGraph extends Component {
             [key]: value
         });
     }
-    generatePopulation(size, mean, stdDev) {
+    generatePopulation(size, mean, stdDev, seed) {
+        // Reset the global Math.random everytime this is called
+        seedrandom(seed, {global: true});
         return jStat.create(1, size, (row) => {
             // check this
             row;
             let i = jStat.normal.sample(mean, stdDev);
-            return roundFloat(i);
+            return math.round(i, 1);
         })[0];
     }
     runSample() {
+        // Use the base64 encoding of the seed as a simple hash
+        let samplingSeed = window.btoa(this.state.seed);
+        let ng = seedrandom(samplingSeed);
+
         // take samples from population values
         // - one sample consists of N sampleSize, which are then averaged
         // - N numberOfSamples are taken
         // push these to sampleSet
         // get the histogram and set state, render a line graph
-        let sampleMeans = [];
+        let sampleMeans = new Array(this.state.numberOfSamples);
         for (var i = 0; i < this.state.numberOfSamples; i++) {
-            let samples = _.sampleSize(
-                this.state.population,
-                this.state.sampleSize);
-            sampleMeans.push(roundFloat(_.mean(samples)));
+            let samples = new Array(this.state.sampleSize);
+            for (var j = 0; j < this.state.sampleSize; j++) {
+                let observationIdx = Math.floor(ng() * this.state.population.length);
+                samples[j] = this.state.population[observationIdx];
+            }
+            let mean = jStat.mean(samples);
+            sampleMeans[i] = math.round(mean, 1);
         }
+
         let sampleMeansData = createHistogramArray(sampleMeans);
         this.setState({
             sampleMeans: sampleMeans,
