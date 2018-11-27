@@ -1,10 +1,18 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { VictoryChart, VictoryTheme, VictoryBar} from 'victory';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
+
+const forceNumber = function(n) {
+    n = Number(n);
+    if (isNaN(n) || typeof n === 'undefined') {
+        n = 0;
+    }
+    return n;
+};
 
 const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
@@ -50,12 +58,20 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            height={200}>
+            height={250}
+            domain={{x: [-1, 1], y: [0, 200]}}
+            domainPadding={{x: 20}}
+        >
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
                     y={1}/>
             }
+            <VictoryAxis
+            />
+            <VictoryAxis dependentAxis
+                offsetX={50}
+            />
         </VictoryChart>
         </>
     );
@@ -104,8 +120,8 @@ const PopulationForm  = ({seed,
     );
 };
 
-const SampleForm = (
-    {sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx, handleSampleMeansIdx}) => {
+const SampleForm = ({
+    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx, enableSampleSlider, handleSampleMeansIdx}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -118,7 +134,7 @@ const SampleForm = (
 
     const handleSampleMeans = (e) => {
         e.preventDefault();
-        handleSampleMeansIdx(e.target.value);
+        handleSampleMeansIdx(forceNumber(e.target.value));
     };
     return (
         <>
@@ -145,9 +161,10 @@ const SampleForm = (
         <form>
             <div>
                 <input type="range"
+                    id="sample-slider"
+                    disabled={ enableSampleSlider ? false : true}
                     min="1"
                     max={numberOfSamples}
-                    defaultValue="1"
                     value={sampleMeansIdx}
                     onChange={handleSampleMeans} />
             </div>
@@ -239,8 +256,9 @@ export class CentralLimitGraph extends Component {
             // number of samples is the overall samples taken of a population
             numberOfSamples: 1000,
             sampleMeans: [],
-            sampleMeansIdx: 0,
+            sampleMeansIdx: 1,
             sampleMeansGraphData: [],
+            enableSampleSlider: false,
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
             })(),
@@ -299,11 +317,12 @@ export class CentralLimitGraph extends Component {
             sampleMeans[i] = math.round(mean, 1);
         }
 
-        let sampleMeansData = createHistogramArray(sampleMeans);
         this.setState({
             sampleMeans: sampleMeans,
-            sampleMeansGraphData: sampleMeansData
+            sampleMeansIdx: 1,
+            enableSampleSlider: true
         });
+        this.handleSampleMeansIdx(1);
     }
     componentDidUpdate() {
         let params = new URLSearchParams(location.search);
@@ -347,7 +366,8 @@ export class CentralLimitGraph extends Component {
                             numberOfSamples={this.state.numberOfSamples}
                             handleChange={this.handleChange}
                             runSample={this.runSample}
-                            sampleMeansIdx={this.SampleMeansIdx}
+                            sampleMeansIdx={this.state.sampleMeansIdx}
+                            enableSampleSlider={this.state.enableSampleSlider}
                             handleSampleMeansIdx={this.handleSampleMeansIdx} />
                     </div>
                 </div>
