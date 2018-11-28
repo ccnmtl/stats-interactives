@@ -78,12 +78,34 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
     );
 };
 
+const DISTRIBUTION_TYPE = [
+    {
+        value: 'normal',
+        display: 'Normal',
+    },
+    {
+        value: 'skew_left',
+        display: 'Skew Left',
+    },
+    {
+        value: 'skew_right',
+        display: 'Skew Right',
+    },
+    {
+        value: 'bimodal',
+        display: 'Bimodal'
+    },
+    {
+        value: 'uniform',
+        display: 'Uniform',
+    },
+]
+
 const PopulationForm  = ({seed,
-    populationSize, mean, stdDev, handleChange}) => {
+    populationSize, mean, stdDev, distType, handleChange}) => {
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
     };
-
     return (
         <>
         <h3>Population Params</h3>
@@ -101,6 +123,13 @@ const PopulationForm  = ({seed,
                     id="populationSize"
                     value={populationSize}
                     onChange={handleFormChange}/>
+            </div>
+            <div>
+                <label htmlFor="distributionType">Distribution Type: </label>
+                <select id="distType" onChange={handleFormChange} value={distType}>
+                    { DISTRIBUTION_TYPE.map(
+                        (e) => (<option key={e.value} value={e.value}>{e.display}</option>)) }
+                </select>
             </div>
             <div>
                 <label htmlFor="mean">Mean: </label>
@@ -225,13 +254,29 @@ export class CentralLimitGraph extends Component {
 
         let params = new URLSearchParams(location.search);
         let seed = '';
-        if (!params.get('seed')) {
+        if (!params.has('seed')) {
             // generate a seed
             seed = String(Date.now());
             params.set('seed', seed);
             window.history.replaceState(null, '', '?' + params.toString());
         } else {
             seed = String(params.get('seed'));
+        }
+
+        let distType = '';
+        if (!params.has('distType')) {
+            distType = 'skew_left';
+            params.set('distType', 'skew_left');
+            window.history.replaceState(null, '', '?' + params.toString());
+        } else {
+            // Validate that a dist type is on the list, else set it to 'skew_left'
+            let dt = params.get('distType');
+            let found = DISTRIBUTION_TYPE.find((e) => {return dt === e.value});
+            distType = found ? dt : 'skew_left'
+            if (!found) {
+                params.set('distType', 'skew_left');
+                window.history.replaceState(null, '', '?' + params.toString());
+            }
         }
 
         const populationSize = 100000;
@@ -241,6 +286,7 @@ export class CentralLimitGraph extends Component {
             populationSize,
             mean,
             stdDev,
+            distType,
             seed
         );
         const populationGraphData = createHistogramArray(population);
@@ -252,6 +298,7 @@ export class CentralLimitGraph extends Component {
             populationGraphData: populationGraphData,
             mean: mean,
             stdDev: stdDev,
+            distType: distType,
             // sampleSize is the number of observations within each sample
             sampleSize: 30,
             // number of samples is the overall samples taken of a population
@@ -270,6 +317,7 @@ export class CentralLimitGraph extends Component {
             key === 'populationSize' ? value : this.state.populationSize,
             key === 'mean' ? value : this.state.mean,
             key === 'stdDev' ? value : this.state.stdDev,
+            key === 'distType' ? value : this.state.distType,
             key === 'seed' ? value : this.state.seed
         );
         const populationGraphData = createHistogramArray(population);
@@ -287,15 +335,51 @@ export class CentralLimitGraph extends Component {
             sampleMeansGraphData: currentSampleMeansData
         });
     }
-    generatePopulation(size, mean, stdDev, seed) {
+    generatePopulation(size, mean, stdDev, distType, seed) {
         // Reset the global Math.random everytime this is called
         seedrandom(seed, {global: true});
-        return jStat.create(1, size, (row) => {
-            // check this
-            row;
-            let i = jStat.normal.sample(mean, stdDev);
-            return math.round(i, 1);
-        })[0];
+
+        switch (distType) {
+            case 'normal':
+                return [...Array(size)].map((e) => {
+                    return math.round(jStat.normal.sample(mean, stdDev), 1)
+                });
+                break;
+
+            case 'skew_left':
+                return [...Array(size)].map((e) => {
+                    return math.round(jStat.beta.sample(2, 5), 1)
+                });
+                break;
+
+            case 'skew_right':
+                return [...Array(size)].map((e) => {
+                    return math.round(jStat.beta.sample(5, 2), 1)
+                });
+                break;
+
+            case 'bimodal':
+                return [...Array(size)].map((e) => {
+                    // algo from here: https://en.wikipedia.org/wiki/Multimodal_distribution#Probability_distributions
+                    let a = 2 + jStat.normal.sample(0, 1);
+                    let b = 5 + jStat.normal.sample(0, 1)
+                    return math.round(a / b, 1)
+                });
+                break;
+
+            case 'uniform':
+                return [...Array(size)].map((e) => {
+                    return math.round(jStat.uniform.sample(-1, 1), 1)
+                });
+                break;
+
+            default:
+                // return a normal distribution
+                return [...Array(size)].map((e) => {
+                    return math.round(jStat.normal.sample(mean, stdDev), 1)
+                });
+        }
+
     }
     runSample() {
         // Use the base64 encoding of the seed as a simple hash
@@ -331,6 +415,7 @@ export class CentralLimitGraph extends Component {
         params.set('populationSize', this.state.populationSize);
         params.set('mean', this.state.mean);
         params.set('stdDev', this.state.stdDev);
+        params.set('distType', this.state.distType);
         params.set('sampleSize', this.state.sampleSize);
         params.set('numberOfSamples', this.state.numberOfSamples);
         window.history.replaceState(null, '', '?' + params.toString());
@@ -353,6 +438,7 @@ export class CentralLimitGraph extends Component {
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
+                            distType={this.state.distType}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
@@ -402,6 +488,7 @@ PopulationForm.propTypes = {
     populationSize: PropTypes.number,
     mean: PropTypes.number,
     stdDev: PropTypes.number,
+    distType: PropTypes.string,
     handleChange: PropTypes.func,
 }
 
