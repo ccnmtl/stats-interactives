@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import {MemoryRouter} from 'react-router-dom';
 import {Preview} from '../App.jsx';
 import {Nav} from '../Nav.jsx';
-import { CentralLimitGraph } from '../CentralLimitGraph';
+import { CentralLimitGraph, createHistogramArray, forceNumber } from '../CentralLimitGraph';
 
 configure({adapter: new Adapter()});
 
@@ -172,13 +172,35 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
     let clg = wrapper.find('CentralLimitGraph')
     let clg_instance = clg.instance()
 
-    // The sum of the values in the histogram should equal the value of the
-    // range input
-    for (var i = 0; i < clg.state('numberOfSamples'); i++) {
+    // Call clg_instance.handleSampleMeansIdx(42)
+    // Two side effects should happen:
+    //  - this.state.sampleMeansIdx == 42
+    //  - this.state.samplesMeansGraphData should contain a histogram
+    //    whose values sum up to 42
 
-    }
-    let histogramSum = null;
-    let rangeValue = 'foo';
+    // First get some samples
+    clg_instance.runSample();
+    clg_instance.handleSampleMeansIdx(42);
+    expect(clg.state('sampleMeansIdx')).toEqual(42)
 
-    expect(histogramSum).toEqual(rangeValue);
+    // Histogram is a 2D array of [[val, frequency], ...]
+    let histogram = clg.state('sampleMeansGraphData')
+    let histogramValSum = 0;
+    histogram.forEach((e) => { histogramValSum += e[1]});
+    expect(histogramValSum).toEqual(42);
+});
+
+test('Test that createHistogramArray returns an accurate histogram', () => {
+    let sampleData = [0.1, 0.2, 0.2, 0.3, 0.3, 0.3, 0.4, 0.4, 0.4, 0.4 ]
+    let expectedData = [[0.1, 1],
+                        [0.2, 2],
+                        [0.3, 3],
+                        [0.4, 4]];
+
+    expect(createHistogramArray(sampleData)).toEqual(expectedData);
+});
+
+test('Test that force number returns a number or undefined', () => {
+    expect(forceNumber(42)).toEqual(42);
+    expect(forceNumber('Lizard')).toEqual(0);
 });

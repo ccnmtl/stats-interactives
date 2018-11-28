@@ -1,12 +1,13 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
 
-const forceNumber = function(n) {
+export const forceNumber = function(n) {
     n = Number(n);
     if (isNaN(n) || typeof n === 'undefined') {
         n = 0;
@@ -14,7 +15,7 @@ const forceNumber = function(n) {
     return n;
 };
 
-const createHistogramArray = (dist) => {
+export const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
 
     // Build an array: [[val, 0], ...]
@@ -386,4 +387,30 @@ export class CentralLimitGraph extends Component {
             </>
         );
     }
+}
+
+PopulationGraph.propTypes = {
+    populationGraphData: PropTypes.array,
+}
+
+SampleMeansGraph.propTypes = {
+    sampleMeansGraphData: PropTypes.array,
+}
+
+PopulationForm.propTypes = {
+    seed: PropTypes.string,
+    populationSize: PropTypes.number,
+    mean: PropTypes.number,
+    stdDev: PropTypes.number,
+    handleChange: PropTypes.func,
+}
+
+SampleForm.propTypes = {
+    sampleSize: PropTypes.number,
+    numberOfSamples: PropTypes.number,
+    handleChange: PropTypes.func,
+    runSample: PropTypes.func,
+    sampleMeansIdx: PropTypes.number,
+    enableSampleSlider: PropTypes.bool,
+    handleSampleMeansIdx: PropTypes.func,
 }
