@@ -204,3 +204,89 @@ test('Test that force number returns a number or undefined', () => {
     expect(forceNumber(42)).toEqual(42);
     expect(forceNumber('Lizard')).toEqual(0);
 });
+
+describe('Default behavior of query string params', () => {
+    test('After rendering the Central Limit Graph, the expected params are populated.', () => {
+        window.history.replaceState(null, '', '');
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let params = new URLSearchParams(location.search);
+
+        expect(params.has('seed')).toEqual(true);
+        expect(params.has('distType')).toEqual(true);
+        expect(params.has('populationSize')).toEqual(true);
+        expect(params.has('mean')).toEqual(true);
+        expect(params.has('stdDev')).toEqual(true);
+        expect(params.has('sampleSize')).toEqual(true);
+        expect(params.has('numberOfSamples')).toEqual(true);
+    });
+
+    test('That the seed is set if one is given', () => {
+        let emptyParams = new URLSearchParams();
+        emptyParams.set('seed', 'foobar');
+        window.history.replaceState(null, '', '?' + emptyParams.toString());
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let params = new URLSearchParams(location.search);
+
+        expect(params.has('seed')).toEqual(true);
+        expect(params.get('seed')).toEqual('foobar');
+    });
+
+    test('That the distType is set to skew_left if none is given.', () => {
+        window.history.replaceState(null, '', '');
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let params = new URLSearchParams(location.search);
+
+        expect(params.has('distType')).toEqual(true);
+        expect(params.get('distType')).toEqual('skew_left');
+    });
+
+    test('That the distType is set to skew_left if an invalid one is given.', () => {
+        let emptyParams = new URLSearchParams();
+        emptyParams.set('distType', 'space-lizard');
+        window.history.replaceState(null, '', '?' + emptyParams.toString());
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let params = new URLSearchParams(location.search);
+
+        expect(params.has('distType')).toEqual(true);
+        expect(params.get('distType')).toEqual('skew_left');
+        // check the state too
+        let clg = wrapper.find('CentralLimitGraph');
+        expect(clg.state('distType')).toEqual('skew_left');
+    });
+
+    test('That the distType is set correctly when a valid one is given.', () => {
+        let emptyParams = new URLSearchParams();
+        emptyParams.set('distType', 'normal');
+        window.history.replaceState(null, '', '?' + emptyParams.toString());
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let params = new URLSearchParams(location.search);
+
+        expect(params.has('distType')).toEqual(true);
+        expect(params.get('distType')).toEqual('normal');
+    });
+});
