@@ -1,12 +1,21 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { VictoryChart, VictoryTheme, VictoryBar} from 'victory';
+import PropTypes from 'prop-types';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
 
-const createHistogramArray = (dist) => {
+export const forceNumber = function(n) {
+    n = Number(n);
+    if (isNaN(n) || typeof n === 'undefined') {
+        n = 0;
+    }
+    return n;
+};
+
+export const createHistogramArray = (dist) => {
     let xSet = new Set(dist);
 
     // Build an array: [[val, 0], ...]
@@ -50,12 +59,20 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            height={200}>
+            height={250}
+            domain={{x: [-1, 1], y: [0, 200]}}
+            domainPadding={{x: 20}}
+        >
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
                     y={1}/>
             }
+            <VictoryAxis
+            />
+            <VictoryAxis dependentAxis
+                offsetX={50}
+            />
         </VictoryChart>
         </>
     );
@@ -104,8 +121,8 @@ const PopulationForm  = ({seed,
     );
 };
 
-const SampleForm = (
-    {sampleSize, numberOfSamples, handleChange, runSample}) => {
+const SampleForm = ({
+    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx, enableSampleSlider, handleSampleMeansIdx}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -114,6 +131,11 @@ const SampleForm = (
     const handleRunSample = (e) => {
         e.preventDefault();
         runSample();
+    };
+
+    const handleSampleMeans = (e) => {
+        e.preventDefault();
+        handleSampleMeansIdx(forceNumber(e.target.value));
     };
     return (
         <>
@@ -137,12 +159,23 @@ const SampleForm = (
                 <input type="submit" value="Run Sample"/>
             </div>
         </form>
+        <form>
+            <div>
+                <input type="range"
+                    id="sample-slider"
+                    disabled={ enableSampleSlider ? false : true}
+                    min="1"
+                    max={numberOfSamples}
+                    value={sampleMeansIdx}
+                    onChange={handleSampleMeans} />
+            </div>
+        </form>
         </>
     );
 };
 
 const DebugData = ({seed, populationSize, mean, stdDev,
-    sampleSize, numberOfSamples}) => {
+    sampleSize, numberOfSamples, sampleMeansIdx}) => {
     return (
         <>
         <h3>Debug Data</h3>
@@ -172,6 +205,10 @@ const DebugData = ({seed, populationSize, mean, stdDev,
                     <td>Number of samples</td>
                     <td>{numberOfSamples}</td>
                 </tr>
+                <tr>
+                    <td>Samples Index Slider</td>
+                    <td>{sampleMeansIdx}</td>
+                </tr>
             </tbody>
         </table>
         </>
@@ -184,6 +221,7 @@ export class CentralLimitGraph extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
+        this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
 
         let params = new URLSearchParams(location.search);
         let seed = '';
@@ -219,7 +257,9 @@ export class CentralLimitGraph extends Component {
             // number of samples is the overall samples taken of a population
             numberOfSamples: 1000,
             sampleMeans: [],
+            sampleMeansIdx: 1,
             sampleMeansGraphData: [],
+            enableSampleSlider: false,
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
             })(),
@@ -237,6 +277,14 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             [key]: value
+        });
+    }
+    handleSampleMeansIdx(idx) {
+        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
+        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        this.setState({
+            sampleMeansIdx: idx,
+            sampleMeansGraphData: currentSampleMeansData
         });
     }
     generatePopulation(size, mean, stdDev, seed) {
@@ -270,11 +318,12 @@ export class CentralLimitGraph extends Component {
             sampleMeans[i] = math.round(mean, 1);
         }
 
-        let sampleMeansData = createHistogramArray(sampleMeans);
         this.setState({
             sampleMeans: sampleMeans,
-            sampleMeansGraphData: sampleMeansData
+            sampleMeansIdx: 1,
+            enableSampleSlider: true
         });
+        this.handleSampleMeansIdx(1);
     }
     componentDidUpdate() {
         let params = new URLSearchParams(location.search);
@@ -317,7 +366,10 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
                             handleChange={this.handleChange}
-                            runSample={this.runSample}/>
+                            runSample={this.runSample}
+                            sampleMeansIdx={this.state.sampleMeansIdx}
+                            enableSampleSlider={this.state.enableSampleSlider}
+                            handleSampleMeansIdx={this.handleSampleMeansIdx} />
                     </div>
                 </div>
                 <div className='row'>
@@ -327,11 +379,38 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             sampleSize={this.state.sampleSize}
-                            numberOfSamples={this.state.numberOfSamples}/>
+                            numberOfSamples={this.state.numberOfSamples}
+                            sampleMeansIdx={this.state.sampleMeansIdx} />
                     </div>
                 </div>
             </div>
             </>
         );
     }
+}
+
+PopulationGraph.propTypes = {
+    populationGraphData: PropTypes.array,
+}
+
+SampleMeansGraph.propTypes = {
+    sampleMeansGraphData: PropTypes.array,
+}
+
+PopulationForm.propTypes = {
+    seed: PropTypes.string,
+    populationSize: PropTypes.number,
+    mean: PropTypes.number,
+    stdDev: PropTypes.number,
+    handleChange: PropTypes.func,
+}
+
+SampleForm.propTypes = {
+    sampleSize: PropTypes.number,
+    numberOfSamples: PropTypes.number,
+    handleChange: PropTypes.func,
+    runSample: PropTypes.func,
+    sampleMeansIdx: PropTypes.number,
+    enableSampleSlider: PropTypes.bool,
+    handleSampleMeansIdx: PropTypes.func,
 }
