@@ -1,6 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
-* { font-family: 'Roboto ', sans-serif!important; }
+* { font-family: 'Roboto ', sans-serif; }
 
 .jumbotron
 {
@@ -56,16 +56,24 @@ h2 a:hover
 	text-decoration: none;
 }
 
-
-fieldset { padding: 1em; 	background-color: rgba(204, 229, 254, 1);
+fieldset
+{
+	padding: 1em;
+	background-color: rgba(159, 190, 211, .5);
+	margin-top: 1em;
 }
 
 legend
 {
 	padding-left: .5em;
-	background-color: rgba(45, 124, 167, 1);
+	background-color: rgba(118, 173, 204, 1);
 	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
+<<<<<<< HEAD
 .shim-top {margin-top: 2em;}
 @import 'central-limit-graph';
+=======
+.shim-top { margin-top: 2em; }
+>>>>>>> html and css tweaks

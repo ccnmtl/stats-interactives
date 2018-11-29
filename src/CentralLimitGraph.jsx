@@ -112,6 +112,7 @@ const PopulationForm  = ({seed,
     };
     return (
         <form action="">
+<<<<<<< HEAD
             <fieldset>
                 <legend>Population Parameters</legend>
                 { !embed &&
@@ -148,6 +149,40 @@ const PopulationForm  = ({seed,
                             (e) => (<option key={e.value} value={e.value}>{e.display}</option>)) }
                         </select>
                     </div>
+=======
+        
+        <fieldset>
+        
+        <legend>Population Parameters</legend>
+        
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label htmlFor="seed" class="float-right">Seed: </label>
+            </div>
+            <div class="form-group col-md-8">
+                <input type="text"
+                    id="seed"
+                    value={seed}
+                    onChange={handleFormChange}/>
+            </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label htmlFor="populationSize" class="float-right">Population Size: </label>
+            </div>
+                <div class="form-group col-md-8">
+                <input type="number"
+                    id="populationSize"
+                    value={populationSize}
+                    onChange={handleFormChange}/>
+            </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label htmlFor="mean" class="float-right">Mean:</label>
+>>>>>>> html and css tweaks
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
@@ -199,6 +234,7 @@ const SampleForm = ({
     return (
         <>
         <form onClick={handleRunSample} >
+<<<<<<< HEAD
             <fieldset>
                 <legend>Sample Parameters</legend>
                 <div className="form-row">
@@ -213,6 +249,28 @@ const SampleForm = ({
                             value={sampleSize}
                             onChange={handleFormChange}/>
                     </div>
+=======
+        
+        <fieldset>
+        
+        <legend>Sample Parameters</legend>
+        
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label htmlFor="sampleSize" class="float-right">Sample Size: </label>
+                </div>
+                <div class="form-group col-md-8">
+                <input type="number"
+                    id="sampleSize"
+                    value={sampleSize}
+                    onChange={handleFormChange}/>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label htmlFor="numberOfSamples" class="float-right">Number of samples:</label>
+>>>>>>> html and css tweaks
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
@@ -248,7 +306,11 @@ const DebugData = ({seed, populationSize, mean, stdDev,
     sampleSize, numberOfSamples, sampleMeansIdx}) => {
     return (
         <>
+<<<<<<< HEAD
         <div className="alert alert-warning">
+=======
+        <div class="alert alert-info">
+>>>>>>> html and css tweaks
         <h3>Debug Data</h3>
         <table>
             <tbody>
