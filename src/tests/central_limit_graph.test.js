@@ -169,8 +169,8 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
             <CentralLimitGraph />
         </MemoryRouter>
     );
-    let clg = wrapper.find('CentralLimitGraph')
-    let clg_instance = clg.instance()
+    let clg = wrapper.find('CentralLimitGraph');
+    let clg_instance = clg.instance();
 
     // Call clg_instance.handleSampleMeansIdx(42)
     // Two side effects should happen:
@@ -181,7 +181,7 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
     // First get some samples
     clg_instance.runSample();
     clg_instance.handleSampleMeansIdx(42);
-    expect(clg.state('sampleMeansIdx')).toEqual(42)
+    expect(clg.state('sampleMeansIdx')).toEqual(42);
 
     // Histogram is a 2D array of [[val, frequency], ...]
     let histogram = clg.state('sampleMeansGraphData')
@@ -288,5 +288,36 @@ describe('Default behavior of query string params', () => {
 
         expect(params.has('distType')).toEqual(true);
         expect(params.get('distType')).toEqual('normal');
+    });
+});
+
+describe('embed query string param', () => {
+    test('That the seed and population fields are present when embed is set.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+
+        expect(clg.exists('#seed')).toEqual(true);
+        expect(clg.exists('#populationSize')).toEqual(true);
+    });
+
+    test('That the seed and population fields are not present when embed=true', () => {
+        let emptyParams = new URLSearchParams();
+        emptyParams.set('embed', 'true');
+        window.history.replaceState(null, '', '?' + emptyParams.toString());
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+
+        expect(clg.exists('#seed')).toEqual(false);
+        expect(clg.exists('#populationSize')).toEqual(false);
     });
 });

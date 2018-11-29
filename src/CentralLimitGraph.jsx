@@ -102,7 +102,7 @@ const DISTRIBUTION_TYPE = [
 ]
 
 const PopulationForm  = ({seed,
-    populationSize, mean, stdDev, distType, handleChange}) => {
+    populationSize, mean, stdDev, distType, embed, handleChange}) => {
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
     };
@@ -110,20 +110,22 @@ const PopulationForm  = ({seed,
         <>
         <h3>Population Params</h3>
         <form action="">
-            <div>
-                <label htmlFor="seed">Seed: </label>
-                <input type="text"
-                    id="seed"
-                    value={seed}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="populationSize">Population Size: </label>
-                <input type="number"
-                    id="populationSize"
-                    value={populationSize}
-                    onChange={handleFormChange}/>
-            </div>
+            { !embed &&
+                <div>
+                    <label htmlFor="seed">Seed: </label>
+                    <input type="text"
+                        id="seed"
+                        value={seed}
+                        onChange={handleFormChange}/>
+                </div> }
+            { !embed &&
+                <div>
+                    <label htmlFor="populationSize">Population Size: </label>
+                    <input type="number"
+                        id="populationSize"
+                        value={populationSize}
+                        onChange={handleFormChange}/>
+                </div> }
             <div>
                 <label htmlFor="distributionType">Distribution Type: </label>
                 <select id="distType" onChange={handleFormChange} value={distType}>
@@ -439,6 +441,7 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
+                            embed={this.state.embed}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
@@ -489,6 +492,7 @@ PopulationForm.propTypes = {
     mean: PropTypes.number,
     stdDev: PropTypes.number,
     distType: PropTypes.string,
+    embed: PropTypes.bool,
     handleChange: PropTypes.func,
 }
 
