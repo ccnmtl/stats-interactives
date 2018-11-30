@@ -104,7 +104,12 @@ const DISTRIBUTION_TYPE = [
 const PopulationForm  = ({seed,
     populationSize, mean, stdDev, distType, embed, handleChange}) => {
     const handleFormChange = (e) => {
-        handleChange(e.target.id, e.target.value);
+        let numericFields = ['populationSize', 'mean', 'stdDev']
+        if (numericFields.includes(e.target.id)) {
+            handleChange(e.target.id, forceNumber(e.target.value));
+        } else {
+            handleChange(e.target.id, e.target.value);
+        }
     };
     return (
         <>
@@ -137,6 +142,8 @@ const PopulationForm  = ({seed,
                 <label htmlFor="mean">Mean: </label>
                 <input type="number"
                     id="mean"
+                    min="-10"
+                    max="10"
                     value={mean}
                     onChange={handleFormChange}/>
             </div>
@@ -144,6 +151,8 @@ const PopulationForm  = ({seed,
                 <label htmlFor="stdDev">StdDev: </label>
                 <input type="number"
                     id="stdDev"
+                    min="-6"
+                    max="6"
                     value={stdDev}
                     onChange={handleFormChange}/>
             </div>
@@ -176,6 +185,8 @@ const SampleForm = ({
                 <label htmlFor="sampleSize">Sample Size: </label>
                 <input type="number"
                     id="sampleSize"
+                    min="1"
+                    max="1000"
                     value={sampleSize}
                     onChange={handleFormChange}/>
             </div>
@@ -183,6 +194,7 @@ const SampleForm = ({
                 <label htmlFor="numberOfSamples">Number of samples: </label>
                 <input type="number"
                     id="numberOfSamples"
+                    min="1"
                     value={numberOfSamples}
                     onChange={handleFormChange}/>
             </div>
@@ -293,6 +305,9 @@ export class CentralLimitGraph extends Component {
         );
         const populationGraphData = createHistogramArray(population);
 
+        const defaultSampleSize = 50;
+        const defaultNumberOfSamples = 1000;
+
         this.state = {
             seed: seed,
             populationSize: populationSize,
@@ -302,9 +317,9 @@ export class CentralLimitGraph extends Component {
             stdDev: stdDev,
             distType: distType,
             // sampleSize is the number of observations within each sample
-            sampleSize: 30,
+            sampleSize: defaultSampleSize,
             // number of samples is the overall samples taken of a population
-            numberOfSamples: 1000,
+            numberOfSamples: defaultNumberOfSamples,
             sampleMeans: [],
             sampleMeansIdx: 1,
             sampleMeansGraphData: [],
