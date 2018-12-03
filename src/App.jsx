@@ -43,17 +43,14 @@ const Preview = () => (
 const Home = () => (
     <>
     <div className="jumbotron">
-    
         <div className="container">
-        
             <h1 className="display-3">
                 Theorem7
             </h1>
-            
             <p className="lead">
-                Seven Interactive Simulations of Statistics Theorems for Deeper Understanding
+                Seven Interactive Simulations of Statistics Theorems for
+                Deeper Understanding
             </p>
-
             <p>
                 Specifically designed for Doru Cojoc&#39;s Quantitative
                 Analysis I course at SIPA, these simulations are intended as a
@@ -63,23 +60,15 @@ const Home = () => (
                 provided to students for their own study and experimentation,
                 which can be used here or embedded/linked elsewhere.
             </p>
-            
             <p>
                 <a className="btn btn-primary btn-lg" href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc" role="button">Contact Dr. Cojoc</a>
             </p>
-            
         </div>
-        
     </div>
-    
     <div className="container">
-    
         <div className="row">
-        
             <Preview />
-            
         </div>
-        
     </div>
     </>
 );
