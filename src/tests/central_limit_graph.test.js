@@ -135,21 +135,25 @@ describe('Ensure that the same seed generates the same population and samples', 
         let clg = wrapper.find('CentralLimitGraph')
         let clg_instance = clg.instance()
 
-        // Render same data with a seed
+        // Render same data with a seed, and create the sample means
+        // histogram of size 100
         clg_instance.handleChange('seed', 'my-new-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample1 = clg.state('sampleMeans');
         let sampleData1 = clg.state('sampleMeansGraphData');
 
         // Render it with a different seed
         clg_instance.handleChange('seed', 'a-different-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample2 = clg.state('sampleMeans');
         let sampleData2 = clg.state('sampleMeansGraphData');
 
         // Render it again with the same seed as the first time
         clg_instance.handleChange('seed', 'my-new-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample3 = clg.state('sampleMeans');
         let sampleData3 = clg.state('sampleMeansGraphData');
 
