@@ -404,9 +404,28 @@ export class CentralLimitGraph extends Component {
 
         switch (distType) {
         case 'normal':
-            return [...Array(size)].map((e) => {
-                return math.round(jStat.normal.sample(mean, stdDev), 1);
-            });
+            // This method munges the normal distribution such that every
+            // value generated that is less than the mean is reflected about
+            // the mean to produce a symetrical distribution.
+
+            // Generate the first half of a normal distribution
+            return [...Array(Math.floor(size / 2))].map((e) => {
+                let s = null;
+                do {
+                    s = math.round(jStat.normal.sample(mean, stdDev), 1);
+                } while (s > mean);
+                return s;
+            }).reduce((acc, e) => {
+                // Then push the element on the accumulated array
+                acc.push(e);
+                if (e < mean) {
+                    // If e is less than the mean, then find its reflection
+                    // and push that to the array.
+                    let diff = math.round(mean - e, 1);
+                    acc.push(math.round(mean + diff, 1));
+                }
+                return acc;
+            }, []);
 
         case 'skew_left':
             return [...Array(size)].map((e) => {
