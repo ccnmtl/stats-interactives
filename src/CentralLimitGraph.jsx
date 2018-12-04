@@ -428,7 +428,14 @@ export class CentralLimitGraph extends Component {
 
         case 'uniform':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.uniform.sample(-1, 1), 1);
+                // Oversample the uniform distribution and then 'trim' off
+                // extra values. This ensures that rounding doesn't taper the
+                // distributions at the ends.
+                let s = null;
+                do {
+                    s = math.round(jStat.uniform.sample(-1.1, 1.1), 1);
+                } while (Math.abs(s) > 1);
+                return s;
             });
 
         default:

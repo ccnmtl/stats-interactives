@@ -325,3 +325,24 @@ describe('embed query string param', () => {
         expect(clg.exists('#populationSize')).toEqual(false);
     });
 });
+
+test('That the uniform distribution does not contain values outside a given range', () => {
+    // This is kind of a magic number, and will likely have to be updated when
+    // the uniform distribution is fully implemented. When this test breaks
+    // look here first.
+    let distLimit = 1;
+
+    let emptyParams = new URLSearchParams();
+    emptyParams.set('distType', 'uniform');
+    window.history.replaceState(null, '', '?' + emptyParams.toString());
+    const wrapper = mount(
+        <MemoryRouter>
+            <CentralLimitGraph />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('CentralLimitGraph');
+
+    clg.state('populationGraphData').map((e) => {
+        expect(Math.abs(e[0]) <= distLimit).toEqual(true);
+    })
+});
