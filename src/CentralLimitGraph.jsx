@@ -49,6 +49,7 @@ const PopulationGraph  = ({populationGraphData}) => {
             <VictoryBar data={populationGraphData}
                 x={0}
                 y={1}/>
+            <VictoryAxis />
         </VictoryChart>
         </>
     );
@@ -60,18 +61,13 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
         <VictoryChart theme={VictoryTheme.material}
             height={250}
             domain={{x: [-1, 1], y: [0, 200]}}
-            domainPadding={{x: 20}}
-        >
+            domainPadding={{x: 20}}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
                     y={1}/>
             }
-            <VictoryAxis
-            />
-            <VictoryAxis dependentAxis
-                offsetX={50}
-            />
+            <VictoryAxis />
         </VictoryChart>
         </>
     );
