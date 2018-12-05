@@ -425,12 +425,12 @@ export class CentralLimitGraph extends Component {
 
         case 'skew_left':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(2, 5), 1);
+                return math.round(jStat.beta.sample(2, 5) * 10, 1);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(5, 2), 1);
+                return math.round(jStat.beta.sample(5, 2) * 10, 1);
             });
 
         case 'bimodal':
@@ -471,17 +471,18 @@ export class CentralLimitGraph extends Component {
         // - N numberOfSamples are taken
         // push these to sampleSet
         // get the histogram and set state, render a line graph
-        let sampleMeans = new Array(this.state.numberOfSamples);
-        for (var i = 0; i < this.state.numberOfSamples; i++) {
-            let samples = new Array(this.state.sampleSize);
-            for (var j = 0; j < this.state.sampleSize; j++) {
-                let observationIdx = Math.floor(
-                    ng() * this.state.population.length);
-                samples[j] = this.state.population[observationIdx];
-            }
-            let mean = jStat.mean(samples);
-            sampleMeans[i] = math.round(mean, 1);
-        }
+        let samples = [...Array(this.state.numberOfSamples)].map((e) => {
+            return [...Array(this.state.sampleSize)].map((e) => {
+                return Math.floor(ng() * this.state.population.length);
+            });
+        });
+
+        let sampleMeans = samples.reduce((acc, e) => {
+            acc.push(
+                math.round(jStat.mean(e), 1)
+            );
+            return acc;
+        }, []);
 
         this.setState({
             sampleMeans: sampleMeans,
