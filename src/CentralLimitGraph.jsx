@@ -1,6 +1,7 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
+import { VictoryChart, VictoryTheme, VictoryBar, VictoryScatter, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
@@ -41,7 +42,7 @@ export const createHistogramArray = (dist) => {
     return dist.reduce(redux, xSetList);
 };
 
-const PopulationGraph  = ({populationGraphData}) => {
+const PopulationGraph  = ({populationGraphData, samplesGraphData}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
@@ -49,6 +50,12 @@ const PopulationGraph  = ({populationGraphData}) => {
             <VictoryBar data={populationGraphData}
                 x={0}
                 y={1}/>
+            {samplesGraphData &&
+                <VictoryScatter data={samplesGraphData}
+                    scale={{y: 'log'}}
+                    x={0}
+                    y={1}/>
+            }
             <VictoryAxis />
         </VictoryChart>
         </>
@@ -96,8 +103,13 @@ const DISTRIBUTION_TYPE = [
     },
 ];
 
-const PopulationForm  = ({seed,
-    populationSize, mean, stdDev, distType, embed, handleChange}) => {
+const PopulationForm  = (
+    {seed, populationSize, mean, stdDev, distType, embed, enableSampleSlider,
+        sampleSize, samplesIdx, handleSamplesIdx, handleChange}) => {
+    const handleSamples = (e) => {
+        e.preventDefault();
+        handleSamplesIdx(forceNumber(e.target.value));
+    };
     const handleFormChange = (e) => {
         let numericFields = ['populationSize', 'mean', 'stdDev'];
         if (numericFields.includes(e.target.id)) {
@@ -107,6 +119,7 @@ const PopulationForm  = ({seed,
         }
     };
     return (
+        <>
         <form action="">
             <fieldset>
                 <legend>Population Parameters</legend>
@@ -183,6 +196,18 @@ const PopulationForm  = ({seed,
                 </div>
             </fieldset>
         </form>
+        <form>
+            <div>
+                <input type="range"
+                    id="sample-slider"
+                    disabled={ enableSampleSlider ? false : true}
+                    min="1"
+                    max={sampleSize}
+                    value={samplesIdx}
+                    onChange={handleSamples} />
+            </div>
+        </form>
+        </>
     );
 };
 
@@ -305,6 +330,7 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
+        this.handleSamplesIdx = this.handleSamplesIdx.bind(this);
 
         let params = new URLSearchParams(location.search);
         let seed = '';
@@ -362,6 +388,9 @@ export class CentralLimitGraph extends Component {
             sampleSize: defaultSampleSize,
             // number of samples is the overall samples taken of a population
             numberOfSamples: defaultNumberOfSamples,
+            samples: [],
+            samplesIdx: 1,
+            samplesGraphData: [],
             sampleMeans: [],
             sampleMeansIdx: 1,
             sampleMeansGraphData: [],
@@ -384,14 +413,6 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             [key]: value
-        });
-    }
-    handleSampleMeansIdx(idx) {
-        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
-        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
-        this.setState({
-            sampleMeansIdx: idx,
-            sampleMeansGraphData: currentSampleMeansData
         });
     }
     generatePopulation(size, mean, stdDev, distType, seed) {
@@ -473,7 +494,8 @@ export class CentralLimitGraph extends Component {
         // get the histogram and set state, render a line graph
         let samples = [...Array(this.state.numberOfSamples)].map((e) => {
             return [...Array(this.state.sampleSize)].map((e) => {
-                return Math.floor(ng() * this.state.population.length);
+                let idx = Math.floor(ng() * this.state.population.length);
+                return this.state.population[idx];
             });
         });
 
@@ -485,11 +507,29 @@ export class CentralLimitGraph extends Component {
         }, []);
 
         this.setState({
+            samples: samples,
             sampleMeans: sampleMeans,
             sampleMeansIdx: 1,
-            enableSampleSlider: true
+            enableSampleSlider: true,
+            samplesGraphData: createHistogramArray(samples[1]),
+            sampleMeansGraphData: sampleMeans.slice(0, 1)
         });
-        this.handleSampleMeansIdx(1);
+    }
+    handleSampleMeansIdx(idx) {
+        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
+        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        this.setState({
+            sampleMeansIdx: idx,
+            sampleMeansGraphData: currentSampleMeansData,
+            samplesGraphData: createHistogramArray(this.state.samples[idx])
+        });
+    }
+    handleSamplesIdx(idx) {
+        // This is the for individual sample slider
+        this.setState({
+            samplesIdx: idx,
+            samplesGraphData: createHistogramArray(this.state.samples[idx]),
+        });
     }
     componentDidUpdate() {
         let params = new URLSearchParams(location.search);
@@ -512,8 +552,10 @@ export class CentralLimitGraph extends Component {
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <PopulationGraph populationGraphData={
-                            this.state.populationGraphData}/>
+                        <PopulationGraph
+                            populationGraphData={this.state.populationGraphData}
+                            samplesGraphData={this.state.samplesGraphData}
+                        />
                     </div>
                     <div className='col-md-6'>
                         <PopulationForm seed={this.state.seed}
@@ -522,6 +564,10 @@ export class CentralLimitGraph extends Component {
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
                             embed={this.state.embed}
+                            enableSampleSlider={this.state.enableSampleSlider}
+                            samplesIdx={this.state.samplesIdx}
+                            sampleSize={this.state.sampleSize}
+                            handleSamplesIdx={this.handleSamplesIdx}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
@@ -560,6 +606,7 @@ export class CentralLimitGraph extends Component {
 
 PopulationGraph.propTypes = {
     populationGraphData: PropTypes.array,
+    samplesGraphData: PropTypes.array,
 };
 
 SampleMeansGraph.propTypes = {
