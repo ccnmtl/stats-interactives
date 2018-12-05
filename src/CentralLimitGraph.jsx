@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
@@ -50,6 +49,7 @@ const PopulationGraph  = ({populationGraphData}) => {
             <VictoryBar data={populationGraphData}
                 x={0}
                 y={1}/>
+            <VictoryAxis />
         </VictoryChart>
         </>
     );
@@ -61,18 +61,13 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
         <VictoryChart theme={VictoryTheme.material}
             height={250}
             domain={{x: [-1, 1], y: [0, 200]}}
-            domainPadding={{x: 20}}
-        >
+            domainPadding={{x: 20}}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
                     y={1}/>
             }
-            <VictoryAxis
-            />
-            <VictoryAxis dependentAxis
-                offsetX={50}
-            />
+            <VictoryAxis />
         </VictoryChart>
         </>
     );
@@ -99,59 +94,101 @@ const DISTRIBUTION_TYPE = [
         value: 'uniform',
         display: 'Uniform',
     },
-]
+];
 
 const PopulationForm  = ({seed,
-    populationSize, mean, stdDev, distType, handleChange}) => {
+    populationSize, mean, stdDev, distType, embed, handleChange}) => {
     const handleFormChange = (e) => {
-        handleChange(e.target.id, e.target.value);
+        let numericFields = ['populationSize', 'mean', 'stdDev'];
+        if (numericFields.includes(e.target.id)) {
+            handleChange(e.target.id, forceNumber(e.target.value));
+        } else {
+            handleChange(e.target.id, e.target.value);
+        }
     };
     return (
-        <>
-        <h3>Population Params</h3>
         <form action="">
-            <div>
-                <label htmlFor="seed">Seed: </label>
-                <input type="text"
-                    id="seed"
-                    value={seed}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="populationSize">Population Size: </label>
-                <input type="number"
-                    id="populationSize"
-                    value={populationSize}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="distributionType">Distribution Type: </label>
-                <select id="distType" onChange={handleFormChange} value={distType}>
-                    { DISTRIBUTION_TYPE.map(
-                        (e) => (<option key={e.value} value={e.value}>{e.display}</option>)) }
-                </select>
-            </div>
-            <div>
-                <label htmlFor="mean">Mean: </label>
-                <input type="number"
-                    id="mean"
-                    value={mean}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="stdDev">StdDev: </label>
-                <input type="number"
-                    id="stdDev"
-                    value={stdDev}
-                    onChange={handleFormChange}/>
-            </div>
+            <fieldset>
+                <legend>Population Parameters</legend>
+                { !embed &&
+                    <div className="form-row">
+                        <div className="form-group col-md-4">
+                            <label htmlFor="seed" className="float-right">
+                                Seed: </label>
+                        </div>
+                        <div className="form-group col-md-8">
+                            <input type="text"
+                                id="seed"
+                                value={seed}
+                                onChange={handleFormChange}/>
+                        </div>
+                    </div> }
+                { !embed &&
+                    <div className="form-row">
+                        <div className="form-group col-md-4">
+                            <label htmlFor="populationSize"
+                                className="float-right">
+                                Population Size: </label>
+                        </div>
+                        <div className="form-group col-md-8">
+                            <input type="number"
+                                id="populationSize"
+                                value={populationSize}
+                                onChange={handleFormChange}/>
+                        </div>
+                    </div> }
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="distType"
+                            className="float-right">
+                            Distribution Type: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <select id="distType"
+                            onChange={handleFormChange}
+                            value={distType}>
+                            { DISTRIBUTION_TYPE.map(
+                                (e) => (<option key={e.value} value={e.value}>
+                                    {e.display}</option>)) }
+                        </select>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="mean"
+                            className="float-right">Mean:</label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="mean"
+                            min="-10"
+                            max="10"
+                            value={mean}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="stdDev"
+                            className="float-right">StdDev: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="stdDev"
+                            min="-6"
+                            max="6"
+                            value={stdDev}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+            </fieldset>
         </form>
-        </>
     );
 };
 
 const SampleForm = ({
-    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx, enableSampleSlider, handleSampleMeansIdx}) => {
+    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
+    enableSampleSlider, handleSampleMeansIdx}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);
@@ -168,25 +205,40 @@ const SampleForm = ({
     };
     return (
         <>
-        <h3>Sample Params</h3>
         <form onClick={handleRunSample} >
-            <div>
-                <label htmlFor="sampleSize">Sample Size: </label>
-                <input type="number"
-                    id="sampleSize"
-                    value={sampleSize}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <label htmlFor="numberOfSamples">Number of samples: </label>
-                <input type="number"
-                    id="numberOfSamples"
-                    value={numberOfSamples}
-                    onChange={handleFormChange}/>
-            </div>
-            <div>
-                <input type="submit" value="Run Sample"/>
-            </div>
+            <fieldset>
+                <legend>Sample Parameters</legend>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="sampleSize"
+                            className="float-right">Sample Size: </label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="sampleSize"
+                            min="1"
+                            max="1000"
+                            value={sampleSize}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="numberOfSamples"
+                            className="float-right">Number of samples:</label>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <input type="number"
+                            id="numberOfSamples"
+                            min="1"
+                            value={numberOfSamples}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+            </fieldset>
+            <input className="btn btn-primary shim-top"
+                type="submit"
+                value="Run Sample"/>
         </form>
         <form>
             <div>
@@ -207,39 +259,41 @@ const DebugData = ({seed, populationSize, mean, stdDev,
     sampleSize, numberOfSamples, sampleMeansIdx}) => {
     return (
         <>
-        <h3>Debug Data</h3>
-        <table>
-            <tbody>
-                <tr>
-                    <td>seed</td>
-                    <td>{seed}</td>
-                </tr>
-                <tr>
-                    <td>populationSize</td>
-                    <td>{populationSize}</td>
-                </tr>
-                <tr>
-                    <td>mean</td>
-                    <td>{mean}</td>
-                </tr>
-                <tr>
-                    <td>Standard Deviation</td>
-                    <td>{stdDev}</td>
-                </tr>
-                <tr>
-                    <td>Sample Size</td>
-                    <td>{sampleSize}</td>
-                </tr>
-                <tr>
-                    <td>Number of samples</td>
-                    <td>{numberOfSamples}</td>
-                </tr>
-                <tr>
-                    <td>Samples Index Slider</td>
-                    <td>{sampleMeansIdx}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div className="alert alert-warning">
+            <h3>Debug Data</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th className="float-right">seed:</th>
+                        <td>{seed}</td>
+                    </tr>
+                    <tr>
+                        <th className="float-right">populationSize:</th>
+                        <td>{populationSize}</td>
+                    </tr>
+                    <tr>
+                        <th className="float-right">mean:</th>
+                        <td>{mean}</td>
+                    </tr>
+                    <tr>
+                        <th className="float-right">Standard Deviation:</th>
+                        <td>{stdDev}</td>
+                    </tr>
+                    <tr>
+                        <th className="float-right">Sample Size:</th>
+                        <td>{sampleSize}</td>
+                    </tr>
+                    <tr>
+                        <th className="float-right">Number of samples:</th>
+                        <td>{numberOfSamples}</td>
+                    </tr>
+                    <tr>
+                        <td>Samples Index Slider</td>
+                        <td>{sampleMeansIdx}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         </>
     );
 };
@@ -269,10 +323,12 @@ export class CentralLimitGraph extends Component {
             params.set('distType', 'skew_left');
             window.history.replaceState(null, '', '?' + params.toString());
         } else {
-            // Validate that a dist type is on the list, else set it to 'skew_left'
+            // Validate that a dist type is on the list, else
+            // set it to 'skew_left'
             let dt = params.get('distType');
-            let found = DISTRIBUTION_TYPE.find((e) => {return dt === e.value});
-            distType = found ? dt : 'skew_left'
+            let found = DISTRIBUTION_TYPE.find(
+                (e) => {return dt === e.value;});
+            distType = found ? dt : 'skew_left';
             if (!found) {
                 params.set('distType', 'skew_left');
                 window.history.replaceState(null, '', '?' + params.toString());
@@ -291,6 +347,9 @@ export class CentralLimitGraph extends Component {
         );
         const populationGraphData = createHistogramArray(population);
 
+        const defaultSampleSize = 50;
+        const defaultNumberOfSamples = 1000;
+
         this.state = {
             seed: seed,
             populationSize: populationSize,
@@ -300,9 +359,9 @@ export class CentralLimitGraph extends Component {
             stdDev: stdDev,
             distType: distType,
             // sampleSize is the number of observations within each sample
-            sampleSize: 30,
+            sampleSize: defaultSampleSize,
             // number of samples is the overall samples taken of a population
-            numberOfSamples: 1000,
+            numberOfSamples: defaultNumberOfSamples,
             sampleMeans: [],
             sampleMeansIdx: 1,
             sampleMeansGraphData: [],
@@ -340,44 +399,65 @@ export class CentralLimitGraph extends Component {
         seedrandom(seed, {global: true});
 
         switch (distType) {
-            case 'normal':
-                return [...Array(size)].map((e) => {
-                    return math.round(jStat.normal.sample(mean, stdDev), 1)
-                });
-                break;
+        case 'normal':
+            // This method munges the normal distribution such that every
+            // value generated that is less than the mean is reflected about
+            // the mean to produce a symetrical distribution.
 
-            case 'skew_left':
-                return [...Array(size)].map((e) => {
-                    return math.round(jStat.beta.sample(2, 5), 1)
-                });
-                break;
+            // Generate the first half of a normal distribution
+            return [...Array(Math.floor(size / 2))].map((e) => {
+                let s = null;
+                do {
+                    s = math.round(jStat.normal.sample(mean, stdDev), 1);
+                } while (s > mean);
+                return s;
+            }).reduce((acc, e) => {
+                // Then push the element on the accumulated array
+                acc.push(e);
+                if (e < mean) {
+                    // If e is less than the mean, then find its reflection
+                    // and push that to the array.
+                    let diff = math.round(mean - e, 1);
+                    acc.push(math.round(mean + diff, 1));
+                }
+                return acc;
+            }, []);
 
-            case 'skew_right':
-                return [...Array(size)].map((e) => {
-                    return math.round(jStat.beta.sample(5, 2), 1)
-                });
-                break;
+        case 'skew_left':
+            return [...Array(size)].map((e) => {
+                return math.round(jStat.beta.sample(2, 5), 1);
+            });
 
-            case 'bimodal':
-                return [...Array(size)].map((e) => {
-                    // algo from here: https://en.wikipedia.org/wiki/Multimodal_distribution#Probability_distributions
-                    let a = 2 + jStat.normal.sample(0, 1);
-                    let b = 5 + jStat.normal.sample(0, 1)
-                    return math.round(a / b, 1)
-                });
-                break;
+        case 'skew_right':
+            return [...Array(size)].map((e) => {
+                return math.round(jStat.beta.sample(5, 2), 1);
+            });
 
-            case 'uniform':
-                return [...Array(size)].map((e) => {
-                    return math.round(jStat.uniform.sample(-1, 1), 1)
-                });
-                break;
+        case 'bimodal':
+            return [...Array(size)].map((e) => {
+                // algo from here: https://en.wikipedia.org/wiki/Multimodal_distribution#Probability_distributions
+                let a = 2 + jStat.normal.sample(0, 1);
+                let b = 5 + jStat.normal.sample(0, 1);
+                return math.round(a / b, 1);
+            });
 
-            default:
-                // return a normal distribution
-                return [...Array(size)].map((e) => {
-                    return math.round(jStat.normal.sample(mean, stdDev), 1)
-                });
+        case 'uniform':
+            return [...Array(size)].map((e) => {
+                // Oversample the uniform distribution and then 'trim' off
+                // extra values. This ensures that rounding doesn't taper the
+                // distributions at the ends.
+                let s = null;
+                do {
+                    s = math.round(jStat.uniform.sample(-1.1, 1.1), 1);
+                } while (Math.abs(s) > 1);
+                return s;
+            });
+
+        default:
+            // return a normal distribution
+            return [...Array(size)].map((e) => {
+                return math.round(jStat.normal.sample(mean, stdDev), 1);
+            });
         }
 
     }
@@ -395,7 +475,8 @@ export class CentralLimitGraph extends Component {
         for (var i = 0; i < this.state.numberOfSamples; i++) {
             let samples = new Array(this.state.sampleSize);
             for (var j = 0; j < this.state.sampleSize; j++) {
-                let observationIdx = Math.floor(ng() * this.state.population.length);
+                let observationIdx = Math.floor(
+                    ng() * this.state.population.length);
                 samples[j] = this.state.population[observationIdx];
             }
             let mean = jStat.mean(samples);
@@ -439,6 +520,7 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
+                            embed={this.state.embed}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
@@ -477,11 +559,11 @@ export class CentralLimitGraph extends Component {
 
 PopulationGraph.propTypes = {
     populationGraphData: PropTypes.array,
-}
+};
 
 SampleMeansGraph.propTypes = {
     sampleMeansGraphData: PropTypes.array,
-}
+};
 
 PopulationForm.propTypes = {
     seed: PropTypes.string,
@@ -489,8 +571,9 @@ PopulationForm.propTypes = {
     mean: PropTypes.number,
     stdDev: PropTypes.number,
     distType: PropTypes.string,
+    embed: PropTypes.bool,
     handleChange: PropTypes.func,
-}
+};
 
 SampleForm.propTypes = {
     sampleSize: PropTypes.number,
@@ -500,4 +583,4 @@ SampleForm.propTypes = {
     sampleMeansIdx: PropTypes.number,
     enableSampleSlider: PropTypes.bool,
     handleSampleMeansIdx: PropTypes.func,
-}
+};

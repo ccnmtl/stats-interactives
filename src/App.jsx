@@ -45,12 +45,12 @@ const Home = () => (
     <div className="jumbotron">
         <div className="container">
             <h1 className="display-3">
-                Theoremicious
+                Theorem7
             </h1>
             <p className="lead">
-                Seven Interactive Simulations of Statistics Theorems
+                Seven Interactive Simulations of Statistics Theorems for
+                Deeper Understanding
             </p>
-
             <p>
                 Specifically designed for Doru Cojoc&#39;s Quantitative
                 Analysis I course at SIPA, these simulations are intended as a

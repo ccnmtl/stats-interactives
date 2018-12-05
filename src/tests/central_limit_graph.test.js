@@ -135,21 +135,25 @@ describe('Ensure that the same seed generates the same population and samples', 
         let clg = wrapper.find('CentralLimitGraph')
         let clg_instance = clg.instance()
 
-        // Render same data with a seed
+        // Render same data with a seed, and create the sample means
+        // histogram of size 100
         clg_instance.handleChange('seed', 'my-new-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample1 = clg.state('sampleMeans');
         let sampleData1 = clg.state('sampleMeansGraphData');
 
         // Render it with a different seed
         clg_instance.handleChange('seed', 'a-different-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample2 = clg.state('sampleMeans');
         let sampleData2 = clg.state('sampleMeansGraphData');
 
         // Render it again with the same seed as the first time
         clg_instance.handleChange('seed', 'my-new-seed');
         clg_instance.runSample();
+        clg_instance.handleSampleMeansIdx(100);
         let sample3 = clg.state('sampleMeans');
         let sampleData3 = clg.state('sampleMeansGraphData');
 
@@ -169,8 +173,8 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
             <CentralLimitGraph />
         </MemoryRouter>
     );
-    let clg = wrapper.find('CentralLimitGraph')
-    let clg_instance = clg.instance()
+    let clg = wrapper.find('CentralLimitGraph');
+    let clg_instance = clg.instance();
 
     // Call clg_instance.handleSampleMeansIdx(42)
     // Two side effects should happen:
@@ -181,7 +185,7 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
     // First get some samples
     clg_instance.runSample();
     clg_instance.handleSampleMeansIdx(42);
-    expect(clg.state('sampleMeansIdx')).toEqual(42)
+    expect(clg.state('sampleMeansIdx')).toEqual(42);
 
     // Histogram is a 2D array of [[val, frequency], ...]
     let histogram = clg.state('sampleMeansGraphData')
@@ -288,5 +292,88 @@ describe('Default behavior of query string params', () => {
 
         expect(params.has('distType')).toEqual(true);
         expect(params.get('distType')).toEqual('normal');
+    });
+});
+
+describe('embed query string param', () => {
+    test('That the seed and population fields are present when embed is set.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+
+        expect(clg.exists('#seed')).toEqual(true);
+        expect(clg.exists('#populationSize')).toEqual(true);
+    });
+
+    test('That the seed and population fields are not present when embed=true', () => {
+        let emptyParams = new URLSearchParams();
+        emptyParams.set('embed', 'true');
+        window.history.replaceState(null, '', '?' + emptyParams.toString());
+
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+
+        expect(clg.exists('#seed')).toEqual(false);
+        expect(clg.exists('#populationSize')).toEqual(false);
+    });
+});
+
+test('That the uniform distribution does not contain values outside a given range', () => {
+    // This is kind of a magic number, and will likely have to be updated when
+    // the uniform distribution is fully implemented. When this test breaks
+    // look here first.
+    let distLimit = 1;
+
+    let emptyParams = new URLSearchParams();
+    emptyParams.set('distType', 'uniform');
+    window.history.replaceState(null, '', '?' + emptyParams.toString());
+    const wrapper = mount(
+        <MemoryRouter>
+            <CentralLimitGraph />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('CentralLimitGraph');
+
+    clg.state('populationGraphData').map((e) => {
+        expect(Math.abs(e[0]) <= distLimit).toEqual(true);
+    })
+});
+
+test('That the normal distribution is actually a reflection of itself', () => {
+    let emptyParams = new URLSearchParams();
+    emptyParams.set('distType', 'normal');
+    emptyParams.set('mean', '0');
+    emptyParams.set('stdDev', '1');
+    window.history.replaceState(null, '', '?' + emptyParams.toString());
+    const wrapper = mount(
+        <MemoryRouter>
+            <CentralLimitGraph />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('CentralLimitGraph');
+
+    // The populationGraphData looks something like:
+    // [[-0.2, 3],
+    //  [0.2, 3],
+    //  [-0.1, 4],
+    //  [0.1, 4],
+    //  [0, 5]]
+    //  ...where for each negative value the corresponding positive value has
+    //  the same frequency. (The example above relies on that the mean is 0)
+    //
+    //  The method below walks over the graph data and compares the frequencies
+    //  of corresponding values. E.G: [-0.2, 3] == [0.2, 3]
+    clg.state('populationGraphData').map((e, idx, arr) => {
+        let cmp = (el) => { return el[0] == e[0] * -1; };
+        let reflectedVal = arr.find(cmp);
+        expect(e[1]).toEqual(reflectedVal[1]);
     });
 });
