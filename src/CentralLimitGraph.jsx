@@ -59,9 +59,7 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            height={250}
-            domain={{x: [-1, 1], y: [0, 200]}}
-            domainPadding={{x: 20}}>
+            height={250}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
@@ -434,11 +432,12 @@ export class CentralLimitGraph extends Component {
             });
 
         case 'bimodal':
-            return [...Array(size)].map((e) => {
-                // algo from here: https://en.wikipedia.org/wiki/Multimodal_distribution#Probability_distributions
-                let a = 2 + jStat.normal.sample(0, 1);
-                let b = 5 + jStat.normal.sample(0, 1);
-                return math.round(a / b, 1);
+            return [...Array(size)].map((e, i) => {
+                if (i % 2) {
+                    return math.round(jStat.normal.sample(-3, stdDev), 1);
+                } else {
+                    return math.round(jStat.normal.sample(3, stdDev), 1);
+                }
             });
 
         case 'uniform':
