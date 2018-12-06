@@ -1,7 +1,8 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryScatter, VictoryAxis } from 'victory';
+import {
+    VictoryChart, VictoryTheme, VictoryBar,
+    VictoryScatter, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
@@ -42,19 +43,40 @@ export const createHistogramArray = (dist) => {
     return dist.reduce(redux, xSetList);
 };
 
+const getHistogramMaxima = (hist) => {
+    return Math.max(...hist.map((e) => e[1]));
+};
+
+const interpolateHistogram = (hist) => {
+    // The function fills in data with values less than the
+    // original histogram value.
+    return hist.reduce((acc, e) => {
+        // [val, int]
+        acc.push(e);
+        if (e[1] > 1) {
+            math.range(1, e[1]).map((i) => {
+                acc.push([e[0], i]);
+            });
+        }
+        return acc;
+    }, []);
+};
+
 const PopulationGraph  = ({populationGraphData, samplesGraphData}) => {
+    let populationMax = getHistogramMaxima(populationGraphData);
+    let samplesMax = getHistogramMaxima(samplesGraphData);
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
             height={200}>
             <VictoryBar data={populationGraphData}
                 x={0}
-                y={1}/>
+                y={(datum) => datum[1] / populationMax}/>
             {samplesGraphData &&
-                <VictoryScatter data={samplesGraphData}
-                    scale={{y: 'log'}}
+                <VictoryScatter data={interpolateHistogram(samplesGraphData)}
+                    style={{ data: { fill: 'red' } }}
                     x={0}
-                    y={1}/>
+                    y={(datum) => (datum[1] / samplesMax) * 0.75}/>
             }
             <VictoryAxis />
         </VictoryChart>
@@ -67,7 +89,6 @@ const SampleMeansGraph = ({sampleMeansGraphData}) => {
         <>
         <VictoryChart theme={VictoryTheme.material}
             height={250}
-            domain={{x: [-1, 1], y: [0, 200]}}
             domainPadding={{x: 20}}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
