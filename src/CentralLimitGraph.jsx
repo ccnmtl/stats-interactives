@@ -294,48 +294,6 @@ const SampleForm = ({
     );
 };
 
-const DebugData = ({seed, populationSize, mean, stdDev,
-    sampleSize, numberOfSamples, sampleMeansIdx}) => {
-    return (
-        <>
-        <div className="alert alert-warning">
-            <h3>Debug Data</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th className="float-right">seed:</th>
-                        <td>{seed}</td>
-                    </tr>
-                    <tr>
-                        <th className="float-right">populationSize:</th>
-                        <td>{populationSize}</td>
-                    </tr>
-                    <tr>
-                        <th className="float-right">mean:</th>
-                        <td>{mean}</td>
-                    </tr>
-                    <tr>
-                        <th className="float-right">Standard Deviation:</th>
-                        <td>{stdDev}</td>
-                    </tr>
-                    <tr>
-                        <th className="float-right">Sample Size:</th>
-                        <td>{sampleSize}</td>
-                    </tr>
-                    <tr>
-                        <th className="float-right">Number of samples:</th>
-                        <td>{numberOfSamples}</td>
-                    </tr>
-                    <tr>
-                        <td>Samples Index Slider</td>
-                        <td>{sampleMeansIdx}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        </>
-    );
-};
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
@@ -608,17 +566,6 @@ export class CentralLimitGraph extends Component {
                             sampleMeansIdx={this.state.sampleMeansIdx}
                             enableSampleSlider={this.state.enableSampleSlider}
                             handleSampleMeansIdx={this.handleSampleMeansIdx} />
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-md-6'>
-                        <DebugData seed={this.state.seed}
-                            populationSize={this.state.populationSize}
-                            mean={this.state.mean}
-                            stdDev={this.state.stdDev}
-                            sampleSize={this.state.sampleSize}
-                            numberOfSamples={this.state.numberOfSamples}
-                            sampleMeansIdx={this.state.sampleMeansIdx} />
                     </div>
                 </div>
             </div>
