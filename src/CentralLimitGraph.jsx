@@ -91,11 +91,11 @@ const PopulationGraph  = ({populationGraphData, samplesGraphData, domain}) => {
     );
 };
 
-const SampleMeansGraph = ({sampleMeansGraphData, domain}) => {
+const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            domain={{x: domain}}
+            domain={{x: domain, y: range}}
             height={250}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
@@ -409,6 +409,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansGraphData: [],
             enableSampleSlider: false,
             domain: [-6, 6],
+            sampleMeansRange: [0, 1],
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
             })(),
@@ -525,6 +526,10 @@ export class CentralLimitGraph extends Component {
         this.setState({
             samples: samples,
             sampleMeans: sampleMeans,
+            sampleMeansRange: [
+                0,
+                getHistogramMaxima(createHistogramArray(sampleMeans))
+            ],
             sampleMeansIdx: 1,
             enableSampleSlider: true,
             samplesGraphData: createHistogramArray(samples[1]),
@@ -537,14 +542,14 @@ export class CentralLimitGraph extends Component {
         this.setState({
             sampleMeansIdx: idx,
             sampleMeansGraphData: currentSampleMeansData,
-            samplesGraphData: createHistogramArray(this.state.samples[idx])
+            samplesGraphData: createHistogramArray(this.state.samples[idx - 1])
         });
     }
     handleSamplesIdx(idx) {
         // This is the for individual sample slider
         this.setState({
             samplesIdx: idx,
-            samplesGraphData: createHistogramArray(this.state.samples[idx]),
+            samplesGraphData: createHistogramArray(this.state.samples[idx - 1]),
         });
     }
     componentDidUpdate() {
@@ -589,6 +594,7 @@ export class CentralLimitGraph extends Component {
                     <div className='col-md-6'>
                         <SampleMeansGraph
                             domain={this.state.domain}
+                            range={this.state.sampleMeansRange}
                             sampleMeansGraphData={
                                 this.state.sampleMeansGraphData}/>
                     </div>
