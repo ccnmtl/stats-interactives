@@ -97,7 +97,7 @@ const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
         <>
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: domain, y: range}}
-            height={250}>
+            height={200}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
@@ -147,7 +147,7 @@ const PopulationForm  = (
         <>
         <form action="">
             <fieldset>
-                <legend>Population Parameters</legend>
+                <legend>Step 1: Population Parameters</legend>
                 { !embed &&
                     <div className="form-row">
                         <div className="form-group col-md-4">
@@ -238,15 +238,11 @@ const SampleForm = ({
         runSample();
     };
 
-    const handleSampleMeans = (e) => {
-        e.preventDefault();
-        handleSampleMeansIdx(forceNumber(e.target.value));
-    };
     return (
         <>
         <form onClick={handleRunSample} >
             <fieldset>
-                <legend>Sample Parameters</legend>
+                <legend>Step 2: Set the Sample Parameters</legend>
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label htmlFor="sampleSize"
@@ -274,26 +270,41 @@ const SampleForm = ({
                             onChange={handleFormChange}/>
                     </div>
                 </div>
+                <div className="form-row">
+                    <input className="btn btn-primary"
+                        type="submit"
+                        value="Run Sample"/>
+                </div>
             </fieldset>
-            <input className="btn btn-primary shim-top"
-                type="submit"
-                value="Run Sample"/>
-        </form>
-        <form>
-            <div>
-                <input type="range"
-                    id="sample-slider"
-                    disabled={ enableSampleSlider ? false : true}
-                    min="1"
-                    max={numberOfSamples}
-                    value={sampleMeansIdx}
-                    onChange={handleSampleMeans} />
-            </div>
         </form>
         </>
     );
 };
-
+const SampleRangeSlider = ({enableSampleSlider, numberOfSamples,
+    sampleMeansIdx, handleSampleMeansIdx, runSample}) => {
+    const handleSampleMeans = (e) => {
+        e.preventDefault();
+        handleSampleMeansIdx(forceNumber(e.target.value));
+    };
+    return (
+        <>
+        <form>
+            <fieldset>
+                <legend>Step 3: Observe the changes among samples</legend>
+                <div>
+                    <input type="range"
+                        id="sample-slider"
+                        disabled={ enableSampleSlider ? false : true}
+                        min="1"
+                        max={numberOfSamples}
+                        value={sampleMeansIdx}
+                        onChange={handleSampleMeans} />
+                </div>
+            </fieldset>
+        </form>
+        </>
+    );
+};
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
@@ -532,13 +543,6 @@ export class CentralLimitGraph extends Component {
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <PopulationGraph
-                            populationGraphData={this.state.populationGraphData}
-                            samplesGraphData={this.state.samplesGraphData}
-                            domain={this.state.domain}
-                        />
-                    </div>
-                    <div className='col-md-6'>
                         <PopulationForm seed={this.state.seed}
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
@@ -548,8 +552,25 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             handleChange={this.handleChange}/>
                     </div>
+                    <div className='col-md-6'>
+                        <PopulationGraph
+                            populationGraphData={this.state.populationGraphData}
+                            samplesGraphData={this.state.samplesGraphData}
+                            domain={this.state.domain}
+                        />
+                    </div>
                 </div>
                 <div className='row'>
+                    <div className='col-md-6'>
+                        <SampleForm
+                            sampleSize={this.state.sampleSize}
+                            numberOfSamples={this.state.numberOfSamples}
+                            handleChange={this.handleChange}
+                            runSample={this.runSample}
+                            sampleMeansIdx={this.state.sampleMeansIdx}
+                            enableSampleSlider={this.state.enableSampleSlider}
+                            handleSampleMeansIdx={this.handleSampleMeansIdx} />
+                    </div>
                     <div className='col-md-6'>
                         <SampleMeansGraph
                             domain={this.state.domain}
@@ -557,12 +578,11 @@ export class CentralLimitGraph extends Component {
                             sampleMeansGraphData={
                                 this.state.sampleMeansGraphData}/>
                     </div>
+                </div>
+                <div className='row'>
                     <div className='col-md-6'>
-                        <SampleForm
-                            sampleSize={this.state.sampleSize}
+                        <SampleRangeSlider
                             numberOfSamples={this.state.numberOfSamples}
-                            handleChange={this.handleChange}
-                            runSample={this.runSample}
                             sampleMeansIdx={this.state.sampleMeansIdx}
                             enableSampleSlider={this.state.enableSampleSlider}
                             handleSampleMeansIdx={this.handleSampleMeansIdx} />
@@ -577,9 +597,12 @@ export class CentralLimitGraph extends Component {
 PopulationGraph.propTypes = {
     populationGraphData: PropTypes.array,
     samplesGraphData: PropTypes.array,
+    domain: PropTypes.array,
 };
 
 SampleMeansGraph.propTypes = {
+    domain: PropTypes.array,
+    range: PropTypes.array,
     sampleMeansGraphData: PropTypes.array,
 };
 
@@ -600,5 +623,12 @@ SampleForm.propTypes = {
     runSample: PropTypes.func,
     sampleMeansIdx: PropTypes.number,
     enableSampleSlider: PropTypes.bool,
+    handleSampleMeansIdx: PropTypes.func,
+};
+
+SampleRangeSlider.propTypes = {
+    enableSampleSlider: PropTypes.bool,
+    numberOfSamples: PropTypes.number,
+    sampleMeansIdx: PropTypes.number,
     handleSampleMeansIdx: PropTypes.func,
 };
