@@ -99,19 +99,24 @@ describe('Ensure that the same seed generates the same population and samples', 
         );
         let clg = wrapper.find('CentralLimitGraph')
         let clg_instance = clg.instance()
+        clg_instance.handleChange('populationSize', 50);
 
         // Render same data with a seed
         clg_instance.handleChange('seed', 'my-new-seed');
+        clg_instance.handleGeneratePopulation();
         let pop1 = clg.state('population');
         let popData1 = clg.state('populationGraphData');
 
         // Render it with a different seed
         clg_instance.handleChange('seed', 'a-different-seed');
+        clg_instance.handleGeneratePopulation();
         let pop2 = clg.state('population');
         let popData2 = clg.state('populationGraphData');
 
         // Render it again with the same seed as the first time
         clg_instance.handleChange('seed', 'my-new-seed');
+        expect(clg.state('seed')).toEqual('my-new-seed');
+        clg_instance.handleGeneratePopulation();
         let pop3 = clg.state('population');
         let popData3 = clg.state('populationGraphData');
 
@@ -140,6 +145,7 @@ describe('Ensure that the same seed generates the same population and samples', 
         // Render same data with a seed, and create the sample means
         // histogram of size 100
         clg_instance.handleChange('seed', 'my-new-seed');
+        clg_instance.handleGeneratePopulation();
         clg_instance.runSample();
         clg_instance.handleSampleMeansIdx(100);
         let sample1 = clg.state('sampleMeans');
@@ -147,6 +153,7 @@ describe('Ensure that the same seed generates the same population and samples', 
 
         // Render it with a different seed
         clg_instance.handleChange('seed', 'a-different-seed');
+        clg_instance.handleGeneratePopulation();
         clg_instance.runSample();
         clg_instance.handleSampleMeansIdx(100);
         let sample2 = clg.state('sampleMeans');
@@ -154,6 +161,7 @@ describe('Ensure that the same seed generates the same population and samples', 
 
         // Render it again with the same seed as the first time
         clg_instance.handleChange('seed', 'my-new-seed');
+        clg_instance.handleGeneratePopulation();
         clg_instance.runSample();
         clg_instance.handleSampleMeansIdx(100);
         let sample3 = clg.state('sampleMeans');
@@ -185,6 +193,7 @@ test('The getSampleHistorgram function renders a histogram of the correct size',
     //    whose values sum up to 42
 
     // First get some samples
+    clg_instance.handleGeneratePopulation();
     clg_instance.runSample();
     clg_instance.handleSampleMeansIdx(42);
     expect(clg.state('sampleMeansIdx')).toEqual(42);
@@ -343,7 +352,9 @@ test('That the uniform distribution does not contain values outside a given rang
         </MemoryRouter>
     );
     let clg = wrapper.find('CentralLimitGraph');
+    let clg_instance = clg.instance();
 
+    clg_instance.handleGeneratePopulation();
     clg.state('populationGraphData').map((e) => {
         expect(Math.abs(e[0]) <= distLimit).toEqual(true);
     })
@@ -361,6 +372,8 @@ test('That the normal distribution is actually a reflection of itself', () => {
         </MemoryRouter>
     );
     let clg = wrapper.find('CentralLimitGraph');
+    let clg_instance = clg.instance();
+    clg_instance.handleGeneratePopulation();
 
     // The populationGraphData looks something like:
     // [[-0.2, 3],
