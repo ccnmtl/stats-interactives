@@ -43,6 +43,12 @@ export const createHistogramArray = (dist) => {
     return dist.reduce(redux, xSetList);
 };
 
+export const getDomain = (hist) => {
+    return [
+        Math.min(...hist.map((e) => e[0])),
+        Math.max(...hist.map((e) => e[0]))];
+};
+
 const getHistogramMaxima = (hist) => {
     return Math.max(...hist.map((e) => e[1]));
 };
@@ -62,12 +68,13 @@ const interpolateHistogram = (hist) => {
     }, []);
 };
 
-const PopulationGraph  = ({populationGraphData, samplesGraphData}) => {
+const PopulationGraph  = ({populationGraphData, samplesGraphData, domain}) => {
     let populationMax = getHistogramMaxima(populationGraphData);
     let samplesMax = getHistogramMaxima(samplesGraphData);
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
+            domain={{x: domain}}
             height={200}>
             <VictoryBar data={populationGraphData}
                 x={0}
@@ -84,10 +91,11 @@ const PopulationGraph  = ({populationGraphData, samplesGraphData}) => {
     );
 };
 
-const SampleMeansGraph = ({sampleMeansGraphData}) => {
+const SampleMeansGraph = ({sampleMeansGraphData, domain}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
+            domain={{x: domain}}
             height={250}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
@@ -400,6 +408,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansIdx: 1,
             sampleMeansGraphData: [],
             enableSampleSlider: false,
+            domain: [-6, 6],
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
             })(),
@@ -417,6 +426,7 @@ export class CentralLimitGraph extends Component {
         this.setState({
             population: population,
             populationGraphData: populationGraphData,
+            domain: getDomain(populationGraphData),
             [key]: value
         });
     }
@@ -561,6 +571,7 @@ export class CentralLimitGraph extends Component {
                         <PopulationGraph
                             populationGraphData={this.state.populationGraphData}
                             samplesGraphData={this.state.samplesGraphData}
+                            domain={this.state.domain}
                         />
                     </div>
                     <div className='col-md-6'>
@@ -576,8 +587,10 @@ export class CentralLimitGraph extends Component {
                 </div>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <SampleMeansGraph sampleMeansGraphData={
-                            this.state.sampleMeansGraphData}/>
+                        <SampleMeansGraph
+                            domain={this.state.domain}
+                            sampleMeansGraphData={
+                                this.state.sampleMeansGraphData}/>
                     </div>
                     <div className='col-md-6'>
                         <SampleForm

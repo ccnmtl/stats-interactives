@@ -7,7 +7,9 @@ import renderer from 'react-test-renderer';
 import {MemoryRouter} from 'react-router-dom';
 import {Preview} from '../App.jsx';
 import {Nav} from '../Nav.jsx';
-import { CentralLimitGraph, createHistogramArray, forceNumber } from '../CentralLimitGraph';
+import { CentralLimitGraph,
+    createHistogramArray,
+    forceNumber, getDomain } from '../CentralLimitGraph';
 
 configure({adapter: new Adapter()});
 
@@ -376,4 +378,12 @@ test('That the normal distribution is actually a reflection of itself', () => {
         let reflectedVal = arr.find(cmp);
         expect(e[1]).toEqual(reflectedVal[1]);
     });
+});
+
+test('That the domain is correctly calculated', () => {
+    let domain = getDomain([
+        [-4, 42],
+        [4, 42]
+    ]);
+    expect(domain).toEqual([-4, 4]);
 });
