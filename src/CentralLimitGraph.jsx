@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis } from 'victory';
+import {
+    VictoryChart, VictoryTheme, VictoryBar,
+    VictoryScatter, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 import {Nav} from './Nav.jsx';
 var seedrandom = require('seedrandom');
@@ -41,14 +43,41 @@ export const createHistogramArray = (dist) => {
     return dist.reduce(redux, xSetList);
 };
 
-const PopulationGraph  = ({populationGraphData}) => {
+const getHistogramMaxima = (hist) => {
+    return Math.max(...hist.map((e) => e[1]));
+};
+
+const interpolateHistogram = (hist) => {
+    // The function fills in data with values less than the
+    // original histogram value.
+    return hist.reduce((acc, e) => {
+        // [val, int]
+        acc.push(e);
+        if (e[1] > 1) {
+            math.range(1, e[1]).map((i) => {
+                acc.push([e[0], i]);
+            });
+        }
+        return acc;
+    }, []);
+};
+
+const PopulationGraph  = ({populationGraphData, samplesGraphData}) => {
+    let populationMax = getHistogramMaxima(populationGraphData);
+    let samplesMax = getHistogramMaxima(samplesGraphData);
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
             height={200}>
             <VictoryBar data={populationGraphData}
                 x={0}
-                y={1}/>
+                y={(datum) => datum[1] / populationMax}/>
+            {samplesGraphData &&
+                <VictoryScatter data={interpolateHistogram(samplesGraphData)}
+                    style={{ data: { fill: 'red' } }}
+                    x={0}
+                    y={(datum) => (datum[1] / samplesMax) * 0.75}/>
+            }
             <VictoryAxis />
         </VictoryChart>
         </>
@@ -94,8 +123,9 @@ const DISTRIBUTION_TYPE = [
     },
 ];
 
-const PopulationForm  = ({seed,
-    populationSize, mean, stdDev, distType, embed, handleChange}) => {
+const PopulationForm  = (
+    {seed, populationSize, mean, stdDev, distType, embed,
+        sampleSize, handleChange}) => {
     const handleFormChange = (e) => {
         let numericFields = ['populationSize', 'mean', 'stdDev'];
         if (numericFields.includes(e.target.id)) {
@@ -105,6 +135,7 @@ const PopulationForm  = ({seed,
         }
     };
     return (
+        <>
         <form action="">
             <fieldset>
                 <legend>Population Parameters</legend>
@@ -181,6 +212,7 @@ const PopulationForm  = ({seed,
                 </div>
             </fieldset>
         </form>
+        </>
     );
 };
 
@@ -303,6 +335,7 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
+        this.handleSamplesIdx = this.handleSamplesIdx.bind(this);
 
         let params = new URLSearchParams(location.search);
         let seed = '';
@@ -360,6 +393,9 @@ export class CentralLimitGraph extends Component {
             sampleSize: defaultSampleSize,
             // number of samples is the overall samples taken of a population
             numberOfSamples: defaultNumberOfSamples,
+            samples: [],
+            samplesIdx: 1,
+            samplesGraphData: [],
             sampleMeans: [],
             sampleMeansIdx: 1,
             sampleMeansGraphData: [],
@@ -382,14 +418,6 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             [key]: value
-        });
-    }
-    handleSampleMeansIdx(idx) {
-        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
-        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
-        this.setState({
-            sampleMeansIdx: idx,
-            sampleMeansGraphData: currentSampleMeansData
         });
     }
     generatePopulation(size, mean, stdDev, distType, seed) {
@@ -423,12 +451,12 @@ export class CentralLimitGraph extends Component {
 
         case 'skew_left':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(2, 5), 1);
+                return math.round(jStat.beta.sample(2, 5) * 10, 1);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(5, 2), 1);
+                return math.round(jStat.beta.sample(5, 2) * 10, 1);
             });
 
         case 'bimodal':
@@ -470,24 +498,44 @@ export class CentralLimitGraph extends Component {
         // - N numberOfSamples are taken
         // push these to sampleSet
         // get the histogram and set state, render a line graph
-        let sampleMeans = new Array(this.state.numberOfSamples);
-        for (var i = 0; i < this.state.numberOfSamples; i++) {
-            let samples = new Array(this.state.sampleSize);
-            for (var j = 0; j < this.state.sampleSize; j++) {
-                let observationIdx = Math.floor(
-                    ng() * this.state.population.length);
-                samples[j] = this.state.population[observationIdx];
-            }
-            let mean = jStat.mean(samples);
-            sampleMeans[i] = math.round(mean, 1);
-        }
+        let samples = [...Array(this.state.numberOfSamples)].map((e) => {
+            return [...Array(this.state.sampleSize)].map((e) => {
+                let idx = Math.floor(ng() * this.state.population.length);
+                return this.state.population[idx];
+            });
+        });
+
+        let sampleMeans = samples.reduce((acc, e) => {
+            acc.push(
+                math.round(jStat.mean(e), 1)
+            );
+            return acc;
+        }, []);
 
         this.setState({
+            samples: samples,
             sampleMeans: sampleMeans,
             sampleMeansIdx: 1,
-            enableSampleSlider: true
+            enableSampleSlider: true,
+            samplesGraphData: createHistogramArray(samples[1]),
+            sampleMeansGraphData: sampleMeans.slice(0, 1)
         });
-        this.handleSampleMeansIdx(1);
+    }
+    handleSampleMeansIdx(idx) {
+        let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
+        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        this.setState({
+            sampleMeansIdx: idx,
+            sampleMeansGraphData: currentSampleMeansData,
+            samplesGraphData: createHistogramArray(this.state.samples[idx])
+        });
+    }
+    handleSamplesIdx(idx) {
+        // This is the for individual sample slider
+        this.setState({
+            samplesIdx: idx,
+            samplesGraphData: createHistogramArray(this.state.samples[idx]),
+        });
     }
     componentDidUpdate() {
         let params = new URLSearchParams(location.search);
@@ -510,8 +558,10 @@ export class CentralLimitGraph extends Component {
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <PopulationGraph populationGraphData={
-                            this.state.populationGraphData}/>
+                        <PopulationGraph
+                            populationGraphData={this.state.populationGraphData}
+                            samplesGraphData={this.state.samplesGraphData}
+                        />
                     </div>
                     <div className='col-md-6'>
                         <PopulationForm seed={this.state.seed}
@@ -520,6 +570,7 @@ export class CentralLimitGraph extends Component {
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
                             embed={this.state.embed}
+                            sampleSize={this.state.sampleSize}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
@@ -558,6 +609,7 @@ export class CentralLimitGraph extends Component {
 
 PopulationGraph.propTypes = {
     populationGraphData: PropTypes.array,
+    samplesGraphData: PropTypes.array,
 };
 
 SampleMeansGraph.propTypes = {
