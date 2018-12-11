@@ -125,12 +125,8 @@ const DISTRIBUTION_TYPE = [
 ];
 
 const PopulationForm  = (
-    {seed, populationSize, mean, stdDev, distType, embed, enableSampleSlider,
-        sampleSize, samplesIdx, handleSamplesIdx, handleChange}) => {
-    const handleSamples = (e) => {
-        e.preventDefault();
-        handleSamplesIdx(forceNumber(e.target.value));
-    };
+    {seed, populationSize, mean, stdDev, distType, embed,
+        sampleSize, handleChange}) => {
     const handleFormChange = (e) => {
         let numericFields = ['populationSize', 'mean', 'stdDev'];
         if (numericFields.includes(e.target.id)) {
@@ -216,17 +212,6 @@ const PopulationForm  = (
                     </div>
                 </div>
             </fieldset>
-        </form>
-        <form>
-            <div>
-                <input type="range"
-                    id="sample-slider"
-                    disabled={ enableSampleSlider ? false : true}
-                    min="1"
-                    max={sampleSize}
-                    value={samplesIdx}
-                    onChange={handleSamples} />
-            </div>
         </form>
         </>
     );
@@ -585,10 +570,7 @@ export class CentralLimitGraph extends Component {
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
                             embed={this.state.embed}
-                            enableSampleSlider={this.state.enableSampleSlider}
-                            samplesIdx={this.state.samplesIdx}
                             sampleSize={this.state.sampleSize}
-                            handleSamplesIdx={this.handleSamplesIdx}
                             handleChange={this.handleChange}/>
                     </div>
                 </div>
