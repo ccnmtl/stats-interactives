@@ -44,9 +44,10 @@ export const createHistogramArray = (dist) => {
 };
 
 export const getDomain = (hist) => {
+    let domain = hist.map((e) => e[0]);
     return [
-        Math.min(...hist.map((e) => e[0])),
-        Math.max(...hist.map((e) => e[0]))];
+        Math.min(...domain),
+        Math.max(...domain)];
 };
 
 const getHistogramMaxima = (hist) => {
