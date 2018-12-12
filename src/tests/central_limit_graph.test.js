@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import {configure, shallow, mount, render} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
-import {MemoryRouter} from 'react-router-dom';
-import {Preview} from '../App.jsx';
-import {Nav} from '../Nav.jsx';
-import { CentralLimitGraph,
-    createHistogramArray,
-    forceNumber, getDomain } from '../CentralLimitGraph';
+import { MemoryRouter } from 'react-router-dom';
+import { Preview } from '../App.jsx';
+import { Nav } from '../Nav.jsx';
+import { CentralLimitGraph } from '../central_limit_theorem/CentralLimitGraph';
+import { forceNumber, createHistogramArray, getDomain,
+    getHistogramMaxima, interpolateHistogram } from '../utils.js';
 
 configure({adapter: new Adapter()});
 

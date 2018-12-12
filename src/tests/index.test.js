@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import {MemoryRouter} from 'react-router-dom';
 import {Preview} from '../App.jsx';
 import {Nav} from '../Nav.jsx';
-import { CentralLimitGraph } from '../CentralLimitGraph';
+import { CentralLimitGraph } from '../central_limit_theorem/CentralLimitGraph';
 
 test('Nav elements render as expected', () => {
     const component = renderer.create(
