@@ -400,3 +400,48 @@ test('That the domain is correctly calculated', () => {
     ]);
     expect(domain).toEqual([-4, 4]);
 });
+
+describe('Check that the CentralLimitGraph conditionally renders components.', () => {
+    test('That the population graph is not rendered on load.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+        expect(clg.state('populationGraphData')).toEqual(null);
+        expect(wrapper.exists('PopulationGraph')).toEqual(false);
+
+    });
+    test('That the population graph is rendered when the button is clicked.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        expect(wrapper.exists('PopulationGraph')).toEqual(false);
+
+        let clg = wrapper.find('CentralLimitGraph');
+        clg.find('#generate-population').simulate('click');
+        expect(wrapper.exists('PopulationGraph')).toEqual(true);
+        expect(wrapper.exists('SampleForm')).toEqual(true);
+    });
+    test('That the sample means graph is rendered when a sampling is run.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        // First generate the population
+        let clg = wrapper.find('CentralLimitGraph');
+        clg.find('#generate-population').simulate('click');
+        expect(wrapper.exists('PopulationGraph')).toEqual(true);
+        expect(wrapper.exists('SampleForm')).toEqual(true);
+        // Then sample it and check the graph is rendered
+        wrapper.find('#run-sample').simulate('click');
+        expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
+    });
+});
