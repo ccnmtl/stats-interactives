@@ -1,116 +1,19 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-    VictoryChart, VictoryTheme, VictoryBar,
-    VictoryScatter, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
-import {Nav} from './Nav.jsx';
+import {
+    createHistogramArray, getDomain,
+    getHistogramMaxima } from '../utils.js';
+import { Nav } from '../Nav.jsx';
+import { PopulationGraph } from './PopulationGraph';
+import { SampleMeansGraph } from './SampleMeansGraph';
+import { PopulationForm } from './PopulationForm';
+import { SampleForm } from './SampleForm';
+import { SampleRangeSlider } from './SampleRangeSlider';
+
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
 
-export const forceNumber = function(n) {
-    n = Number(n);
-    if (isNaN(n) || typeof n === 'undefined') {
-        n = 0;
-    }
-    return n;
-};
-
-export const createHistogramArray = (dist) => {
-    let xSet = new Set(dist);
-
-    // Build an array: [[val, 0], ...]
-    // where 0 is an initial value for some val's frquency
-    const setRedux = (acc, val) => {
-        acc.push([val[0], 0]);
-        return acc;
-    };
-
-    let xSetList = [...xSet.entries()].reduce(setRedux, new Array(0));
-
-    const redux = (acc, val) => {
-        // findVal needs to be declared each time to
-        // create a closure with val
-        let findVal = (el) => el[0] == val;
-        let idx = acc.findIndex(findVal);
-        // When an index is found, increase its frequency by one
-        if (idx > -1) {
-            acc[idx][1] += 1;
-        }
-        return acc;
-    };
-
-    return dist.reduce(redux, xSetList);
-};
-
-export const getDomain = (hist) => {
-    let domain = hist.map((e) => e[0]);
-    return [
-        Math.min(...domain),
-        Math.max(...domain)];
-};
-
-const getHistogramMaxima = (hist) => {
-    return Math.max(...hist.map((e) => e[1]));
-};
-
-const interpolateHistogram = (hist) => {
-    // The function fills in data with values less than the
-    // original histogram value.
-    return hist.reduce((acc, e) => {
-        // [val, int]
-        acc.push(e);
-        if (e[1] > 1) {
-            math.range(1, e[1]).map((i) => {
-                acc.push([e[0], i]);
-            });
-        }
-        return acc;
-    }, []);
-};
-
-const PopulationGraph  = ({populationGraphData, samplesGraphData, domain}) => {
-    let populationMax = getHistogramMaxima(populationGraphData);
-    let samplesMax = samplesGraphData ?
-        getHistogramMaxima(samplesGraphData) : null;
-    return (
-        <>
-        <VictoryChart theme={VictoryTheme.material}
-            domain={{x: domain}}
-            height={200}>
-            <VictoryBar data={populationGraphData}
-                x={0}
-                y={(datum) => datum[1] / populationMax}/>
-            {samplesGraphData &&
-                <VictoryScatter data={interpolateHistogram(samplesGraphData)}
-                    style={{ data: { fill: 'red' } }}
-                    x={0}
-                    y={(datum) => (datum[1] / samplesMax) * 0.75}/>
-            }
-            <VictoryAxis />
-        </VictoryChart>
-        </>
-    );
-};
-
-const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
-    return (
-        <>
-        <VictoryChart theme={VictoryTheme.material}
-            domain={{x: domain, y: range}}
-            height={200}>
-            { sampleMeansGraphData &&
-                <VictoryBar data={sampleMeansGraphData}
-                    x={0}
-                    y={1}/>
-            }
-            <VictoryAxis />
-        </VictoryChart>
-        </>
-    );
-};
-
-const DISTRIBUTION_TYPE = [
+export const DISTRIBUTION_TYPE = [
     {
         value: 'normal',
         display: 'Normal',
@@ -133,190 +36,6 @@ const DISTRIBUTION_TYPE = [
     },
 ];
 
-const PopulationForm  = (
-    {seed, populationSize, mean, stdDev, distType, embed,
-        sampleSize, handleChange, handleGeneratePopulation}) => {
-    const handleFormChange = (e) => {
-        let numericFields = ['populationSize', 'mean', 'stdDev'];
-        if (numericFields.includes(e.target.id)) {
-            handleChange(e.target.id, forceNumber(e.target.value));
-        } else {
-            handleChange(e.target.id, e.target.value);
-        }
-    };
-    const handleGenPop = (e) => {
-        e.preventDefault();
-        handleGeneratePopulation();
-    };
-    return (
-        <>
-        <form onClick={handleGenPop}>
-            <fieldset>
-                <legend>Step 1: Population Parameters</legend>
-                { !embed &&
-                    <div className="form-row">
-                        <div className="form-group col-md-4">
-                            <label htmlFor="seed" className="float-right">
-                                Seed: </label>
-                        </div>
-                        <div className="form-group col-md-8">
-                            <input type="text"
-                                id="seed"
-                                value={seed}
-                                onChange={handleFormChange}/>
-                        </div>
-                    </div> }
-                { !embed &&
-                    <div className="form-row">
-                        <div className="form-group col-md-4">
-                            <label htmlFor="populationSize"
-                                className="float-right">
-                                Population Size: </label>
-                        </div>
-                        <div className="form-group col-md-8">
-                            <input type="number"
-                                id="populationSize"
-                                value={populationSize}
-                                onChange={handleFormChange}/>
-                        </div>
-                    </div> }
-                <div className="form-row">
-                    <div className="form-group col-md-4">
-                        <label htmlFor="distType"
-                            className="float-right">
-                            Distribution Type: </label>
-                    </div>
-                    <div className="form-group col-md-8">
-                        <select id="distType"
-                            onChange={handleFormChange}
-                            value={distType}>
-                            { DISTRIBUTION_TYPE.map(
-                                (e) => (<option key={e.value} value={e.value}>
-                                    {e.display}</option>)) }
-                        </select>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-4">
-                        <label htmlFor="mean"
-                            className="float-right">Mean:</label>
-                    </div>
-                    <div className="form-group col-md-8">
-                        <input type="number"
-                            id="mean"
-                            min="-10"
-                            max="10"
-                            value={mean}
-                            onChange={handleFormChange}/>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-4">
-                        <label htmlFor="stdDev"
-                            className="float-right">StdDev: </label>
-                    </div>
-                    <div className="form-group col-md-8">
-                        <input type="number"
-                            id="stdDev"
-                            min="-6"
-                            max="6"
-                            value={stdDev}
-                            onChange={handleFormChange}/>
-                    </div>
-                </div>
-                <div className="form-row float-right">
-                    <input className="btn btn-primary"
-                        id="generate-population"
-                        type="submit"
-                        value="Generate Population"/>
-                </div>
-            </fieldset>
-        </form>
-        </>
-    );
-};
-
-const SampleForm = ({
-    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    enableSampleSlider, handleSampleMeansIdx}) => {
-
-    const handleFormChange = (e) => {
-        handleChange(e.target.id, e.target.value);
-    };
-
-    const handleRunSample = (e) => {
-        e.preventDefault();
-        runSample();
-    };
-
-    return (
-        <>
-        <form onClick={handleRunSample} >
-            <fieldset>
-                <legend>Step 2: Set the Sample Parameters</legend>
-                <div className="form-row">
-                    <div className="form-group col-md-4">
-                        <label htmlFor="sampleSize"
-                            className="float-right">Sample Size: </label>
-                    </div>
-                    <div className="form-group col-md-8">
-                        <input type="number"
-                            id="sampleSize"
-                            min="1"
-                            max="1000"
-                            value={sampleSize}
-                            onChange={handleFormChange}/>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-4">
-                        <label htmlFor="numberOfSamples"
-                            className="float-right">Number of samples:</label>
-                    </div>
-                    <div className="form-group col-md-8">
-                        <input type="number"
-                            id="numberOfSamples"
-                            min="1"
-                            value={numberOfSamples}
-                            onChange={handleFormChange}/>
-                    </div>
-                </div>
-                <div className="form-row float-right">
-                    <input className="btn btn-primary"
-                        id="run-sample"
-                        type="submit"
-                        value="Run Sample"/>
-                </div>
-            </fieldset>
-        </form>
-        </>
-    );
-};
-const SampleRangeSlider = ({enableSampleSlider, numberOfSamples,
-    sampleMeansIdx, handleSampleMeansIdx, runSample}) => {
-    const handleSampleMeans = (e) => {
-        e.preventDefault();
-        handleSampleMeansIdx(forceNumber(e.target.value));
-    };
-    return (
-        <>
-        <form>
-            <fieldset>
-                <legend>Step 3: Observe the changes among samples</legend>
-                <div>
-                    <input type="range"
-                        id="sample-slider"
-                        disabled={ enableSampleSlider ? false : true}
-                        min="1"
-                        max={numberOfSamples}
-                        value={sampleMeansIdx}
-                        onChange={handleSampleMeans} />
-                </div>
-            </fieldset>
-        </form>
-        </>
-    );
-};
 export class CentralLimitGraph extends Component {
     constructor(props) {
         super(props);
@@ -402,6 +121,7 @@ export class CentralLimitGraph extends Component {
         this.setState({
             population: population,
             populationGraphData: populationGraphData,
+            domain: getDomain(populationGraphData),
         });
     }
     generatePopulation() {
@@ -614,42 +334,3 @@ export class CentralLimitGraph extends Component {
         );
     }
 }
-
-PopulationGraph.propTypes = {
-    populationGraphData: PropTypes.array,
-    samplesGraphData: PropTypes.array,
-    domain: PropTypes.array,
-};
-
-SampleMeansGraph.propTypes = {
-    domain: PropTypes.array,
-    range: PropTypes.array,
-    sampleMeansGraphData: PropTypes.array,
-};
-
-PopulationForm.propTypes = {
-    seed: PropTypes.string,
-    populationSize: PropTypes.number,
-    mean: PropTypes.number,
-    stdDev: PropTypes.number,
-    distType: PropTypes.string,
-    embed: PropTypes.bool,
-    handleChange: PropTypes.func,
-};
-
-SampleForm.propTypes = {
-    sampleSize: PropTypes.number,
-    numberOfSamples: PropTypes.number,
-    handleChange: PropTypes.func,
-    runSample: PropTypes.func,
-    sampleMeansIdx: PropTypes.number,
-    enableSampleSlider: PropTypes.bool,
-    handleSampleMeansIdx: PropTypes.func,
-};
-
-SampleRangeSlider.propTypes = {
-    enableSampleSlider: PropTypes.bool,
-    numberOfSamples: PropTypes.number,
-    sampleMeansIdx: PropTypes.number,
-    handleSampleMeansIdx: PropTypes.func,
-};

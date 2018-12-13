@@ -1,7 +1,7 @@
 /*eslint max-len: ["error", { "ignoreStrings": true }]*/
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CentralLimitGraph } from './CentralLimitGraph';
+import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export const App = () => (
