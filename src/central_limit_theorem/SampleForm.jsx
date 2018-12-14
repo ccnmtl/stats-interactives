@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    enableSampleSlider, handleSampleMeansIdx, handleResetPopulation,
-    showSampleBtn}) => {
+    handleSampleMeansIdx, handleResetPopulation, showSampleBtn}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, e.target.value);

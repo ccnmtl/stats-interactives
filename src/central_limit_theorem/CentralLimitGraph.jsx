@@ -106,7 +106,6 @@ export class CentralLimitGraph extends Component {
             sampleMeans: null,
             sampleMeansIdx: 1,
             sampleMeansGraphData: null,
-            enableSampleSlider: false,
             domain: [-6, 6],
             sampleMeansRange: [0, 1],
             embed: (() => {
@@ -241,7 +240,6 @@ export class CentralLimitGraph extends Component {
                 getHistogramMaxima(createHistogramArray(sampleMeans))
             ],
             sampleMeansIdx: 1,
-            enableSampleSlider: true,
             samplesGraphData: createHistogramArray(samples[1]),
             sampleMeansGraphData: sampleMeans.slice(0, 1)
         });
@@ -268,7 +266,6 @@ export class CentralLimitGraph extends Component {
             sampleMeans: null,
             sampleMeansRange: null,
             sampleMeansIdx: 1,
-            enableSampleSlider: false,
             samplesGraphData: null,
             sampleMeansGraphData: null
         });
@@ -329,8 +326,6 @@ export class CentralLimitGraph extends Component {
                                 handleChange={this.handleChange}
                                 runSample={this.runSample}
                                 sampleMeansIdx={this.state.sampleMeansIdx}
-                                enableSampleSlider={
-                                    this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
                                     this.handleSampleMeansIdx}
                                 handleResetPopulation={
@@ -361,8 +356,6 @@ export class CentralLimitGraph extends Component {
                             <SampleRangeSlider
                                 numberOfSamples={this.state.numberOfSamples}
                                 sampleMeansIdx={this.state.sampleMeansIdx}
-                                enableSampleSlider={
-                                    this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
                                     this.handleSampleMeansIdx}
                                 handleResetSamples={
