@@ -12,7 +12,6 @@ export const SampleRangeSlider = ({enableSampleSlider, numberOfSamples,
         <>
         <form>
             <fieldset>
-                <legend>Step 3: Observe the changes among samples</legend>
                 <div>
                     <input type="range"
                         id="sample-slider"
