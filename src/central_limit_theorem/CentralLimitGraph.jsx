@@ -8,6 +8,7 @@ import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
+import { SampleRangeSliderForm } from './SampleRangeSliderForm';
 import { SampleRangeSlider } from './SampleRangeSlider';
 
 var seedrandom = require('seedrandom');
@@ -44,9 +45,12 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.handleGeneratePopulation = this.handleGeneratePopulation
             .bind(this);
+        this.handleResetPopulation = this.handleResetPopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
         this.handleSamplesIdx = this.handleSamplesIdx.bind(this);
+        this.handleResetSamples = this.handleResetSamples.bind(this);
+        this.handleResetSimulation = this.handleResetSimulation.bind(this);
 
         let params = new URLSearchParams(location.search);
         let seed = '';
@@ -122,6 +126,13 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             domain: getDomain(populationGraphData),
+        });
+    }
+    handleResetPopulation() {
+        this.setState({
+            population: null,
+            populationGraphData: null,
+            domain: null
         });
     }
     generatePopulation() {
@@ -251,6 +262,21 @@ export class CentralLimitGraph extends Component {
             samplesGraphData: createHistogramArray(this.state.samples[idx - 1]),
         });
     }
+    handleResetSamples() {
+        this.setState({
+            samples: null,
+            sampleMeans: null,
+            sampleMeansRange: null,
+            sampleMeansIdx: 1,
+            enableSampleSlider: false,
+            samplesGraphData: null,
+            sampleMeansGraphData: null
+        });
+    }
+    handleResetSimulation() {
+        this.handleResetSamples();
+        this.handleResetPopulation();
+    }
     componentDidUpdate() {
         let params = new URLSearchParams(location.search);
         params.set('seed', this.state.seed);
@@ -269,7 +295,7 @@ export class CentralLimitGraph extends Component {
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
-                    <div className='col-md-6'>
+                    <div className='col-md-4'>
                         <PopulationForm seed={this.state.seed}
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
@@ -279,9 +305,11 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             handleGeneratePopulation={
                                 this.handleGeneratePopulation}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            showPopBtn={this.state.populationGraphData ?
+                                false : true}/>
                     </div>
-                    <div className='col-md-6'>
+                    <div className='col-md-8'>
                         { this.state.populationGraphData && (
                             <PopulationGraph
                                 populationGraphData={
@@ -294,7 +322,7 @@ export class CentralLimitGraph extends Component {
                 </div>
                 { this.state.populationGraphData && (
                     <div className='row'>
-                        <div className='col-md-6'>
+                        <div className='col-md-4'>
                             <SampleForm
                                 sampleSize={this.state.sampleSize}
                                 numberOfSamples={this.state.numberOfSamples}
@@ -304,9 +332,14 @@ export class CentralLimitGraph extends Component {
                                 enableSampleSlider={
                                     this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
-                                    this.handleSampleMeansIdx} />
+                                    this.handleSampleMeansIdx}
+                                handleResetPopulation={
+                                    this.handleResetPopulation}
+                                showSampleBtn={
+                                    this.state.sampleMeansGraphData ?
+                                        false : true}/>
                         </div>
-                        <div className='col-md-6'>
+                        <div className='col-md-8'>
                             { this.state.sampleMeansGraphData && (
                                 <SampleMeansGraph
                                     domain={this.state.domain}
@@ -317,18 +350,25 @@ export class CentralLimitGraph extends Component {
                                             .sampleMeansGraphData}/>)}
                         </div>
                     </div>)}
-                <div className='row'>
-                    <div className='col-md-6'>
-                        {  this.state.samplesGraphData && (
+                {  this.state.samplesGraphData && (
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <SampleRangeSliderForm
+                                handleResetSimulation={
+                                    this.handleResetSimulation}/>
+                        </div>
+                        <div className='col-md-8'>
                             <SampleRangeSlider
                                 numberOfSamples={this.state.numberOfSamples}
                                 sampleMeansIdx={this.state.sampleMeansIdx}
                                 enableSampleSlider={
                                     this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
-                                    this.handleSampleMeansIdx} />)}
-                    </div>
-                </div>
+                                    this.handleSampleMeansIdx}
+                                handleResetSamples={
+                                    this.handleResetSamples}/>
+                        </div>
+                    </div>)}
             </div>
             </>
         );

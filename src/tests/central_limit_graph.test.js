@@ -423,8 +423,7 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         );
         expect(wrapper.exists('PopulationGraph')).toEqual(false);
 
-        let clg = wrapper.find('CentralLimitGraph');
-        clg.find('#generate-population').simulate('click');
+        wrapper.find('#generate-population').simulate('submit');
         expect(wrapper.exists('PopulationGraph')).toEqual(true);
         expect(wrapper.exists('SampleForm')).toEqual(true);
     });
@@ -436,12 +435,59 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         // First generate the population
-        let clg = wrapper.find('CentralLimitGraph');
-        clg.find('#generate-population').simulate('click');
+        wrapper.find('#generate-population').simulate('submit');
         expect(wrapper.exists('PopulationGraph')).toEqual(true);
         expect(wrapper.exists('SampleForm')).toEqual(true);
         // Then sample it and check the graph is rendered
-        wrapper.find('#run-sample').simulate('click');
+        wrapper.find('#run-sample').simulate('submit');
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
+        expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
+        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
+    });
+    test('That the Generate Population button is hidden after generating population', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        // First check that no other buttons are present
+        expect(wrapper.exists('#reset-population')).toEqual(false);
+        expect(wrapper.exists('#run-sample')).toEqual(false);
+        expect(wrapper.exists('#reset-simulation')).toEqual(false);
+
+        // Next generate the population
+        wrapper.find('#generate-population').simulate('submit');
+        expect(wrapper.exists('PopulationGraph')).toEqual(true);
+        expect(wrapper.exists('SampleForm')).toEqual(true);
+
+        // Now check that the button is no longer present
+        expect(wrapper.exists('#generatePopulation')).toEqual(false);
+
+        // Check that the Run Sample button is present after population is generated
+        expect(wrapper.exists('#reset-population')).toEqual(true);
+        expect(wrapper.exists('#run-sample')).toEqual(true);
+
+        // Roll it back, reset the population form
+        wrapper.find('#reset-population').simulate('click');
+        expect(wrapper.exists('#generate-population')).toEqual(true);
+    });
+    test('That the Reset Simulation button correctly resets the interactive', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        // Generate the population and sample
+        wrapper.find('#generate-population').simulate('submit');
+        wrapper.find('#run-sample').simulate('submit');
+
+        // Check that the reset button is present after getting the
+        // population and sample.
+        expect(wrapper.exists('#reset-simulation')).toEqual(true);
+
+        // Check that the page resets itself
+        wrapper.find('#reset-simulation').simulate('submit');
     });
 });
