@@ -10,9 +10,21 @@ export const SampleRangeSlider = ({numberOfSamples,
     };
     return (
         <>
-        <form>
+        <form className="sample-range-slider">
             <fieldset>
-                <div>
+                <div className="form-row">
+                    <div className="form-group col-xs-3">
+                        <label htmlFor="sampleIdx">Sample Size: </label>
+                        <input type="number"
+                            id="sampleIdx"
+                            min="1"
+                            max={numberOfSamples}
+                            value={sampleMeansIdx}
+                            onChange={handleSampleMeans}/>
+                        of {numberOfSamples}
+                    </div>
+                </div>
+                <div className="form-group col-xs-9">
                     <input type="range"
                         id="sample-slider"
                         min="1"
