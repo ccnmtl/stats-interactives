@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
     VictoryScatter, VictoryAxis } from 'victory';
-import { getHistogramMaxima, interpolateHistogram } from '../utils.js';
+import { getHistogramMaxima } from '../utils.js';
 
 export const PopulationGraph  = (
-    {populationGraphData, samplesGraphData, domain}) => {
+    {populationGraphData, samplesGraphData, samplesMax,
+        observationIdx, observationData, domain}) => {
     let populationMax = getHistogramMaxima(populationGraphData);
-    let samplesMax = samplesGraphData ?
-        getHistogramMaxima(samplesGraphData) : null;
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
@@ -19,10 +18,16 @@ export const PopulationGraph  = (
                 x={0}
                 y={(datum) => datum[1] / populationMax}/>
             {samplesGraphData &&
-                <VictoryScatter data={interpolateHistogram(samplesGraphData)}
+                <VictoryScatter data={samplesGraphData}
                     style={{ data: { fill: 'red' } }}
                     x={0}
-                    y={(datum) => (datum[1] / samplesMax) * 0.75}/>
+                    y={(datum) => (datum[1] / samplesMax)}/>
+            }
+            {observationData &&
+                <VictoryScatter data={observationData}
+                    style={{ data: { fill: 'blue' } }}
+                    x={0}
+                    y={(datum) => (datum[1] / samplesMax)}/>
             }
             <VictoryAxis />
         </VictoryChart>
@@ -33,6 +38,9 @@ export const PopulationGraph  = (
 PopulationGraph.propTypes = {
     populationGraphData: PropTypes.array,
     samplesGraphData: PropTypes.array,
+    samplesMax: PropTypes.number,
+    observationIdx: PropTypes.number,
+    observationData: PropTypes.array,
     domain: PropTypes.array,
 };
 
