@@ -1,0 +1,17 @@
+* { font-family: 'Roboto', sans-serif; }
+
+h1 {
+	font-family: 'Roboto Condensed', sans-serif;
+	text-transform: uppercase;
+}
+
+h2 {
+    a {
+        color: rgba(2, 33, 105, 1);
+
+        &:hover {
+            color: rgba(08, 172, 228, 1);
+            text-decoration: none;
+        }
+    }
+}
