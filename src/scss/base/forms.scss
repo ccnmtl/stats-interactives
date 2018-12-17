@@ -1,0 +1,24 @@
+.btn-primary {
+	//background-color: rgba(2, 33, 105, 1);
+	border: 0;
+	border-radius: 0;
+}
+
+.btn-primary:hover {
+	//background-color: rgba(108, 172, 228, 1);
+	border: 0;
+	border-radius: 0;
+}
+
+fieldset {
+	padding: 1em;
+	background-color: rgba(159, 190, 211, .5);
+	margin-top: 1em;
+}
+
+legend {
+	padding-left: .5em;
+	background-color: rgba(118, 173, 204, 1);
+	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
+}

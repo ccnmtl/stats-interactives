@@ -311,7 +311,7 @@ export class CentralLimitGraph extends Component {
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-4'>
                         <PopulationForm seed={this.state.seed}
                             populationSize={this.state.populationSize}
                             mean={this.state.mean}
@@ -325,7 +325,7 @@ export class CentralLimitGraph extends Component {
                             showPopBtn={this.state.populationGraphData ?
                                 false : true}/>
                     </div>
-                    <div className='col-md-8'>
+                    <div className='col-8'>
                         { this.state.populationGraphData && (
                             <PopulationGraph
                                 populationGraphData={
@@ -341,7 +341,7 @@ export class CentralLimitGraph extends Component {
                 </div>
                 { this.state.populationGraphData && (
                     <div className='row'>
-                        <div className='col-md-4'>
+                        <div className='col-4'>
                             <SampleForm
                                 sampleSize={this.state.sampleSize}
                                 numberOfSamples={this.state.numberOfSamples}
@@ -356,7 +356,7 @@ export class CentralLimitGraph extends Component {
                                     this.state.sampleMeansGraphData ?
                                         false : true}/>
                         </div>
-                        <div className='col-md-8'>
+                        <div className='col-8'>
                             { this.state.sampleMeansGraphData && (
                                 <SampleMeansGraph
                                     domain={this.state.domain}
@@ -369,12 +369,12 @@ export class CentralLimitGraph extends Component {
                     </div>)}
                 {  this.state.samplesGraphData && (
                     <div className='row'>
-                        <div className='col-md-4'>
+                        <div className='col-4'>
                             <SampleRangeSliderForm
                                 handleResetSimulation={
                                     this.handleResetSimulation}/>
                         </div>
-                        <div className='col-md-8'>
+                        <div className='col-8'>
                             <SampleRangeSlider
                                 numberOfSamples={this.state.numberOfSamples}
                                 sampleMeansIdx={this.state.sampleMeansIdx}

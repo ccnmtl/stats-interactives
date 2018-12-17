@@ -1,0 +1,24 @@
+.shim-top { margin-top: 2em; }
+
+.jumbotron {
+	background-color: rgba(41,147,192,1);
+	color: white;
+	border-radius: 0;
+	background-image: url("../images/iStock-832632796.png");
+	background-position: center center;
+}
+
+.navbar {
+	background-color: rgba(41,147,192,1);
+	color: white;
+	border-radius: 0;
+	margin-bottom: 1em;
+	background-image: url("../images/iStock-832632796.png");
+	background-position: center center;
+}
+
+a.navbar-brand {
+	font-family: 'Roboto Condensed', sans-serif;
+	text-transform: uppercase;
+	color: white;
+}

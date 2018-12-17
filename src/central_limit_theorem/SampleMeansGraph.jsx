@@ -8,8 +8,8 @@ export const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            domain={{x: domain, y: range}}
-            height={125}>
+            padding={{top: 0, left: 0, right: 0, bottom: 25}}
+            domain={{x: domain, y: range}}>
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     x={0}
