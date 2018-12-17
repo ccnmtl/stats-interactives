@@ -12,8 +12,8 @@ export const PopulationGraph  = (
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            domain={{x: domain}}
-            height={175}>
+            padding={{top: 0, left: 0, right: 0, bottom: 25}}
+            domain={{x: domain}}>
             <VictoryBar data={populationGraphData}
                 x={0}
                 y={(datum) => datum[1] / populationMax}/>
