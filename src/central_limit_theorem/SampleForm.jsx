@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { forceNumber } from '../utils';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    enableSampleSlider, handleSampleMeansIdx, handleResetPopulation,
-    showSampleBtn}) => {
+    handleSampleMeansIdx, handleResetPopulation, showSampleBtn}) => {
 
     const handleFormChange = (e) => {
-        handleChange(e.target.id, e.target.value);
+        handleChange(e.target.id, forceNumber(e.target.value));
     };
 
     const handleRunSample = (e) => {

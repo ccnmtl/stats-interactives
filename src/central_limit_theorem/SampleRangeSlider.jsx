@@ -2,24 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
 
-export const SampleRangeSlider = ({enableSampleSlider, numberOfSamples,
-    sampleMeansIdx, handleSampleMeansIdx, runSample}) => {
+export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
+    handleSampleMeansIdx, sampleSize, observationIdx, observationData,
+    handleObservationIdx}) => {
     const handleSampleMeans = (e) => {
         e.preventDefault();
         handleSampleMeansIdx(forceNumber(e.target.value));
     };
+    const handleObsIdx = (e) => {
+        e.preventDefault();
+        handleObservationIdx(forceNumber(e.target.value));
+    };
     return (
         <>
-        <form>
+        <form className="sample-range-slider">
             <fieldset>
-                <div>
+                <div className="form-row">
+                    <div className="form-group col-xs-3">
+                        <label htmlFor="sampleIdx">Sample Size: </label>
+                        <input type="number"
+                            id="sampleIdx"
+                            min="1"
+                            max={numberOfSamples}
+                            value={sampleMeansIdx}
+                            onChange={handleSampleMeans}/>
+                        of {numberOfSamples}
+                    </div>
+                </div>
+                <div className="form-group col-xs-9">
                     <input type="range"
                         id="sample-slider"
-                        disabled={ enableSampleSlider ? false : true}
                         min="1"
                         max={numberOfSamples}
                         value={sampleMeansIdx}
                         onChange={handleSampleMeans} />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-row">
+                    <div className="form-group col-xs-3">
+                        <label htmlFor="sampleIdx">Current Sample: </label>
+                        <input type="number"
+                            id="sampleIdx"
+                            min="1"
+                            max={sampleSize}
+                            value={observationIdx}
+                            onChange={handleObsIdx}/>
+                        of {sampleSize}. Current value: {observationData[0][0]}
+                    </div>
+                </div>
+                <div className="form-group col-xs-9">
+                    <input type="range"
+                        id="observation-slider"
+                        min="1"
+                        max={sampleSize}
+                        value={observationIdx}
+                        onChange={handleObsIdx} />
                 </div>
             </fieldset>
         </form>
@@ -28,8 +66,11 @@ export const SampleRangeSlider = ({enableSampleSlider, numberOfSamples,
 };
 
 SampleRangeSlider.propTypes = {
-    enableSampleSlider: PropTypes.bool,
     numberOfSamples: PropTypes.number,
     sampleMeansIdx: PropTypes.number,
     handleSampleMeansIdx: PropTypes.func,
+    sampleSize: PropTypes.number,
+    observationIdx: PropTypes.number,
+    observationData: PropTypes.array,
+    handleObservationIdx: PropTypes.func,
 };

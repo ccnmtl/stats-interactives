@@ -10,6 +10,7 @@ import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
 import { SampleRangeSliderForm } from './SampleRangeSliderForm';
 import { SampleRangeSlider } from './SampleRangeSlider';
+import { interpolateHistogram } from '../utils.js';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -48,7 +49,7 @@ export class CentralLimitGraph extends Component {
         this.handleResetPopulation = this.handleResetPopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
-        this.handleSamplesIdx = this.handleSamplesIdx.bind(this);
+        this.handleObservationIdx = this.handleObservationIdx.bind(this);
         this.handleResetSamples = this.handleResetSamples.bind(this);
         this.handleResetSimulation = this.handleResetSimulation.bind(this);
 
@@ -106,9 +107,10 @@ export class CentralLimitGraph extends Component {
             sampleMeans: null,
             sampleMeansIdx: 1,
             sampleMeansGraphData: null,
-            enableSampleSlider: false,
             domain: [-6, 6],
             sampleMeansRange: [0, 1],
+            observationIdx: null,
+            observationData: null,
             embed: (() => {
                 return params.get('embed') === 'true' ? true : false;
             })(),
@@ -233,6 +235,17 @@ export class CentralLimitGraph extends Component {
             return acc;
         }, []);
 
+        let samplesGraphData = interpolateHistogram(
+            createHistogramArray(samples[0]));
+
+        let samplesMaxFrequency = 0;
+        samples.map((e) => {
+            let max = getHistogramMaxima(createHistogramArray(e));
+            if (max > samplesMaxFrequency) {
+                samplesMaxFrequency = max;
+            }
+        });
+
         this.setState({
             samples: samples,
             sampleMeans: sampleMeans,
@@ -241,25 +254,29 @@ export class CentralLimitGraph extends Component {
                 getHistogramMaxima(createHistogramArray(sampleMeans))
             ],
             sampleMeansIdx: 1,
-            enableSampleSlider: true,
-            samplesGraphData: createHistogramArray(samples[1]),
-            sampleMeansGraphData: sampleMeans.slice(0, 1)
+            samplesGraphData: samplesGraphData,
+            sampleMeansGraphData: sampleMeans.slice(0, 1),
+            samplesMax: samplesMaxFrequency,
+            observationIdx: 1,
+            observationData: [samplesGraphData[0]],
         });
     }
     handleSampleMeansIdx(idx) {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
         let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        let samplesGraphData = interpolateHistogram(
+            createHistogramArray(this.state.samples[idx - 1]));
         this.setState({
             sampleMeansIdx: idx,
             sampleMeansGraphData: currentSampleMeansData,
-            samplesGraphData: createHistogramArray(this.state.samples[idx - 1])
+            samplesGraphData: samplesGraphData,
+            observationData: [samplesGraphData[this.state.observationIdx -1]],
         });
     }
-    handleSamplesIdx(idx) {
-        // This is the for individual sample slider
+    handleObservationIdx(idx) {
         this.setState({
-            samplesIdx: idx,
-            samplesGraphData: createHistogramArray(this.state.samples[idx - 1]),
+            observationIdx: idx,
+            observationData: [this.state.samplesGraphData[idx - 1]]
         });
     }
     handleResetSamples() {
@@ -268,7 +285,6 @@ export class CentralLimitGraph extends Component {
             sampleMeans: null,
             sampleMeansRange: null,
             sampleMeansIdx: 1,
-            enableSampleSlider: false,
             samplesGraphData: null,
             sampleMeansGraphData: null
         });
@@ -316,6 +332,9 @@ export class CentralLimitGraph extends Component {
                                     this.state.populationGraphData}
                                 samplesGraphData={
                                     this.state.samplesGraphData}
+                                samplesMax={this.state.samplesMax}
+                                observationIdx={this.state.observationIdx}
+                                observationData={this.state.observationData}
                                 domain={this.state.domain}
                             />)}
                     </div>
@@ -329,8 +348,6 @@ export class CentralLimitGraph extends Component {
                                 handleChange={this.handleChange}
                                 runSample={this.runSample}
                                 sampleMeansIdx={this.state.sampleMeansIdx}
-                                enableSampleSlider={
-                                    this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
                                     this.handleSampleMeansIdx}
                                 handleResetPopulation={
@@ -361,10 +378,12 @@ export class CentralLimitGraph extends Component {
                             <SampleRangeSlider
                                 numberOfSamples={this.state.numberOfSamples}
                                 sampleMeansIdx={this.state.sampleMeansIdx}
-                                enableSampleSlider={
-                                    this.state.enableSampleSlider}
                                 handleSampleMeansIdx={
                                     this.handleSampleMeansIdx}
+                                sampleSize={this.state.sampleSize}
+                                observationIdx={this.state.observationIdx}
+                                observationData={this.state.observationData}
+                                handleObservationIdx={this.handleObservationIdx}
                                 handleResetSamples={
                                     this.handleResetSamples}/>
                         </div>
