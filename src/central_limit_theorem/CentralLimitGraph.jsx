@@ -138,6 +138,7 @@ export class CentralLimitGraph extends Component {
         });
     }
     generatePopulation() {
+        this.handleResetSamples();
         let size = this.state.populationSize;
         let mean = this.state.mean;
         let stdDev = this.state.stdDev;
@@ -286,7 +287,9 @@ export class CentralLimitGraph extends Component {
             sampleMeansRange: null,
             sampleMeansIdx: 1,
             samplesGraphData: null,
-            sampleMeansGraphData: null
+            sampleMeansGraphData: null,
+            observationIdx: null,
+            observationData: null,
         });
     }
     handleResetSimulation() {
@@ -325,55 +328,49 @@ export class CentralLimitGraph extends Component {
                             showPopBtn={this.state.populationGraphData ?
                                 false : true}/>
                     </div>
-                    <div className='col-8'>
-                        { this.state.populationGraphData && (
-                            <PopulationGraph
-                                populationGraphData={
-                                    this.state.populationGraphData}
-                                samplesGraphData={
-                                    this.state.samplesGraphData}
-                                samplesMax={this.state.samplesMax}
-                                observationIdx={this.state.observationIdx}
-                                observationData={this.state.observationData}
-                                domain={this.state.domain}
-                            />)}
+                    <div className='col-8' style={{maxHeight: '320px'}}>
+                        <PopulationGraph
+                            populationGraphData={
+                                this.state.populationGraphData}
+                            samplesGraphData={
+                                this.state.samplesGraphData}
+                            samplesMax={this.state.samplesMax}
+                            observationIdx={this.state.observationIdx}
+                            observationData={this.state.observationData}
+                            domain={this.state.domain}/>
                     </div>
                 </div>
-                { this.state.populationGraphData && (
-                    <div className='row'>
-                        <div className='col-4'>
-                            <SampleForm
-                                sampleSize={this.state.sampleSize}
-                                numberOfSamples={this.state.numberOfSamples}
-                                handleChange={this.handleChange}
-                                runSample={this.runSample}
-                                sampleMeansIdx={this.state.sampleMeansIdx}
-                                handleSampleMeansIdx={
-                                    this.handleSampleMeansIdx}
-                                handleResetPopulation={
-                                    this.handleResetPopulation}
-                                showSampleBtn={
-                                    this.state.sampleMeansGraphData ?
-                                        false : true}/>
-                        </div>
-                        <div className='col-8'>
-                            { this.state.sampleMeansGraphData && (
-                                <SampleMeansGraph
-                                    domain={this.state.domain}
-                                    range={
-                                        this.state.sampleMeansRange}
-                                    sampleMeansGraphData={
-                                        this.state
-                                            .sampleMeansGraphData}/>)}
-                        </div>
-                    </div>)}
-                {  this.state.samplesGraphData && (
-                    <div className='row'>
-                        <div className='col-4'>
-                            <SampleRangeSliderForm
-                                handleResetSimulation={
-                                    this.handleResetSimulation}/>
-                        </div>
+                <div className='row'>
+                    <div className='col-4'>
+                        <SampleForm
+                            sampleSize={this.state.sampleSize}
+                            numberOfSamples={this.state.numberOfSamples}
+                            handleChange={this.handleChange}
+                            runSample={this.runSample}
+                            sampleMeansIdx={this.state.sampleMeansIdx}
+                            handleSampleMeansIdx={
+                                this.handleSampleMeansIdx}
+                            showSampleBtn={
+                                this.state.populationGraphData ?
+                                    false : true}/>
+                    </div>
+                    <div className='col-8' style={{maxHeight: '320px'}}>
+                        <SampleMeansGraph
+                            domain={this.state.domain}
+                            range={
+                                this.state.sampleMeansRange}
+                            sampleMeansGraphData={
+                                this.state
+                                    .sampleMeansGraphData}/>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-4'>
+                        <SampleRangeSliderForm
+                            handleResetSimulation={
+                                this.handleResetSimulation}/>
+                    </div>
+                    {  this.state.samplesGraphData && (
                         <div className='col-8'>
                             <SampleRangeSlider
                                 numberOfSamples={this.state.numberOfSamples}
@@ -386,8 +383,8 @@ export class CentralLimitGraph extends Component {
                                 handleObservationIdx={this.handleObservationIdx}
                                 handleResetSamples={
                                     this.handleResetSamples}/>
-                        </div>
-                    </div>)}
+                        </div>)}
+                </div>
             </div>
             </>
         );

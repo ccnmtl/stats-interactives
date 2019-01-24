@@ -8,15 +8,19 @@ import { getHistogramMaxima } from '../utils.js';
 export const PopulationGraph  = (
     {populationGraphData, samplesGraphData, samplesMax,
         observationIdx, observationData, domain}) => {
-    let populationMax = getHistogramMaxima(populationGraphData);
+    let populationMax = 0;
+    if (populationGraphData) {
+        populationMax = getHistogramMaxima(populationGraphData);
+    }
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
-            padding={{top: 0, left: 0, right: 0, bottom: 25}}
+            padding={{top: 0, left: 5, right: 5, bottom: 25}}
             domain={{x: domain}}>
-            <VictoryBar data={populationGraphData}
-                x={0}
-                y={(datum) => datum[1] / populationMax}/>
+            {populationGraphData &&
+                <VictoryBar data={populationGraphData}
+                    x={0}
+                    y={(datum) => datum[1] / populationMax}/> }
             {samplesGraphData &&
                 <VictoryScatter data={samplesGraphData}
                     style={{ data: { fill: 'red' } }}

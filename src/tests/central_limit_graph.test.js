@@ -402,7 +402,7 @@ test('That the domain is correctly calculated', () => {
 });
 
 describe('Check that the CentralLimitGraph conditionally renders components.', () => {
-    test('That the population graph is not rendered on load.', () => {
+    test('That the population graph is rendered but empty on load.', () => {
         window.history.replaceState(null, '', '');
         const wrapper = mount(
             <MemoryRouter>
@@ -411,7 +411,7 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         );
         let clg = wrapper.find('CentralLimitGraph');
         expect(clg.state('populationGraphData')).toEqual(null);
-        expect(wrapper.exists('PopulationGraph')).toEqual(false);
+        expect(wrapper.exists('PopulationGraph')).toEqual(true);
 
     });
     test('That the population graph is rendered when the button is clicked.', () => {
@@ -421,11 +421,11 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
                 <CentralLimitGraph />
             </MemoryRouter>
         );
-        expect(wrapper.exists('PopulationGraph')).toEqual(false);
+        let clg = wrapper.find('CentralLimitGraph');
+        expect(clg.state('populationGraphData')).toEqual(null);
 
         wrapper.find('#generate-population').simulate('submit');
-        expect(wrapper.exists('PopulationGraph')).toEqual(true);
-        expect(wrapper.exists('SampleForm')).toEqual(true);
+        expect(clg.state('populationGraphData')).not.toEqual(null);
     });
     test('That the sample means graph is rendered when a sampling is run.', () => {
         window.history.replaceState(null, '', '');
@@ -444,33 +444,28 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
         expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
     });
-    test('That the Generate Population button is hidden after generating population', () => {
+    test('That generating a new population clears the current samples', () => {
         window.history.replaceState(null, '', '');
         const wrapper = mount(
             <MemoryRouter>
                 <CentralLimitGraph />
             </MemoryRouter>
         );
-        // First check that no other buttons are present
-        expect(wrapper.exists('#reset-population')).toEqual(false);
-        expect(wrapper.exists('#run-sample')).toEqual(false);
-        expect(wrapper.exists('#reset-simulation')).toEqual(false);
-
-        // Next generate the population
+        let clg = wrapper.find('CentralLimitGraph');
+        // First generate the population
         wrapper.find('#generate-population').simulate('submit');
         expect(wrapper.exists('PopulationGraph')).toEqual(true);
         expect(wrapper.exists('SampleForm')).toEqual(true);
-
-        // Now check that the button is no longer present
-        expect(wrapper.exists('#generatePopulation')).toEqual(false);
-
-        // Check that the Run Sample button is present after population is generated
-        expect(wrapper.exists('#reset-population')).toEqual(true);
-        expect(wrapper.exists('#run-sample')).toEqual(true);
-
-        // Roll it back, reset the population form
-        wrapper.find('#reset-population').simulate('click');
-        expect(wrapper.exists('#generate-population')).toEqual(true);
+        // Then sample it and check the graph is rendered
+        wrapper.find('#run-sample').simulate('submit');
+        expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
+        expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
+        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
+        expect(clg.state('sampleMeansGraphData')).not.toEqual(null);
+        // Next generate a new population and assert that sample graph
+        // data is no longer present
+        wrapper.find('#generate-population').simulate('submit');
+        expect(clg.state('sampleMeansGraphData')).toEqual(null);
     });
     test('That the Reset Simulation button correctly resets the interactive', () => {
         window.history.replaceState(null, '', '');
