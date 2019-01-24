@@ -4,7 +4,7 @@ import { forceNumber } from '../utils';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    handleSampleMeansIdx, handleResetPopulation, showSampleBtn}) => {
+    handleSampleMeansIdx, showSampleBtn}) => {
 
     const handleFormChange = (e) => {
         handleChange(e.target.id, forceNumber(e.target.value));
@@ -13,11 +13,6 @@ export const SampleForm = ({
     const handleRunSample = (e) => {
         e.preventDefault();
         runSample();
-    };
-
-    const handleResetPop = (e) => {
-        e.preventDefault();
-        handleResetPopulation();
     };
 
     return (
@@ -36,7 +31,7 @@ export const SampleForm = ({
                             min="1"
                             max="1000"
                             value={sampleSize}
-                            disabled={showSampleBtn ? false : true}
+                            disabled={showSampleBtn ? true : false}
                             onChange={handleFormChange}/>
                     </div>
                 </div>
@@ -50,24 +45,19 @@ export const SampleForm = ({
                             id="numberOfSamples"
                             min="1"
                             value={numberOfSamples}
-                            disabled={showSampleBtn ? false : true}
+                            disabled={showSampleBtn ? true : false}
                             onChange={handleFormChange}/>
                     </div>
                 </div>
-                { showSampleBtn &&
                 <div className="form-row">
                     <div className="form-group offset-md-5 col-md-7">
-                        <button className="btn btn-secondary mr-1"
-                            id="reset-population"
-                            onClick={handleResetPop}>
-                            Reset
-                        </button>
                         <input className="btn btn-primary"
+                            disabled={showSampleBtn ? true : false}
                             id="run-sample"
                             type="submit"
                             value="Sample"/>
                     </div>
-                </div>}
+                </div>
             </fieldset>
         </form>
         </>

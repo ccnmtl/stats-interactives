@@ -24,6 +24,7 @@ export const PopulationForm  = (
             <fieldset>
                 <legend>Step 1: Population Parameters</legend>
                 { !embed &&
+                    <>
                     <div className="form-row">
                         <div className="form-group col-md-5">
                             <label htmlFor="seed" className="float-right">
@@ -33,11 +34,9 @@ export const PopulationForm  = (
                             <input type="text"
                                 id="seed"
                                 value={seed}
-                                disabled={showPopBtn ? false : true}
                                 onChange={handleFormChange}/>
                         </div>
-                    </div> }
-                { !embed &&
+                    </div>
                     <div className="form-row">
                         <div className="form-group col-md-5">
                             <label htmlFor="populationSize"
@@ -46,12 +45,13 @@ export const PopulationForm  = (
                         </div>
                         <div className="form-group col-md-7">
                             <input type="number"
-                                disabled={showPopBtn ? false : true}
                                 id="populationSize"
+                                disabled={seed ? false : true}
                                 value={populationSize}
                                 onChange={handleFormChange}/>
                         </div>
-                    </div> }
+                    </div>
+                        </>}
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="distType"
@@ -60,8 +60,8 @@ export const PopulationForm  = (
                     </div>
                     <div className="form-group col-md-7">
                         <select id="distType"
-                            disabled={showPopBtn ? false : true}
                             onChange={handleFormChange}
+                            disabled={seed ? false : true}
                             value={distType}>
                             { DISTRIBUTION_TYPE.map(
                                 (e) => (<option key={e.value} value={e.value}>
@@ -76,10 +76,10 @@ export const PopulationForm  = (
                     </div>
                     <div className="form-group col-md-7">
                         <input type="number"
+                            disabled={seed ? false : true}
                             id="mean"
                             min="-10"
                             max="10"
-                            disabled={showPopBtn ? false : true}
                             value={mean}
                             onChange={handleFormChange}/>
                     </div>
@@ -91,23 +91,23 @@ export const PopulationForm  = (
                     </div>
                     <div className="form-group col-md-7">
                         <input type="number"
+                            disabled={seed ? false : true}
                             id="stdDev"
                             min="-6"
                             max="6"
-                            disabled={showPopBtn ? false : true}
                             value={stdDev}
                             onChange={handleFormChange}/>
                     </div>
                 </div>
-                { showPopBtn &&
                 <div className="form-row">
                     <div className="form-group offset-md-5 col-md-7">
                         <input className="btn btn-primary"
+                            disabled={seed ? false : true}
                             id="generate-population"
                             type="submit"
                             value="Generate Population"/>
                     </div>
-                </div>}
+                </div>
             </fieldset>
         </form>
         </>
