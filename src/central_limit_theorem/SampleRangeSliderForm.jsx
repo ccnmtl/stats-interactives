@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export const SampleRangeSliderForm = ({handleResetSimulation}) => {
     return (
@@ -15,6 +16,9 @@ export const SampleRangeSliderForm = ({handleResetSimulation}) => {
                 </div>
             </fieldset>
         </form>
+        <CopyToClipboard text={location.href}>
+            <button>Copy link to clipboard</button>
+        </CopyToClipboard>
         </>
     );
 };

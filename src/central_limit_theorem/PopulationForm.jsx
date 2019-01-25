@@ -123,4 +123,6 @@ PopulationForm.propTypes = {
     embed: PropTypes.bool,
     handleChange: PropTypes.func,
     showPopBtn: PropTypes.bool,
+    sampleSize: PropTypes.number,
+    handleGeneratePopulation: PropTypes.func
 };
