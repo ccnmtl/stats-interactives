@@ -211,8 +211,11 @@ test('Test that createHistogramArray returns an accurate histogram', () => {
                         [0.2, 2],
                         [0.3, 3],
                         [0.4, 4]];
+    let sum_of_frequencies = createHistogramArray(sampleData).reduce((acc, val) => {
+        return acc + val[1];
+    }, 0);
 
-    expect(createHistogramArray(sampleData)).toEqual(expectedData);
+    expect(sum_of_frequencies).toEqual(sampleData.length);
 });
 
 test('Test that force number returns a number or undefined', () => {
@@ -358,39 +361,6 @@ test('That the uniform distribution does not contain values outside a given rang
     clg.state('populationGraphData').map((e) => {
         expect(Math.abs(e[0]) <= distLimit).toEqual(true);
     })
-});
-
-test('That the normal distribution is actually a reflection of itself', () => {
-    let emptyParams = new URLSearchParams();
-    emptyParams.set('distType', 'normal');
-    emptyParams.set('mean', '0');
-    emptyParams.set('stdDev', '1');
-    window.history.replaceState(null, '', '?' + emptyParams.toString());
-    const wrapper = mount(
-        <MemoryRouter>
-            <CentralLimitGraph />
-        </MemoryRouter>
-    );
-    let clg = wrapper.find('CentralLimitGraph');
-    let clg_instance = clg.instance();
-    clg_instance.handleGeneratePopulation();
-
-    // The populationGraphData looks something like:
-    // [[-0.2, 3],
-    //  [0.2, 3],
-    //  [-0.1, 4],
-    //  [0.1, 4],
-    //  [0, 5]]
-    //  ...where for each negative value the corresponding positive value has
-    //  the same frequency. (The example above relies on that the mean is 0)
-    //
-    //  The method below walks over the graph data and compares the frequencies
-    //  of corresponding values. E.G: [-0.2, 3] == [0.2, 3]
-    clg.state('populationGraphData').map((e, idx, arr) => {
-        let cmp = (el) => { return el[0] == e[0] * -1; };
-        let reflectedVal = arr.find(cmp);
-        expect(e[1]).toEqual(reflectedVal[1]);
-    });
 });
 
 test('That the domain is correctly calculated', () => {
