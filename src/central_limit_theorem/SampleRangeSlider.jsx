@@ -19,14 +19,13 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
             <fieldset>
                 <div className="form-row">
                     <div className="form-group col-xs-3">
-                        <label htmlFor="sampleIdx">Sample Size: </label>
                         <input type="number"
                             id="sampleIdx"
                             min="1"
                             max={numberOfSamples}
                             value={sampleMeansIdx}
                             onChange={handleSampleMeans}/>
-                        of {numberOfSamples}
+                        of {numberOfSamples} samples
                     </div>
                 </div>
                 <div className="form-group col-xs-9">
@@ -41,14 +40,14 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
             <fieldset>
                 <div className="form-row">
                     <div className="form-group col-xs-3">
-                        <label htmlFor="sampleIdx">Current Sample: </label>
                         <input type="number"
                             id="sampleIdx"
                             min="1"
                             max={sampleSize}
                             value={observationIdx}
                             onChange={handleObsIdx}/>
-                        of {sampleSize}. Current value: {observationData[0][0]}
+                        of {sampleSize} observations.
+                        Current value: {observationData[0][0]}
                     </div>
                 </div>
                 <div className="form-group col-xs-9">
