@@ -9,30 +9,42 @@ export const forceNumber = function(n) {
 };
 
 export const createHistogramArray = (dist) => {
-    let xSet = new Set(dist);
+    const NO_OF_BINS = 14;
+    let min = Math.min(...dist);
+    let max = Math.max(...dist);
+    let bin_size = (max - min) / NO_OF_BINS;
 
-    // Build an array: [[val, 0], ...]
-    // where 0 is an initial value for some val's frquency
-    const setRedux = (acc, val) => {
-        acc.push([val[0], 0]);
-        return acc;
-    };
+    // Bin Indicies meaning the first value in each bin
+    // Creates a list of the form [bin_idx, some val]
+    // - where bin_idx is an increasing multiple of the bin size
+    // starting from the min value;
+    // - where some val is the frequency of a value falling into that bin
+    let bin_indices = [...Array(NO_OF_BINS).keys()].reduce(
+        (acc, val) => {
+            acc.push([math.round(min + (bin_size * val), 1), 0]);
+            return acc;
+        },
+        []);
 
-    let xSetList = [...xSet.entries()].reduce(setRedux, new Array(0));
-
-    const redux = (acc, val) => {
-        // findVal needs to be declared each time to
-        // create a closure with val
-        let findVal = (el) => el[0] == val;
-        let idx = acc.findIndex(findVal);
-        // When an index is found, increase its frequency by one
-        if (idx > -1) {
-            acc[idx][1] += 1;
+    // Map over the list of values and replace with the bin index
+    // it should be placed into
+    let binned_values = dist.map((val) => {
+        let idx = parseInt((val - min) / bin_size);
+        // We want the range to be inclusive of the max value,
+        // i.e.: when the max value is binned we want it to go in the
+        // preceding bin, not into a new bin.
+        if (idx >= NO_OF_BINS) {
+            idx = NO_OF_BINS - 1;
         }
-        return acc;
-    };
+        return idx;
+    });
 
-    return dist.reduce(redux, xSetList);
+    return binned_values.reduce(
+        (acc, val) => {
+            acc[val][1] += 1;
+            return acc;
+        },
+        bin_indices);
 };
 
 export const getDomain = (hist) => {
