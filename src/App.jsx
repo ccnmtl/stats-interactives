@@ -79,6 +79,7 @@ const Home = () => (
             </li>
         </ul>
         <p>For more information, <a href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc">Contact Dr. Cojoc</a> directly.</p>
+        <hr />
         <div className="row">
             <Preview />
         </div>

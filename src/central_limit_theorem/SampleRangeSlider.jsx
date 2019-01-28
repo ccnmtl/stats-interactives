@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { forceNumber } from '../utils';
+{/*import { forceNumber } from '../utils';*/}
 
 export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
     handleSampleMeansIdx, sampleSize, observationIdx, observationData,
     handleObservationIdx}) => {
-    const handleSampleMeans = (e) => {
+    {/*const handleSampleMeans = (e) => {
         e.preventDefault();
         handleSampleMeansIdx(forceNumber(e.target.value));
-    };
-    const handleObsIdx = (e) => {
+    }; */}
+    {/*const handleObsIdx = (e) => {
         e.preventDefault();
         handleObservationIdx(forceNumber(e.target.value));
-    };
+    };*/}
     return (
         <>
+        {/*
         <form className="sample-range-slider">
             <fieldset>
                 <div className="form-row">
@@ -60,7 +61,8 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                 </div>
             </fieldset>
         </form>
-        </>
+        */}
+         </>
     );
 };
 

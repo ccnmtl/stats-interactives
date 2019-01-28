@@ -333,6 +333,7 @@ export class CentralLimitGraph extends Component {
                     More form Wikipedia
                     </a>
                 </p>
+                <hr/>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}
@@ -360,6 +361,7 @@ export class CentralLimitGraph extends Component {
                             domain={this.state.domain}/>
                     </div>
                 </div>
+                <hr/>
                 <div className='row'>
                     <div className='col-4'>
                         <SampleForm
@@ -384,6 +386,7 @@ export class CentralLimitGraph extends Component {
                                     .sampleMeansGraphData}/>
                     </div>
                 </div>
+                <hr/>
                 <div className='row'>
                     <div className='col-4'>
                         <SampleRangeSliderForm
@@ -404,6 +407,15 @@ export class CentralLimitGraph extends Component {
                                 handleResetSamples={
                                     this.handleResetSamples}/>
                         </div>)}
+                </div>
+                <hr/>
+                <div className="text-center">
+                    <button type="button" className="btn btn-danger">
+                        Reset Simulation
+                    </button>
+                    <button type="button" className="btn btn-success">
+                        Copy to Clipboard
+                    </button>
                 </div>
             </div>
             </>
