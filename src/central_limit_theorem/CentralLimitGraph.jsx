@@ -316,6 +316,23 @@ export class CentralLimitGraph extends Component {
             { !this.state.embed && <Nav /> }
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
+                <p>In probability theory, the central limit theorem (CLT)
+                establishes that, in some situations, when independent
+                random variables are added, their properly normalized
+                sum tends toward a normal distribution
+                (informally a &quot;bell curve&quot;)
+                even if the original variables themselves are not normally
+                distributed. The theorem is a key concept in probability
+                theory because it implies that probabilistic and
+                statistical methods that work for normal distributions
+                can be applicable to many problems involving
+                other types of distributions.</p>
+                <p>
+                    <a href='https://en.wikipedia.org/wiki/Central_limit_theorem'
+                        target='_blank' rel='noopener noreferrer'>
+                    More form Wikipedia
+                    </a>
+                </p>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}

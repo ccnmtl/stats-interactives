@@ -7,8 +7,8 @@ export const SampleRangeSliderForm = ({handleResetSimulation}) => {
         <>
         <form onSubmit={handleResetSimulation}>
             <fieldset>
-                <legend>Step 3: Observe the changes among samples</legend>
-                <div>
+                <legend>Step 3:<br />Observe the changes among samples.</legend>
+                <div className="form-group offset-md-5 col-md-7">
                     <input className="btn btn-primary"
                         id="reset-simulation"
                         type="submit"

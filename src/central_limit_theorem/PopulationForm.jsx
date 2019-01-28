@@ -22,7 +22,9 @@ export const PopulationForm  = (
         <>
         <form onSubmit={handleGenPop}>
             <fieldset>
-                <legend>Step 1: Population Parameters</legend>
+                <legend>
+                Step 1:<br />Set the population parameters (required).
+                </legend>
                 { !embed &&
                     <>
                     <div className="form-row">
