@@ -1,3 +1,4 @@
+var jStat = require('jStat').jStat;
 import * as math from 'mathjs';
 
 export const forceNumber = function(n) {
@@ -8,11 +9,16 @@ export const forceNumber = function(n) {
     return n;
 };
 
+export const integerDivision = function(a, b) {
+    let dividend = a / b;
+    return dividend > 0 ? Math.floor(dividend) : Math.ceil(dividend);
+};
+
 export const createHistogramArray = (dist) => {
-    const NO_OF_BINS = 14;
+    const NO_OF_BINS = 13;
     let min = Math.min(...dist);
     let max = Math.max(...dist);
-    let bin_size = (max - min) / NO_OF_BINS;
+    let bin_size = math.round((max - min) / NO_OF_BINS, 1);
 
     // Bin Indicies meaning the first value in each bin
     // Creates a list of the form [bin_idx, some val]
@@ -26,25 +32,13 @@ export const createHistogramArray = (dist) => {
         },
         []);
 
-    // Map over the list of values and replace with the bin index
-    // it should be placed into
-    let binned_values = dist.map((val) => {
-        let idx = parseInt((val - min) / bin_size);
-        // We want the range to be inclusive of the max value,
-        // i.e.: when the max value is binned we want it to go in the
-        // preceding bin, not into a new bin.
-        if (idx >= NO_OF_BINS) {
-            idx = NO_OF_BINS - 1;
-        }
-        return idx;
-    });
-
-    return binned_values.reduce(
-        (acc, val) => {
-            acc[val][1] += 1;
+    return jStat.histogram(dist, NO_OF_BINS).reduce(
+        (acc, val, idx) => {
+            acc[idx][1] = val;
             return acc;
         },
-        bin_indices);
+        bin_indices
+    );
 };
 
 export const getDomain = (hist) => {
