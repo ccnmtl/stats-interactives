@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -28,6 +29,7 @@ export const PopulationGraph  = (
                     x={0}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
+            {console.log(samplesGraphData)}
             {observationData &&
                 <VictoryScatter data={observationData}
                     style={{ data: { fill: 'blue' } }}

@@ -32,12 +32,24 @@ export const createHistogramArray = (dist) => {
         },
         []);
 
-    return jStat.histogram(dist, NO_OF_BINS).reduce(
+    // A dirty histogram is one where there are empty bins
+    let dirtyHist = jStat.histogram(dist, NO_OF_BINS).reduce(
         (acc, val, idx) => {
             acc[idx][1] = val;
             return acc;
         },
         bin_indices
+    );
+
+    // return a 'cleaned' histogram by removing empty bins
+    return dirtyHist.reduce(
+        (acc, val) => {
+            if (val[1] > 0) {
+                acc.push(val);
+            }
+            return acc;
+        },
+        []
     );
 };
 
@@ -67,3 +79,16 @@ export const interpolateHistogram = (hist) => {
     }, []);
 };
 
+export const createScatterPlotHistogram = (samples) => {
+    return samples.reduce((acc, val) => {
+        let maxFreq = 0;
+        acc.map((v) => {
+            if (v == val) {
+                maxFreq += 1;
+            }
+        });
+        acc.push([val, maxFreq + 1]);
+        return acc;
+    },
+    []);
+};

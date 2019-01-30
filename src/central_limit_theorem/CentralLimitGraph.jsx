@@ -10,7 +10,7 @@ import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
 import { SampleRangeSliderForm } from './SampleRangeSliderForm';
 import { SampleRangeSlider } from './SampleRangeSlider';
-import { interpolateHistogram } from '../utils.js';
+import { interpolateHistogram, createScatterPlotHistogram } from '../utils.js';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -236,8 +236,7 @@ export class CentralLimitGraph extends Component {
             return acc;
         }, []);
 
-        let samplesGraphData = interpolateHistogram(
-            createHistogramArray(samples[0]));
+        let samplesGraphData = createScatterPlotHistogram(samples[0]);
 
         let samplesMaxFrequency = 0;
         samples.map((e) => {
@@ -265,8 +264,9 @@ export class CentralLimitGraph extends Component {
     handleSampleMeansIdx(idx) {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
         let currentSampleMeansData = createHistogramArray(currentSampleMeans);
-        let samplesGraphData = interpolateHistogram(
-            createHistogramArray(this.state.samples[idx - 1]));
+        let samplesGraphData = createScatterPlotHistogram(
+            this.state.samples[idx - 1]);
+
         this.setState({
             sampleMeansIdx: idx,
             sampleMeansGraphData: currentSampleMeansData,
