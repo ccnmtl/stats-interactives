@@ -363,14 +363,6 @@ test('That the uniform distribution does not contain values outside a given rang
     })
 });
 
-test('That the domain is correctly calculated', () => {
-    let domain = getDomain([
-        [-4, 42],
-        [4, 42]
-    ]);
-    expect(domain).toEqual([-4, 4]);
-});
-
 describe('Check that the CentralLimitGraph conditionally renders components.', () => {
     test('That the population graph is rendered but empty on load.', () => {
         window.history.replaceState(null, '', '');

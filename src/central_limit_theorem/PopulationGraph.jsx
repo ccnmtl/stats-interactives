@@ -20,7 +20,7 @@ export const PopulationGraph  = (
             domain={{x: domain}}>
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
-                    barWidth={28}
+                    barRatio={1}
                     x={0}
                     y={(datum) => datum[1] / populationMax}/> }
             {samplesGraphData &&
@@ -29,7 +29,6 @@ export const PopulationGraph  = (
                     x={0}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
-            {console.log(samplesGraphData)}
             {observationData &&
                 <VictoryScatter data={observationData}
                     style={{ data: { fill: 'blue' } }}
