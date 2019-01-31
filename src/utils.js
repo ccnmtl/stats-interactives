@@ -10,12 +10,7 @@ export const forceNumber = function(n) {
     return n;
 };
 
-export const integerDivision = function(a, b) {
-    let dividend = a / b;
-    return dividend > 0 ? Math.floor(dividend) : Math.ceil(dividend);
-};
-
-const getBinIndicies = (nBins, binSize, initVal) => {
+const getBinIndices = (nBins, binSize, initVal) => {
     // Bin Indicies meaning the first value in each bin
     // Creates a list of the form [bin_idx, some val]
     // - where bin_idx is an increasing multiple of the bin size
@@ -52,7 +47,7 @@ export const createHistogramArray = (dist, bins) => {
     let max = Math.max(...dist);
     let bin_size = (max - min) / nBins;
 
-    let bin_indices = getBinIndicies(nBins, bin_size, min);
+    let bin_indices = getBinIndices(nBins, bin_size, min);
     let binned_values = getBinnedValues(dist, nBins, bin_size, min);
 
     return binned_values.reduce(
@@ -70,14 +65,13 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
      * @maxum   The largest number that bins should align to */
 
     // Creates an 'ordered' histogram, where each value is
-    // represented in the histogram; and where each value
-    // is inserted in the order of the passed array
+    // represented in the histogram rather than accumulated;
+    // and where each value is inserted in the order of the passed array
     let nBins = bins || NO_OF_BINS;
     let min = minum;
     let max = maxum;
     let bin_size = (max - min) / nBins;
 
-    /* eslint-disable */
     let flatBinIndicies = getBinIndicies(nBins, bin_size, min).map((e) => e[0]);
     let binned_values = getBinnedValues(samples, nBins, bin_size, min);
 
@@ -94,8 +88,7 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
         // Then push an incremented list to the accumulator
         acc.push([bin, maxFreq + 1]);
         return acc;
-    },
-    []);
+    }, []);
 };
 
 export const getHistogramMaxima = (hist) => {
