@@ -19,6 +19,7 @@ export const PopulationGraph  = (
             domain={{x: domain}}>
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
+                    barRatio={1}
                     x={0}
                     y={(datum) => datum[1] / populationMax}/> }
             {samplesGraphData &&
