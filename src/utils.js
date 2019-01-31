@@ -72,7 +72,7 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     let max = maxum;
     let bin_size = (max - min) / nBins;
 
-    let flatBinIndicies = getBinIndicies(nBins, bin_size, min).map((e) => e[0]);
+    let flatBinIndicies = getBinIndices(nBins, bin_size, min).map((e) => e[0]);
     let binned_values = getBinnedValues(samples, nBins, bin_size, min);
 
     return binned_values.reduce((acc, val) => {
@@ -81,7 +81,7 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
         let maxFreq = 0;
         let bin = flatBinIndicies[val];
         acc.map((v) => {
-            if (v[0] == bin) {
+            if (v[0] === bin) {
                 maxFreq += 1;
             }
         });
