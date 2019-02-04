@@ -321,6 +321,7 @@ export class CentralLimitGraph extends Component {
     render() {
         return (
             <>
+            <Nav/>
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
