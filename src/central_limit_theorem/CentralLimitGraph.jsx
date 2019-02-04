@@ -112,9 +112,6 @@ export class CentralLimitGraph extends Component {
             sampleMeansRange: [0, 1],
             observationIdx: null,
             observationData: null,
-            embed: (() => {
-                return params.get('embed') === 'true' ? true : false;
-            })(),
         };
     }
     handleChange(key, value) {

@@ -4,7 +4,7 @@ import { forceNumber } from '../utils';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
 
 export const PopulationForm  = (
-    {seed, populationSize, mean, stdDev, distType, embed,
+    {seed, populationSize, mean, stdDev, distType,
         sampleSize, handleChange, handleGeneratePopulation, showPopBtn}) => {
     const handleFormChange = (e) => {
         let numericFields = ['populationSize', 'mean', 'stdDev'];
@@ -37,23 +37,20 @@ export const PopulationForm  = (
                             onChange={handleFormChange}/>
                     </div>
                 </div>
-                { embed &&
-                    <>
-                    <div className="form-row">
-                        <div className="form-group col-md-5">
-                            <label htmlFor="populationSize"
-                                className="float-right">
-                                Population Size: </label>
-                        </div>
-                        <div className="form-group col-md-7">
-                            <input type="number"
-                                id="populationSize"
-                                disabled={seed ? false : true}
-                                value={populationSize}
-                                onChange={handleFormChange}/>
-                        </div>
+                <div className="form-row">
+                    <div className="form-group col-md-5">
+                        <label htmlFor="populationSize"
+                            className="float-right">
+                            Population Size: </label>
                     </div>
-                        </>}
+                    <div className="form-group col-md-7">
+                        <input type="number"
+                            id="populationSize"
+                            disabled={seed ? false : true}
+                            value={populationSize}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="distType"
@@ -122,7 +119,6 @@ PopulationForm.propTypes = {
     mean: PropTypes.number,
     stdDev: PropTypes.number,
     distType: PropTypes.string,
-    embed: PropTypes.bool,
     handleChange: PropTypes.func,
     showPopBtn: PropTypes.bool,
     sampleSize: PropTypes.number,

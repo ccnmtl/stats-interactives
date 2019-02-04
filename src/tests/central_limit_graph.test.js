@@ -46,46 +46,6 @@ describe('Manipulate the seed param in the query string', () => {
     });
 })
 
-describe('Conditionally show the nav based on embed query string param', () => {
-    beforeEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    afterEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    test('When embed=true nav is not present', () => {
-        window.history.replaceState(null, '', '?embed=true');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(false);
-    });
-
-    test('When embed=false nav is present', () => {
-        window.history.replaceState(null, '', '?embed=false');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(true);
-    });
-
-    test('When embed=some-nonsense-value nav is still present', () => {
-        window.history.replaceState(null, '', '?embed=some-nonsense-value');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(true);
-    });
-})
-
 describe('Ensure that the same seed generates the same population and samples', () => {
     test('The same seed generates the same population', () => {
         // Render the graph with a seed, save the pop values
@@ -306,37 +266,6 @@ describe('Default behavior of query string params', () => {
 
         expect(params.has('distType')).toEqual(true);
         expect(params.get('distType')).toEqual('normal');
-    });
-});
-
-describe('embed query string param', () => {
-    test('That the seed and population fields are present when embed is set.', () => {
-        window.history.replaceState(null, '', '');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let clg = wrapper.find('CentralLimitGraph');
-
-        expect(clg.exists('#seed')).toEqual(true);
-        expect(clg.exists('#populationSize')).toEqual(true);
-    });
-
-    test('That the seed and population fields are not present when embed=true', () => {
-        let emptyParams = new URLSearchParams();
-        emptyParams.set('embed', 'true');
-        window.history.replaceState(null, '', '?' + emptyParams.toString());
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let clg = wrapper.find('CentralLimitGraph');
-
-        expect(clg.exists('#seed')).toEqual(false);
-        expect(clg.exists('#populationSize')).toEqual(false);
     });
 });
 
