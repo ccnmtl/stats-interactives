@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-{/*import { forceNumber } from '../utils';*/}
+import { forceNumber } from '../utils';
 
 export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
     handleSampleMeansIdx, sampleSize, observationIdx, observationData,
     handleObservationIdx}) => {
-    {/*const handleSampleMeans = (e) => {
+    const handleSampleMeans = (e) => {
         e.preventDefault();
         handleSampleMeansIdx(forceNumber(e.target.value));
-    }; */}
-    {/*const handleObsIdx = (e) => {
+    };
+    const handleObsIdx = (e) => {
         e.preventDefault();
         handleObservationIdx(forceNumber(e.target.value));
-    };*/}
+    };
     return (
         <>
-        {/*
         <form className="sample-range-slider">
             <fieldset>
                 <div className="form-row">
@@ -24,7 +23,8 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                             id="sampleIdx"
                             min="1"
                             max={numberOfSamples}
-                            value={sampleMeansIdx}
+                            value={sampleMeansIdx ? sampleMeansIdx : 1}
+                            disabled={sampleMeansIdx ? false : true}
                             onChange={handleSampleMeans}/>
                         of {numberOfSamples} samples
                     </div>
@@ -34,7 +34,8 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                         id="sample-slider"
                         min="1"
                         max={numberOfSamples}
-                        value={sampleMeansIdx}
+                        value={sampleMeansIdx ? sampleMeansIdx : 1}
+                        disabled={sampleMeansIdx ? false : true}
                         onChange={handleSampleMeans} />
                 </div>
             </fieldset>
@@ -45,10 +46,12 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                             id="sampleIdx"
                             min="1"
                             max={sampleSize}
-                            value={observationIdx}
+                            value={observationIdx ? observationIdx : 1}
+                            disabled={observationIdx ? false : true}
                             onChange={handleObsIdx}/>
                         of {sampleSize} observations.
-                        Current value: {observationData[0][0]}
+                        Current value: {
+                            observationData ? observationData[0][0] : 0}
                     </div>
                 </div>
                 <div className="form-group col-xs-9">
@@ -56,12 +59,12 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                         id="observation-slider"
                         min="1"
                         max={sampleSize}
-                        value={observationIdx}
+                        value={observationIdx ? observationIdx : 1}
+                        disabled={observationIdx ? false : true}
                         onChange={handleObsIdx} />
                 </div>
             </fieldset>
         </form>
-        */}
          </>
     );
 };

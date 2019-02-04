@@ -23,22 +23,22 @@ export const PopulationForm  = (
         <form onSubmit={handleGenPop}>
             <fieldset>
                 <legend>
-                Step 1:<br />Set the population parameters (required).
+                Set the parameters.
                 </legend>
-                { !embed &&
-                    <>
-                    <div className="form-row">
-                        <div className="form-group col-md-5">
-                            <label htmlFor="seed" className="float-right">
-                                Seed: </label>
-                        </div>
-                        <div className="form-group col-md-7">
-                            <input type="text"
-                                id="seed"
-                                value={seed}
-                                onChange={handleFormChange}/>
-                        </div>
+                <div className="form-row">
+                    <div className="form-group col-md-5">
+                        <label htmlFor="seed" className="float-right">
+                            Seed: </label>
                     </div>
+                    <div className="form-group col-md-7">
+                        <input type="text"
+                            id="seed"
+                            value={seed}
+                            onChange={handleFormChange}/>
+                    </div>
+                </div>
+                { embed &&
+                    <>
                     <div className="form-row">
                         <div className="form-group col-md-5">
                             <label htmlFor="populationSize"

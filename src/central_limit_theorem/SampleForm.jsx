@@ -19,7 +19,6 @@ export const SampleForm = ({
         <>
         <form onSubmit={handleRunSample} >
             <fieldset>
-                <legend>Step 2:<br/>Set the sample parameters.</legend>
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="sampleSize"

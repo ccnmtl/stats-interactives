@@ -1,29 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-{/*import {CopyToClipboard} from 'react-copy-to-clipboard';*/}
 
-export const SampleRangeSliderForm = ({handleResetSimulation}) => {
+export const SampleRangeSliderForm = () => {
     return (
-        <>
-        {/*
-        <form onSubmit={handleResetSimulation}>
-            <fieldset>
-                <legend>Step 3: Observe the changes among samples</legend>
-                <div>
-                    <input className="btn btn-primary"
-                        id="reset-simulation"
-                        type="submit"
-                        value="Reset Simulation"/>
-                </div>
-            </fieldset>
-        </form>
-        <CopyToClipboard text={location.href}>
-            <button>Copy link to clipboard</button>
-        </CopyToClipboard>
-        */}
         <form>
             <fieldset>
-                <legend>Step 3: Observe the changes among samples</legend>
+                <legend>Observe the changes.</legend>
                 <label htmlFor="samplesize">Sample Size&nbsp;</label>
                 <input type="number" size="3" /> of 1000
                 <input type="range"
@@ -38,10 +19,5 @@ export const SampleRangeSliderForm = ({handleResetSimulation}) => {
                     id="currentsample" />
             </fieldset>
         </form>
-        </>
     );
-};
-
-SampleRangeSliderForm.propTypes = {
-    handleResetSimulation: PropTypes.func,
 };
