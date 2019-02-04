@@ -321,7 +321,6 @@ export class CentralLimitGraph extends Component {
     render() {
         return (
             <>
-            { !this.state.embed && <Nav /> }
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
@@ -331,7 +330,6 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
-                            embed={this.state.embed}
                             sampleSize={this.state.sampleSize}
                             handleGeneratePopulation={
                                 this.handleGeneratePopulation}
@@ -384,6 +382,7 @@ export class CentralLimitGraph extends Component {
                 <div className="text-center">
                     <button type="button"
                         className="btn btn-danger"
+                        id='reset-simulation'
                         onClick={this.handleResetSimulation}>
                         Reset Simulation
                     </button>

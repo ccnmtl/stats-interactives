@@ -333,7 +333,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         wrapper.find('#run-sample').simulate('submit');
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
-        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
     });
     test('That generating a new population clears the current samples', () => {
         window.history.replaceState(null, '', '');
@@ -351,7 +350,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         wrapper.find('#run-sample').simulate('submit');
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
-        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
         expect(clg.state('sampleMeansGraphData')).not.toEqual(null);
         // Next generate a new population and assert that sample graph
         // data is no longer present
@@ -368,10 +366,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         // Generate the population and sample
         wrapper.find('#generate-population').simulate('submit');
         wrapper.find('#run-sample').simulate('submit');
-
-        // Check that the reset button is present after getting the
-        // population and sample.
-        expect(wrapper.exists('#reset-simulation')).toEqual(true);
 
         // Check that the page resets itself
         wrapper.find('#reset-simulation').simulate('submit');
