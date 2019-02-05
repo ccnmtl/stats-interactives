@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
+import { LabeledSlider } from '../LabeledSlider';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
 
 export const PopulationForm  = (
@@ -13,6 +14,9 @@ export const PopulationForm  = (
         } else {
             handleChange(e.target.id, e.target.value);
         }
+    };
+    const handleRheostatChange = (sliderState) => {
+        handleChange('mean', sliderState.values[0]);
     };
     const handleGenPop = (e) => {
         e.preventDefault();
@@ -69,18 +73,30 @@ export const PopulationForm  = (
                     </div>
                 </div>
                 <div className="form-row">
-                    <div className="form-group col-md-5">
+                    <div className="form-group col-md-12">
                         <label htmlFor="mean"
                             className="float-right">Mean:</label>
                     </div>
-                    <div className="form-group col-md-7">
-                        <input type="number"
+                    <div className="form-group col-md-12">
+                        {/*
+                        <input type="range"
                             disabled={seed ? false : true}
                             id="mean"
                             min="-10"
                             max="10"
                             value={mean}
-                            onChange={handleFormChange}/>
+                            onChange={handleFormChange}/> */}
+                        <LabeledSlider
+                            disabled={seed ? false : true}
+                            min={-10}
+                            max={10}
+                            values={[mean]}
+                            snap
+                            pitPoints={[-10, -9, -8, -7, -6, -5, -4, -3, -2,
+                                -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            snapPoints={[-10, -9, -8, -7, -6, -5, -4, -3, -2,
+                                -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            onChange={handleRheostatChange}/>
                     </div>
                 </div>
                 <div className="form-row">
@@ -89,7 +105,7 @@ export const PopulationForm  = (
                             className="float-right">StdDev: </label>
                     </div>
                     <div className="form-group col-md-7">
-                        <input type="number"
+                        <input type="range"
                             disabled={seed ? false : true}
                             id="stdDev"
                             min="-6"
