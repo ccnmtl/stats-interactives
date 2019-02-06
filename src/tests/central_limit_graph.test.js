@@ -46,46 +46,6 @@ describe('Manipulate the seed param in the query string', () => {
     });
 })
 
-describe('Conditionally show the nav based on embed query string param', () => {
-    beforeEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    afterEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    test('When embed=true nav is not present', () => {
-        window.history.replaceState(null, '', '?embed=true');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(false);
-    });
-
-    test('When embed=false nav is present', () => {
-        window.history.replaceState(null, '', '?embed=false');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(true);
-    });
-
-    test('When embed=some-nonsense-value nav is still present', () => {
-        window.history.replaceState(null, '', '?embed=some-nonsense-value');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('Nav').exists()).toEqual(true);
-    });
-})
-
 describe('Ensure that the same seed generates the same population and samples', () => {
     test('The same seed generates the same population', () => {
         // Render the graph with a seed, save the pop values
@@ -309,37 +269,6 @@ describe('Default behavior of query string params', () => {
     });
 });
 
-describe('embed query string param', () => {
-    test('That the seed and population fields are present when embed is set.', () => {
-        window.history.replaceState(null, '', '');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let clg = wrapper.find('CentralLimitGraph');
-
-        expect(clg.exists('#seed')).toEqual(true);
-        expect(clg.exists('#populationSize')).toEqual(true);
-    });
-
-    test('That the seed and population fields are not present when embed=true', () => {
-        let emptyParams = new URLSearchParams();
-        emptyParams.set('embed', 'true');
-        window.history.replaceState(null, '', '?' + emptyParams.toString());
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let clg = wrapper.find('CentralLimitGraph');
-
-        expect(clg.exists('#seed')).toEqual(false);
-        expect(clg.exists('#populationSize')).toEqual(false);
-    });
-});
-
 test('That the uniform distribution does not contain values outside a given range', () => {
     // This is kind of a magic number, and will likely have to be updated when
     // the uniform distribution is fully implemented. When this test breaks
@@ -404,7 +333,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         wrapper.find('#run-sample').simulate('submit');
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
-        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
     });
     test('That generating a new population clears the current samples', () => {
         window.history.replaceState(null, '', '');
@@ -422,7 +350,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         wrapper.find('#run-sample').simulate('submit');
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
-        expect(wrapper.exists('SampleRangeSliderForm')).toEqual(true);
         expect(clg.state('sampleMeansGraphData')).not.toEqual(null);
         // Next generate a new population and assert that sample graph
         // data is no longer present
@@ -439,10 +366,6 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         // Generate the population and sample
         wrapper.find('#generate-population').simulate('submit');
         wrapper.find('#run-sample').simulate('submit');
-
-        // Check that the reset button is present after getting the
-        // population and sample.
-        expect(wrapper.exists('#reset-simulation')).toEqual(true);
 
         // Check that the page resets itself
         wrapper.find('#reset-simulation').simulate('submit');

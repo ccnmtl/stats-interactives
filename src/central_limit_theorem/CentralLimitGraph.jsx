@@ -1,15 +1,16 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import * as math from 'mathjs';
 import {
     createHistogramArray, getHistogramMaxima,
-    createScatterPlotHistogram } from '../utils.js';
+    createScatterPlotHistogram, getMaxFrequency } from '../utils.js';
 import { Nav } from '../Nav.jsx';
 import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
-import { SampleRangeSliderForm } from './SampleRangeSliderForm';
 import { SampleRangeSlider } from './SampleRangeSlider';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -104,15 +105,13 @@ export class CentralLimitGraph extends Component {
             samplesIdx: 1,
             samplesGraphData: null,
             sampleMeans: null,
-            sampleMeansIdx: 1,
+            sampleMeansIdx: null,
             sampleMeansGraphData: null,
             domain: [-6, 6],
+            sampleMeansDomain: null,
             sampleMeansRange: [0, 1],
             observationIdx: null,
             observationData: null,
-            embed: (() => {
-                return params.get('embed') === 'true' ? true : false;
-            })(),
         };
     }
     handleChange(key, value) {
@@ -240,7 +239,8 @@ export class CentralLimitGraph extends Component {
 
         let samplesMaxFrequency = 0;
         samples.map((e) => {
-            let max = getHistogramMaxima(createHistogramArray(e));
+            let max = getHistogramMaxima(createScatterPlotHistogram(
+                e, 13, this.state.domain[0], this.state.domain[1]));
             if (max > samplesMaxFrequency) {
                 samplesMaxFrequency = max;
             }
@@ -249,6 +249,10 @@ export class CentralLimitGraph extends Component {
         this.setState({
             samples: samples,
             sampleMeans: sampleMeans,
+            sampleMeansDomain: [
+                Math.min(...sampleMeans),
+                Math.max(...sampleMeans)
+            ],
             sampleMeansRange: [
                 0,
                 getHistogramMaxima(createHistogramArray(sampleMeans))
@@ -263,7 +267,11 @@ export class CentralLimitGraph extends Component {
     }
     handleSampleMeansIdx(idx) {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
-        let currentSampleMeansData = createHistogramArray(currentSampleMeans);
+        let currentSampleMeansData = createHistogramArray(
+            currentSampleMeans,
+            13,
+            this.state.sampleMeansDomain[0],
+            this.state.sampleMeansDomain[1]);
         let samplesGraphData = createScatterPlotHistogram(
             this.state.samples[idx - 1],
             13,
@@ -288,7 +296,7 @@ export class CentralLimitGraph extends Component {
             samples: null,
             sampleMeans: null,
             sampleMeansRange: null,
-            sampleMeansIdx: 1,
+            sampleMeansIdx: null,
             samplesGraphData: null,
             sampleMeansGraphData: null,
             observationIdx: null,
@@ -313,7 +321,7 @@ export class CentralLimitGraph extends Component {
     render() {
         return (
             <>
-            { !this.state.embed && <Nav /> }
+            <Nav/>
             <div className='container'>
                 <h2>Central Limit Theorem</h2>
                 <div className='row'>
@@ -323,28 +331,12 @@ export class CentralLimitGraph extends Component {
                             mean={this.state.mean}
                             stdDev={this.state.stdDev}
                             distType={this.state.distType}
-                            embed={this.state.embed}
                             sampleSize={this.state.sampleSize}
                             handleGeneratePopulation={
                                 this.handleGeneratePopulation}
                             handleChange={this.handleChange}
                             showPopBtn={this.state.populationGraphData ?
                                 false : true}/>
-                    </div>
-                    <div className='col-8' style={{maxHeight: '320px'}}>
-                        <PopulationGraph
-                            populationGraphData={
-                                this.state.populationGraphData}
-                            samplesGraphData={
-                                this.state.samplesGraphData}
-                            samplesMax={this.state.samplesMax}
-                            observationIdx={this.state.observationIdx}
-                            observationData={this.state.observationData}
-                            domain={this.state.domain}/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-4'>
                         <SampleForm
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
@@ -356,8 +348,28 @@ export class CentralLimitGraph extends Component {
                             showSampleBtn={
                                 this.state.populationGraphData ?
                                     false : true}/>
+                        <SampleRangeSlider
+                            numberOfSamples={this.state.numberOfSamples}
+                            sampleMeansIdx={this.state.sampleMeansIdx}
+                            handleSampleMeansIdx={
+                                this.handleSampleMeansIdx}
+                            sampleSize={this.state.sampleSize}
+                            observationIdx={this.state.observationIdx}
+                            observationData={this.state.observationData}
+                            handleObservationIdx={this.handleObservationIdx}
+                            handleResetSamples={
+                                this.handleResetSamples}/>
                     </div>
                     <div className='col-8' style={{maxHeight: '320px'}}>
+                        <PopulationGraph
+                            populationGraphData={
+                                this.state.populationGraphData}
+                            samplesGraphData={
+                                this.state.samplesGraphData}
+                            samplesMax={this.state.samplesMax}
+                            observationIdx={this.state.observationIdx}
+                            observationData={this.state.observationData}
+                            domain={this.state.domain}/>
                         <SampleMeansGraph
                             domain={this.state.domain}
                             range={
@@ -367,26 +379,19 @@ export class CentralLimitGraph extends Component {
                                     .sampleMeansGraphData}/>
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='col-4'>
-                        <SampleRangeSliderForm
-                            handleResetSimulation={
-                                this.handleResetSimulation}/>
-                    </div>
-                    {  this.state.samplesGraphData && (
-                        <div className='col-8'>
-                            <SampleRangeSlider
-                                numberOfSamples={this.state.numberOfSamples}
-                                sampleMeansIdx={this.state.sampleMeansIdx}
-                                handleSampleMeansIdx={
-                                    this.handleSampleMeansIdx}
-                                sampleSize={this.state.sampleSize}
-                                observationIdx={this.state.observationIdx}
-                                observationData={this.state.observationData}
-                                handleObservationIdx={this.handleObservationIdx}
-                                handleResetSamples={
-                                    this.handleResetSamples}/>
-                        </div>)}
+                <hr/>
+                <div className="text-center">
+                    <button type="button"
+                        className="btn btn-danger"
+                        id='reset-simulation'
+                        onClick={this.handleResetSimulation}>
+                        Reset Simulation
+                    </button>
+                    <CopyToClipboard text={location.href}>
+                        <button type="button" className="btn btn-success">
+                            Copy Link to Clipboard
+                        </button>
+                    </CopyToClipboard>
                 </div>
             </div>
             </>

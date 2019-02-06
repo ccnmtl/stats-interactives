@@ -9,7 +9,7 @@ exports[`Nav elements render as expected 1`] = `
     href="/"
     onClick={[Function]}
   >
-    Theorem7
+    Project INVISTATS
   </a>
   <div
     className="navbar-nav-scroll"
@@ -25,7 +25,7 @@ exports[`Nav elements render as expected 1`] = `
           href="/"
           onClick={[Function]}
         >
-          ← Back to Theorem Collection
+          ← Back to the Collection
         </a>
       </li>
     </ul>
@@ -65,7 +65,7 @@ Array [
       </a>
     </h2>
     <p>
-      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.
     </p>
   </div>,
   <div

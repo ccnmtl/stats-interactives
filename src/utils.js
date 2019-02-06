@@ -10,6 +10,19 @@ export const forceNumber = function(n) {
     return n;
 };
 
+export const getMaxFrequency = (values) => {
+    let hist = values.reduce((acc, val) => {
+        if (acc.has(val)) {
+            acc.set(val, acc.get(val) + 1);
+        } else {
+            acc.set(val, 1);
+        }
+        return acc;
+    }, new Map());
+
+    return Math.max(...hist.values());
+};
+
 const getBinIndices = (nBins, binSize, initVal) => {
     // Bin Indicies meaning the first value in each bin
     // Creates a list of the form [bin_idx, some val]
@@ -41,10 +54,10 @@ const getBinnedValues = (values, nBins, binSize, initVal) => {
     });
 };
 
-export const createHistogramArray = (dist, bins) => {
+export const createHistogramArray = (dist, bins, minum, maxum) => {
     let nBins = bins || NO_OF_BINS;
-    let min = Math.min(...dist);
-    let max = Math.max(...dist);
+    let min = minum || Math.min(...dist);
+    let max = maxum || Math.max(...dist);
     let bin_size = (max - min) / nBins;
 
     let bin_indices = getBinIndices(nBins, bin_size, min);

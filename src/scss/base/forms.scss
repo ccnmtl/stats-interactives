@@ -1,24 +1,44 @@
-.btn-primary {
-	//background-color: rgba(2, 33, 105, 1);
+body { background-color: rgba(238, 238, 238, 1); padding-bottom: 3em;}
+
+.VictoryContainer
+{
+	background-color: rgba(255, 255, 255, 1);
+	padding: 2em;
+}
+
+.btn-primary, .btn-danger, .btn-success
+{
 	border: 0;
 	border-radius: 0;
 }
 
-.btn-primary:hover {
-	//background-color: rgba(108, 172, 228, 1);
+.btn-danger, .btn-success
+{
+	margin: 1em;
+}
+
+.btn-primary:hover, .btn-danger:hover, .btn-success:hover
+
+{
 	border: 0;
 	border-radius: 0;
 }
 
-fieldset {
+fieldset
+{
 	padding: 1em;
-	background-color: rgba(159, 190, 211, .5);
-	margin-top: 1em;
+	background-color: rgba(255, 255, 255, 1);
 }
 
-legend {
+legend
+{
 	padding-left: .5em;
-	background-color: rgba(118, 173, 204, 1);
+	background-color: rgba(83, 160, 192, 1);
 	color: #fff;
 	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 1.25em;
+}
+
+input[type="number"] {
+   width:50px;
 }
