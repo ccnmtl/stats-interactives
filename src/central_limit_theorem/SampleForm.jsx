@@ -37,7 +37,8 @@ export const SampleForm = ({
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-2">
-                        <label className="float-right">No of samples:</label>
+                        <label className="float-right">
+                            Number of Samples:</label>
                     </div>
                     <div className="form-group col-md-10">
                         <LabeledSlider

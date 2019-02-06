@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
     VictoryScatter, VictoryAxis } from 'victory';
+import * as math from 'mathjs';
+math.config({matrix: 'Array'});
 import { getHistogramMaxima } from '../utils.js';
 
 export const PopulationGraph  = (
@@ -16,10 +18,12 @@ export const PopulationGraph  = (
         <>
         <VictoryChart theme={VictoryTheme.material}
             padding={{top: 0, left: 5, right: 5, bottom: 25}}
-            domain={{x: domain}}>
+            width={850}
+            domain={{x: [-18, 18]}}>
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
-                    barRatio={1.2}
+                    barWidth={10}
+                    barRatio={1}
                     x={0}
                     y={(datum) => datum[1] / populationMax}/> }
             {samplesGraphData &&
@@ -34,7 +38,8 @@ export const PopulationGraph  = (
                     x={0}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
-            <VictoryAxis />
+            <VictoryAxis
+                tickValues={math.range(-18, 19)} />
         </VictoryChart>
         </>
     );
