@@ -1,9 +1,10 @@
+$track-height: 5px;
+
 .DefaultProgressBar__vertical {
     width: 24px;
     height: 100%
 }
 .DefaultProgressBar_progressBar {
-    background-color: #abc4e8;
     position: absolute
 }
 .DefaultProgressBar_progressBar__vertical {
@@ -16,12 +17,12 @@
     width: 15px
 }
 .DefaultProgressBar_background__horizontal {
-    height: 13px;
+    height: $track-height - 2;
     top: 0px
 }
 .DefaultHandle_handle {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 16px;
     border-width: 1px;
     border-style: solid;
     border-color: #d8d8d8;
@@ -47,20 +48,21 @@
     background-color: #dadfe8
 }
 .DefaultHandle_handle__horizontal {
-    margin-left: -12px;
+    margin-left: -8px;
     top: -5px
 }
+$handle-postion: 2px;
 .DefaultHandle_handle__horizontal:before {
-    top: 7px;
+    top: $handle-postion;
     height: 10px;
     width: 1px;
-    left: 10px
+    left: 8px
 }
 .DefaultHandle_handle__horizontal:after {
-    top: 7px;
+    top: $handle-postion;
     height: 10px;
     width: 1px;
-    left: 13px
+    left: 12px
 }
 .DefaultHandle_handle__vertical {
     margin-top: -12px;
@@ -80,20 +82,20 @@
 }
 .DefaultBackground {
     background-color: #fcfcfc;
-    height: 15px;
+    height: $track-height;
     width: 100%;
     border: 1px solid #d8d8d8;
     position: relative
 }
 .DefaultBackground_background__horizontal {
-    height: 15px;
+    height: $track-height;
     top: -2px;
     left: -2px;
     bottom: 4px;
     width: 100%
 }
 .DefaultBackground_background__vertical {
-    width: 15px;
+    width: $track-height;
     top: 0px;
     height: 100%
 }
@@ -110,7 +112,7 @@
     height: 100%
 }
 .handleContainer {
-    height: 15px;
+    height: $track-height;
     top: -2px;
     left: -2px;
     bottom: 4px;
@@ -123,14 +125,14 @@
     position: relative
 }
 .rheostat_background__horizontal {
-    height: 15px;
+    height: $track-height;
     top: -2px;
     left: -2px;
     bottom: 4px;
     width: 100%
 }
 .rheostat_background__vertical {
-    width: 15px;
+    width: $track-height;
     top: 0px;
     height: 100%
 }

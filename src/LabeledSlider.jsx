@@ -10,7 +10,7 @@ function PitComponent({ style, children }) {
                 background: '#a2a2a2',
                 width: 1,
                 height: children % 10 === 0 ? 12 : 8,
-                top: 20,
+                top: 10,
                 display: 'flex',
                 justifyContent: 'center'
             }}
@@ -61,6 +61,44 @@ export class LabeledSlider extends React.Component {
     }
 }
 
+export class Slider extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            values: props.values || [0],
+        };
+
+        this.updateValue = this.updateValue.bind(this);
+    }
+
+    updateValue(sliderState) {
+        this.setState({
+            values: sliderState.values,
+        });
+    }
+
+    render() {
+        const { ...passProps } = this.props;
+        const { values } = this.state;
+
+        return (
+            <div
+                style={{
+                    height: '50px',
+                    width: '100%',
+                }}
+            >
+                <Rheostat
+                    {...passProps}
+                    onValuesUpdated={this.updateValue}
+                    values={values}
+                />
+            </div>
+        );
+    }
+}
+
 PitComponent.propTypes = {
     style: PropTypes.object,
     children: PropTypes.number,
@@ -73,10 +111,20 @@ PitComponent.defaultProps = {
 
 LabeledSlider.propTypes = {
     values: PropTypes.array,
-    formatValue: PropTypes.func,
+    //formatValue: PropTypes.func,
 };
 
 LabeledSlider.defaultProps = {
     values: null,
-    formatValue: null,
+    //formatValue: null,
+};
+
+Slider.propTypes = {
+    values: PropTypes.array,
+    //formatValue: PropTypes.func,
+};
+
+Slider.defaultProps = {
+    values: null,
+    //formatValue: null,
 };
