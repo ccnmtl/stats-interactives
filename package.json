@@ -48,6 +48,7 @@
     "react": "^16.5.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.1",
+    "react-hint": "^3.2.0",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.6.1",
     "rheostat": "^3.0.2",

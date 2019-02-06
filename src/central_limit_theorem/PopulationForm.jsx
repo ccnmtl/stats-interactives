@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
 import { LabeledSlider } from '../LabeledSlider';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
+import ReactHintFactory from 'react-hint';
+const ReactHint = ReactHintFactory(React);
 
 export const PopulationForm  = (
     {seed, populationSize, mean, stdDev, distType,
@@ -21,12 +23,19 @@ export const PopulationForm  = (
     };
     return (
         <>
+        <ReactHint autoPosition events />
         <form onSubmit={handleGenPop}>
             <fieldset>
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="seed" className="float-right">
-                            Seed: </label>
+                            Seed:<button className="help-tooltip"
+                                data-rh="This is a seed">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
                     <div className="form-group col-md-7">
                         <input type="text"
@@ -55,7 +64,15 @@ export const PopulationForm  = (
                 <div className="form-row">
                     <div className="form-group col-md-2">
                         <label htmlFor="mean"
-                            className="float-right">Mean:</label>
+                            className="float-right">
+                            Mean:<button className="help-tooltip"
+                                data-rh="Represents the arithmetic average of
+                                         the values in the population.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
                     <div className="form-group col-md-10">
                         <LabeledSlider
@@ -76,7 +93,15 @@ export const PopulationForm  = (
                 <div className="form-row">
                     <div className="form-group col-md-2">
                         <label htmlFor="stdDev"
-                            className="float-right">Standard Deviation:</label>
+                            className="float-right">
+                            Standard Deviation:<button className="help-tooltip"
+                                data-rh="Represents the average of the square
+                                distances from the mean of the population.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
                     <div className="form-group col-md-10">
                         <LabeledSlider
