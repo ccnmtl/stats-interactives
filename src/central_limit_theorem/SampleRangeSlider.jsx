@@ -18,8 +18,8 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
         <>
         <form className="sample-range-slider">
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-xs-3">
+                <div className="form-group">
+                    <div className="form-row">
                         <input type="number"
                             id="sampleIdx"
                             min="1"
@@ -30,7 +30,7 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                         of {numberOfSamples} samples
                     </div>
                 </div>
-                <div className="form-group col-xs-9">
+                <div className="form-row slider-no-labels">
                     <Slider
                         disabled={sampleMeansIdx ? false : true}
                         min={1}
@@ -43,8 +43,8 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-xs-3">
+                <div className="form-group">
+                    <div className="form-row">
                         <input type="number"
                             id="sampleIdx"
                             min="1"
@@ -53,11 +53,11 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                             disabled={observationIdx ? false : true}
                             onChange={handleObsIdx}/>
                         of {sampleSize} observations.
-                        Current value: {
+                        Current Value {
                             observationData ? observationData[0][0] : 0}
                     </div>
                 </div>
-                <div className="form-group col-xs-9">
+                <div className="form-row slider-no-labels">
                     <Slider
                         min={1}
                         max={sampleSize}
