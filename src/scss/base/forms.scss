@@ -26,7 +26,7 @@ body { background-color: rgba(238, 238, 238, 1); padding-bottom: 3em;}
 
 fieldset
 {
-	padding: 1em;
+	padding: .75em 1.75em 0em 1.75em;
 	background-color: rgba(255, 255, 255, 1);
 }
 
@@ -40,5 +40,10 @@ legend
 }
 
 input[type="number"] {
-   width:50px;
+   width:4em;
 }
+
+form * {font-family: 'Roboto Condensed', sans-serif; font-size: 13px;}
+form label {font-family: 'Roboto Condensed', sans-serif; font-size: 16px;}
+
+#seed, #distType {width: 100%;}

@@ -15,12 +15,11 @@ export const SampleForm = ({
         <>
         <form onSubmit={handleRunSample} >
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label htmlFor="mean"
-                            className="float-right">Sample Size:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="mean">Sample Size</label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={showSampleBtn ? true : false}
                             min={50}
@@ -35,12 +34,12 @@ export const SampleForm = ({
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label className="float-right">
-                            Number of Samples:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label>
+                            Number of Samples</label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={showSampleBtn ? true : false}
                             min={1}
@@ -55,9 +54,9 @@ export const SampleForm = ({
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group offset-md-5 col-md-7">
-                        <input className="btn btn-primary"
+                <div className="form-group">
+                    <div className="form-row">
+                        <input className="btn btn-primary btn-block"
                             disabled={showSampleBtn ? true : false}
                             id="run-sample"
                             type="submit"

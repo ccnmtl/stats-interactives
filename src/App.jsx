@@ -27,8 +27,8 @@ const PreviewData = [
     },
     {
         'slug': '/ols-regression',
-        'title': 'OLS Regression',
-        'text': 'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
+        'title': 'Ordinary Least Squares (OLS) Regression',
+        'text': 'In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: (minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear functio'
     },
 ];
 

@@ -23,25 +23,24 @@ export const PopulationForm  = (
         <>
         <form onSubmit={handleGenPop}>
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="seed" className="float-right">
-                            Seed: </label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="seed">
+                            Seed</label>
                     </div>
-                    <div className="form-group col-md-7">
+                    <div>
                         <input type="text"
                             id="seed"
                             value={seed}
                             onChange={handleFormChange}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="distType"
-                            className="float-right">
-                            Distribution Type: </label>
+                <div className="form-group">
+                    <div className="form-row ">
+                        <label htmlFor="distType">
+                            Distribution Type</label>
                     </div>
-                    <div className="form-group col-md-7">
+                    <div className="form-row ">
                         <select id="distType"
                             onChange={handleFormChange}
                             disabled={seed ? false : true}
@@ -52,12 +51,11 @@ export const PopulationForm  = (
                         </select>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label htmlFor="mean"
-                            className="float-right">Mean:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="mean">Mean</label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={seed ? false : true}
                             min={-10}
@@ -73,12 +71,11 @@ export const PopulationForm  = (
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label htmlFor="stdDev"
-                            className="float-right">Standard Deviation:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="stdDev">Standard Deviation:</label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={seed ? false : true}
                             min={1}
@@ -92,9 +89,9 @@ export const PopulationForm  = (
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group offset-md-5 col-md-7">
-                        <input className="btn btn-primary"
+                <div className="form-group">
+                    <div className="form-row">
+                        <input className="btn btn-primary btn-block"
                             disabled={seed ? false : true}
                             id="generate-population"
                             type="submit"
