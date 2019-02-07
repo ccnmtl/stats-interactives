@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
+import { OrdinaryLeastSquares } from
+    './ordinary_least_squares/OrdinaryLeastSquares';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import 'rheostat/initialize';
 
@@ -11,6 +13,8 @@ export const App = () => (
             <Route exact path="/" component={Home} />
             <Route path="/central-limit-theorem"
                 component={CentralLimitGraph} />
+            <Route path="/ols-regression"
+                component={OrdinaryLeastSquares} />
         </main>
     </Router>
 );
