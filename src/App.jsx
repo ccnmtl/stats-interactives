@@ -5,6 +5,7 @@ import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { OrdinaryLeastSquares } from
     './ordinary_least_squares/OrdinaryLeastSquares';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import 'rheostat/initialize';
 
 export const App = () => (
     <Router>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
+import { LabeledSlider } from '../LabeledSlider';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
 
 export const PopulationForm  = (
@@ -22,9 +23,6 @@ export const PopulationForm  = (
         <>
         <form onSubmit={handleGenPop}>
             <fieldset>
-                <legend>
-                Set the parameters.
-                </legend>
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="seed" className="float-right">
@@ -34,20 +32,6 @@ export const PopulationForm  = (
                         <input type="text"
                             id="seed"
                             value={seed}
-                            onChange={handleFormChange}/>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="populationSize"
-                            className="float-right">
-                            Population Size: </label>
-                    </div>
-                    <div className="form-group col-md-7">
-                        <input type="number"
-                            id="populationSize"
-                            disabled={seed ? false : true}
-                            value={populationSize}
                             onChange={handleFormChange}/>
                     </div>
                 </div>
@@ -69,33 +53,43 @@ export const PopulationForm  = (
                     </div>
                 </div>
                 <div className="form-row">
-                    <div className="form-group col-md-5">
+                    <div className="form-group col-md-2">
                         <label htmlFor="mean"
                             className="float-right">Mean:</label>
                     </div>
-                    <div className="form-group col-md-7">
-                        <input type="number"
+                    <div className="form-group col-md-10">
+                        <LabeledSlider
                             disabled={seed ? false : true}
-                            id="mean"
-                            min="-10"
-                            max="10"
-                            value={mean}
-                            onChange={handleFormChange}/>
+                            min={-10}
+                            max={10}
+                            values={[mean]}
+                            snap
+                            pitPoints={[-10, -9, -8, -7, -6, -5, -4, -3, -2,
+                                -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            snapPoints={[-10, -9, -8, -7, -6, -5, -4, -3, -2,
+                                -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                            onChange={(sliderState) => {
+                                handleChange('mean', sliderState.values[0]);
+                            }}/>
                     </div>
                 </div>
                 <div className="form-row">
-                    <div className="form-group col-md-5">
+                    <div className="form-group col-md-2">
                         <label htmlFor="stdDev"
-                            className="float-right">StdDev: </label>
+                            className="float-right">Standard Deviation:</label>
                     </div>
-                    <div className="form-group col-md-7">
-                        <input type="number"
+                    <div className="form-group col-md-10">
+                        <LabeledSlider
                             disabled={seed ? false : true}
-                            id="stdDev"
-                            min="-6"
-                            max="6"
-                            value={stdDev}
-                            onChange={handleFormChange}/>
+                            min={1}
+                            max={6}
+                            values={[stdDev]}
+                            snap
+                            pitPoints={[-1, 2, 3, 4, 5, 6]}
+                            snapPoints={[1, 2, 3, 4, 5, 6]}
+                            onChange={(sliderState) => {
+                                handleChange('stdDev', sliderState.values[0]);
+                            }}/>
                     </div>
                 </div>
                 <div className="form-row">

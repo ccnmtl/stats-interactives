@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
+import { Slider } from '../LabeledSlider';
 
 export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
     handleSampleMeansIdx, sampleSize, observationIdx, observationData,
@@ -30,13 +31,15 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                     </div>
                 </div>
                 <div className="form-group col-xs-9">
-                    <input type="range"
-                        id="sample-slider"
-                        min="1"
-                        max={numberOfSamples}
-                        value={sampleMeansIdx ? sampleMeansIdx : 1}
+                    <Slider
                         disabled={sampleMeansIdx ? false : true}
-                        onChange={handleSampleMeans} />
+                        min={1}
+                        max={numberOfSamples}
+                        values={[sampleMeansIdx ? sampleMeansIdx : 1]}
+                        snap
+                        onChange={(sliderState) => {
+                            handleSampleMeansIdx(sliderState.values[0]);
+                        }}/>
                 </div>
             </fieldset>
             <fieldset>
@@ -55,13 +58,15 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                     </div>
                 </div>
                 <div className="form-group col-xs-9">
-                    <input type="range"
-                        id="observation-slider"
-                        min="1"
+                    <Slider
+                        min={1}
                         max={sampleSize}
-                        value={observationIdx ? observationIdx : 1}
+                        values={[sampleMeansIdx ? sampleMeansIdx : 1]}
+                        snap
                         disabled={observationIdx ? false : true}
-                        onChange={handleObsIdx} />
+                        onChange={(sliderState) => {
+                            handleObservationIdx(sliderState.values[0]);
+                        }}/>
                 </div>
             </fieldset>
         </form>
