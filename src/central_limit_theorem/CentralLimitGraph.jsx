@@ -368,7 +368,10 @@ export class CentralLimitGraph extends Component {
                             samplesMax={this.state.samplesMax}
                             observationIdx={this.state.observationIdx}
                             observationData={this.state.observationData}
-                            domain={this.state.domain}/>
+                            domain={this.state.domain}
+                            sampleMean={this.state.sampleMeans ?
+                                this.state.sampleMeans[
+                                    this.state.sampleMeansIdx] : null}/>
                         <SampleMeansGraph
                             domain={this.state.domain}
                             range={
