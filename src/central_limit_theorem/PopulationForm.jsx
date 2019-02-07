@@ -41,7 +41,8 @@ export const PopulationForm  = (
                         <input type="text"
                             id="seed"
                             value={seed}
-                            onChange={handleFormChange}/>
+                            onChange={handleFormChange} required/>
+                        <div className="required-info">(Required)</div>
                     </div>
                 </div>
                 <div className="form-row">
