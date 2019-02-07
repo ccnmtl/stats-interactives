@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LabeledSlider } from '../LabeledSlider';
-import { forceNumber } from '../utils';
 import ReactHintFactory from 'react-hint';
 const ReactHint = ReactHintFactory(React);
 
