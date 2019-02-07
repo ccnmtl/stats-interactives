@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import * as math from 'mathjs';
 import {
     createHistogramArray, getHistogramMaxima,
-    createScatterPlotHistogram, getMaxFrequency } from '../utils.js';
+    createScatterPlotHistogram } from '../utils.js';
 import { Nav } from '../Nav.jsx';
 import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
