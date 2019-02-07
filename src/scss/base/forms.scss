@@ -42,17 +42,3 @@ legend
 input[type="number"] {
    width:50px;
 }
-
-input {
-    + div.required-info {
-        display: none;
-    }
-
-    &:invalid {
-        border: 1px solid red;
-
-        + div.required-info {
-            display: block;
-        }
-    }
-}

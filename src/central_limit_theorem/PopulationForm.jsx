@@ -24,7 +24,7 @@ export const PopulationForm  = (
     return (
         <>
         <ReactHint autoPosition events />
-        <form onSubmit={handleGenPop}>
+        <form onSubmit={handleGenPop} className="needs-validation" noValidate >
             <fieldset>
                 <div className="form-row">
                     <div className="form-group col-md-5">
@@ -40,9 +40,12 @@ export const PopulationForm  = (
                     <div className="form-group col-md-7">
                         <input type="text"
                             id="seed"
+                            className={
+                                seed ? 'form-control' :
+                                    'form-control is-invalid' }
                             value={seed}
                             onChange={handleFormChange} required/>
-                        <div className="required-info">(Required)</div>
+                        <div className="invalid-feedback">(Required)</div>
                     </div>
                 </div>
                 <div className="form-row">
@@ -53,6 +56,7 @@ export const PopulationForm  = (
                     </div>
                     <div className="form-group col-md-7">
                         <select id="distType"
+                            className="form-control"
                             onChange={handleFormChange}
                             disabled={seed ? false : true}
                             value={distType}>
