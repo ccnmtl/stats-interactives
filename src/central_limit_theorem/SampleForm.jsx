@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LabeledSlider } from '../LabeledSlider';
+import ReactHintFactory from 'react-hint';
+const ReactHint = ReactHintFactory(React);
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
@@ -13,14 +15,23 @@ export const SampleForm = ({
 
     return (
         <>
+        <ReactHint autoPosition events />
         <form onSubmit={handleRunSample} >
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label htmlFor="mean"
-                            className="float-right">Sample Size:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="sampleSize"
+                            className="float-right">
+                            Sample Size:<button className="help-tooltip"
+                                data-rh="Represents the number of observations
+                                         in a given sample.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={showSampleBtn ? true : false}
                             min={50}
@@ -35,12 +46,20 @@ export const SampleForm = ({
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
-                        <label className="float-right">
-                            Number of Samples:</label>
+                <div className="form-group">
+                    <div className="form-row">
+                        <label htmlFor="numberOfSamples"
+                            className="float-right">
+                            Number of Samples:<button className="help-tooltip"
+                                data-rh="The number of individual samples,
+                                    each of size n, drawn in the simulation.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={showSampleBtn ? true : false}
                             min={1}
@@ -55,9 +74,9 @@ export const SampleForm = ({
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group offset-md-5 col-md-7">
-                        <input className="btn btn-primary"
+                <div className="form-group">
+                    <div className="form-row">
+                        <input className="btn btn-primary btn-block"
                             disabled={showSampleBtn ? true : false}
                             id="run-sample"
                             type="submit"

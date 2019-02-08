@@ -1,8 +1,11 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
 import { LabeledSlider } from '../LabeledSlider';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
+import ReactHintFactory from 'react-hint';
+const ReactHint = ReactHintFactory(React);
 
 export const PopulationForm  = (
     {seed, populationSize, mean, stdDev, distType,
@@ -21,28 +24,39 @@ export const PopulationForm  = (
     };
     return (
         <>
-        <form onSubmit={handleGenPop}>
+        <ReactHint autoPosition events />
+        <form onSubmit={handleGenPop} className="needs-validation" noValidate >
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-md-5">
+                <div className="form-group">
+                    <div className="form-row">
                         <label htmlFor="seed" className="float-right">
-                            Seed: </label>
+                            Seed:<button className="help-tooltip"
+                                data-rh="This is a seed">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
-                    <div className="form-group col-md-7">
+                    <div>
                         <input type="text"
                             id="seed"
+                            className={
+                                seed ? 'form-control' :
+                                    'form-control is-invalid' }
                             value={seed}
-                            onChange={handleFormChange}/>
+                            onChange={handleFormChange} required/>
+                        <div className="invalid-feedback">(Required)</div>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="distType"
-                            className="float-right">
-                            Distribution Type: </label>
+                <div className="form-group">
+                    <div className="form-row ">
+                        <label htmlFor="distType">
+                            Distribution Type</label>
                     </div>
-                    <div className="form-group col-md-7">
+                    <div className="form-row ">
                         <select id="distType"
+                            className="form-control"
                             onChange={handleFormChange}
                             disabled={seed ? false : true}
                             value={distType}>
@@ -52,12 +66,20 @@ export const PopulationForm  = (
                         </select>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
+                <div className="form-group">
+                    <div className="form-row">
                         <label htmlFor="mean"
-                            className="float-right">Mean:</label>
+                            className="float-right">
+                            Mean:<button className="help-tooltip"
+                                data-rh="The arithmetic average of the values
+                                         in the population.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={seed ? false : true}
                             min={-10}
@@ -73,12 +95,20 @@ export const PopulationForm  = (
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group col-md-2">
+                <div className="form-group">
+                    <div className="form-row">
                         <label htmlFor="stdDev"
-                            className="float-right">Standard Deviation:</label>
+                            className="float-right">
+                            Standard Deviation:<button className="help-tooltip"
+                                data-rh="The average of the square distances
+                                         from the mean of the population.">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </button>
+                        </label>
                     </div>
-                    <div className="form-group col-md-10">
+                    <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={seed ? false : true}
                             min={1}
@@ -92,9 +122,9 @@ export const PopulationForm  = (
                             }}/>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group offset-md-5 col-md-7">
-                        <input className="btn btn-primary"
+                <div className="form-group">
+                    <div className="form-row">
+                        <input className="btn btn-primary btn-block"
                             disabled={seed ? false : true}
                             id="generate-population"
                             type="submit"
