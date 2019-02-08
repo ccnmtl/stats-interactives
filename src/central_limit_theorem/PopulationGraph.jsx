@@ -28,7 +28,7 @@ export const PopulationGraph  = (
                     barRatio={1}
                     x={0}
                     y={(datum) => datum[1] / populationMax}/> }
-            {sampleMean &&
+            {samplesGraphData &&
                 <VictoryBar data={[{ x: sampleMean, y: 0.05, y0: -0.1 }]}
                     labels={['μ: ' + sampleMean]}
                     barRatio={0.1}
