@@ -1,6 +1,8 @@
 import * as math from 'mathjs';
 
-const NO_OF_BINS = 13;
+export const NO_OF_BINS = 36;
+export const MIN_BIN = -18;
+export const MAX_BIN = 18;
 
 export const forceNumber = function(n) {
     n = Number(n);
@@ -56,8 +58,8 @@ const getBinnedValues = (values, nBins, binSize, initVal) => {
 
 export const createHistogramArray = (dist, bins, minum, maxum) => {
     let nBins = bins || NO_OF_BINS;
-    let min = minum || Math.min(...dist);
-    let max = maxum || Math.max(...dist);
+    let min = minum || MIN_BIN;
+    let max = maxum || MAX_BIN;
     let bin_size = (max - min) / nBins;
 
     let bin_indices = getBinIndices(nBins, bin_size, min);
@@ -81,8 +83,8 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     // represented in the histogram rather than accumulated;
     // and where each value is inserted in the order of the passed array
     let nBins = bins || NO_OF_BINS;
-    let min = minum;
-    let max = maxum;
+    let min = minum || MIN_BIN;
+    let max = maxum || MAX_BIN;
     let bin_size = (max - min) / nBins;
 
     let flatBinIndicies = getBinIndices(nBins, bin_size, min).map((e) => e[0]);
