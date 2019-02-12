@@ -24,7 +24,7 @@ export const PopulationGraph  = (
                 tickValues={math.range(-18, 19)} />
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
-                    barWidth={10}
+                    alignment='start'
                     barRatio={1}
                     x={0}
                     y={(datum) => datum[1] / populationMax}/> }

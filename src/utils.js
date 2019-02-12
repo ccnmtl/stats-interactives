@@ -47,13 +47,16 @@ const getBinnedValues = (values, nBins, binSize, initVal) => {
 
     // Map over the list of values and replace with the bin index
     // it should be placed into
-    return values.map((val) => {
+    return values.reduce((acc, val) => {
         let idx = Math.floor((val - initVal) / binSize);
         // We want the range to be inclusive of the max value,
         // i.e.: when the max value is binned we want it to go in the
         // preceding bin, not into a new bin.
-        return Math.min(idx, nBins - 1);
-    });
+        if (idx >= 0 && idx < nBins) {
+            acc.push(idx);
+        }
+        return acc;
+    }, []);
 };
 
 export const createHistogramArray = (dist, bins, minum, maxum) => {
@@ -85,16 +88,17 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     let nBins = bins || NO_OF_BINS;
     let min = minum || MIN_BIN;
     let max = maxum || MAX_BIN;
-    let bin_size = (max - min) / nBins;
+    let binSize = (max - min) / nBins;
+    let binOffset = math.round(binSize / 2, 1);
 
-    let flatBinIndicies = getBinIndices(nBins, bin_size, min).map((e) => e[0]);
-    let binned_values = getBinnedValues(samples, nBins, bin_size, min);
+    let flatBinIndicies = getBinIndices(nBins, binSize, min).map((e) => e[0]);
+    let binned_values = getBinnedValues(samples, nBins, binSize, min);
 
     return binned_values.reduce((acc, val) => {
         // For each binned_value find the greatest frequency in the accumulator
         // up to that point.
         let maxFreq = 0;
-        let bin = flatBinIndicies[val];
+        let bin = flatBinIndicies[val] + binOffset;
         acc.map((v) => {
             if (v[0] === bin) {
                 maxFreq += 1;
