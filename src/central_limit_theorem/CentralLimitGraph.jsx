@@ -85,7 +85,7 @@ export class CentralLimitGraph extends Component {
             }
         }
 
-        const populationSize = 100000;
+        const populationSize = 50000;
         const mean = 0;
         const stdDev = 1;
 
@@ -290,9 +290,9 @@ export class CentralLimitGraph extends Component {
             MAX_BIN);
         let samplesGraphData = createScatterPlotHistogram(
             this.state.samples[idx - 1],
-            13,
-            this.state.domain[0],
-            this.state.domain[1]);
+            NO_OF_BINS,
+            MIN_BIN,
+            MAX_BIN);
 
         this.setState({
             sampleMeansIdx: idx,
