@@ -54,7 +54,7 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                             onChange={handleObsIdx}/>
                         of {sampleSize} observations.
                         Current Value {
-                            observationData ? observationData[0][0] : 0}
+                            observationData ? observationData[0][2] : 0}
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">

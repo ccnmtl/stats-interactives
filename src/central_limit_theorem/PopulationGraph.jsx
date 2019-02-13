@@ -39,13 +39,13 @@ export const PopulationGraph  = (
             {samplesGraphData &&
                 <VictoryScatter data={samplesGraphData}
                     style={{ data: { fill: 'red' } }}
-                    x={0}
+                    x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
             {observationData &&
                 <VictoryScatter data={observationData}
                     style={{ data: { fill: 'blue' } }}
-                    x={0}
+                    x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
         </VictoryChart>
