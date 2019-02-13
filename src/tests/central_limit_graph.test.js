@@ -287,8 +287,8 @@ test('That the uniform distribution does not contain values outside a given rang
     let clg_instance = clg.instance();
 
     clg_instance.handleGeneratePopulation();
-    clg.state('populationGraphData').map((e) => {
-        expect(Math.abs(e[0]) <= distLimit).toEqual(true);
+    clg.state('population').map((e) => {
+        expect(Math.abs(e) <= distLimit).toEqual(true);
     })
 });
 

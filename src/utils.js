@@ -89,7 +89,6 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     let min = minum || MIN_BIN;
     let max = maxum || MAX_BIN;
     let binSize = (max - min) / nBins;
-    let binOffset = math.round(binSize / 2, 1);
 
     let flatBinIndicies = getBinIndices(nBins, binSize, min).map((e) => e[0]);
     let binned_values = getBinnedValues(samples, nBins, binSize, min);
@@ -98,7 +97,7 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
         // For each binned_value find the greatest frequency in the accumulator
         // up to that point.
         let maxFreq = 0;
-        let bin = flatBinIndicies[val] + binOffset;
+        let bin = flatBinIndicies[val];
         acc.map((v) => {
             if (v[0] === bin) {
                 maxFreq += 1;
