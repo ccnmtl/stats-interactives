@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as math from 'mathjs';
 import {
     createHistogramArray, getHistogramMaxima,
-    createScatterPlotHistogram, NO_OF_BINS,
-    MIN_BIN, MAX_BIN } from '../utils.js';
+    createScatterPlotHistogram } from '../utils.js';
 import { Nav } from '../Nav.jsx';
 import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
@@ -14,6 +13,10 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
+
+export const MIN_BIN = -18;
+export const MAX_BIN = 18;
+export const NO_OF_BINS = MAX_BIN - MIN_BIN;
 
 export const DISTRIBUTION_TYPE = [
     {
@@ -147,6 +150,7 @@ export class CentralLimitGraph extends Component {
         let stdDev = this.state.stdDev;
         let distType = this.state.distType;
         let seed = this.state.seed;
+        let rate = 1 / stdDev;
 
         // Reset the global Math.random everytime this is called
         seedrandom(seed, {global: true});
@@ -178,12 +182,14 @@ export class CentralLimitGraph extends Component {
 
         case 'skew_left':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(2, 5) * 10, 1);
+                return math.round(
+                    jStat.exponential.sample(rate) - stdDev + mean, 1);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(5, 2) * 10, 1);
+                return math.round(
+                    (jStat.exponential.sample(rate) * -1) - stdDev + mean, 1);
             });
 
         case 'bimodal':

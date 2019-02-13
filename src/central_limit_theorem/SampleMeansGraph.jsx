@@ -5,6 +5,7 @@ import {
     VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
+import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
     return (
@@ -12,15 +13,16 @@ export const SampleMeansGraph = ({sampleMeansGraphData, domain, range}) => {
         <VictoryChart theme={VictoryTheme.material}
             padding={{top: 0, left: 5, right: 5, bottom: 25}}
             width={850}
-            domain={{x: [-18, 18], y: range}}>
+            domain={{x: [MIN_BIN, MAX_BIN], y: range}}>
+            <VictoryAxis
+                tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
             { sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
-                    barRatio={0.2}
+                    alignment='start'
+                    barRatio={1}
                     x={0}
                     y={1}/>
             }
-            <VictoryAxis
-                tickValues={math.range(-18, 19)} />
         </VictoryChart>
         </>
     );

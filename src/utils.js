@@ -1,8 +1,8 @@
 import * as math from 'mathjs';
 
-export const NO_OF_BINS = 36;
-export const MIN_BIN = -18;
-export const MAX_BIN = 18;
+const NO_OF_BINS = 36;
+const MIN_BIN = -18;
+const MAX_BIN = 18;
 
 export const forceNumber = function(n) {
     n = Number(n);

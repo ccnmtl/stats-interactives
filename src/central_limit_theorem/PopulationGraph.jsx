@@ -6,6 +6,7 @@ import {
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { getHistogramMaxima } from '../utils.js';
+import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
     {populationGraphData, samplesGraphData, samplesMax,
@@ -19,9 +20,9 @@ export const PopulationGraph  = (
         <VictoryChart theme={VictoryTheme.material}
             padding={{top: 0, left: 5, right: 5, bottom: 25}}
             width={850}
-            domain={{x: [-18, 18]}}>
+            domain={{x: [MIN_BIN, MAX_BIN]}}>
             <VictoryAxis
-                tickValues={math.range(-18, 19)} />
+                tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
                     alignment='start'
