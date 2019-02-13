@@ -14,6 +14,10 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
 
+export const MIN_BIN = -18;
+export const MAX_BIN = 18;
+export const NO_OF_BINS = MAX_BIN - MIN_BIN;
+
 export const DISTRIBUTION_TYPE = [
     {
         value: 'normal',
@@ -120,7 +124,12 @@ export class CentralLimitGraph extends Component {
     }
     handleGeneratePopulation() {
         let population = this.generatePopulation();
-        let populationGraphData = createHistogramArray(population);
+        let populationGraphData = createHistogramArray(
+            population,
+            NO_OF_BINS,
+            MIN_BIN,
+            MAX_BIN
+        );
         this.setState({
             population: population,
             populationGraphData: populationGraphData,
@@ -141,6 +150,7 @@ export class CentralLimitGraph extends Component {
         let stdDev = this.state.stdDev;
         let distType = this.state.distType;
         let seed = this.state.seed;
+        let rate = 1 / stdDev;
 
         // Reset the global Math.random everytime this is called
         seedrandom(seed, {global: true});
@@ -172,12 +182,14 @@ export class CentralLimitGraph extends Component {
 
         case 'skew_left':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(2, 5) * 10, 1);
+                return math.round(
+                    jStat.exponential.sample(rate) - stdDev + mean, 1);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.beta.sample(5, 2) * 10, 1);
+                return math.round(
+                    (jStat.exponential.sample(rate) * -1) - stdDev + mean, 1);
             });
 
         case 'bimodal':
@@ -234,12 +246,12 @@ export class CentralLimitGraph extends Component {
         }, []);
 
         let samplesGraphData = createScatterPlotHistogram(
-            samples[0], 13, this.state.domain[0], this.state.domain[1]);
+            samples[0], NO_OF_BINS, MIN_BIN, MAX_BIN);
 
         let samplesMaxFrequency = 0;
         samples.map((e) => {
             let max = getHistogramMaxima(createScatterPlotHistogram(
-                e, 13, this.state.domain[0], this.state.domain[1]));
+                e, NO_OF_BINS, MIN_BIN, MAX_BIN));
             if (max > samplesMaxFrequency) {
                 samplesMaxFrequency = max;
             }
@@ -254,7 +266,12 @@ export class CentralLimitGraph extends Component {
             ],
             sampleMeansRange: [
                 0,
-                getHistogramMaxima(createHistogramArray(sampleMeans))
+                getHistogramMaxima(createHistogramArray(
+                    sampleMeans,
+                    NO_OF_BINS,
+                    MIN_BIN,
+                    MAX_BIN
+                ))
             ],
             sampleMeansIdx: 1,
             samplesGraphData: samplesGraphData,
@@ -268,9 +285,9 @@ export class CentralLimitGraph extends Component {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
         let currentSampleMeansData = createHistogramArray(
             currentSampleMeans,
-            13,
-            this.state.sampleMeansDomain[0],
-            this.state.sampleMeansDomain[1]);
+            NO_OF_BINS,
+            MIN_BIN,
+            MAX_BIN);
         let samplesGraphData = createScatterPlotHistogram(
             this.state.samples[idx - 1],
             13,

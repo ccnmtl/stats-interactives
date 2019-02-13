@@ -1,6 +1,8 @@
 import * as math from 'mathjs';
 
-const NO_OF_BINS = 13;
+const NO_OF_BINS = 36;
+const MIN_BIN = -18;
+const MAX_BIN = 18;
 
 export const forceNumber = function(n) {
     n = Number(n);
@@ -45,19 +47,22 @@ const getBinnedValues = (values, nBins, binSize, initVal) => {
 
     // Map over the list of values and replace with the bin index
     // it should be placed into
-    return values.map((val) => {
+    return values.reduce((acc, val) => {
         let idx = Math.floor((val - initVal) / binSize);
         // We want the range to be inclusive of the max value,
         // i.e.: when the max value is binned we want it to go in the
         // preceding bin, not into a new bin.
-        return Math.min(idx, nBins - 1);
-    });
+        if (idx >= 0 && idx < nBins) {
+            acc.push(idx);
+        }
+        return acc;
+    }, []);
 };
 
 export const createHistogramArray = (dist, bins, minum, maxum) => {
     let nBins = bins || NO_OF_BINS;
-    let min = minum || Math.min(...dist);
-    let max = maxum || Math.max(...dist);
+    let min = minum || MIN_BIN;
+    let max = maxum || MAX_BIN;
     let bin_size = (max - min) / nBins;
 
     let bin_indices = getBinIndices(nBins, bin_size, min);
@@ -81,12 +86,12 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     // represented in the histogram rather than accumulated;
     // and where each value is inserted in the order of the passed array
     let nBins = bins || NO_OF_BINS;
-    let min = minum;
-    let max = maxum;
-    let bin_size = (max - min) / nBins;
+    let min = minum || MIN_BIN;
+    let max = maxum || MAX_BIN;
+    let binSize = (max - min) / nBins;
 
-    let flatBinIndicies = getBinIndices(nBins, bin_size, min).map((e) => e[0]);
-    let binned_values = getBinnedValues(samples, nBins, bin_size, min);
+    let flatBinIndicies = getBinIndices(nBins, binSize, min).map((e) => e[0]);
+    let binned_values = getBinnedValues(samples, nBins, binSize, min);
 
     return binned_values.reduce((acc, val) => {
         // For each binned_value find the greatest frequency in the accumulator
