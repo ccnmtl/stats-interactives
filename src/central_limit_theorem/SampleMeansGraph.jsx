@@ -9,10 +9,12 @@ import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const SampleMeansGraph = ({
-    sampleMeansGraphData, domain, range, sampleMean, popMean}) => {
+    sampleMeansGraphData, domain, range, popMean}) => {
     let sampleMeanVector = [];
+    let sampleMean = null;
     if (sampleMeansGraphData) {
         let currSM = sampleMeansGraphData.pop();
+        sampleMean = currSM[2];
         sampleMeanVector = [{
             x: currSM[0] + 0.5,
             y: currSM[1],
@@ -56,6 +58,5 @@ SampleMeansGraph.propTypes = {
     domain: PropTypes.array,
     range: PropTypes.array,
     sampleMeansGraphData: PropTypes.array,
-    sampleMean: PropTypes.number,
     popMean: PropTypes.number,
 };

@@ -402,9 +402,6 @@ export class CentralLimitGraph extends Component {
                             sampleMeansGraphData={
                                 this.state
                                     .sampleMeansGraphData}
-                            sampleMean={this.state.sampleMeans ?
-                                this.state.sampleMeans[
-                                    this.state.sampleMeansIdx] : null}
                             popMean={this.state.mean}/>
                     </div>
                 </div>
