@@ -13,9 +13,10 @@ export const SampleMeansGraph = ({
     let sampleMeanBin = Math.floor(sampleMean) - MIN_BIN;
     let sampleMeanVector = [];
     if (sampleMeansGraphData) {
-        sampleMeanVector = [
-            sampleMeansGraphData[sampleMeanBin][0],
-            sampleMeansGraphData[sampleMeanBin][1]
+        sampleMeanVector = [{
+            x: sampleMeansGraphData[sampleMeanBin][0],
+            y: sampleMeansGraphData[sampleMeanBin][1]
+        }
         ];
     }
     return (
@@ -26,7 +27,7 @@ export const SampleMeansGraph = ({
             domain={{x: [MIN_BIN, MAX_BIN], y: range}}>
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
-            { sampleMeansGraphData &&
+            {sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     alignment='start'
                     barRatio={1}
@@ -35,12 +36,10 @@ export const SampleMeansGraph = ({
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/>
             }
-            {sampleMean &&
-                <VictoryScatter data={[sampleMeanVector]}
-                    x={(datum) => datum[0] + 0.5}
-                    y={(datum) => datum[1]}
-                    labels={['x̄: ' + sampleMean]}
+            {sampleMeanVector &&
+                <VictoryScatter data={sampleMeanVector}
                     size={4}
+                    labels={['x̄: ' + sampleMean]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: '1px' }, labels: {
                         fontSize: '24', fontColor: '#000000' } }}/>
