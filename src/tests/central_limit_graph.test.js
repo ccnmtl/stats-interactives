@@ -137,34 +137,6 @@ describe('Ensure that the same seed generates the same population and samples', 
     })
 });
 
-test('The getSampleHistorgram function renders a histogram of the correct size', () => {
-    const wrapper = mount(
-        <MemoryRouter>
-            <CentralLimitGraph />
-        </MemoryRouter>
-    );
-    let clg = wrapper.find('CentralLimitGraph');
-    let clg_instance = clg.instance();
-
-    // Call clg_instance.handleSampleMeansIdx(42)
-    // Two side effects should happen:
-    //  - this.state.sampleMeansIdx == 42
-    //  - this.state.samplesMeansGraphData should contain a histogram
-    //    whose values sum up to 42
-
-    // First get some samples
-    clg_instance.handleGeneratePopulation();
-    clg_instance.runSample();
-    clg_instance.handleSampleMeansIdx(42);
-    expect(clg.state('sampleMeansIdx')).toEqual(42);
-
-    // Histogram is a 2D array of [[val, frequency], ...]
-    let histogram = clg.state('sampleMeansGraphData')
-    let histogramValSum = 0;
-    histogram.forEach((e) => { histogramValSum += e[1]});
-    expect(histogramValSum).toEqual(42);
-});
-
 test('Test that createHistogramArray returns an accurate histogram', () => {
     let sampleData = [0.1, 0.2, 0.2, 0.3, 0.3, 0.3, 0.4, 0.4, 0.4, 0.4 ]
     let expectedData = [[0.1, 1],
