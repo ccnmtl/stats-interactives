@@ -248,7 +248,7 @@ export class CentralLimitGraph extends Component {
         let samplesGraphData = createScatterPlotHistogram(
             samples[0], NO_OF_BINS, MIN_BIN, MAX_BIN);
 
-        let samplesMeansGraphData = createHistogramArray(
+        let sampleMeansGraphData = createScatterPlotHistogram(
             sampleMeans.slice(0, 1),
             NO_OF_BINS,
             MIN_BIN,
@@ -281,7 +281,7 @@ export class CentralLimitGraph extends Component {
             ],
             sampleMeansIdx: 1,
             samplesGraphData: samplesGraphData,
-            sampleMeansGraphData: samplesMeansGraphData,
+            sampleMeansGraphData: sampleMeansGraphData,
             samplesMax: samplesMaxFrequency,
             observationIdx: 1,
             observationData: [samplesGraphData[0]],
@@ -289,7 +289,7 @@ export class CentralLimitGraph extends Component {
     }
     handleSampleMeansIdx(idx) {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
-        let currentSampleMeansData = createHistogramArray(
+        let currentSampleMeansData = createScatterPlotHistogram(
             currentSampleMeans,
             NO_OF_BINS,
             MIN_BIN,
@@ -402,9 +402,6 @@ export class CentralLimitGraph extends Component {
                             sampleMeansGraphData={
                                 this.state
                                     .sampleMeansGraphData}
-                            sampleMean={this.state.sampleMeans ?
-                                this.state.sampleMeans[
-                                    this.state.sampleMeansIdx] : null}
                             popMean={this.state.mean}/>
                     </div>
                 </div>

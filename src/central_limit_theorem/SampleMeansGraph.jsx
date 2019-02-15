@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    VictoryChart, VictoryTheme, VictoryBar,
-    VictoryAxis, VictoryScatter, VictoryLabel } from 'victory';
+    VictoryChart, VictoryTheme, VictoryAxis,
+    VictoryScatter, VictoryLabel } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const SampleMeansGraph = ({
-    sampleMeansGraphData, domain, range, sampleMean, popMean}) => {
-    let sampleMeanBin = Math.floor(sampleMean) - MIN_BIN;
+    sampleMeansGraphData, domain, range, popMean}) => {
     let sampleMeanVector = [];
+    let sampleMean = null;
     if (sampleMeansGraphData) {
+        let currSM = sampleMeansGraphData.pop();
+        sampleMean = currSM[2];
         sampleMeanVector = [{
-            x: sampleMeansGraphData[sampleMeanBin][0] + 0.5,
-            y: sampleMeansGraphData[sampleMeanBin][1]
+            x: currSM[0] + 0.5,
+            y: currSM[1],
         }
         ];
     }
@@ -28,10 +30,8 @@ export const SampleMeansGraph = ({
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
             {sampleMeansGraphData &&
-                <VictoryBar data={sampleMeansGraphData}
-                    alignment='start'
-                    barRatio={1}
-                    x={0}
+                <VictoryScatter data={sampleMeansGraphData}
+                    x={(datum) => datum[0] + 0.5}
                     y={1}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/>
@@ -58,6 +58,5 @@ SampleMeansGraph.propTypes = {
     domain: PropTypes.array,
     range: PropTypes.array,
     sampleMeansGraphData: PropTypes.array,
-    sampleMean: PropTypes.number,
     popMean: PropTypes.number,
 };
