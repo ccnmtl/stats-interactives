@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
-    VictoryScatter, VictoryAxis } from 'victory';
+    VictoryScatter, VictoryAxis, VictoryLegend } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { getHistogramMaxima } from '../utils.js';
@@ -24,6 +24,11 @@ export const PopulationGraph  = (
             domain={{x: [MIN_BIN, MAX_BIN]}}>
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
+            <VictoryLegend
+                title='Population and Current Sample'
+                style={{ title: { fontSize: '28px' },
+                    data: { display: 'none' },
+                    labels: { display: 'none' }}}/>
             {populationGraphData &&
                 <VictoryBar data={populationGraphData}
                     alignment='start'
