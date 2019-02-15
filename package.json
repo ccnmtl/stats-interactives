@@ -9,7 +9,7 @@
     "snapshot": "jest -u",
     "eslint": "eslint src/*.jsx",
     "serve": "webpack-dev-server --mode development",
-    "dev": "webpack --mode development",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "stage": "webpack --env.stage",
     "prod": "webpack --env.prod"
