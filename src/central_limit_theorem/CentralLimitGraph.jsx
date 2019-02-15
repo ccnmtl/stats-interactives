@@ -298,7 +298,7 @@ export class CentralLimitGraph extends Component {
             <>
             <Nav/>
             <div className='container'>
-                <h2>Central Limit Theorem</h2>
+                <h2>The Central Limit Theorem</h2>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}

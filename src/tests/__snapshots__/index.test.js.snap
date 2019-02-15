@@ -9,7 +9,12 @@ exports[`Nav elements render as expected 1`] = `
     href="/"
     onClick={[Function]}
   >
-    Project INVISTATS
+    StatsInteractives
+    <span
+      className="beta"
+    >
+      Beta
+    </span>
   </a>
   <div
     className="navbar-nav-scroll"
@@ -52,36 +57,19 @@ exports[`Nav elements render as expected 1`] = `
 `;
 
 exports[`Preview elements render as expected 1`] = `
-Array [
-  <div
-    className="col-md-4"
-  >
-    <h2>
-      <a
-        href="/central-limit-theorem"
-        onClick={[Function]}
-      >
-        Central Limit Theorem
-      </a>
-    </h2>
-    <p>
-      In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.
-    </p>
-  </div>,
-  <div
-    className="col-md-4"
-  >
-    <h2>
-      <a
-        href="/ols-regression"
-        onClick={[Function]}
-      >
-        Ordinary Least Squares (OLS) Regression
-      </a>
-    </h2>
-    <p>
-      In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: (minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear function
-    </p>
-  </div>,
-]
+<div
+  className="col-md-4"
+>
+  <h2>
+    <a
+      href="/central-limit-theorem"
+      onClick={[Function]}
+    >
+      The Central Limit Theorem
+    </a>
+  </h2>
+  <p>
+    In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.
+  </p>
+</div>
 `;
