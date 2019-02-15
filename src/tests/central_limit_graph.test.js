@@ -65,28 +65,23 @@ describe('Ensure that the same seed generates the same population and samples', 
         clg_instance.handleChange('seed', 'my-new-seed');
         clg_instance.handleGeneratePopulation();
         let pop1 = clg.state('population');
-        let popData1 = clg.state('populationGraphData');
 
         // Render it with a different seed
         clg_instance.handleChange('seed', 'a-different-seed');
         clg_instance.handleGeneratePopulation();
         let pop2 = clg.state('population');
-        let popData2 = clg.state('populationGraphData');
 
         // Render it again with the same seed as the first time
         clg_instance.handleChange('seed', 'my-new-seed');
         expect(clg.state('seed')).toEqual('my-new-seed');
         clg_instance.handleGeneratePopulation();
         let pop3 = clg.state('population');
-        let popData3 = clg.state('populationGraphData');
 
         // Expect that data generated from different seeds is different
         expect(pop1).not.toEqual(pop2);
-        expect(popData1).not.toEqual(popData2);
 
         // Expect that data generated from the same seed is the same
         expect(pop1).toEqual(pop3);
-        expect(popData1).toEqual(popData3);
     });
 
     test('The same seed generates the same samples', () => {
@@ -190,7 +185,7 @@ describe('Default behavior of query string params', () => {
         expect(params.get('seed')).toEqual('foobar');
     });
 
-    test('That the distType is set to skew_left if none is given.', () => {
+    test('That the distType is set to skew_right if none is given.', () => {
         window.history.replaceState(null, '', '');
 
         const wrapper = mount(
@@ -201,10 +196,10 @@ describe('Default behavior of query string params', () => {
         let params = new URLSearchParams(location.search);
 
         expect(params.has('distType')).toEqual(true);
-        expect(params.get('distType')).toEqual('skew_left');
+        expect(params.get('distType')).toEqual('skew_right');
     });
 
-    test('That the distType is set to skew_left if an invalid one is given.', () => {
+    test('That the distType is set to skew_right if an invalid one is given.', () => {
         let emptyParams = new URLSearchParams();
         emptyParams.set('distType', 'space-lizard');
         window.history.replaceState(null, '', '?' + emptyParams.toString());
@@ -217,10 +212,10 @@ describe('Default behavior of query string params', () => {
         let params = new URLSearchParams(location.search);
 
         expect(params.has('distType')).toEqual(true);
-        expect(params.get('distType')).toEqual('skew_left');
+        expect(params.get('distType')).toEqual('skew_right');
         // check the state too
         let clg = wrapper.find('CentralLimitGraph');
-        expect(clg.state('distType')).toEqual('skew_left');
+        expect(clg.state('distType')).toEqual('skew_right');
     });
 
     test('That the distType is set correctly when a valid one is given.', () => {
@@ -238,29 +233,6 @@ describe('Default behavior of query string params', () => {
         expect(params.has('distType')).toEqual(true);
         expect(params.get('distType')).toEqual('normal');
     });
-});
-
-test('That the uniform distribution does not contain values outside a given range', () => {
-    // This is kind of a magic number, and will likely have to be updated when
-    // the uniform distribution is fully implemented. When this test breaks
-    // look here first.
-    let distLimit = 1;
-
-    let emptyParams = new URLSearchParams();
-    emptyParams.set('distType', 'uniform');
-    window.history.replaceState(null, '', '?' + emptyParams.toString());
-    const wrapper = mount(
-        <MemoryRouter>
-            <CentralLimitGraph />
-        </MemoryRouter>
-    );
-    let clg = wrapper.find('CentralLimitGraph');
-    let clg_instance = clg.instance();
-
-    clg_instance.handleGeneratePopulation();
-    clg.state('population').map((e) => {
-        expect(Math.abs(e) <= distLimit).toEqual(true);
-    })
 });
 
 describe('Check that the CentralLimitGraph conditionally renders components.', () => {
