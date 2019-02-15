@@ -73,6 +73,11 @@ export class Slider extends React.Component {
     }
 
     updateValue(sliderState) {
+        // Call the custom callback if one is passed in.
+        if (typeof this.props.onValuesUpdated === 'function') {
+            this.props.onValuesUpdated(sliderState);
+        }
+
         this.setState({
             values: sliderState.values,
         });
@@ -101,30 +106,27 @@ export class Slider extends React.Component {
 
 PitComponent.propTypes = {
     style: PropTypes.object,
-    children: PropTypes.number,
+    children: PropTypes.number
 };
 
 PitComponent.defaultProps = {
     style: null,
-    children: null,
+    children: null
 };
 
 LabeledSlider.propTypes = {
-    values: PropTypes.array,
-    //formatValue: PropTypes.func,
+    values: PropTypes.array
 };
 
 LabeledSlider.defaultProps = {
-    values: null,
-    //formatValue: null,
+    values: null
 };
 
 Slider.propTypes = {
     values: PropTypes.array,
-    //formatValue: PropTypes.func,
+    onValuesUpdated: PropTypes.func
 };
 
 Slider.defaultProps = {
-    values: null,
-    //formatValue: null,
+    values: null
 };

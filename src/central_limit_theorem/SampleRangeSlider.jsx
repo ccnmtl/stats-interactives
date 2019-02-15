@@ -38,9 +38,9 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                         max={numberOfSamples}
                         values={[sampleMeansIdx ? sampleMeansIdx : 1]}
                         snap
-                        onChange={(sliderState) => {
+                        onValuesUpdated={(sliderState) => {
                             handleSampleMeansIdx(sliderState.values[0]);
-                        }}/>
+                        }} />
                 </div>
             </fieldset>
             <fieldset>
@@ -53,7 +53,7 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                             max={sampleSize}
                             value={observationIdx ? observationIdx : 1}
                             disabled={observationIdx ? false : true}
-                            onChange={handleObsIdx}/>
+                            onChange={handleObsIdx} />
                         &nbsp;of {sampleSize} observations.
                         Current Value {
                             observationData ? observationData[0][2] : 0}
@@ -66,9 +66,9 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                         values={[sampleMeansIdx ? sampleMeansIdx : 1]}
                         snap
                         disabled={observationIdx ? false : true}
-                        onChange={(sliderState) => {
+                        onValuesUpdated={(sliderState) => {
                             handleObservationIdx(sliderState.values[0]);
-                        }}/>
+                        }} />
                 </div>
             </fieldset>
         </form>
