@@ -69,7 +69,7 @@ export class CentralLimitGraph extends Component {
             }
         }
 
-        const populationSize = 50000;
+        const populationSize = 10000;
         const mean = 0;
         const stdDev = 1;
 
