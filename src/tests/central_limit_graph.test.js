@@ -133,7 +133,6 @@ describe('Ensure that the same seed generates the same population and samples', 
 
         // Expect that data generated from the same seed is the same
         expect(sample1).toEqual(sample3);
-        expect(sampleData1).toEqual(sampleData3);
     })
 });
 

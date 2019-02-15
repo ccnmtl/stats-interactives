@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    VictoryChart, VictoryTheme,
-    VictoryAxis, VictoryScatter, VictoryLabel } from 'victory';
+    VictoryChart, VictoryTheme, VictoryAxis,
+    VictoryScatter, VictoryLabel } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
