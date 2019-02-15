@@ -21,13 +21,14 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                 <div className="form-group">
                     <div className="form-row">
                         <input type="number"
+                            className="form-control form-control-sm"
                             id="sampleIdx"
                             min="1"
                             max={numberOfSamples}
                             value={sampleMeansIdx ? sampleMeansIdx : 1}
                             disabled={sampleMeansIdx ? false : true}
                             onChange={handleSampleMeans}/>
-                        of {numberOfSamples} samples
+                        &nbsp;of {numberOfSamples} samples
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">
@@ -47,12 +48,13 @@ export const SampleRangeSlider = ({numberOfSamples, sampleMeansIdx,
                     <div className="form-row">
                         <input type="number"
                             id="sampleIdx"
+                            className="form-control form-control-sm"
                             min="1"
                             max={sampleSize}
                             value={observationIdx ? observationIdx : 1}
                             disabled={observationIdx ? false : true}
                             onChange={handleObsIdx}/>
-                        of {sampleSize} observations.
+                        &nbsp;of {sampleSize} observations.
                         Current Value {
                             observationData ? observationData[0][2] : 0}
                     </div>

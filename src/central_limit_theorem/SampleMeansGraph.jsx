@@ -12,15 +12,21 @@ export const SampleMeansGraph = ({
     sampleMeansGraphData, domain, range, popMean}) => {
     let sampleMeanVector = [];
     let sampleMean = null;
-    if (sampleMeansGraphData) {
+
+    if (sampleMeansGraphData && sampleMeansGraphData.length > 0) {
         let currSM = sampleMeansGraphData.pop();
+
+        if (currSM === null || currSM.length < 3) {
+            return;
+        }
+
         sampleMean = currSM[2];
         sampleMeanVector = [{
             x: currSM[0] + 0.5,
             y: currSM[1],
-        }
-        ];
+        }];
     }
+
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
