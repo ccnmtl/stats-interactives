@@ -73,8 +73,8 @@ export class CentralLimitGraph extends Component {
         const mean = 0;
         const stdDev = 1;
 
-        const defaultSampleSize = 50;
-        const defaultNumberOfSamples = 1000;
+        const defaultSampleSize = 25;
+        const defaultNumberOfSamples = 100;
 
         this.state = {
             seed: seed,

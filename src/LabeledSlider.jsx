@@ -16,7 +16,7 @@ function PitComponent({ style, children }) {
             }}
         >
             <div style={{marginTop: 16}}>
-                {children % 5 === 0 && children}
+                {children}
             </div>
         </div>
     );
