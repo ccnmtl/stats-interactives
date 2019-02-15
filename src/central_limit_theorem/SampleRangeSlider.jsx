@@ -76,8 +76,8 @@ export default class SampleRangeSlider extends React.Component {
                             <Slider
                                 min={1}
                                 max={this.props.sampleSize}
-                                values={[this.props.sampleMeansIdx ?
-                                    this.props.sampleMeansIdx : 1]}
+                                values={[this.props.observationIdx ?
+                                    this.props.observationIdx : 1]}
                                 snap={true}
                                 disabled={this.props.observationIdx ?
                                     false : true}
