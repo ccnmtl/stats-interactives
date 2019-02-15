@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
@@ -31,7 +30,8 @@ export const PopulationForm  = (
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
                             Seed:<button className="help-tooltip"
-                                data-rh="This is a seed">
+                                data-rh="Enter a value to generate
+                                random data.">
                                 <sup>
                                     <i className="fas fa-question-circle"></i>
                                 </sup>
