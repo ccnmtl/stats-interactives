@@ -73,8 +73,8 @@ export class CentralLimitGraph extends Component {
         const mean = 0;
         const stdDev = 1;
 
-        const defaultSampleSize = 50;
-        const defaultNumberOfSamples = 1000;
+        const defaultSampleSize = 25;
+        const defaultNumberOfSamples = 100;
 
         this.state = {
             seed: seed,
@@ -99,6 +99,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansRange: [0, 1],
             observationIdx: null,
             observationData: null,
+            activeSampleMeansData: null,
         };
     }
     handleChange(key, value) {
@@ -175,6 +176,7 @@ export class CentralLimitGraph extends Component {
 
     }
     runSample() {
+        this.handleResetSamples();
         // Use the base64 encoding of the seed as a simple hash
         let samplingSeed = window.btoa(this.state.seed);
         let ng = seedrandom(samplingSeed);
@@ -253,11 +255,20 @@ export class CentralLimitGraph extends Component {
             MIN_BIN,
             MAX_BIN);
 
+        // This is the sample means currently highlighted
+        let lastSampleMeans= currentSampleMeansData.pop();
+        let activeSampleMeansData = [{
+            x: lastSampleMeans[0],
+            y: lastSampleMeans[1],
+            datum: lastSampleMeans[2],
+        }];
+
         this.setState({
             sampleMeansIdx: idx,
             sampleMeansGraphData: currentSampleMeansData,
             samplesGraphData: samplesGraphData,
             observationData: [samplesGraphData[this.state.observationIdx -1]],
+            activeSampleMeansData: activeSampleMeansData,
         });
     }
     handleObservationIdx(idx) {
@@ -276,6 +287,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansGraphData: null,
             observationIdx: null,
             observationData: null,
+            activeSampleMeansData: null,
         });
     }
     handleResetSimulation() {
@@ -356,7 +368,9 @@ export class CentralLimitGraph extends Component {
                             sampleMeansGraphData={
                                 this.state
                                     .sampleMeansGraphData}
-                            popMean={this.state.mean}/>
+                            popMean={this.state.mean}
+                            activeSampleMeansData={
+                                this.state.activeSampleMeansData}/>
                     </div>
                 </div>
                 <hr/>

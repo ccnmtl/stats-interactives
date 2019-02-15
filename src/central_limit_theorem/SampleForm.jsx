@@ -34,12 +34,12 @@ export const SampleForm = ({
                     <div className="form-row slider-labels">
                         <LabeledSlider
                             disabled={showSampleBtn ? true : false}
-                            min={50}
-                            max={1000}
+                            min={1}
+                            max={100}
                             values={[sampleSize]}
                             snap
-                            pitPoints={[50, 100, 500, 1000]}
-                            snapPoints={[50, 100, 500, 1000]}
+                            pitPoints={[1, 5, 25, 50, 100]}
+                            snapPoints={[1, 5, 25, 50, 100]}
                             onChange={(sliderState) => {
                                 handleChange('sampleSize',
                                     sliderState.values[0]);
@@ -66,8 +66,8 @@ export const SampleForm = ({
                             max={1000}
                             values={[numberOfSamples]}
                             snap
-                            pitPoints={[1, 50, 100, 500, 1000]}
-                            snapPoints={[1, 50, 100, 500, 1000]}
+                            pitPoints={[50, 100, 500, 1000]}
+                            snapPoints={[50, 100, 500, 1000]}
                             onChange={(sliderState) => {
                                 handleChange('numberOfSamples',
                                     sliderState.values[0]);
