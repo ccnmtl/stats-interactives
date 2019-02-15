@@ -25,14 +25,6 @@ const PreviewData = [
         'title': 'The Central Limit Theorem',
         'text': 'In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.'
     },
-/*hide OLS for now*/
-/*
-    {
-        'slug': '/ols-regression',
-        'title': 'Ordinary Least Squares (OLS) Regression',
-        'text': 'In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: (minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear function'
-    },
-    */
 ];
 
 const PreviewBlock = (props) => (
