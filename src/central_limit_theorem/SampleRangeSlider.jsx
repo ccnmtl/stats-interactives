@@ -45,7 +45,7 @@ export default class SampleRangeSlider extends React.Component {
                                 max={this.props.numberOfSamples}
                                 values={[this.props.sampleMeansIdx ?
                                     this.props.sampleMeansIdx : 1]}
-                                snap
+                                snap={true}
                                 onValuesUpdated={(sliderState) => {
                                     this.props.handleSampleMeansIdx(
                                         sliderState.values[0]);
@@ -78,7 +78,7 @@ export default class SampleRangeSlider extends React.Component {
                                 max={this.props.sampleSize}
                                 values={[this.props.sampleMeansIdx ?
                                     this.props.sampleMeansIdx : 1]}
-                                snap
+                                snap={true}
                                 disabled={this.props.observationIdx ?
                                     false : true}
                                 onValuesUpdated={(sliderState) => {
