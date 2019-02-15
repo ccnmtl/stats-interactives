@@ -30,7 +30,11 @@ $track-height: 5px;
     border-radius: 20%;
     outline: none;
     z-index: 2;
-    box-shadow: 0 2px 2px #dbdbdb
+    box-shadow: 0 2px 2px #dbdbdb;
+
+    &.DefaultHandle_handle__disabled {
+        cursor: inherit;
+    }
 }
 .DefaultHandle_handle:focus {
     box-shadow: #abc4e8 0 0 1px 1px
