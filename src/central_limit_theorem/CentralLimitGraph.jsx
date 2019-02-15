@@ -203,7 +203,7 @@ export class CentralLimitGraph extends Component {
 
         let sampleMeansGraphData = createScatterPlotHistogram(
             sampleMeans.slice(0, 1),
-            NO_OF_BINS,
+            NO_OF_BINS * 4,
             MIN_BIN,
             MAX_BIN);
 
@@ -244,7 +244,7 @@ export class CentralLimitGraph extends Component {
         let currentSampleMeans = this.state.sampleMeans.slice(0, idx);
         let currentSampleMeansData = createScatterPlotHistogram(
             currentSampleMeans,
-            NO_OF_BINS,
+            NO_OF_BINS * 4,
             MIN_BIN,
             MAX_BIN);
         let samplesGraphData = createScatterPlotHistogram(
@@ -335,7 +335,8 @@ export class CentralLimitGraph extends Component {
                             handleResetSamples={
                                 this.handleResetSamples}/>
                     </div>
-                    <div className='col-8' style={{maxHeight: '320px'}}>
+                    <div className='col-8 sticky-top'
+                        style={{maxHeight: '320px'}}>
                         <PopulationGraph
                             populationGraphData={
                                 this.state.populationGraphData}

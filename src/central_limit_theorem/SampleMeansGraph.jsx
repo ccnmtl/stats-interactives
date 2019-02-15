@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryAxis,
-    VictoryScatter, VictoryLabel } from 'victory';
+    VictoryScatter, VictoryLabel, VictoryLegend } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
@@ -22,7 +22,7 @@ export const SampleMeansGraph = ({
 
         sampleMean = currSM[2];
         sampleMeanVector = [{
-            x: currSM[0] + 0.5,
+            x: currSM[0],
             y: currSM[1],
         }];
     }
@@ -35,9 +35,14 @@ export const SampleMeansGraph = ({
             domain={{x: [MIN_BIN, MAX_BIN], y: range}}>
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
+            <VictoryLegend
+                title='Distribution of Sample Means'
+                style={{ title: { fontSize: '28px' },
+                    data: { display: 'none' },
+                    labels: { display: 'none' }}}/>
             {sampleMeansGraphData &&
                 <VictoryScatter data={sampleMeansGraphData}
-                    x={(datum) => datum[0] + 0.5}
+                    x={0}
                     y={1}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/>
