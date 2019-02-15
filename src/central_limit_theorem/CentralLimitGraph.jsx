@@ -9,6 +9,7 @@ import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
 import { SampleRangeSlider } from './SampleRangeSlider';
+import { normalBarHeight, exponentialBarHeight } from './populations';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var seedrandom = require('seedrandom');
@@ -24,20 +25,8 @@ export const DISTRIBUTION_TYPE = [
         display: 'Normal',
     },
     {
-        value: 'skew_left',
-        display: 'Skew Left',
-    },
-    {
         value: 'skew_right',
         display: 'Skew Right',
-    },
-    {
-        value: 'bimodal',
-        display: 'Bimodal'
-    },
-    {
-        value: 'uniform',
-        display: 'Uniform',
     },
 ];
 
@@ -69,8 +58,8 @@ export class CentralLimitGraph extends Component {
 
         let distType = '';
         if (!params.has('distType')) {
-            distType = 'skew_left';
-            params.set('distType', 'skew_left');
+            distType = 'skew_right';
+            params.set('distType', 'skew_right');
             window.history.replaceState(null, '', '?' + params.toString());
         } else {
             // Validate that a dist type is on the list, else
@@ -78,9 +67,9 @@ export class CentralLimitGraph extends Component {
             let dt = params.get('distType');
             let found = DISTRIBUTION_TYPE.find(
                 (e) => {return dt === e.value;});
-            distType = found ? dt : 'skew_left';
+            distType = found ? dt : 'skew_right';
             if (!found) {
-                params.set('distType', 'skew_left');
+                params.set('distType', 'skew_right');
                 window.history.replaceState(null, '', '?' + params.toString());
             }
         }
@@ -123,13 +112,29 @@ export class CentralLimitGraph extends Component {
         });
     }
     handleGeneratePopulation() {
+        let mean = this.state.mean;
+        let stdDev = this.state.stdDev;
+
         let population = this.generatePopulation();
-        let populationGraphData = createHistogramArray(
-            population,
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
-        );
+        let populationGraphData = [];
+
+        let graphDomain = math.range(MIN_BIN, MAX_BIN, true);
+        switch(this.state.distType){
+        case 'normal':
+            populationGraphData = normalBarHeight(graphDomain, mean, stdDev)
+                .map((val, idx) => {return [graphDomain[idx], val];});
+            break;
+        case 'skew_right':
+            populationGraphData =
+                exponentialBarHeight(graphDomain, mean, stdDev)
+                    .map((val, idx) => {return [graphDomain[idx], val];});
+            break;
+        default:
+            populationGraphData = normalBarHeight(graphDomain, mean, stdDev)
+                .map((val, idx) => {return [idx, val];});
+            break;
+        }
+
         this.setState({
             population: population,
             populationGraphData: populationGraphData,
@@ -157,62 +162,15 @@ export class CentralLimitGraph extends Component {
 
         switch (distType) {
         case 'normal':
-            // This method munges the normal distribution such that every
-            // value generated that is less than the mean is reflected about
-            // the mean to produce a symetrical distribution.
-
-            // Generate the first half of a normal distribution
-            return [...Array(Math.floor(size / 2))].map((e) => {
-                let s = null;
-                do {
-                    s = math.round(jStat.normal.sample(mean, stdDev), 1);
-                } while (s > mean);
-                return s;
-            }).reduce((acc, e) => {
-                // Then push the element on the accumulated array
-                acc.push(e);
-                if (e < mean) {
-                    // If e is less than the mean, then find its reflection
-                    // and push that to the array.
-                    let diff = math.round(mean - e, 1);
-                    acc.push(math.round(mean + diff, 1));
-                }
-                return acc;
-            }, []);
-
-        case 'skew_left':
             return [...Array(size)].map((e) => {
-                return math.round(
-                    jStat.exponential.sample(rate) - stdDev + mean, 1);
+                return math.round(jStat.normal.sample(mean, stdDev), 1);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
                 return math.round(
-                    (jStat.exponential.sample(rate) * -1) - stdDev + mean, 1);
+                    jStat.exponential.sample(rate) - stdDev + mean, 1);
             });
-
-        case 'bimodal':
-            return [...Array(size)].map((e, i) => {
-                if (i % 2) {
-                    return math.round(jStat.normal.sample(-3, stdDev), 1);
-                } else {
-                    return math.round(jStat.normal.sample(3, stdDev), 1);
-                }
-            });
-
-        case 'uniform':
-            return [...Array(size)].map((e) => {
-                // Oversample the uniform distribution and then 'trim' off
-                // extra values. This ensures that rounding doesn't taper the
-                // distributions at the ends.
-                let s = null;
-                do {
-                    s = math.round(jStat.uniform.sample(-1.1, 1.1), 1);
-                } while (Math.abs(s) > 1);
-                return s;
-            });
-
         default:
             // return a normal distribution
             return [...Array(size)].map((e) => {
