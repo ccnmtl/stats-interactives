@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
-    VictoryAxis, VictoryScatter } from 'victory';
+    VictoryAxis, VictoryScatter, VictoryLabel } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
+import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const SampleMeansGraph = ({
-    sampleMeansGraphData, domain, range, sampleMean}) => {
+    sampleMeansGraphData, domain, range, sampleMean, popMean}) => {
     let sampleMeanBin = Math.floor(sampleMean) - MIN_BIN;
     let sampleMeanVector = [];
     if (sampleMeansGraphData) {
-        sampleMeanVector = [
-            sampleMeansGraphData[sampleMeanBin][0],
-            sampleMeansGraphData[sampleMeanBin][1]
+        sampleMeanVector = [{
+            x: sampleMeansGraphData[sampleMeanBin][0] + 0.5,
+            y: sampleMeansGraphData[sampleMeanBin][1]
+        }
         ];
     }
     return (
@@ -25,18 +27,27 @@ export const SampleMeansGraph = ({
             domain={{x: [MIN_BIN, MAX_BIN], y: range}}>
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
-            { sampleMeansGraphData &&
+            {sampleMeansGraphData &&
                 <VictoryBar data={sampleMeansGraphData}
                     alignment='start'
                     barRatio={1}
                     x={0}
-                    y={1}/>
+                    y={1}
+                    style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
+                        strokeWidth: '2px'} }}/>
             }
             {sampleMeanVector &&
-                <VictoryScatter data={[sampleMeanVector]}
-                    x={(datum) => datum[0] + 0.5}
-                    y={(datum) => datum[1]}
-                    style={{ data: { fill: 'red' } }}/>
+                <VictoryScatter data={sampleMeanVector}
+                    size={4}
+                    labels={['x̄: ' + sampleMean]}
+                    labelComponent={
+                        // shift the label L/R depending on
+                        // if its gt/lt the pop mean
+                        <VictoryLabel
+                            dx={() => sampleMean > popMean ? 30 : -25 } />}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' }, labels: {
+                        fontSize: '24', fontColor: '#000000' } }}/>
             }
         </VictoryChart>
         </>
@@ -48,4 +59,5 @@ SampleMeansGraph.propTypes = {
     range: PropTypes.array,
     sampleMeansGraphData: PropTypes.array,
     sampleMean: PropTypes.number,
+    popMean: PropTypes.number,
 };

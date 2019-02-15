@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
-    VictoryScatter, VictoryAxis, VictoryLabel } from 'victory';
+    VictoryScatter, VictoryAxis } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { getHistogramMaxima } from '../utils.js';
+import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
@@ -28,23 +29,22 @@ export const PopulationGraph  = (
                     alignment='start'
                     barRatio={1}
                     x={0}
-                    y={(datum) => datum[1] / populationMax}/> }
-            {samplesGraphData &&
-                <VictoryBar data={[{ x: sampleMean, y: 0.05, y0: -0.1 }]}
-                    labels={['μ: ' + sampleMean]}
-                    barRatio={0.1}
-                    labelComponent={<VictoryLabel dy={75} />}
-                    style={{ data: { fill: 'green' } }} />
-            }
+                    y={(datum) => datum[1] / populationMax}
+                    style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
+                        strokeWidth: '2px'} }}/> }
             {samplesGraphData &&
                 <VictoryScatter data={samplesGraphData}
-                    style={{ data: { fill: 'red' } }}
+                    style={{ data: { fill: 'white', stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
             {observationData &&
                 <VictoryScatter data={observationData}
-                    style={{ data: { fill: 'blue' } }}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
