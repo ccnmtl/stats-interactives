@@ -47,12 +47,7 @@ export class CentralLimitGraph extends Component {
 
         let params = new URLSearchParams(location.search);
         let seed = '';
-        if (!params.has('seed')) {
-            // generate a seed
-            seed = String(Date.now());
-            params.set('seed', seed);
-            window.history.replaceState(null, '', '?' + params.toString());
-        } else {
+        if (params.has('seed')) {
             seed = String(params.get('seed'));
         }
 

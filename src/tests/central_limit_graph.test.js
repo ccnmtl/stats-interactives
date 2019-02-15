@@ -22,18 +22,6 @@ describe('Manipulate the seed param in the query string', () => {
         window.history.replaceState(null, '', '?');
     });
 
-    test('When no seed is set in query string, one is generated', () => {
-        Date.now = jest.fn(() => 1234567890);
-        const component = renderer.create(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-
-        let params = new URLSearchParams(location.search);
-        expect(params.get('seed')).toEqual('1234567890');
-    })
-
     test('When a seed is present in the query string that it ' +
             'is assigned to the component state', () => {
         window.history.replaceState(null, '', '?seed=foo');
