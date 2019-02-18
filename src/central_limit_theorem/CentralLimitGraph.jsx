@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as math from 'mathjs';
+import ReactGA from 'react-ga';
 import {
     createHistogramArray, getHistogramMaxima,
     createScatterPlotHistogram } from '../utils.js';
@@ -91,6 +92,10 @@ export class CentralLimitGraph extends Component {
         });
     }
     handleGeneratePopulation() {
+        ReactGA.event({
+            category: 'User',
+            action: 'Generate Population'
+        });
         let mean = this.state.mean;
         let stdDev = this.state.stdDev;
 
@@ -159,6 +164,10 @@ export class CentralLimitGraph extends Component {
 
     }
     runSample() {
+        ReactGA.event({
+            category: 'User',
+            action: 'Run Sample'
+        });
         this.handleResetSamples();
         // Use the base64 encoding of the seed as a simple hash
         let samplingSeed = window.btoa(this.state.seed);
@@ -274,6 +283,10 @@ export class CentralLimitGraph extends Component {
         });
     }
     handleResetSimulation() {
+        ReactGA.event({
+            category: 'User',
+            action: 'Reset Simulation'
+        });
         this.handleResetSamples();
         this.handleResetPopulation();
     }
