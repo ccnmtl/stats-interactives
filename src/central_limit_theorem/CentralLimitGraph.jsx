@@ -294,16 +294,26 @@ export class CentralLimitGraph extends Component {
         this.handleResetSamples();
         this.handleResetPopulation();
     }
-    componentDidUpdate() {
-        let params = new URLSearchParams(location.search);
-        params.set('seed', this.state.seed);
-        params.set('populationSize', this.state.populationSize);
-        params.set('mean', this.state.mean);
-        params.set('stdDev', this.state.stdDev);
-        params.set('distType', this.state.distType);
-        params.set('sampleSize', this.state.sampleSize);
-        params.set('numberOfSamples', this.state.numberOfSamples);
-        window.history.replaceState(null, '', '?' + params.toString());
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.state.seed !== prevState.seed ||
+            this.state.populationSize !== prevState.populationSize ||
+            this.state.mean !== prevState.mean ||
+            this.state.stdDev !== prevState.stdDev ||
+            this.state.distType !== prevState.distType ||
+            this.state.sampleSize !== prevState.sampleSize ||
+            this.state.numberOfSamples !== prevState.numberOfSamples
+        ) {
+            let params = new URLSearchParams(location.search);
+            params.set('seed', this.state.seed);
+            params.set('populationSize', this.state.populationSize);
+            params.set('mean', this.state.mean);
+            params.set('stdDev', this.state.stdDev);
+            params.set('distType', this.state.distType);
+            params.set('sampleSize', this.state.sampleSize);
+            params.set('numberOfSamples', this.state.numberOfSamples);
+            window.history.replaceState(null, '', '?' + params.toString());
+        }
     }
     render() {
         return (
