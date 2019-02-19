@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-51144540-29');
+ReactGA.set({ anonymizeIp: true })
 
 export default function withTracker(WrappedComponent, options = {}) {
     const trackPage = (page) => {
