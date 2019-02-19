@@ -340,30 +340,34 @@ export class CentralLimitGraph extends Component {
                             handleResetSamples={
                                 this.handleResetSamples}/>
                     </div>
-                    <div className='col-8 sticky-top'
-                        style={{maxHeight: '320px'}}>
-                        <PopulationGraph
-                            populationGraphData={
-                                this.state.populationGraphData}
-                            samplesGraphData={
-                                this.state.samplesGraphData}
-                            samplesMax={this.state.samplesMax}
-                            observationIdx={this.state.observationIdx}
-                            observationData={this.state.observationData}
-                            domain={this.state.domain}
-                            sampleMean={this.state.sampleMeans ?
-                                this.state.sampleMeans[
-                                    this.state.sampleMeansIdx] : null}/>
-                        <SampleMeansGraph
-                            domain={this.state.domain}
-                            range={
-                                this.state.sampleMeansRange}
-                            sampleMeansGraphData={
-                                this.state
-                                    .sampleMeansGraphData}
-                            popMean={this.state.mean}
-                            activeSampleMeansData={
-                                this.state.activeSampleMeansData}/>
+                    <div className='col-8 graph-col'>
+                        <div className="graph-container sticky-top">
+                            <h4>
+                                Population and Current Sample</h4>
+                            <PopulationGraph
+                                populationGraphData={
+                                    this.state.populationGraphData}
+                                samplesGraphData={
+                                    this.state.samplesGraphData}
+                                samplesMax={this.state.samplesMax}
+                                observationIdx={this.state.observationIdx}
+                                observationData={this.state.observationData}
+                                domain={this.state.domain}
+                                sampleMean={this.state.sampleMeans ?
+                                    this.state.sampleMeans[
+                                        this.state.sampleMeansIdx] : null}/>
+                            <h4>Distribution of Sample Means</h4>
+                            <SampleMeansGraph
+                                domain={this.state.domain}
+                                range={
+                                    this.state.sampleMeansRange}
+                                sampleMeansGraphData={
+                                    this.state
+                                        .sampleMeansGraphData}
+                                popMean={this.state.mean}
+                                activeSampleMeansData={
+                                    this.state.activeSampleMeansData}/>
+                        </div>
                     </div>
                 </div>
                 <hr/>
