@@ -9,7 +9,7 @@ import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
-import SampleRangeSlider from './SampleRangeSlider';
+import { SampleRangeSlider } from './SampleRangeSlider';
 import { normalBarHeight, exponentialBarHeight } from './populations';
 
 var seedrandom = require('seedrandom');
