@@ -4,3 +4,15 @@
 
 .slider-labels {height: 44px;}
 .slider-no-labels  {height: 22px;}
+.graph-col {
+    padding-top: 0.5em;
+    background-color: white;
+
+    .graph-container {
+        h4 {
+            margin-left: 1em;
+            margin-bottom: 0em;
+            margin-top: 1em;
+        }
+    }
+}
