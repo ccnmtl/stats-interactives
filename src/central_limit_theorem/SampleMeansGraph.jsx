@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryAxis,
-    VictoryScatter, VictoryLabel} from 'victory';
+    VictoryScatter} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
@@ -41,11 +41,6 @@ export const SampleMeansGraph = ({
                 <VictoryScatter data={activeSampleMeansData}
                     size={4}
                     labels={['x̄: ' + sampleMean]}
-                    labelComponent={
-                        // shift the label L/R depending on
-                        // if its gt/lt the pop mean
-                        <VictoryLabel
-                            dx={() => sampleMean > popMean ? 30 : -25 } />}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: '1px' }, labels: {
                         fontSize: '24', fontColor: '#000000' } }}/>

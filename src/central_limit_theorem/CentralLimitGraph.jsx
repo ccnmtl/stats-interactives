@@ -336,6 +336,10 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             observationIdx={this.state.observationIdx}
                             observationData={this.state.observationData}
+                            activeSampleMean={
+                                this.state.activeSampleMeansData ?
+                                    this.state.activeSampleMeansData[0]['datum']
+                                    : 0}
                             handleObservationIdx={this.handleObservationIdx}
                             handleResetSamples={
                                 this.handleResetSamples}/>
