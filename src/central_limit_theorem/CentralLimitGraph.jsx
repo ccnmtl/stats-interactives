@@ -10,7 +10,6 @@ import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
 import SampleRangeSlider from './SampleRangeSlider';
 import { normalBarHeight, exponentialBarHeight } from './populations';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -354,11 +353,6 @@ export class CentralLimitGraph extends Component {
                         onClick={this.handleResetSimulation}>
                         Reset Simulation
                     </button>
-                    <CopyToClipboard text={location.href}>
-                        <button type="button" className="btn btn-success">
-                            Copy Link to Clipboard
-                        </button>
-                    </CopyToClipboard>
                 </div>
             </div>
             </>
