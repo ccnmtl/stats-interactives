@@ -5,23 +5,18 @@ import {
     VictoryScatter, VictoryAxis, VictoryLegend } from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { getHistogramMaxima } from '../utils.js';
 import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
     {populationGraphData, samplesGraphData, samplesMax,
         observationIdx, observationData, domain, sampleMean}) => {
-    let populationMax = 0;
-    if (populationGraphData) {
-        populationMax = getHistogramMaxima(populationGraphData);
-    }
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
             padding={{top: 0, left: 5, right: 5, bottom: 25}}
             width={850}
-            domain={{x: [MIN_BIN, MAX_BIN]}}>
+            domain={{x: [MIN_BIN, MAX_BIN], y: [0, 1]}}>
             <VictoryAxis
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
             <VictoryLegend
@@ -34,7 +29,7 @@ export const PopulationGraph  = (
                     alignment='start'
                     barRatio={1}
                     x={0}
-                    y={(datum) => datum[1] / populationMax}
+                    y={1}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/> }
             {samplesGraphData &&
