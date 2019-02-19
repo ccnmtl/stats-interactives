@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
-import { LabeledSlider } from '../LabeledSlider';
+import Rheostat from 'rheostat';
+import { PitComponent } from '../PitComponent';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
 import ReactTooltip from 'react-tooltip';
 
@@ -91,17 +92,22 @@ export const PopulationForm  = (
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <LabeledSlider
-                            disabled={seed ? false : true}
-                            min={-5}
-                            max={5}
-                            values={[mean]}
-                            snap
-                            pitPoints={[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
-                            snapPoints={[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
-                            onChange={(sliderState) => {
-                                handleChange('mean', sliderState.values[0]);
-                            }}/>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                disabled={seed ? false : true}
+                                min={-5}
+                                max={5}
+                                values={[mean]}
+                                snap
+                                pitComponent={PitComponent}
+                                pitPoints={
+                                    [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
+                                snapPoints={
+                                    [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
+                                onChange={(sliderState) => {
+                                    handleChange('mean', sliderState.values[0]);
+                                }}/>
+                        </div>
                     </div>
                 </div>
                 <div className="form-group">
@@ -124,17 +130,21 @@ export const PopulationForm  = (
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <LabeledSlider
-                            disabled={seed ? false : true}
-                            min={1}
-                            max={4}
-                            values={[stdDev]}
-                            snap
-                            pitPoints={[1, 2, 3, 4]}
-                            snapPoints={[1, 2, 3, 4]}
-                            onChange={(sliderState) => {
-                                handleChange('stdDev', sliderState.values[0]);
-                            }}/>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                disabled={seed ? false : true}
+                                min={1}
+                                max={4}
+                                values={[stdDev]}
+                                snap
+                                pitComponent={PitComponent}
+                                pitPoints={[1, 2, 3, 4]}
+                                snapPoints={[1, 2, 3, 4]}
+                                onChange={(sliderState) => {
+                                    handleChange('stdDev',
+                                        sliderState.values[0]);
+                                }}/>
+                        </div>
                     </div>
                 </div>
                 <div className="form-group">
