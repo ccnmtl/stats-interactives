@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LabeledSlider } from '../LabeledSlider';
-import ReactHintFactory from 'react-hint';
-const ReactHint = ReactHintFactory(React);
+import ReactTooltip from 'react-tooltip';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
@@ -15,21 +14,26 @@ export const SampleForm = ({
 
     return (
         <>
-        <ReactHint autoPosition events />
         <form onSubmit={handleRunSample} >
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
                         <label htmlFor="sampleSize"
                             className="float-right">
-                            Sample Size:<button className="help-tooltip"
-                                data-rh="Represents the number of observations
-                                         in a given sample.">
-                                <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </button>
-                        </label>
+                            Sample Size:</label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="sampleSize-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="sampleSize-tt" event="focus"
+                            eventOff="blur">
+                            <span>Represents the number of observations
+                                in a given sample.</span>
+                        </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <LabeledSlider
@@ -50,14 +54,20 @@ export const SampleForm = ({
                     <div className="form-row">
                         <label htmlFor="numberOfSamples"
                             className="float-right">
-                            Number of Samples:<button className="help-tooltip"
-                                data-rh="The number of individual samples,
-                                    each of size n, drawn in the simulation.">
-                                <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </button>
-                        </label>
+                            Number of Samples:</label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="numberOfSamples-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="numberOfSamples-tt" event="focus"
+                            eventOff="blur">
+                            <span>The number of individual samples,
+                                each of size n, drawn in the simulation.</span>
+                        </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <LabeledSlider

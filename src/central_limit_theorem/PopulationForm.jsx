@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
 import { LabeledSlider } from '../LabeledSlider';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
-import ReactHintFactory from 'react-hint';
-const ReactHint = ReactHintFactory(React);
+import ReactTooltip from 'react-tooltip';
 
 export const PopulationForm  = (
     {seed, populationSize, mean, stdDev, distType,
@@ -23,20 +22,25 @@ export const PopulationForm  = (
     };
     return (
         <>
-        <ReactHint autoPosition events />
         <form onSubmit={handleGenPop} className="needs-validation" noValidate >
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
-                            Seed:<button className="help-tooltip"
-                                data-rh="Enter a value to generate
-                                random data.">
-                                <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </button>
-                        </label>
+                            Seed:</label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="seed-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="seed-tt" event="focus"
+                            eventOff="blur">
+                            <span>Enter a different value to see a
+                                different simulation</span>
+                        </ReactTooltip>
                     </div>
                     <div>
                         <input type="text"
@@ -46,7 +50,8 @@ export const PopulationForm  = (
                                     'form-control is-invalid' }
                             value={seed}
                             onChange={handleFormChange} required/>
-                        <div className="invalid-feedback">(Required)</div>
+                        <div className="invalid-feedback">(Required to
+                            generate random population data)</div>
                     </div>
                 </div>
                 <div className="form-group">
@@ -70,14 +75,20 @@ export const PopulationForm  = (
                     <div className="form-row">
                         <label htmlFor="mean"
                             className="float-right">
-                            Mean:<button className="help-tooltip"
-                                data-rh="The arithmetic average of the values
-                                         in the population.">
-                                <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </button>
-                        </label>
+                            Mean:</label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="mean-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="mean-tt" event="focus"
+                            eventOff="blur">
+                            <span>The arithmetic average of the values
+                                in the population.</span>
+                        </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <LabeledSlider
@@ -97,14 +108,20 @@ export const PopulationForm  = (
                     <div className="form-row">
                         <label htmlFor="stdDev"
                             className="float-right">
-                            Standard Deviation:<button className="help-tooltip"
-                                data-rh="The average of the square distances
-                                         from the mean of the population.">
-                                <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </button>
-                        </label>
+                            Standard Deviation:</label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="stdDev-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="stdDev-tt" event="focus"
+                            eventOff="blur">
+                            <span>The average of the square distances
+                                from the mean of the population.</span>
+                        </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <LabeledSlider
