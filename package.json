@@ -47,6 +47,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-ga": "^2.5.7",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.6.1",
     "react-tooltip": "^3.9.2",

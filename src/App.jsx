@@ -6,15 +6,16 @@ import { OrdinaryLeastSquares } from
     './ordinary_least_squares/OrdinaryLeastSquares';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import 'rheostat/initialize';
+import withTracker from './withTracker';
 
 export const App = () => (
     <Router>
         <main role="main">
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={withTracker(Home)} />
             <Route path="/central-limit-theorem"
-                component={CentralLimitGraph} />
+                component={withTracker(CentralLimitGraph)} />
             <Route path="/ols-regression"
-                component={OrdinaryLeastSquares} />
+                component={withTracker(OrdinaryLeastSquares)} />
         </main>
     </Router>
 );
