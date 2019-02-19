@@ -87,6 +87,14 @@ export class CentralLimitGraph extends Component {
         };
     }
     handleChange(key, value) {
+        if (key !== 'seed') {
+            ReactGA.event({
+                category: 'User',
+                action: 'Upate population params',
+                label: key,
+                value: value,
+            });
+        }
         this.setState({
             [key]: value
         });
