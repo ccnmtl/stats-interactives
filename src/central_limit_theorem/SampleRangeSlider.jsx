@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
-import { Slider } from '../LabeledSlider';
+import Rheostat from 'rheostat';
 
 export const SampleRangeSlider = ({numberOfSamples,
     sampleMeansIdx, handleSampleMeansIdx, sampleSize, activeSampleMean,
@@ -11,11 +11,11 @@ export const SampleRangeSlider = ({numberOfSamples,
     };
     const handleSampleMeans = (e) => {
         e.preventDefault();
-        this.props.handleSampleMeansIdx(forceNumber(e.target.value));
+        handleSampleMeansIdx(forceNumber(e.target.value));
     };
     const handleObsIdx = (e) => {
         e.preventDefault();
-        this.props.handleObservationIdx(forceNumber(e.target.value));
+        handleObservationIdx(forceNumber(e.target.value));
     };
     return (
         <>
@@ -42,18 +42,20 @@ export const SampleRangeSlider = ({numberOfSamples,
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">
-                    <Slider
-                        min={1}
-                        max={sampleSize}
-                        values={[observationIdx ?
-                            observationIdx : 1]}
-                        snap={true}
-                        disabled={observationIdx ?
-                            false : true}
-                        onValuesUpdated={(sliderState) => {
-                            handleObservationIdx(
-                                sliderState.values[0]);
-                        }} />
+                    <div style={{ height: '50px', width: '100%'}}>
+                        <Rheostat
+                            min={1}
+                            max={sampleSize}
+                            values={[observationIdx ?
+                                observationIdx : 1]}
+                            snap={true}
+                            disabled={observationIdx ?
+                                false : true}
+                            onValuesUpdated={(sliderState) => {
+                                handleObservationIdx(
+                                    sliderState.values[0]);
+                            }} />
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
@@ -76,18 +78,20 @@ export const SampleRangeSlider = ({numberOfSamples,
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">
-                    <Slider
-                        disabled={sampleMeansIdx ?
-                            false : true}
-                        min={1}
-                        max={numberOfSamples}
-                        values={[sampleMeansIdx ?
-                            sampleMeansIdx : 1]}
-                        snap={true}
-                        onValuesUpdated={(sliderState) => {
-                            handleSampleMeansIdx(
-                                sliderState.values[0]);
-                        }} />
+                    <div style={{ height: '50px', width: '100%'}}>
+                        <Rheostat
+                            disabled={sampleMeansIdx ?
+                                false : true}
+                            min={1}
+                            max={numberOfSamples}
+                            values={[sampleMeansIdx ?
+                                sampleMeansIdx : 1]}
+                            snap={true}
+                            onValuesUpdated={(sliderState) => {
+                                handleSampleMeansIdx(
+                                    sliderState.values[0]);
+                            }} />
+                    </div>
                 </div>
             </fieldset>
         </form>
