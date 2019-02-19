@@ -45,12 +45,6 @@ export class CentralLimitGraph extends Component {
         this.handleResetSamples = this.handleResetSamples.bind(this);
         this.handleResetSimulation = this.handleResetSimulation.bind(this);
 
-        let params = new URLSearchParams(location.search);
-        let seed = '';
-        if (params.has('seed')) {
-            seed = String(params.get('seed'));
-        }
-
         let distType = 'skew_right';
 
         const populationSize = 10000;
@@ -61,7 +55,7 @@ export class CentralLimitGraph extends Component {
         const defaultNumberOfSamples = 100;
 
         this.state = {
-            seed: seed,
+            seed: '',
             populationSize: populationSize,
             population: null,
             populationGraphData: null,
@@ -149,8 +143,12 @@ export class CentralLimitGraph extends Component {
         let seed = this.state.seed;
         let rate = 1 / stdDev;
 
+        // Parametize the seed, so different populations are generated with
+        // different parameters
+        let saltedSeed = seed + size + mean + stdDev + distType;
+
         // Reset the global Math.random everytime this is called
-        seedrandom(seed, {global: true});
+        seedrandom(saltedSeed, {global: true});
 
         switch (distType) {
         case 'normal':
@@ -178,7 +176,15 @@ export class CentralLimitGraph extends Component {
         });
         this.handleResetSamples();
         // Use the base64 encoding of the seed as a simple hash
-        let samplingSeed = window.btoa(this.state.seed);
+        let size = this.state.populationSize;
+        let mean = this.state.mean;
+        let stdDev = this.state.stdDev;
+        let distType = this.state.distType;
+        let seed = this.state.seed;
+
+        let saltedSeed = seed + size + mean + stdDev + distType;
+
+        let samplingSeed = window.btoa(saltedSeed);
         let ng = seedrandom(samplingSeed);
 
         // take samples from population values
