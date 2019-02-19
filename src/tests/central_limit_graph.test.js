@@ -13,26 +13,6 @@ import { forceNumber, createHistogramArray, getDomain,
 
 configure({adapter: new Adapter()});
 
-describe('Manipulate the seed param in the query string', () => {
-    beforeEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    afterEach(() => {
-        window.history.replaceState(null, '', '?');
-    });
-
-    test('When a seed is present in the query string that it ' +
-            'is assigned to the component state', () => {
-        window.history.replaceState(null, '', '?seed=foo');
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        expect(wrapper.find('CentralLimitGraph').state('seed')).toEqual('foo');
-    });
-})
 
 describe('Ensure that the same seed generates the same population and samples', () => {
     test('The same seed generates the same population', () => {
@@ -135,92 +115,6 @@ test('Test that createHistogramArray returns an accurate histogram', () => {
 test('Test that force number returns a number or undefined', () => {
     expect(forceNumber(42)).toEqual(42);
     expect(forceNumber('Lizard')).toEqual(0);
-});
-
-describe('Default behavior of query string params', () => {
-    test('After rendering the Central Limit Graph, the expected params are populated.', () => {
-        window.history.replaceState(null, '', '');
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let params = new URLSearchParams(location.search);
-
-        expect(params.has('seed')).toEqual(true);
-        expect(params.has('distType')).toEqual(true);
-        expect(params.has('populationSize')).toEqual(true);
-        expect(params.has('mean')).toEqual(true);
-        expect(params.has('stdDev')).toEqual(true);
-        expect(params.has('sampleSize')).toEqual(true);
-        expect(params.has('numberOfSamples')).toEqual(true);
-    });
-
-    test('That the seed is set if one is given', () => {
-        let emptyParams = new URLSearchParams();
-        emptyParams.set('seed', 'foobar');
-        window.history.replaceState(null, '', '?' + emptyParams.toString());
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let params = new URLSearchParams(location.search);
-
-        expect(params.has('seed')).toEqual(true);
-        expect(params.get('seed')).toEqual('foobar');
-    });
-
-    test('That the distType is set to skew_right if none is given.', () => {
-        window.history.replaceState(null, '', '');
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let params = new URLSearchParams(location.search);
-
-        expect(params.has('distType')).toEqual(true);
-        expect(params.get('distType')).toEqual('skew_right');
-    });
-
-    test('That the distType is set to skew_right if an invalid one is given.', () => {
-        let emptyParams = new URLSearchParams();
-        emptyParams.set('distType', 'space-lizard');
-        window.history.replaceState(null, '', '?' + emptyParams.toString());
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let params = new URLSearchParams(location.search);
-
-        expect(params.has('distType')).toEqual(true);
-        expect(params.get('distType')).toEqual('skew_right');
-        // check the state too
-        let clg = wrapper.find('CentralLimitGraph');
-        expect(clg.state('distType')).toEqual('skew_right');
-    });
-
-    test('That the distType is set correctly when a valid one is given.', () => {
-        let emptyParams = new URLSearchParams();
-        emptyParams.set('distType', 'normal');
-        window.history.replaceState(null, '', '?' + emptyParams.toString());
-
-        const wrapper = mount(
-            <MemoryRouter>
-                <CentralLimitGraph />
-            </MemoryRouter>
-        );
-        let params = new URLSearchParams(location.search);
-
-        expect(params.has('distType')).toEqual(true);
-        expect(params.get('distType')).toEqual('normal');
-    });
 });
 
 describe('Check that the CentralLimitGraph conditionally renders components.', () => {

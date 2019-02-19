@@ -10,7 +10,6 @@ import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
 import SampleRangeSlider from './SampleRangeSlider';
 import { normalBarHeight, exponentialBarHeight } from './populations';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -51,23 +50,7 @@ export class CentralLimitGraph extends Component {
             seed = String(params.get('seed'));
         }
 
-        let distType = '';
-        if (!params.has('distType')) {
-            distType = 'skew_right';
-            params.set('distType', 'skew_right');
-            window.history.replaceState(null, '', '?' + params.toString());
-        } else {
-            // Validate that a dist type is on the list, else
-            // set it to 'skew_left'
-            let dt = params.get('distType');
-            let found = DISTRIBUTION_TYPE.find(
-                (e) => {return dt === e.value;});
-            distType = found ? dt : 'skew_right';
-            if (!found) {
-                params.set('distType', 'skew_right');
-                window.history.replaceState(null, '', '?' + params.toString());
-            }
-        }
+        let distType = 'skew_right';
 
         const populationSize = 10000;
         const mean = 0;
@@ -294,17 +277,6 @@ export class CentralLimitGraph extends Component {
         this.handleResetSamples();
         this.handleResetPopulation();
     }
-    componentDidUpdate() {
-        let params = new URLSearchParams(location.search);
-        params.set('seed', this.state.seed);
-        params.set('populationSize', this.state.populationSize);
-        params.set('mean', this.state.mean);
-        params.set('stdDev', this.state.stdDev);
-        params.set('distType', this.state.distType);
-        params.set('sampleSize', this.state.sampleSize);
-        params.set('numberOfSamples', this.state.numberOfSamples);
-        window.history.replaceState(null, '', '?' + params.toString());
-    }
     render() {
         return (
             <>
@@ -381,11 +353,6 @@ export class CentralLimitGraph extends Component {
                         onClick={this.handleResetSimulation}>
                         Reset Simulation
                     </button>
-                    <CopyToClipboard text={location.href}>
-                        <button type="button" className="btn btn-success">
-                            Copy Link to Clipboard
-                        </button>
-                    </CopyToClipboard>
                 </div>
             </div>
             </>
