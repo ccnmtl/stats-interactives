@@ -6,7 +6,9 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
-ReactGA.initialize('UA-51144540-29');
+ReactGA.initialize('UA-51144540-29', {
+    testMode: process.env.NODE_ENV === 'test',
+});
 ReactGA.set({ anonymizeIp: true })
 
 export default function withTracker(WrappedComponent, options = {}) {
