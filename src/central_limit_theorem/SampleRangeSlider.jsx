@@ -37,7 +37,7 @@ export const SampleRangeSlider = ({numberOfSamples,
                             onChange={handleObsIdx} />
                         &nbsp;of {sampleSize} observations in sample {
                             sampleMeansIdx ? sampleMeansIdx : 1}.
-                            Current Val. { observationData ?
+                            Curr. Val. { observationData ?
                             observationData[0][2] : 0}
                     </div>
                 </div>

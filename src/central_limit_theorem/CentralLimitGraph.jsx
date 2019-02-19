@@ -155,18 +155,18 @@ export class CentralLimitGraph extends Component {
         switch (distType) {
         case 'normal':
             return [...Array(size)].map((e) => {
-                return math.round(jStat.normal.sample(mean, stdDev), 1);
+                return math.round(jStat.normal.sample(mean, stdDev), 3);
             });
 
         case 'skew_right':
             return [...Array(size)].map((e) => {
                 return math.round(
-                    jStat.exponential.sample(rate) - stdDev + mean, 1);
+                    jStat.exponential.sample(rate) - stdDev + mean, 3);
             });
         default:
             // return a normal distribution
             return [...Array(size)].map((e) => {
-                return math.round(jStat.normal.sample(mean, stdDev), 1);
+                return math.round(jStat.normal.sample(mean, stdDev), 3);
             });
         }
 
@@ -195,7 +195,7 @@ export class CentralLimitGraph extends Component {
 
         let sampleMeans = samples.reduce((acc, e) => {
             acc.push(
-                math.round(jStat.mean(e), 1)
+                math.round(jStat.mean(e), 3)
             );
             return acc;
         }, []);
