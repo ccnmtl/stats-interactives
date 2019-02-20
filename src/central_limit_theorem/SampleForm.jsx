@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LabeledSlider } from '../LabeledSlider';
+import Rheostat from 'rheostat';
+import { PitComponent } from '../PitComponent';
 import ReactTooltip from 'react-tooltip';
 
 export const SampleForm = ({
@@ -36,18 +37,21 @@ export const SampleForm = ({
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <LabeledSlider
-                            disabled={showSampleBtn ? true : false}
-                            min={1}
-                            max={100}
-                            values={[sampleSize]}
-                            snap
-                            pitPoints={[1, 5, 25, 50, 100]}
-                            snapPoints={[1, 5, 25, 50, 100]}
-                            onChange={(sliderState) => {
-                                handleChange('sampleSize',
-                                    sliderState.values[0]);
-                            }}/>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                disabled={showSampleBtn ? true : false}
+                                min={1}
+                                max={100}
+                                values={[sampleSize]}
+                                snap
+                                pitComponent={PitComponent}
+                                pitPoints={[1, 5, 25, 50, 100]}
+                                snapPoints={[1, 5, 25, 50, 100]}
+                                onChange={(sliderState) => {
+                                    handleChange('sampleSize',
+                                        sliderState.values[0]);
+                                }}/>
+                        </div>
                     </div>
                 </div>
                 <div className="form-group">
@@ -70,18 +74,21 @@ export const SampleForm = ({
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <LabeledSlider
-                            disabled={showSampleBtn ? true : false}
-                            min={1}
-                            max={1000}
-                            values={[numberOfSamples]}
-                            snap
-                            pitPoints={[50, 100, 500, 1000]}
-                            snapPoints={[50, 100, 500, 1000]}
-                            onChange={(sliderState) => {
-                                handleChange('numberOfSamples',
-                                    sliderState.values[0]);
-                            }}/>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                disabled={showSampleBtn ? true : false}
+                                min={1}
+                                max={1000}
+                                values={[numberOfSamples]}
+                                snap
+                                pitComponent={PitComponent}
+                                pitPoints={[50, 100, 500, 1000]}
+                                snapPoints={[50, 100, 500, 1000]}
+                                onChange={(sliderState) => {
+                                    handleChange('numberOfSamples',
+                                        sliderState.values[0]);
+                                }}/>
+                        </div>
                     </div>
                 </div>
                 <div className="form-group">

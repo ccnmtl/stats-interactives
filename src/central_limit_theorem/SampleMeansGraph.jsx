@@ -10,10 +10,6 @@ import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const SampleMeansGraph = ({
     sampleMeansGraphData, domain, range, popMean, activeSampleMeansData}) => {
-    let sampleMean = null;
-    if (activeSampleMeansData) {
-        sampleMean = activeSampleMeansData[0]['datum'];
-    }
 
     return (
         <>
@@ -40,7 +36,6 @@ export const SampleMeansGraph = ({
             {activeSampleMeansData &&
                 <VictoryScatter data={activeSampleMeansData}
                     size={4}
-                    labels={['x̄: ' + sampleMean]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: '1px' }, labels: {
                         fontSize: '24', fontColor: '#000000' } }}/>
