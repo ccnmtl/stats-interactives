@@ -1,5 +1,5 @@
 /*eslint max-len: ["error", { "ignoreStrings": true }]*/
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { OrdinaryLeastSquares } from
@@ -8,17 +8,27 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import 'rheostat/initialize';
 import withTracker from './withTracker';
 
-export const App = () => (
-    <Router>
-        <main role="main">
-            <Route exact path="/" component={withTracker(Home)} />
-            <Route path="/central-limit-theorem"
-                component={withTracker(CentralLimitGraph)} />
-            <Route path="/ols-regression"
-                component={withTracker(OrdinaryLeastSquares)} />
-        </main>
-    </Router>
-);
+export class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        document.getElementById('footer').style.display = 'block';
+    }
+    render() {
+        return (
+            <Router>
+                <main role="main">
+                    <Route exact path="/" component={withTracker(Home)} />
+                    <Route path="/central-limit-theorem"
+                        component={withTracker(CentralLimitGraph)} />
+                    <Route path="/ols-regression"
+                        component={withTracker(OrdinaryLeastSquares)} />
+                </main>
+            </Router>
+        );
+    }
+}
 
 const PreviewData = [
     {
@@ -85,26 +95,6 @@ const Home = () => (
         </div>
     </div>
     <hr/>
-    <footer className="footer">
-        <div className="container">
-            <div className="row">
-                <div className="col-md-10">
-                    <p>
-                        <small><a href="https://www.columbia.edu/">Columbia University</a></small>
-                        <small>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</small>
-                        <small><a href="https://sipa.columbia.edu/">School of International and Public Affairs</a></small>
-                        <small>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</small>
-                        <small><a href="https://ctl.columbia.edu/">Center for Teaching and Learning</a></small>
-                    </p>
-                </div>
-                <div className="col-md-2">
-                    <p className="text-right">
-                        <small><a href="#">Feedback</a></small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
     </>
 );
 
