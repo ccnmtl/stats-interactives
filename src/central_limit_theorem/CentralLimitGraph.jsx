@@ -390,6 +390,27 @@ export class CentralLimitGraph extends Component {
                     </button>
                 </div>
             </div>
+            <hr/>
+            <footer className="footer">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-10">
+                            <p>
+                                <small><a href="https://www.columbia.edu/">Columbia University</a></small>
+                                <small>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</small>
+                                <small><a href="https://sipa.columbia.edu/">School of International and Public Affairs</a></small>
+                                <small>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</small>
+                                <small><a href="https://ctl.columbia.edu/">Center for Teaching and Learning</a></small>
+                            </p>
+                        </div>
+                        <div className="col-md-2">
+                            <p className="text-right">
+                                <small><a href="#">Feedback</a></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
             </>
         );
     }
