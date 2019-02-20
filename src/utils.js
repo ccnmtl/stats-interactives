@@ -33,7 +33,7 @@ const getBinIndices = (nBins, binSize, initVal) => {
     // - where some val is the frequency of a value falling into that bin
     return [...Array(nBins).keys()].reduce(
         (acc, val) => {
-            acc.push([math.round(initVal + (binSize * val), 1), 0]);
+            acc.push([math.round(initVal + (binSize * val), 3), 0]);
             return acc;
         },
         []);
