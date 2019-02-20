@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { forceNumber } from '../utils';
 import Rheostat from 'rheostat';
+import ReactTooltip from 'react-tooltip';
 
 export const SampleRangeSlider = ({numberOfSamples,
     sampleMeansIdx, handleSampleMeansIdx, sampleSize, activeSampleMean,
@@ -37,8 +38,21 @@ export const SampleRangeSlider = ({numberOfSamples,
                             onChange={handleObsIdx} />
                         &nbsp;of {sampleSize} observations in sample {
                             sampleMeansIdx ? sampleMeansIdx : 1}.
-                            Curr. Val. { observationData ?
-                            observationData[0][2] : 0}
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="observation-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="observation-tt"
+                            event="focus"
+                            eventOff="blur">
+                            <span>Slide to see each observation in a sample on
+                                top graph; the current observation is shown in
+                                yellow.</span>
+                        </ReactTooltip>
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">
@@ -57,6 +71,10 @@ export const SampleRangeSlider = ({numberOfSamples,
                             }} />
                     </div>
                 </div>
+                <div className="form-row">
+                    Current Value: { observationData ?
+                        observationData[0][2] : 0}
+                </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
@@ -74,7 +92,22 @@ export const SampleRangeSlider = ({numberOfSamples,
                             onFocus={handleFocus}
                             onChange={handleSampleMeans} />
                         &nbsp;of {numberOfSamples} samples.
-                        Sample mean = x&#772;= {activeSampleMean}
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="sampleMean-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="sampleMean-tt"
+                            event="focus"
+                            eventOff="blur">
+                            <span>Slide to see a different sample on top
+                                graph, as well as the distribution of sample
+                                means up to the current sample (shown in
+                                yellow) on bottom graph.</span>
+                        </ReactTooltip>
                     </div>
                 </div>
                 <div className="form-row slider-no-labels">
@@ -92,6 +125,9 @@ export const SampleRangeSlider = ({numberOfSamples,
                                     sliderState.values[0]);
                             }} />
                     </div>
+                </div>
+                <div className="form-row">
+                    Sample mean = x&#772;= {activeSampleMean}
                 </div>
             </fieldset>
         </form>
