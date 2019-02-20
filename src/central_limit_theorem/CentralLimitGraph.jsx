@@ -9,7 +9,7 @@ import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
 import { SampleForm } from './SampleForm';
-import SampleRangeSlider from './SampleRangeSlider';
+import { SampleRangeSlider } from './SampleRangeSlider';
 import { normalBarHeight, exponentialBarHeight } from './populations';
 
 var seedrandom = require('seedrandom');
@@ -336,6 +336,10 @@ export class CentralLimitGraph extends Component {
                             sampleSize={this.state.sampleSize}
                             observationIdx={this.state.observationIdx}
                             observationData={this.state.observationData}
+                            activeSampleMean={
+                                this.state.activeSampleMeansData ?
+                                    this.state.activeSampleMeansData[0]['datum']
+                                    : 0}
                             handleObservationIdx={this.handleObservationIdx}
                             handleResetSamples={
                                 this.handleResetSamples}/>
