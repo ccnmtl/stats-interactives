@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import {
     createHistogramArray, getHistogramMaxima,
     createScatterPlotHistogram } from '../utils.js';
-import { Nav } from '../Nav.jsx';
+import { Nav } from '../Nav';
 import { PopulationGraph } from './PopulationGraph';
 import { SampleMeansGraph } from './SampleMeansGraph';
 import { PopulationForm } from './PopulationForm';
@@ -75,6 +75,7 @@ export class CentralLimitGraph extends Component {
             domain: [-6, 6],
             sampleMeansDomain: null,
             sampleMeansRange: [0, 1],
+            meanOfSampleMeans: null,
             observationIdx: null,
             observationData: null,
             activeSampleMeansData: null,
@@ -206,6 +207,8 @@ export class CentralLimitGraph extends Component {
             return acc;
         }, []);
 
+        let meanOfSampleMeans = math.round(jStat.mean(sampleMeans), 3);
+
         let samplesGraphData = createScatterPlotHistogram(
             samples[0], NO_OF_BINS, MIN_BIN, MAX_BIN);
 
@@ -244,6 +247,7 @@ export class CentralLimitGraph extends Component {
             samplesGraphData: samplesGraphData,
             sampleMeansGraphData: sampleMeansGraphData,
             samplesMax: samplesMaxFrequency,
+            meanOfSampleMeans: meanOfSampleMeans,
             observationIdx: 1,
             observationData: [samplesGraphData[0]],
         });
@@ -291,6 +295,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansIdx: null,
             samplesGraphData: null,
             sampleMeansGraphData: null,
+            meanOfSampleMeans: null,
             observationIdx: null,
             observationData: null,
             activeSampleMeansData: null,
@@ -367,6 +372,9 @@ export class CentralLimitGraph extends Component {
                                     this.state.sampleMeans[
                                         this.state.sampleMeansIdx] : null}/>
                             <h4>Distribution of Sample Means</h4>
+                            {this.state.meanOfSampleMeans &&
+                                <p>Mean of {this.state.numberOfSamples} Sample
+                                    Means: {this.state.meanOfSampleMeans}</p>}
                             <SampleMeansGraph
                                 domain={this.state.domain}
                                 range={
@@ -390,6 +398,7 @@ export class CentralLimitGraph extends Component {
                     </button>
                 </div>
             </div>
+            <hr/>
             </>
         );
     }

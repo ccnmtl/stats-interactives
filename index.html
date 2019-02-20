@@ -16,11 +16,47 @@
     <body>
     
         <div id="graph-root" class="name"></div> 
-        
+
+        <footer id="footer" class="footer" style="display: none">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <p>
+                            <a href="https://www.columbia.edu/">Columbia
+                                University</a>
+                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                            <a href="https://sipa.columbia.edu/">School of
+                                International and Public Affairs</a>
+                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                            <a href="https://ctl.columbia.edu/">Center for
+                                Teaching and Learning</a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="text-right">
+                            <button type="button btn-sm"
+                                id="feedbackTrigger"
+                                class="btn btn-info">Report a Bug</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript" src="https://columbiactl.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-2rdiv5/b/38/a44af77267a987a660377e5c46e0fb64/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=5ae46416"></script>
+        <script>
+            window.ATL_JQ_PAGE_PROPS =  {
+                "triggerFunction": function(showCollectorDialog) {
+                    document.getElementById('feedbackTrigger').addEventListener('click', function(e) {
+                        console.log(e);
+                        e.preventDefault();
+                        showCollectorDialog();
+                    });
+                }
+            };
+        </script>
+        <script src="/dist/bundle.min.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
+        <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
     </body>
-    
-    <script src="/dist/bundle.min.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
-    <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
     
 </html>

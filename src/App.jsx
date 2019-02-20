@@ -1,5 +1,5 @@
 /*eslint max-len: ["error", { "ignoreStrings": true }]*/
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { OrdinaryLeastSquares } from
@@ -8,17 +8,24 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import 'rheostat/initialize';
 import withTracker from './withTracker';
 
-export const App = () => (
-    <Router>
-        <main role="main">
-            <Route exact path="/" component={withTracker(Home)} />
-            <Route path="/central-limit-theorem"
-                component={withTracker(CentralLimitGraph)} />
-            <Route path="/ols-regression"
-                component={withTracker(OrdinaryLeastSquares)} />
-        </main>
-    </Router>
-);
+export class App extends Component {
+    componentDidMount() {
+        document.getElementById('footer').style.display = 'block';
+    }
+    render() {
+        return (
+            <Router>
+                <main role="main">
+                    <Route exact path="/" component={withTracker(Home)} />
+                    <Route path="/central-limit-theorem"
+                        component={withTracker(CentralLimitGraph)} />
+                    <Route path="/ols-regression"
+                        component={withTracker(OrdinaryLeastSquares)} />
+                </main>
+            </Router>
+        );
+    }
+}
 
 const PreviewData = [
     {
@@ -84,6 +91,7 @@ const Home = () => (
             <Preview />
         </div>
     </div>
+    <hr/>
     </>
 );
 
