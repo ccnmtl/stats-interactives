@@ -9,9 +9,6 @@ import 'rheostat/initialize';
 import withTracker from './withTracker';
 
 export class App extends Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         document.getElementById('footer').style.display = 'block';
     }
