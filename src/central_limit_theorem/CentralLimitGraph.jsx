@@ -218,6 +218,12 @@ export class CentralLimitGraph extends Component {
             MIN_BIN,
             MAX_BIN);
 
+        let activeSampleMeansData = [{
+            x: sampleMeansGraphData[0][0],
+            y: sampleMeansGraphData[0][1],
+            datum: sampleMeansGraphData[0][2],
+        }];
+
         let samplesMaxFrequency = 0;
         samples.map((e) => {
             let max = getHistogramMaxima(createScatterPlotHistogram(
@@ -248,6 +254,7 @@ export class CentralLimitGraph extends Component {
             sampleMeansGraphData: sampleMeansGraphData,
             samplesMax: samplesMaxFrequency,
             meanOfSampleMeans: meanOfSampleMeans,
+            activeSampleMeansData: activeSampleMeansData,
             observationIdx: 1,
             observationData: [samplesGraphData[0]],
         });
