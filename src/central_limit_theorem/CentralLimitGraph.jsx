@@ -218,11 +218,15 @@ export class CentralLimitGraph extends Component {
             MIN_BIN,
             MAX_BIN);
 
-        let activeSampleMeansData = [{
-            x: sampleMeansGraphData[0][0],
-            y: sampleMeansGraphData[0][1],
-            datum: sampleMeansGraphData[0][2],
-        }];
+        let activeSampleMeansData = [];
+        if (sampleMeansGraphData.length > 0 &&
+            sampleMeansGraphData[0].length > 2) {
+            activeSampleMeansData = [{
+                x: sampleMeansGraphData[0][0],
+                y: sampleMeansGraphData[0][1],
+                datum: sampleMeansGraphData[0][2],
+            }];
+        }
 
         let samplesMaxFrequency = 0;
         samples.map((e) => {
@@ -274,11 +278,14 @@ export class CentralLimitGraph extends Component {
 
         // This is the sample means currently highlighted
         let lastSampleMeans= currentSampleMeansData.pop();
-        let activeSampleMeansData = [{
-            x: lastSampleMeans[0],
-            y: lastSampleMeans[1],
-            datum: lastSampleMeans[2],
-        }];
+        let activeSampleMeansData = [];
+        if (lastSampleMeans.length > 2) {
+            activeSampleMeansData = [{
+                x: lastSampleMeans[0],
+                y: lastSampleMeans[1],
+                datum: lastSampleMeans[2],
+            }];
+        }
 
         this.setState({
             sampleMeansIdx: idx,
