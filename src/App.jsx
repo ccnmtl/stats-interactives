@@ -4,9 +4,20 @@ import PropTypes from 'prop-types';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { OrdinaryLeastSquares } from
     './ordinary_least_squares/OrdinaryLeastSquares';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { NotFound } from './NotFound';
 import 'rheostat/initialize';
 import withTracker from './withTracker';
+import * as Sentry from '@sentry/browser';
+
+/* eslint-disable */
+if (process.env.NODE_ENV !== 'development' ||
+    process.env.NODE_ENV !== 'test') {
+/* eslint-enable */
+    Sentry.init({
+        dsn: 'https://f6a08bec6e9e46198dfd70f8776bdb59@sentry.io/1399822',
+    });
+}
 
 export class App extends Component {
     componentDidMount() {
@@ -16,11 +27,14 @@ export class App extends Component {
         return (
             <Router>
                 <main role="main">
-                    <Route exact path="/" component={withTracker(Home)} />
-                    <Route path="/central-limit-theorem"
-                        component={withTracker(CentralLimitGraph)} />
-                    <Route path="/ols-regression"
-                        component={withTracker(OrdinaryLeastSquares)} />
+                    <Switch>
+                        <Route exact path="/" component={withTracker(Home)} />
+                        <Route path="/central-limit-theorem"
+                            component={withTracker(CentralLimitGraph)} />
+                        <Route path="/ols-regression"
+                            component={withTracker(OrdinaryLeastSquares)} />
+                        <Route component={withTracker(NotFound)} />
+                    </Switch>
                 </main>
             </Router>
         );
