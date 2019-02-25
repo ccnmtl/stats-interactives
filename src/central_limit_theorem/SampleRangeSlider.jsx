@@ -71,10 +71,6 @@ export const SampleRangeSlider = ({numberOfSamples,
                             }} />
                     </div>
                 </div>
-                <div className="form-row">
-                    Current Value: { observationData ?
-                        observationData[0][2] : 0}
-                </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
@@ -125,9 +121,6 @@ export const SampleRangeSlider = ({numberOfSamples,
                                     sliderState.values[0]);
                             }} />
                     </div>
-                </div>
-                <div className="form-row">
-                    Sample mean = x&#772;= {activeSampleMean}
                 </div>
             </fieldset>
         </form>

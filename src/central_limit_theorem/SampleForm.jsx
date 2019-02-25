@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    handleSampleMeansIdx, showSampleBtn}) => {
+    handleSampleMeansIdx, showSampleForm}) => {
 
     const handleRunSample = (e) => {
         e.preventDefault();
@@ -14,8 +14,8 @@ export const SampleForm = ({
     };
 
     return (
-        <>
         <form onSubmit={handleRunSample} >
+            {showSampleForm &&
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
@@ -39,7 +39,6 @@ export const SampleForm = ({
                     <div className="form-row slider-labels">
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
-                                disabled={showSampleBtn ? true : false}
                                 min={1}
                                 max={100}
                                 values={[sampleSize]}
@@ -70,13 +69,13 @@ export const SampleForm = ({
                         <ReactTooltip id="numberOfSamples-tt" event="focus"
                             eventOff="blur">
                             <span>The number of individual samples,
-                                each of size n, drawn in the simulation.</span>
+                                each of size n, drawn in the simulation.
+                            </span>
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
-                                disabled={showSampleBtn ? true : false}
                                 min={1}
                                 max={1000}
                                 values={[numberOfSamples]}
@@ -94,15 +93,14 @@ export const SampleForm = ({
                 <div className="form-group">
                     <div className="form-row">
                         <input className="btn btn-primary btn-block"
-                            disabled={showSampleBtn ? true : false}
                             id="run-sample"
                             type="submit"
                             value="Sample"/>
                     </div>
                 </div>
             </fieldset>
+            }
         </form>
-        </>
     );
 };
 
@@ -115,5 +113,5 @@ SampleForm.propTypes = {
     enableSampleSlider: PropTypes.bool,
     handleSampleMeansIdx: PropTypes.func,
     handleResetPopulation: PropTypes.func,
-    showSampleBtn: PropTypes.bool,
+    showSampleForm: PropTypes.bool,
 };

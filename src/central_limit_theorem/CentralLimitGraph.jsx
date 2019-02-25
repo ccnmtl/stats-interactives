@@ -350,9 +350,10 @@ export class CentralLimitGraph extends Component {
                             sampleMeansIdx={this.state.sampleMeansIdx}
                             handleSampleMeansIdx={
                                 this.handleSampleMeansIdx}
-                            showSampleBtn={
-                                this.state.populationGraphData ?
-                                    false : true}/>
+                            showSampleForm={
+                                this.state.population ?
+                                    true : false}/>
+                        {this.state.observationData &&
                         <SampleRangeSlider
                             numberOfSamples={this.state.numberOfSamples}
                             sampleMeansIdx={this.state.sampleMeansIdx}
@@ -368,11 +369,18 @@ export class CentralLimitGraph extends Component {
                             handleObservationIdx={this.handleObservationIdx}
                             handleResetSamples={
                                 this.handleResetSamples}/>
+                        }
                     </div>
                     <div className='col-8 graph-col'>
                         <div className="graph-container sticky-top">
                             <h4>
                                 Population and Current Sample</h4>
+                            {this.state.observationData &&
+                                <p>
+                                    Current Value: {
+                                        this.state.observationData[0][2]}
+                                </p>
+                            }
                             <PopulationGraph
                                 populationGraphData={
                                     this.state.populationGraphData}
@@ -387,8 +395,13 @@ export class CentralLimitGraph extends Component {
                                         this.state.sampleMeansIdx] : null}/>
                             <h4>Distribution of Sample Means</h4>
                             {this.state.meanOfSampleMeans &&
+                                this.state.activeSampleMeansData &&
                                 <p>Mean of {this.state.numberOfSamples} Sample
-                                    Means: {this.state.meanOfSampleMeans}</p>}
+                                    Means: {this.state.meanOfSampleMeans} |
+                                    Sample mean = x&#772; = {
+                                    /* eslint-disable-next-line */
+                                    this.state.activeSampleMeansData[0]['datum']}
+                                </p>}
                             <SampleMeansGraph
                                 domain={this.state.domain}
                                 range={

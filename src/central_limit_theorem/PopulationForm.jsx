@@ -47,115 +47,122 @@ export const PopulationForm  = (
                         <input type="text"
                             id="seed"
                             className={
-                                seed ? 'form-control' :
-                                    'form-control is-invalid' }
+                                seed ? 'form-control is-valid' :
+                                    'form-control' }
                             value={seed}
-                            onChange={handleFormChange} required/>
-                        <div className="invalid-feedback">(Required to
-                            generate random population data)</div>
-                    </div>
-                </div>
-                <div className="form-group">
-                    <div className="form-row ">
-                        <label htmlFor="distType">
-                            Distribution Type</label>
-                    </div>
-                    <div className="form-row ">
-                        <select id="distType"
-                            className="form-control"
                             onChange={handleFormChange}
-                            disabled={seed ? false : true}
-                            value={distType}>
-                            { DISTRIBUTION_TYPE.map(
-                                (e) => (<option key={e.value} value={e.value}>
-                                    {e.display}</option>)) }
-                        </select>
+                            placeholder={
+                                'Enter a seed to generate a population'}
+                            autoFocus required/>
                     </div>
                 </div>
-                <div className="form-group">
-                    <div className="form-row">
-                        <label htmlFor="mean"
-                            className="float-right">
-                            Mean:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="mean-tt">
-                            <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="mean-tt" event="focus"
-                            eventOff="blur">
-                            <span>The arithmetic average of the values
-                                in the population.</span>
-                        </ReactTooltip>
-                    </div>
-                    <div className="form-row slider-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
+                {seed &&
+                    <>
+                    <div className="form-group">
+                        <div className="form-row ">
+                            <label htmlFor="distType">
+                                Distribution Type</label>
+                        </div>
+                        <div className="form-row ">
+                            <select id="distType"
+                                className="form-control"
+                                onChange={handleFormChange}
                                 disabled={seed ? false : true}
-                                min={-5}
-                                max={5}
-                                values={[mean]}
-                                snap
-                                pitComponent={PitComponent}
-                                pitPoints={
-                                    [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
-                                snapPoints={
-                                    [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
-                                onChange={(sliderState) => {
-                                    handleChange('mean', sliderState.values[0]);
-                                }}/>
+                                value={distType}>
+                                { DISTRIBUTION_TYPE.map(
+                                    (e) => (<option key={e.value}
+                                        value={e.value}>
+                                        {e.display}</option>)) }
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div className="form-group">
-                    <div className="form-row">
-                        <label htmlFor="stdDev"
-                            className="float-right">
-                            Standard Deviation:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="stdDev-tt">
-                            <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="stdDev-tt" event="focus"
-                            eventOff="blur">
-                            <span>The average of the square distances
-                                from the mean of the population.</span>
-                        </ReactTooltip>
-                    </div>
-                    <div className="form-row slider-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                disabled={seed ? false : true}
-                                min={1}
-                                max={4}
-                                values={[stdDev]}
-                                snap
-                                pitComponent={PitComponent}
-                                pitPoints={[1, 2, 3, 4]}
-                                snapPoints={[1, 2, 3, 4]}
-                                onChange={(sliderState) => {
-                                    handleChange('stdDev',
-                                        sliderState.values[0]);
-                                }}/>
+                    <div className="form-group">
+                        <div className="form-row">
+                            <label htmlFor="mean"
+                                className="float-right">
+                                Mean:</label>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="mean-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="mean-tt" event="focus"
+                                eventOff="blur">
+                                <span>The arithmetic average of the values
+                                    in the population.</span>
+                            </ReactTooltip>
+                        </div>
+                        <div className="form-row slider-labels">
+                            <div style={{ height: '50px', width: '100%'}}>
+                                <Rheostat
+                                    disabled={seed ? false : true}
+                                    min={-5}
+                                    max={5}
+                                    values={[mean]}
+                                    snap
+                                    pitComponent={PitComponent}
+                                    pitPoints={
+                                        [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
+                                    snapPoints={
+                                        [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]}
+                                    onChange={(sliderState) => {
+                                        handleChange('mean',
+                                            sliderState.values[0]);
+                                    }}/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="form-group">
-                    <div className="form-row">
-                        <input className="btn btn-primary btn-block"
-                            disabled={seed ? false : true}
-                            id="generate-population"
-                            type="submit"
-                            value="Generate Population"/>
+                    <div className="form-group">
+                        <div className="form-row">
+                            <label htmlFor="stdDev"
+                                className="float-right">
+                                Standard Deviation:</label>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="stdDev-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="stdDev-tt" event="focus"
+                                eventOff="blur">
+                                <span>The average of the square distances
+                                    from the mean of the population.</span>
+                            </ReactTooltip>
+                        </div>
+                        <div className="form-row slider-labels">
+                            <div style={{ height: '50px', width: '100%'}}>
+                                <Rheostat
+                                    disabled={seed ? false : true}
+                                    min={1}
+                                    max={4}
+                                    values={[stdDev]}
+                                    snap
+                                    pitComponent={PitComponent}
+                                    pitPoints={[1, 2, 3, 4]}
+                                    snapPoints={[1, 2, 3, 4]}
+                                    onChange={(sliderState) => {
+                                        handleChange('stdDev',
+                                            sliderState.values[0]);
+                                    }}/>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div className="form-group">
+                        <div className="form-row">
+                            <input className="btn btn-primary btn-block"
+                                disabled={seed ? false : true}
+                                id="generate-population"
+                                type="submit"
+                                value="Generate Population"/>
+                        </div>
+                    </div>
+                    </>
+                }
             </fieldset>
         </form>
         </>
