@@ -239,6 +239,7 @@ export class CentralLimitGraph extends Component {
 
         this.setState({
             samples: samples,
+            samplesIdx: 1,
             sampleMeans: sampleMeans,
             sampleMeansDomain: [
                 Math.min(...sampleMeans),
@@ -304,11 +305,12 @@ export class CentralLimitGraph extends Component {
     handleResetSamples() {
         this.setState({
             samples: null,
-            sampleMeans: null,
-            sampleMeansRange: null,
-            sampleMeansIdx: null,
+            samplesIdx: 1,
             samplesGraphData: null,
+            sampleMeans: null,
+            sampleMeansIdx: null,
             sampleMeansGraphData: null,
+            sampleMeansRange: null,
             meanOfSampleMeans: null,
             observationIdx: null,
             observationData: null,
@@ -376,6 +378,7 @@ export class CentralLimitGraph extends Component {
                             <h4>
                                 Population and Current Sample</h4>
                             {this.state.observationData &&
+                                this.state.observationData[0] &&
                                 <p>
                                     Current Value: {
                                         this.state.observationData[0][2]}
