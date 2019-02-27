@@ -38,23 +38,21 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.handleGeneratePopulation = this.handleGeneratePopulation
             .bind(this);
-        this.handleResetPopulation = this.handleResetPopulation.bind(this);
+        this.handleSampleForm = this.handleSampleForm.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
         this.handleObservationIdx = this.handleObservationIdx.bind(this);
         this.handleResetSamples = this.handleResetSamples.bind(this);
         this.handleResetSimulation = this.handleResetSimulation.bind(this);
 
-        let distType = 'skew_right';
-
+        const distType = 'skew_right';
         const populationSize = 10000;
         const mean = 0;
         const stdDev = 1;
-
         const defaultSampleSize = 25;
         const defaultNumberOfSamples = 100;
 
-        this.state = {
+        this.initialState = {
             seed: '',
             populationSize: populationSize,
             population: null,
@@ -80,6 +78,7 @@ export class CentralLimitGraph extends Component {
             observationData: null,
             activeSampleMeansData: null,
         };
+        this.state = this.initialState;
     }
     handleChange(key, value) {
         if (key !== 'seed') {
@@ -91,7 +90,19 @@ export class CentralLimitGraph extends Component {
             });
         }
         this.setState({
-            [key]: value
+            [key]: value,
+        });
+    }
+    handleSampleForm(key, value) {
+        this.handleResetSamples();
+        ReactGA.event({
+            category: 'User',
+            action: 'Upate population params',
+            label: key,
+            value: value,
+        });
+        this.setState({
+            [key]: value,
         });
     }
     handleGeneratePopulation() {
@@ -126,13 +137,6 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             domain: [Math.min(...population), Math.max(...population)]
-        });
-    }
-    handleResetPopulation() {
-        this.setState({
-            population: null,
-            populationGraphData: null,
-            domain: null
         });
     }
     generatePopulation() {
@@ -239,6 +243,7 @@ export class CentralLimitGraph extends Component {
 
         this.setState({
             samples: samples,
+            samplesIdx: 1,
             sampleMeans: sampleMeans,
             sampleMeansDomain: [
                 Math.min(...sampleMeans),
@@ -304,11 +309,12 @@ export class CentralLimitGraph extends Component {
     handleResetSamples() {
         this.setState({
             samples: null,
-            sampleMeans: null,
-            sampleMeansRange: null,
-            sampleMeansIdx: null,
+            samplesIdx: 1,
             samplesGraphData: null,
+            sampleMeans: null,
+            sampleMeansIdx: null,
             sampleMeansGraphData: null,
+            sampleMeansRange: null,
             meanOfSampleMeans: null,
             observationIdx: null,
             observationData: null,
@@ -320,8 +326,7 @@ export class CentralLimitGraph extends Component {
             category: 'User',
             action: 'Reset Simulation'
         });
-        this.handleResetSamples();
-        this.handleResetPopulation();
+        this.setState(this.initialState);
     }
     render() {
         return (
@@ -340,19 +345,17 @@ export class CentralLimitGraph extends Component {
                             handleGeneratePopulation={
                                 this.handleGeneratePopulation}
                             handleChange={this.handleChange}
-                            showPopBtn={this.state.populationGraphData ?
-                                false : true}/>
+                            showPopForm={this.state.populationGraphData ?
+                                true : false}/>
                         <SampleForm
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
-                            handleChange={this.handleChange}
+                            handleChange={this.handleSampleForm}
                             runSample={this.runSample}
-                            sampleMeansIdx={this.state.sampleMeansIdx}
-                            handleSampleMeansIdx={
-                                this.handleSampleMeansIdx}
-                            showSampleBtn={
-                                this.state.populationGraphData ?
-                                    false : true}/>
+                            showSampleForm={
+                                this.state.population ?
+                                    true : false}/>
+                        {this.state.observationData &&
                         <SampleRangeSlider
                             numberOfSamples={this.state.numberOfSamples}
                             sampleMeansIdx={this.state.sampleMeansIdx}
@@ -368,11 +371,19 @@ export class CentralLimitGraph extends Component {
                             handleObservationIdx={this.handleObservationIdx}
                             handleResetSamples={
                                 this.handleResetSamples}/>
+                        }
                     </div>
                     <div className='col-8 graph-col'>
                         <div className="graph-container sticky-top">
                             <h4>
                                 Population and Current Sample</h4>
+                            {this.state.observationData &&
+                                this.state.observationData[0] &&
+                                <p>
+                                    Current Value: {
+                                        this.state.observationData[0][2]}
+                                </p>
+                            }
                             <PopulationGraph
                                 populationGraphData={
                                     this.state.populationGraphData}
@@ -387,8 +398,13 @@ export class CentralLimitGraph extends Component {
                                         this.state.sampleMeansIdx] : null}/>
                             <h4>Distribution of Sample Means</h4>
                             {this.state.meanOfSampleMeans &&
+                                this.state.activeSampleMeansData &&
                                 <p>Mean of {this.state.numberOfSamples} Sample
-                                    Means: {this.state.meanOfSampleMeans}</p>}
+                                    Means: {this.state.meanOfSampleMeans} |
+                                    Sample mean = x&#772; = {
+                                    /* eslint-disable-next-line */
+                                    this.state.activeSampleMeansData[0]['datum']}
+                                </p>}
                             <SampleMeansGraph
                                 domain={this.state.domain}
                                 range={

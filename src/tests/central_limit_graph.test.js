@@ -118,7 +118,7 @@ test('Test that force number returns a number or undefined', () => {
 });
 
 describe('Check that the CentralLimitGraph conditionally renders components.', () => {
-    test('That the population graph is rendered but empty on load.', () => {
+    test('That the population form is rendered when the seed is entered.', () => {
         window.history.replaceState(null, '', '');
         const wrapper = mount(
             <MemoryRouter>
@@ -126,10 +126,88 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         let clg = wrapper.find('CentralLimitGraph');
-        expect(clg.state('populationGraphData')).toEqual(null);
-        expect(wrapper.exists('PopulationGraph')).toEqual(true);
+        let clg_instance = clg.instance()
+        // Assert that the elements are not present on load
+        expect(wrapper.exists('#distType')).toEqual(false);
+        expect(wrapper.exists('#mean')).toEqual(false);
+        expect(wrapper.exists('#stdDev')).toEqual(false);
+        expect(wrapper.exists('#generate-population')).toEqual(false);
 
+        // Call update when you need to ensure that
+        // child components are remounted
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
+        expect(wrapper.exists('#distType')).toEqual(true);
+        expect(wrapper.exists('#mean')).toEqual(true);
+        expect(wrapper.exists('#stdDev')).toEqual(true);
+        expect(wrapper.exists('#generate-population')).toEqual(true);
+
+        // Now render a population and  delete the seed. Check that
+        // the form is still present. We don't want the form to flash
+        // if a user decides to change the seed.
+        wrapper.find('#generate-population').simulate('submit');
+        clg_instance.handleChange('seed', '');
+        wrapper.update();
+        expect(wrapper.exists('#distType')).toEqual(true);
+        expect(wrapper.exists('#mean')).toEqual(true);
+        expect(wrapper.exists('#stdDev')).toEqual(true);
+        expect(wrapper.exists('#generate-population')).toEqual(true);
     });
+
+    test('That the sample form is rendered once a population exists.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
+        // Call update when you need to ensure that
+        // child components are remounted
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
+
+        // Check that the elements don't exist
+        expect(wrapper.exists('#sampleSize')).toEqual(false);
+        expect(wrapper.exists('#numberOfSamples')).toEqual(false);
+        expect(wrapper.exists('#run-sample')).toEqual(false);
+
+        wrapper.find('#generate-population').simulate('submit');
+
+        expect(wrapper.exists('#sampleSize')).toEqual(true);
+        expect(wrapper.exists('#numberOfSamples')).toEqual(true);
+        expect(wrapper.exists('#run-sample')).toEqual(true);
+    });
+
+    test('That the range inputs appear once a population is created.', () => {
+        window.history.replaceState(null, '', '');
+        const wrapper = mount(
+            <MemoryRouter>
+                <CentralLimitGraph />
+            </MemoryRouter>
+        );
+        let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
+        // Call update when you need to ensure that
+        // child components are remounted
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
+
+        // Check that the elements don't exist
+        expect(wrapper.exists('#observationIdx')).toEqual(false);
+        expect(wrapper.exists('#sampleMeansIdx')).toEqual(false);
+
+        // Generate the population and samples
+        wrapper.find('#generate-population').simulate('submit');
+        wrapper.find('#run-sample').simulate('submit');
+
+        expect(wrapper.exists('#observationIdx')).toEqual(true);
+        expect(wrapper.exists('#sampleMeansIdx')).toEqual(true);
+    });
+});
+
+describe('Check that the CentralLimitGraph renders graphs.', () => {
     test('That the population graph is rendered when the button is clicked.', () => {
         window.history.replaceState(null, '', '');
         const wrapper = mount(
@@ -138,8 +216,11 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
+        clg_instance.handleChange('seed', 'my-new-seed');
         expect(clg.state('populationGraphData')).toEqual(null);
 
+        wrapper.update();
         wrapper.find('#generate-population').simulate('submit');
         expect(clg.state('populationGraphData')).not.toEqual(null);
     });
@@ -151,6 +232,10 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         // First generate the population
+        let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
         wrapper.find('#generate-population').simulate('submit');
         expect(wrapper.exists('PopulationGraph')).toEqual(true);
         expect(wrapper.exists('SampleForm')).toEqual(true);
@@ -159,6 +244,9 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         expect(wrapper.exists('SampleMeansGraph')).toEqual(true);
         expect(wrapper.exists('SampleRangeSlider')).toEqual(true);
     });
+});
+
+describe('Check that the CentralLimitGraph resets correctly.', () => {
     test('That generating a new population clears the current samples', () => {
         window.history.replaceState(null, '', '');
         const wrapper = mount(
@@ -167,7 +255,10 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
         // First generate the population
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
         wrapper.find('#generate-population').simulate('submit');
         expect(wrapper.exists('PopulationGraph')).toEqual(true);
         expect(wrapper.exists('SampleForm')).toEqual(true);
@@ -189,6 +280,10 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
             </MemoryRouter>
         );
         // Generate the population and sample
+        let clg = wrapper.find('CentralLimitGraph');
+        let clg_instance = clg.instance()
+        clg_instance.handleChange('seed', 'my-new-seed');
+        wrapper.update();
         wrapper.find('#generate-population').simulate('submit');
         wrapper.find('#run-sample').simulate('submit');
 

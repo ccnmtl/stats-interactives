@@ -1,6 +1,7 @@
 /*eslint max-len: ["error", { "ignoreStrings": true }]*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Nav } from './Nav';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { OrdinaryLeastSquares } from
     './ordinary_least_squares/OrdinaryLeastSquares';
@@ -10,34 +11,61 @@ import 'rheostat/initialize';
 import withTracker from './withTracker';
 import * as Sentry from '@sentry/browser';
 
-/* eslint-disable */
-if (process.env.NODE_ENV !== 'development' ||
-    process.env.NODE_ENV !== 'test') {
-/* eslint-enable */
+/* eslint-disable-next-line */
+if (process.env.NODE_ENV === 'production') {
     Sentry.init({
         dsn: 'https://f6a08bec6e9e46198dfd70f8776bdb59@sentry.io/1399822',
     });
 }
 
 export class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+    componentDidCatch(error, info) {
+        Sentry.withScope((scope) => {
+            Object.keys(info).forEach((key) => {
+                scope.setExtra(key, info[key]);
+            });
+            Sentry.captureException(error);
+        });
+    }
     componentDidMount() {
         document.getElementById('footer').style.display = 'block';
     }
     render() {
-        return (
-            <Router>
-                <main role="main">
-                    <Switch>
-                        <Route exact path="/" component={withTracker(Home)} />
-                        <Route path="/central-limit-theorem"
-                            component={withTracker(CentralLimitGraph)} />
-                        <Route path="/ols-regression"
-                            component={withTracker(OrdinaryLeastSquares)} />
-                        <Route component={withTracker(NotFound)} />
-                    </Switch>
-                </main>
-            </Router>
-        );
+        if (this.state.hasError) {
+            return (
+                <Router>
+                    <main role="main">
+                        <Nav />
+                        <div className='container'>
+                            <p>It looks like something went wrong. Refresh
+                                the page to start over.</p>
+                        </div>
+                    </main>
+                </Router>
+            );
+        } else {
+            return (
+                <Router>
+                    <main role="main">
+                        <Switch>
+                            <Route exact path="/" component={withTracker(Home)} />
+                            <Route path="/central-limit-theorem"
+                                component={withTracker(CentralLimitGraph)} />
+                            <Route path="/ols-regression"
+                                component={withTracker(OrdinaryLeastSquares)} />
+                            <Route component={withTracker(NotFound)} />
+                        </Switch>
+                    </main>
+                </Router>
+            );
+        }
     }
 }
 
