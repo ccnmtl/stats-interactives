@@ -38,6 +38,7 @@ export class CentralLimitGraph extends Component {
         this.generatePopulation = this.generatePopulation.bind(this);
         this.handleGeneratePopulation = this.handleGeneratePopulation
             .bind(this);
+        this.handleSampleForm = this.handleSampleForm.bind(this);
         this.handleResetPopulation = this.handleResetPopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
@@ -45,12 +46,10 @@ export class CentralLimitGraph extends Component {
         this.handleResetSamples = this.handleResetSamples.bind(this);
         this.handleResetSimulation = this.handleResetSimulation.bind(this);
 
-        let distType = 'skew_right';
-
+        const distType = 'skew_right';
         const populationSize = 10000;
         const mean = 0;
         const stdDev = 1;
-
         const defaultSampleSize = 25;
         const defaultNumberOfSamples = 100;
 
@@ -91,7 +90,19 @@ export class CentralLimitGraph extends Component {
             });
         }
         this.setState({
-            [key]: value
+            [key]: value,
+        });
+    }
+    handleSampleForm(key, value) {
+        this.handleResetSamples();
+        ReactGA.event({
+            category: 'User',
+            action: 'Upate population params',
+            label: key,
+            value: value,
+        });
+        this.setState({
+            [key]: value,
         });
     }
     handleGeneratePopulation() {
@@ -342,16 +353,13 @@ export class CentralLimitGraph extends Component {
                             handleGeneratePopulation={
                                 this.handleGeneratePopulation}
                             handleChange={this.handleChange}
-                            showPopBtn={this.state.populationGraphData ?
-                                false : true}/>
+                            showPopForm={this.state.populationGraphData ?
+                                true : false}/>
                         <SampleForm
                             sampleSize={this.state.sampleSize}
                             numberOfSamples={this.state.numberOfSamples}
-                            handleChange={this.handleChange}
+                            handleChange={this.handleSampleForm}
                             runSample={this.runSample}
-                            sampleMeansIdx={this.state.sampleMeansIdx}
-                            handleSampleMeansIdx={
-                                this.handleSampleMeansIdx}
                             showSampleForm={
                                 this.state.population ?
                                     true : false}/>
