@@ -26,7 +26,7 @@ export const SampleRangeSlider = ({numberOfSamples,
                     <div className="form-row">
                         <input
                             type="number"
-                            id="sampleIdx"
+                            id="observationIdx"
                             className="form-control form-control-sm"
                             min="1"
                             max={sampleSize}
@@ -78,7 +78,7 @@ export const SampleRangeSlider = ({numberOfSamples,
                         <input
                             type="number"
                             className="form-control form-control-sm"
-                            id="sampleIdx"
+                            id="sampleMeansIdx"
                             min="1"
                             max={numberOfSamples}
                             value={sampleMeansIdx ?

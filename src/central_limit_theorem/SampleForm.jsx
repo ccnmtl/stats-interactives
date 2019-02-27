@@ -5,8 +5,7 @@ import { PitComponent } from '../PitComponent';
 import ReactTooltip from 'react-tooltip';
 
 export const SampleForm = ({
-    sampleSize, numberOfSamples, handleChange, runSample, sampleMeansIdx,
-    handleSampleMeansIdx, showSampleForm}) => {
+    sampleSize, numberOfSamples, handleChange, runSample, showSampleForm}) => {
 
     const handleRunSample = (e) => {
         e.preventDefault();
@@ -37,7 +36,8 @@ export const SampleForm = ({
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
+                        <div id="sampleSize"
+                            style={{ height: '50px', width: '100%'}}>
                             <Rheostat
                                 min={1}
                                 max={100}
@@ -74,7 +74,8 @@ export const SampleForm = ({
                         </ReactTooltip>
                     </div>
                     <div className="form-row slider-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
+                        <div id="numberOfSamples"
+                            style={{ height: '50px', width: '100%'}}>
                             <Rheostat
                                 min={1}
                                 max={1000}
