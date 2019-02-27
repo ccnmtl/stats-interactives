@@ -8,7 +8,7 @@ import ReactTooltip from 'react-tooltip';
 
 export const PopulationForm  = (
     {seed, populationSize, mean, stdDev, distType,
-        sampleSize, handleChange, handleGeneratePopulation, showPopBtn}) => {
+        sampleSize, handleChange, handleGeneratePopulation, showPopForm}) => {
     const handleFormChange = (e) => {
         let numericFields = ['populationSize', 'mean', 'stdDev'];
         if (numericFields.includes(e.target.id)) {
@@ -56,7 +56,7 @@ export const PopulationForm  = (
                             autoFocus required/>
                     </div>
                 </div>
-                {seed &&
+                {(seed || showPopForm) &&
                     <>
                     <div className="form-group">
                         <div className="form-row ">
@@ -96,7 +96,8 @@ export const PopulationForm  = (
                             </ReactTooltip>
                         </div>
                         <div className="form-row slider-labels">
-                            <div style={{ height: '50px', width: '100%'}}>
+                            <div id="mean"
+                                style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
                                     disabled={seed ? false : true}
                                     min={-5}
@@ -135,7 +136,8 @@ export const PopulationForm  = (
                             </ReactTooltip>
                         </div>
                         <div className="form-row slider-labels">
-                            <div style={{ height: '50px', width: '100%'}}>
+                            <div id="stdDev"
+                                style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
                                     disabled={seed ? false : true}
                                     min={1}
@@ -176,7 +178,7 @@ PopulationForm.propTypes = {
     stdDev: PropTypes.number,
     distType: PropTypes.string,
     handleChange: PropTypes.func,
-    showPopBtn: PropTypes.bool,
+    showPopForm: PropTypes.bool,
     sampleSize: PropTypes.number,
     handleGeneratePopulation: PropTypes.func
 };
