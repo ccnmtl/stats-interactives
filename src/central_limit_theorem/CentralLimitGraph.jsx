@@ -53,7 +53,7 @@ export class CentralLimitGraph extends Component {
         const defaultSampleSize = 25;
         const defaultNumberOfSamples = 100;
 
-        this.state = {
+        this.initialState = {
             seed: '',
             populationSize: populationSize,
             population: null,
@@ -79,6 +79,7 @@ export class CentralLimitGraph extends Component {
             observationData: null,
             activeSampleMeansData: null,
         };
+        this.state = this.initialState;
     }
     handleChange(key, value) {
         if (key !== 'seed') {
@@ -333,8 +334,7 @@ export class CentralLimitGraph extends Component {
             category: 'User',
             action: 'Reset Simulation'
         });
-        this.handleResetSamples();
-        this.handleResetPopulation();
+        this.setState(this.initialState);
     }
     render() {
         return (
