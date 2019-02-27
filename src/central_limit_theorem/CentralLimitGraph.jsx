@@ -39,7 +39,6 @@ export class CentralLimitGraph extends Component {
         this.handleGeneratePopulation = this.handleGeneratePopulation
             .bind(this);
         this.handleSampleForm = this.handleSampleForm.bind(this);
-        this.handleResetPopulation = this.handleResetPopulation.bind(this);
         this.runSample = this.runSample.bind(this);
         this.handleSampleMeansIdx = this.handleSampleMeansIdx.bind(this);
         this.handleObservationIdx = this.handleObservationIdx.bind(this);
@@ -138,13 +137,6 @@ export class CentralLimitGraph extends Component {
             population: population,
             populationGraphData: populationGraphData,
             domain: [Math.min(...population), Math.max(...population)]
-        });
-    }
-    handleResetPopulation() {
-        this.setState({
-            population: null,
-            populationGraphData: null,
-            domain: null
         });
     }
     generatePopulation() {
