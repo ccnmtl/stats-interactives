@@ -46,12 +46,14 @@ export class OrdinaryLeastSquares extends Component {
                     <div className="col-6">
                         <FrequencyGraph
                             taxRateIdx={this.state.taxRateIdx}
-                            activeDataIdx={this.state.activeDataIdx}/>
+                            activeDataIdx={this.state.activeDataIdx}
+                            handleTaxRateIdx={this.handleTaxRateIdx}/>
                     </div>
                     <div className="col-6">
                         <TaxRateGraph
                             taxRateIdx={this.state.taxRateIdx}
-                            activeDataIdx={this.state.activeDataIdx}/>
+                            activeDataIdx={this.state.activeDataIdx}
+                            handleTaxRateIdx={this.handleTaxRateIdx}/>
                     </div>
                 </div>
             </div>

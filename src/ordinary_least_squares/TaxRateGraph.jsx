@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
-export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
+export const TaxRateGraph = ({taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [2, 8]}}>
@@ -26,6 +26,20 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 3}
                 y={(datum) => datum[0]}/>
@@ -37,6 +51,20 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(25 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 5}
                 y={(datum) => datum[0]}/>
@@ -48,6 +76,20 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(50 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 7}
                 y={(datum) => datum[0]}/>
@@ -59,6 +101,20 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(75 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 7.5}
                 y={(datum) => datum[0]}/>
@@ -88,4 +144,5 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
 TaxRateGraph.propTypes = {
     taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
+    handleTaxRateIdx: PropTypes.func,
 };
