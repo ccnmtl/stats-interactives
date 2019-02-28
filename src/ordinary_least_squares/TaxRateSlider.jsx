@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
-import { TAX_RATE_DATA_LENGTH } from './data';
 
 export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
     return (
@@ -12,7 +11,7 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
                                 min={1}
-                                max={TAX_RATE_DATA_LENGTH}
+                                max={100}
                                 values={[taxRateIdx ?
                                     taxRateIdx : 1]}
                                 snap={true}
