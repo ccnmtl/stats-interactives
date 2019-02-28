@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
-export const FrequencyGraph = ({taxRateIdx, activeTaxRate}) => {
+export const FrequencyGraph = ({taxRateIdx, activeDataIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [1, 8]}}>
@@ -52,12 +52,20 @@ export const FrequencyGraph = ({taxRateIdx, activeTaxRate}) => {
                 size={4}
                 x={(datum) => datum[1]}
                 y={(datum) => Math.floor(datum[0])}/>
+            {/* active data graph */}
+            <VictoryScatter
+                data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
+                style={{ data: { fill: 'blue', stroke: BAR_BORDER,
+                    strokeWidth: '1px' } }}
+                size={4}
+                x={(datum) => datum[1]}
+                y={(datum) => Math.floor(datum[0])}/>
         </VictoryChart>
     );
 };
 
 FrequencyGraph.propTypes = {
     taxRateIdx: PropTypes.number,
-    activeTaxRate: PropTypes.number,
+    activeDataIdx: PropTypes.array,
 };
 

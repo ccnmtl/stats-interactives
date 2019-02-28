@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
-export const TaxRateGraph = ({taxRateIdx, activeTaxRate}) => {
+export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [2, 8]}}>
@@ -50,11 +50,30 @@ export const TaxRateGraph = ({taxRateIdx, activeTaxRate}) => {
                 size={4}
                 x={() => 7.5}
                 y={(datum) => datum[0]}/>
+            {/* active data graph */}
+            <VictoryScatter
+                data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
+                style={{ data: { fill: 'blue', stroke: BAR_BORDER,
+                    strokeWidth: '1px' } }}
+                size={4}
+                x={(datum) => {
+                    switch (activeDataIdx[0]) {
+                    case 0:
+                        return 3;
+                    case 1:
+                        return 5;
+                    case 2:
+                        return 7;
+                    case 3:
+                        return 7.5;
+                    }
+                }}
+                y={(datum) => datum[0]}/>
         </VictoryChart>
     );
 };
 
 TaxRateGraph.propTypes = {
     taxRateIdx: PropTypes.number,
-    activeTaxRate: PropTypes.number,
+    activeDataIdx: PropTypes.array,
 };

@@ -16,6 +16,7 @@ export class OrdinaryLeastSquares extends Component {
             y_i: null,
             mean: null,
             epsilon: null,
+            activeDataIdx: [0, 0],
         };
 
         this.state = this.initialState;
@@ -23,6 +24,7 @@ export class OrdinaryLeastSquares extends Component {
     handleTaxRateIdx(idx) {
         this.setState({
             taxRateIdx: idx,
+            activeDataIdx: [Math.floor((idx - 1) / 25), (idx - 1) % 25]
         });
     }
     render() {
@@ -42,12 +44,12 @@ export class OrdinaryLeastSquares extends Component {
                     <div className="col-6">
                         <FrequencyGraph
                             taxRateIdx={this.state.taxRateIdx}
-                            activeTaxRate={this.activeTaxRate}/>
+                            activeDataIdx={this.state.activeDataIdx}/>
                     </div>
                     <div className="col-6">
                         <TaxRateGraph
                             taxRateIdx={this.state.taxRateIdx}
-                            activeTaxRate={this.activeTaxRate}/>
+                            activeDataIdx={this.state.activeDataIdx}/>
                     </div>
                 </div>
             </div>
