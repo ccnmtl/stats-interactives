@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { THREE_PCT, FIVE_PCT, SEVEN_PCT,
-    SEVEN_FIVE_PCT } from './data';
+import { SMOKING_FREQ } from './data';
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
@@ -19,34 +18,38 @@ export const TaxRateGraph = ({taxRateIdx, activeTaxRate}) => {
             <VictoryAxis
                 tickValues={
                     [2, 3, 4, 5, 6, 7, 8]} />
+            {/* 3% graph */}
             <VictoryScatter
-                data={THREE_PCT}
+                data={SMOKING_FREQ[0]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
-                x={0}
-                y={1}/>
+                x={() => 3}
+                y={(datum) => datum[0]}/>
+            {/* 5% graph */}
             <VictoryScatter
-                data={FIVE_PCT}
+                data={SMOKING_FREQ[1]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
-                x={0}
-                y={1}/>
+                x={() => 5}
+                y={(datum) => datum[0]}/>
+            {/* 7% graph */}
             <VictoryScatter
-                data={SEVEN_PCT}
+                data={SMOKING_FREQ[2]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
-                x={0}
-                y={1}/>
+                x={() => 7}
+                y={(datum) => datum[0]}/>
+            {/* 7.5% graph */}
             <VictoryScatter
-                data={SEVEN_FIVE_PCT}
+                data={SMOKING_FREQ[3]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
-                x={0}
-                y={1}/>
+                x={() => 7.5}
+                y={(datum) => datum[0]}/>
         </VictoryChart>
     );
 };
