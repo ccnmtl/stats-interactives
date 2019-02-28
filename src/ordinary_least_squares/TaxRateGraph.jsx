@@ -21,32 +21,44 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
             {/* 3% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 0 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
                 size={4}
                 x={() => 3}
                 y={(datum) => datum[0]}/>
             {/* 5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 1 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
                 size={4}
                 x={() => 5}
                 y={(datum) => datum[0]}/>
             {/* 7% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 2 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
                 size={4}
                 x={() => 7}
                 y={(datum) => datum[0]}/>
             {/* 7.5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 3 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
                 size={4}
                 x={() => 7.5}
                 y={(datum) => datum[0]}/>

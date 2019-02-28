@@ -21,37 +21,41 @@ export const FrequencyGraph = ({taxRateIdx, activeDataIdx}) => {
                 orientation={'right'}
                 tickValues={[9, 31]} />
             {/* 3% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[0]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 0 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[0]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* 5% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[1]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 1 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[1]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* 7% graph */}
+            { activeDataIdx[0] === 2 &&
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
                 x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+                y={(datum) => Math.floor(datum[0])}/>}
             {/* 7.5% graph */}
+            { activeDataIdx[0] === 3 &&
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
                 style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                     strokeWidth: '1px' } }}
                 size={4}
                 x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+                y={(datum) => Math.floor(datum[0])}/>}
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}

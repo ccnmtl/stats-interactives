@@ -22,9 +22,11 @@ export class OrdinaryLeastSquares extends Component {
         this.state = this.initialState;
     }
     handleTaxRateIdx(idx) {
+        let taxRateRow = Math.floor((idx - 1) / 25);
+        let taxRateCol = (idx - 1) % 25;
         this.setState({
             taxRateIdx: idx,
-            activeDataIdx: [Math.floor((idx - 1) / 25), (idx - 1) % 25]
+            activeDataIdx: [taxRateRow, taxRateCol]
         });
     }
     render() {
