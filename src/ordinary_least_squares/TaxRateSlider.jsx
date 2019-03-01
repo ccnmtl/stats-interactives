@@ -34,7 +34,8 @@ const TaxRatePitComponent = ({ style, children }) => {
     );
 };
 
-export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
+export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
+    flipGraphs, handleFlipGraphs}) => {
     const handleFocus = (e) => {
         e.target.select();
     };
@@ -58,7 +59,7 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
                                 }} />
                         </div>
                     </div>
-                    <div className={'form-group col-2 form-inline'}>
+                    <div className={'form-group col-1 form-inline'}>
                         i =&nbsp;<input
                             type='number'
                             id={'tax-rate-idx'}
@@ -76,6 +77,12 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
                                 }
                             }} />
                     </div>
+                    <div className={'form-group col-1 form-inline'}>
+                        Flip Graphs?
+                        <input type="checkbox"
+                            value={flipGraphs}
+                            onChange={handleFlipGraphs}/>
+                    </div>
                 </div>
             </fieldset>
         </form>
@@ -90,4 +97,6 @@ TaxRatePitComponent.propTypes = {
 TaxRateSlider.propTypes = {
     taxRateIdx: PropTypes.number,
     handleTaxRateIdx: PropTypes.func,
+    flipGraphs: PropTypes.bool,
+    handleFlipGraphs: PropTypes.func,
 };
