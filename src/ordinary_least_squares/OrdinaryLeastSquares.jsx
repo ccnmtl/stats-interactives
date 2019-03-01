@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Nav } from '../Nav.jsx';
+import * as math from 'mathjs';
+import { SMOKING_FREQ } from './data';
 import { TaxRateSlider } from './TaxRateSlider';
 import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
 import { FrequencyGraphA, FrequencyGraphB } from './FrequencyGraph';
@@ -14,9 +16,9 @@ export class OrdinaryLeastSquares extends Component {
         this.initialState = {
             taxRateIdx: 1,
             activeTaxRate: 3.0,
-            y_i: null,
-            mean: null,
-            epsilon: null,
+            y_i: 1,
+            mean: 20,
+            epsilon: 5,
             activeDataIdx: [0, 0],
             flipGraphs: false,
         };
@@ -31,9 +33,30 @@ export class OrdinaryLeastSquares extends Component {
     handleTaxRateIdx(idx) {
         let taxRateRow = Math.floor((idx - 1) / 25);
         let taxRateCol = (idx - 1) % 25;
+        let mean = 0;
+        switch (taxRateRow) {
+        case 0:
+            mean = 20;
+            break;
+        case 1:
+            mean = 15;
+            break;
+        case 2:
+            mean = 10;
+            break;
+        case 3:
+            mean = 5;
+            break;
+        }
+
+        let epsilon = Math.abs(math.round(
+            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0]), 2);
         this.setState({
             taxRateIdx: idx,
-            activeDataIdx: [taxRateRow, taxRateCol]
+            activeDataIdx: [taxRateRow, taxRateCol],
+            y_i: SMOKING_FREQ[taxRateRow][taxRateCol][0],
+            mean: mean,
+            epsilon: epsilon,
         });
     }
     render() {
@@ -54,19 +77,29 @@ export class OrdinaryLeastSquares extends Component {
                 {this.state.flipGraphs === false ? (
                     <div className="row">
                         <div className="col-6">
+                            <div className="col-12">
+                                Y<sub>i</sub>: {this.state.y_i}
+                            </div>
+                            <div className="col-12">
+                                μ: {this.state.mean}
+                            </div>
+                            <div className="col-12">
+                                ε: {this.state.epsilon}
+                            </div>
                         </div>
                         <div className="col-6">
-                            <FrequencyGraphA
+                            <TaxRateGraphA
                                 taxRateIdx={this.state.taxRateIdx}
                                 activeDataIdx={this.state.activeDataIdx}
                                 handleTaxRateIdx={this.handleTaxRateIdx}/>
-                            <TaxRateGraphA
+                            <FrequencyGraphA
                                 taxRateIdx={this.state.taxRateIdx}
                                 activeDataIdx={this.state.activeDataIdx}
                                 handleTaxRateIdx={this.handleTaxRateIdx}/>
                         </div>
                     </div>
                 ) : (
+                    <>
                     <div className="row">
                         <div className="col-6">
                             <FrequencyGraphB
@@ -81,6 +114,18 @@ export class OrdinaryLeastSquares extends Component {
                                 handleTaxRateIdx={this.handleTaxRateIdx}/>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col-4">
+                            Y<sub>i</sub>: {this.state.y_i}
+                        </div>
+                        <div className="col-4">
+                            μ: {this.state.mean}
+                        </div>
+                        <div className="col-4">
+                            ε: {this.state.epsilon}
+                        </div>
+                    </div>
+                    </>
                 )}
             </div>
             <hr/>

@@ -18,7 +18,7 @@ export const FrequencyGraphA = (
                     padding: '0em 0em 0em 0em',
                 }
             }}
-            domain={{x: [9, 31]}}>
+            domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
                 tickValues={
