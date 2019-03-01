@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Nav } from '../Nav.jsx';
 import { TaxRateSlider } from './TaxRateSlider';
-import { TaxRateGraph } from './TaxRateGraph';
-import { FrequencyGraph } from './FrequencyGraph';
+import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
+import { FrequencyGraphA, FrequencyGraphB } from './FrequencyGraph';
 
 export class OrdinaryLeastSquares extends Component {
     constructor(props) {
@@ -47,23 +47,41 @@ export class OrdinaryLeastSquares extends Component {
                         <TaxRateSlider
                             taxRateIdx={this.state.taxRateIdx}
                             handleTaxRateIdx={this.handleTaxRateIdx}
+                            flipGraphs={this.state.flipGraphs}
                             handleFlipGraphs={this.handleFlipGraphs}/>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-6">
-                        <FrequencyGraph
-                            taxRateIdx={this.state.taxRateIdx}
-                            activeDataIdx={this.state.activeDataIdx}
-                            handleTaxRateIdx={this.handleTaxRateIdx}/>
+                {this.state.flipGraphs === false ? (
+                    <div className="row">
+                        <div className="col-6">
+                        </div>
+                        <div className="col-6">
+                            <FrequencyGraphA
+                                taxRateIdx={this.state.taxRateIdx}
+                                activeDataIdx={this.state.activeDataIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}/>
+                            <TaxRateGraphA
+                                taxRateIdx={this.state.taxRateIdx}
+                                activeDataIdx={this.state.activeDataIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}/>
+                        </div>
                     </div>
-                    <div className="col-6">
-                        <TaxRateGraph
-                            taxRateIdx={this.state.taxRateIdx}
-                            activeDataIdx={this.state.activeDataIdx}
-                            handleTaxRateIdx={this.handleTaxRateIdx}/>
+                ) : (
+                    <div className="row">
+                        <div className="col-6">
+                            <FrequencyGraphB
+                                taxRateIdx={this.state.taxRateIdx}
+                                activeDataIdx={this.state.activeDataIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}/>
+                        </div>
+                        <div className="col-6">
+                            <TaxRateGraphB
+                                taxRateIdx={this.state.taxRateIdx}
+                                activeDataIdx={this.state.activeDataIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}/>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <hr/>
             </>
