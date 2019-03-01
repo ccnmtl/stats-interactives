@@ -8,7 +8,8 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
-export const FrequencyGraph = ({taxRateIdx, activeDataIdx}) => {
+export const FrequencyGraph = (
+    {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [1, 8]}}>
@@ -21,37 +22,97 @@ export const FrequencyGraph = ({taxRateIdx, activeDataIdx}) => {
                 orientation={'right'}
                 tickValues={[9, 31]} />
             {/* 3% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[0]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 0 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[0]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    events={[{
+                        target: 'data',
+                        eventHandlers: {
+                            onClick: () => {
+                                return [{
+                                    target: 'data',
+                                    mutation: (props) => {
+                                        /* eslint-disable-next-line */
+                                        handleTaxRateIdx(props.index + 1);
+                                    }}
+                                ];
+                            }
+                        }
+                    }]}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* 5% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[1]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 1 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[1]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    events={[{
+                        target: 'data',
+                        eventHandlers: {
+                            onClick: () => {
+                                return [{
+                                    target: 'data',
+                                    mutation: (props) => {
+                                        /* eslint-disable-next-line */
+                                        handleTaxRateIdx(25 + props.index + 1);
+                                    }}
+                                ];
+                            }
+                        }
+                    }]}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* 7% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[2]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 2 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[2]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    events={[{
+                        target: 'data',
+                        eventHandlers: {
+                            onClick: () => {
+                                return [{
+                                    target: 'data',
+                                    mutation: (props) => {
+                                        /* eslint-disable-next-line */
+                                        handleTaxRateIdx(50 + props.index + 1);
+                                    }}
+                                ];
+                            }
+                        }
+                    }]}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* 7.5% graph */}
-            <VictoryScatter
-                data={SMOKING_FREQ[3]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
-                size={4}
-                x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+            { activeDataIdx[0] === 3 &&
+                <VictoryScatter
+                    data={SMOKING_FREQ[3]}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    events={[{
+                        target: 'data',
+                        eventHandlers: {
+                            onClick: () => {
+                                return [{
+                                    target: 'data',
+                                    mutation: (props) => {
+                                        /* eslint-disable-next-line */
+                                        handleTaxRateIdx(75 + props.index + 1);
+                                    }}
+                                ];
+                            }
+                        }
+                    }]}
+                    size={4}
+                    x={(datum) => datum[1]}
+                    y={(datum) => Math.floor(datum[0])}/>}
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
@@ -67,5 +128,6 @@ export const FrequencyGraph = ({taxRateIdx, activeDataIdx}) => {
 FrequencyGraph.propTypes = {
     taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
+    handleTaxRateIdx: PropTypes.func,
 };
 

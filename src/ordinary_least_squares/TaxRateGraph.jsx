@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
-export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
+export const TaxRateGraph = ({taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [2, 8]}}>
@@ -21,32 +21,100 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
             {/* 3% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 0 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 3}
                 y={(datum) => datum[0]}/>
             {/* 5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 1 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(25 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 5}
                 y={(datum) => datum[0]}/>
             {/* 7% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 2 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(50 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 7}
                 y={(datum) => datum[0]}/>
             {/* 7.5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
-                style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                style={{ data: {
+                    fill: activeDataIdx[0] === 3 ? INDICATOR : 'black',
+                    stroke: BAR_BORDER,
+                    strokeWidth: '1px' }
+                }}
+                events={[{
+                    target: 'data',
+                    eventHandlers: {
+                        onClick: () => {
+                            return [{
+                                target: 'data',
+                                mutation: (props) => {
+                                    /* eslint-disable-next-line */
+                                    handleTaxRateIdx(75 + props.index + 1);
+                                }}
+                            ];
+                        }
+                    }
+                }]}
                 size={4}
                 x={() => 7.5}
                 y={(datum) => datum[0]}/>
@@ -76,4 +144,5 @@ export const TaxRateGraph = ({taxRateIdx, activeDataIdx}) => {
 TaxRateGraph.propTypes = {
     taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
+    handleTaxRateIdx: PropTypes.func,
 };
