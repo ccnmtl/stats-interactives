@@ -34,7 +34,8 @@ const TaxRatePitComponent = ({ style, children }) => {
     );
 };
 
-export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
+export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
+    flipGraphs, handleFlipGraphs}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
             className="tax-rate-slider">
