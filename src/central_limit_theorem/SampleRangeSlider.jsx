@@ -1,41 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { forceNumber } from '../utils';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
+import { NumericField } from '../utility_components/NumericField';
 
 export const SampleRangeSlider = ({numberOfSamples,
     sampleMeansIdx, handleSampleMeansIdx, sampleSize, activeSampleMean,
     observationIdx, observationData, handleObservationIdx}) => {
-    const handleFocus = (e) => {
-        e.target.select();
-    };
-    const handleSampleMeans = (e) => {
-        e.preventDefault();
-        handleSampleMeansIdx(forceNumber(e.target.value));
-    };
-    const handleObsIdx = (e) => {
-        e.preventDefault();
-        handleObservationIdx(forceNumber(e.target.value));
-    };
     return (
         <>
         <form className="sample-range-slider">
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
-                        <input
-                            type="number"
-                            id="observationIdx"
-                            className="form-control form-control-sm"
-                            min="1"
+                        <NumericField
+                            id={'observationIdx'}
+                            className={'form-control form-control-sm'}
+                            min={1}
                             max={sampleSize}
                             value={observationIdx ?
                                 observationIdx : 1}
                             disabled={observationIdx ?
                                 false : true}
-                            onFocus={handleFocus}
-                            onChange={handleObsIdx} />
+                            onChange={handleObservationIdx} />
                         &nbsp;of {sampleSize} observations in sample {
                             sampleMeansIdx ? sampleMeansIdx : 1}.
                         <span className="help-tooltip"
@@ -75,18 +62,16 @@ export const SampleRangeSlider = ({numberOfSamples,
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
-                        <input
-                            type="number"
-                            className="form-control form-control-sm"
-                            id="sampleMeansIdx"
-                            min="1"
+                        <NumericField
+                            className={'form-control form-control-sm'}
+                            id={'sampleMeansIdx'}
+                            min={1}
                             max={numberOfSamples}
                             value={sampleMeansIdx ?
                                 sampleMeansIdx : 1}
                             disabled={sampleMeansIdx ?
                                 false : true}
-                            onFocus={handleFocus}
-                            onChange={handleSampleMeans} />
+                            onChange={handleSampleMeansIdx} />
                         &nbsp;of {numberOfSamples} samples.
                         <span className="help-tooltip"
                             tabIndex="0"

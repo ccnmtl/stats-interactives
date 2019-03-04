@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
-import { forceNumber } from '../utils';
+import { NumericField } from '../utility_components/NumericField';
 
 const TaxRatePitComponent = ({ style, children }) => {
     return (
@@ -34,11 +34,7 @@ const TaxRatePitComponent = ({ style, children }) => {
     );
 };
 
-export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
-    flipGraphs, handleFlipGraphs}) => {
-    const handleFocus = (e) => {
-        e.target.select();
-    };
+export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
             className="tax-rate-slider">
@@ -59,23 +55,14 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
                                 }} />
                         </div>
                     </div>
-                    <div className={'form-group col-1 form-inline'}>
-                        i =&nbsp;<input
-                            type='number'
-                            id={'tax-rate-idx'}
+                    <div className={'form-group col-2 form-inline'}>
+                        i =&nbsp;<NumericField
+                            id={'tax-rate-field'}
+                            className={'form-control form-control-sm'}
                             min={1}
                             max={100}
-                            className="form-control form-control-sm"
-                            value={[taxRateIdx ?
-                                taxRateIdx : 1]}
-                            onFocus={handleFocus}
-                            onChange={(event) => {
-                                event.preventDefault();
-                                let val = forceNumber(event.target.value);
-                                if (val >= 1 && val <= 100) {
-                                    handleTaxRateIdx(val);
-                                }
-                            }} />
+                            value={taxRateIdx ? taxRateIdx : 1}
+                            onChange={handleTaxRateIdx}/>
                     </div>
                     <div className={'form-group col-1 form-inline'}>
                         Flip Graphs?
