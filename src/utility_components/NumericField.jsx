@@ -32,7 +32,11 @@ export class NumericField extends Component {
         // Validate and push state up here
         let val = forceNumber(e.target.value);
         if (val >= this.props.min && val <= this.props.max) {
-            this.props.onChange(val);
+            if (this.props.onChange) {
+                this.props.onChange(val);
+            }
+            /* eslint-disable */
+            console.log('setting the state');
             this.setState({
                 value: val,
                 fieldValue: val,
