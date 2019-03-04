@@ -55,6 +55,7 @@ export class NumericField extends Component {
             <input type="number"
                 id={this.props.id}
                 className={this.props.className}
+                disbaled={this.props.disabled ? true : false}
                 min={this.props.min}
                 max={this.props.max}
                 value={this.state.fieldValue}
@@ -90,4 +91,5 @@ NumericField.propTypes = {
         }
     },
     onChange: PropTypes.func,
+    disabled: PropTypes.bool,
 };
