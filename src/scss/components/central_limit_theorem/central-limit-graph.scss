@@ -19,3 +19,8 @@
         }
     }
 }
+
+#observation-idx, #sample-means-idx {
+    width: 75px;
+    @extend %valid-focus-reset;
+}

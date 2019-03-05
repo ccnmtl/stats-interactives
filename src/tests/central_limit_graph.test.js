@@ -195,15 +195,15 @@ describe('Check that the CentralLimitGraph conditionally renders components.', (
         wrapper.update();
 
         // Check that the elements don't exist
-        expect(wrapper.exists('#observationIdx')).toEqual(false);
-        expect(wrapper.exists('#sampleMeansIdx')).toEqual(false);
+        expect(wrapper.exists('#observation-idx')).toEqual(false);
+        expect(wrapper.exists('#sample-means-idx')).toEqual(false);
 
         // Generate the population and samples
         wrapper.find('#generate-population').simulate('submit');
         wrapper.find('#run-sample').simulate('submit');
 
-        expect(wrapper.exists('#observationIdx')).toEqual(true);
-        expect(wrapper.exists('#sampleMeansIdx')).toEqual(true);
+        expect(wrapper.exists('#observation-idx')).toEqual(true);
+        expect(wrapper.exists('#sample-means-idx')).toEqual(true);
     });
 });
 

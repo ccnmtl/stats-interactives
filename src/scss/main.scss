@@ -6,7 +6,9 @@
 @import 'base/forms';
 @import 'base/slider';
 @import 'base/tooltip';
+@import 'base/numeric-field';
 
 // Component Partials
 @import 'components/nav';
 @import 'components/central_limit_theorem/central-limit-graph';
+@import 'components/ordinary_least_squares/ordinary-least-squares';
