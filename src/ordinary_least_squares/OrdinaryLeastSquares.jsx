@@ -66,7 +66,7 @@ export class OrdinaryLeastSquares extends Component {
             <div className='container'>
                 <h2>Ordinary Least Squares</h2>
                 {this.state.flipGraphs === false ? (
-                    <div className="row">
+                    <div className="row ols-state-a">
                         <div className="col-4">
                             <div>
                                 Lorem ipsum dolor sit amet, consetetur

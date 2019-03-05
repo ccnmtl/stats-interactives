@@ -12,6 +12,8 @@ export const FrequencyGraphA = (
     {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            width={700}
+            hieght={100}
             style={{
                 parent: {
                     height: 'inherit',

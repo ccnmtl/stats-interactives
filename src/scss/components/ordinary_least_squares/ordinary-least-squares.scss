@@ -1,3 +1,15 @@
 #tax-rate-field {
     @extend %valid-focus-reset;
 }
+
+.ols-state-a {
+    div:first-child {
+        display: flex;
+        flex-flow: column nowrap;
+
+        div {
+            display: block;
+            flex-grow: 1;
+        }
+    }
+}

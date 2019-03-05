@@ -41,41 +41,39 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
             className="tax-rate-slider was-validated"
             noValidate >
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-10">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                min={1}
-                                max={100}
-                                values={[taxRateIdx ?
-                                    taxRateIdx : 1]}
-                                pitComponent={TaxRatePitComponent}
-                                pitPoints={[1, 25, 50, 75]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleTaxRateIdx(
-                                        sliderState.values[0]);
-                                }} />
-                        </div>
-                    </div>
-                    <div className={'form-group col-2 form-inline'}>
-                        i =&nbsp;<NumericField
-                            id={'tax-rate-field'}
-                            className={'form-control form-control-sm'}
+                <div className="form-group">
+                    <div style={{ height: '50px', width: '100%'}}>
+                        <Rheostat
                             min={1}
                             max={100}
-                            value={taxRateIdx ? taxRateIdx : 1}
-                            onChange={handleTaxRateIdx}/>
-                        <div className='invalid-feedback'>
-                            The number entered is outside the
-                            range of the dataset.
-                        </div>
+                            values={[taxRateIdx ?
+                                taxRateIdx : 1]}
+                            pitComponent={TaxRatePitComponent}
+                            pitPoints={[1, 25, 50, 75]}
+                            onValuesUpdated={(sliderState) => {
+                                handleTaxRateIdx(
+                                    sliderState.values[0]);
+                            }} />
                     </div>
-                    <div className={'form-group col-1 form-inline'}>
-                        Flip Graphs?
-                        <input type="checkbox"
-                            value={flipGraphs}
-                            onChange={handleFlipGraphs}/>
+                </div>
+                <div className={'form-group form-inline'}>
+                    i =&nbsp;<NumericField
+                        id={'tax-rate-field'}
+                        className={'form-control form-control-sm'}
+                        min={1}
+                        max={100}
+                        value={taxRateIdx ? taxRateIdx : 1}
+                        onChange={handleTaxRateIdx}/>
+                    <div className='invalid-feedback'>
+                        The number entered is outside the
+                        range of the dataset.
                     </div>
+                </div>
+                <div className={'form-group form-inline'}>
+                    Flip Graphs?
+                    <input type="checkbox"
+                        value={flipGraphs}
+                        onChange={handleFlipGraphs}/>
                 </div>
             </fieldset>
         </form>
