@@ -65,29 +65,38 @@ export class OrdinaryLeastSquares extends Component {
             <Nav/>
             <div className='container'>
                 <h2>Ordinary Least Squares</h2>
-                <div className="row">
-                    <div className="col-12">
-                        <TaxRateSlider
-                            taxRateIdx={this.state.taxRateIdx}
-                            handleTaxRateIdx={this.handleTaxRateIdx}
-                            flipGraphs={this.state.flipGraphs}
-                            handleFlipGraphs={this.handleFlipGraphs}/>
-                    </div>
-                </div>
                 {this.state.flipGraphs === false ? (
                     <div className="row">
-                        <div className="col-6">
-                            <div className="col-12">
-                                Y<sub>i</sub>: {this.state.y_i}
+                        <div className="col-4">
+                            <div>
+                                Lorem ipsum dolor sit amet, consetetur
+                                sadipscing elitr, sed diam nonumy eirmod
+                                tempor invidunt ut labore et dolore magna
+                                aliquyam erat, sed diam voluptua. At vero eos
+                                et accusam et justo duo dolores et ea rebum.
+                                Stet clita kasd gubergren, no sea takimata
+                                sanctus est Lorem ipsum dolor sit amet.
                             </div>
-                            <div className="col-12">
-                                μ: {this.state.mean}
+                            <div>
+                                <TaxRateSlider
+                                    taxRateIdx={this.state.taxRateIdx}
+                                    handleTaxRateIdx={this.handleTaxRateIdx}
+                                    flipGraphs={this.state.flipGraphs}
+                                    handleFlipGraphs={this.handleFlipGraphs}/>
                             </div>
-                            <div className="col-12">
-                                ε: {this.state.epsilon}
+                            <div>
+                                <div className="col-12">
+                                    Y<sub>i</sub>: {this.state.y_i}
+                                </div>
+                                <div className="col-12">
+                                    μ: {this.state.mean}
+                                </div>
+                                <div className="col-12">
+                                    ε: {this.state.epsilon}
+                                </div>
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-8">
                             <TaxRateGraphA
                                 taxRateIdx={this.state.taxRateIdx}
                                 activeDataIdx={this.state.activeDataIdx}
@@ -116,13 +125,31 @@ export class OrdinaryLeastSquares extends Component {
                     </div>
                     <div className="row">
                         <div className="col-4">
-                            Y<sub>i</sub>: {this.state.y_i}
+                            Lorem ipsum dolor sit amet, consetetur
+                            sadipscing elitr, sed diam nonumy eirmod
+                            tempor invidunt ut labore et dolore magna
+                            aliquyam erat, sed diam voluptua. At vero eos
+                            et accusam et justo duo dolores et ea rebum.
+                            Stet clita kasd gubergren, no sea takimata
+                            sanctus est Lorem ipsum dolor sit amet.
                         </div>
                         <div className="col-4">
-                            μ: {this.state.mean}
+                            <TaxRateSlider
+                                taxRateIdx={this.state.taxRateIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                flipGraphs={this.state.flipGraphs}
+                                handleFlipGraphs={this.handleFlipGraphs}/>
                         </div>
                         <div className="col-4">
-                            ε: {this.state.epsilon}
+                            <div className="col-12">
+                                Y<sub>i</sub>: {this.state.y_i}
+                            </div>
+                            <div className="col-12">
+                                μ: {this.state.mean}
+                            </div>
+                            <div className="col-12">
+                                ε: {this.state.epsilon}
+                            </div>
                         </div>
                     </div>
                     </>
