@@ -82,7 +82,7 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                 <div className={'form-group form-inline'}>
                     Flip Graphs?
                     <input type="checkbox"
-                        value={flipGraphs}
+                        checked={flipGraphs}
                         onChange={handleFlipGraphs}/>
                 </div>
             </fieldset>
