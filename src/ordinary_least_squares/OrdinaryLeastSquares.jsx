@@ -11,10 +11,12 @@ export class OrdinaryLeastSquares extends Component {
         super(props);
 
         this.handleTaxRateIdx = this.handleTaxRateIdx.bind(this);
+        this.handleTaxRate = this.handleTaxRate.bind(this);
+        this.handleTaxSampleIdx = this.handleTaxSampleIdx.bind(this);
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
 
         this.initialState = {
-            taxRateIdx: 1,
+            taxRateIdx: 0,
             activeTaxRate: 3.0,
             y_i: 1,
             mean: 20,
@@ -31,8 +33,8 @@ export class OrdinaryLeastSquares extends Component {
         }));
     }
     handleTaxRateIdx(idx) {
-        let taxRateRow = Math.floor((idx - 1) / 25);
-        let taxRateCol = (idx - 1) % 25;
+        let taxRateRow = Math.floor(idx / 25);
+        let taxRateCol = idx % 25;
         let mean = 0;
         switch (taxRateRow) {
         case 0:
@@ -59,6 +61,15 @@ export class OrdinaryLeastSquares extends Component {
             epsilon: epsilon,
         });
     }
+    handleTaxRate(idx) {
+        let row = idx * 25;
+        let col = this.state.taxRateIdx % 25;
+        this.handleTaxRateIdx(row + col);
+    }
+    handleTaxSampleIdx(idx) {
+        let row = Math.floor(this.state.taxRateIdx / 25) * 25;
+        this.handleTaxRateIdx(row + idx);
+    }
     render() {
         return (
             <>
@@ -80,7 +91,8 @@ export class OrdinaryLeastSquares extends Component {
                             <div>
                                 <TaxRateSlider
                                     taxRateIdx={this.state.taxRateIdx}
-                                    handleTaxRateIdx={this.handleTaxRateIdx}
+                                    handleTaxRate={this.handleTaxRate}
+                                    handleTaxSampleIdx={this.handleTaxSampleIdx}
                                     flipGraphs={this.state.flipGraphs}
                                     handleFlipGraphs={this.handleFlipGraphs}/>
                             </div>
@@ -136,7 +148,8 @@ export class OrdinaryLeastSquares extends Component {
                         <div className="col-4">
                             <TaxRateSlider
                                 taxRateIdx={this.state.taxRateIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                handleTaxRate={this.handleTaxRate}
+                                handleTaxSampleIdx={this.handleTaxSampleIdx}
                                 flipGraphs={this.state.flipGraphs}
                                 handleFlipGraphs={this.handleFlipGraphs}/>
                         </div>

@@ -4,12 +4,8 @@
 
 .ols-state-a {
     div:first-child {
-        display: flex;
-        flex-flow: column nowrap;
-
         div {
-            display: block;
-            flex-grow: 1;
+            margin-bottom: 1em;
         }
     }
 }
