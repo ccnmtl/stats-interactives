@@ -45,7 +45,7 @@ export class NumericField extends Component {
         // track local changes here
         e.preventDefault();
         this.setState({
-            fieldValue: e.target.value,
+            fieldValue: forceNumber(e.target.value),
         });
     }
     render() {
