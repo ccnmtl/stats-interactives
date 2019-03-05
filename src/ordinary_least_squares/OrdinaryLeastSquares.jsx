@@ -137,15 +137,6 @@ export class OrdinaryLeastSquares extends Component {
                     </div>
                     <div className="row">
                         <div className="col-4">
-                            Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod
-                            tempor invidunt ut labore et dolore magna
-                            aliquyam erat, sed diam voluptua. At vero eos
-                            et accusam et justo duo dolores et ea rebum.
-                            Stet clita kasd gubergren, no sea takimata
-                            sanctus est Lorem ipsum dolor sit amet.
-                        </div>
-                        <div className="col-4">
                             <TaxRateSlider
                                 taxRateIdx={this.state.taxRateIdx}
                                 handleTaxRate={this.handleTaxRate}
@@ -163,6 +154,15 @@ export class OrdinaryLeastSquares extends Component {
                             <div className="col-12">
                                 ε: {this.state.epsilon}
                             </div>
+                        </div>
+                        <div className="col-4">
+                            Lorem ipsum dolor sit amet, consetetur
+                            sadipscing elitr, sed diam nonumy eirmod
+                            tempor invidunt ut labore et dolore magna
+                            aliquyam erat, sed diam voluptua. At vero eos
+                            et accusam et justo duo dolores et ea rebum.
+                            Stet clita kasd gubergren, no sea takimata
+                            sanctus est Lorem ipsum dolor sit amet.
                         </div>
                     </div>
                     </>
