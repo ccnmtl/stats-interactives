@@ -35,8 +35,6 @@ export class NumericField extends Component {
             if (this.props.onChange) {
                 this.props.onChange(val);
             }
-            /* eslint-disable */
-            console.log('setting the state');
             this.setState({
                 value: val,
                 fieldValue: val,
@@ -55,8 +53,8 @@ export class NumericField extends Component {
             <input type="number"
                 id={this.props.id}
                 className={this.props.className}
-                disbaled={typeof this.props.disabled === 'boolean' ?
-                        this.props.disbaled : undefined}
+                disabled={typeof this.props.disabled === 'boolean' ?
+                    this.props.disabled : undefined}
                 min={this.props.min}
                 max={this.props.max}
                 value={this.state.fieldValue}
@@ -79,7 +77,7 @@ NumericField.propTypes = {
         // First check type
         if (typeof val !== 'number') {
             return new Error('Val Prop Invalid Type: expected val to be ' +
-                ' Number, recieved ' + typeof val);
+                ' Number, received ' + typeof val);
         }
         // Then check that the val is within range
         if (val < min || val > max) {
