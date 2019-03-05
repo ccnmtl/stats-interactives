@@ -1,0 +1,13 @@
+%valid-focus-reset {
+    // Reset so that the field doesn't take the 'is-valid' styling from Bootstrap
+    &:valid {
+        border-color: #ced4da;
+        padding-right: 0em;
+        background-image: none;
+
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+    }
+}
+

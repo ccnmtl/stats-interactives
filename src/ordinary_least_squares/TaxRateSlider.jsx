@@ -38,7 +38,8 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
     flipGraphs, handleFlipGraphs}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
-            className="tax-rate-slider">
+            className="tax-rate-slider was-validated"
+            noValidate >
             <fieldset>
                 <div className="form-row">
                     <div className="form-group col-10">
@@ -64,6 +65,10 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
                             max={100}
                             value={taxRateIdx ? taxRateIdx : 1}
                             onChange={handleTaxRateIdx}/>
+                        <div className='invalid-feedback'>
+                            The number entered is outside the
+                            range of the dataset.
+                        </div>
                     </div>
                     <div className={'form-group col-1 form-inline'}>
                         Flip Graphs?

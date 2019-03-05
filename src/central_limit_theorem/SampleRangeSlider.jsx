@@ -9,12 +9,12 @@ export const SampleRangeSlider = ({numberOfSamples,
     observationIdx, observationData, handleObservationIdx}) => {
     return (
         <>
-        <form className="sample-range-slider">
+        <form className="sample-range-slider was-validated">
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
                         <NumericField
-                            id={'observationIdx'}
+                            id={'observation-idx'}
                             className={'form-control form-control-sm'}
                             min={1}
                             max={sampleSize}
@@ -33,6 +33,10 @@ export const SampleRangeSlider = ({numberOfSamples,
                                 <i className="fas fa-question-circle"></i>
                             </sup>
                         </span>
+                        <div className='invalid-feedback'>
+                            The number entered is outside the
+                            range of the dataset.
+                        </div>
                         <ReactTooltip id="observation-tt"
                             event="focus"
                             eventOff="blur">
@@ -64,7 +68,7 @@ export const SampleRangeSlider = ({numberOfSamples,
                     <div className="form-row">
                         <NumericField
                             className={'form-control form-control-sm'}
-                            id={'sampleMeansIdx'}
+                            id={'sample-means-idx'}
                             min={1}
                             max={numberOfSamples}
                             value={sampleMeansIdx ?
@@ -81,6 +85,10 @@ export const SampleRangeSlider = ({numberOfSamples,
                                 <i className="fas fa-question-circle"></i>
                             </sup>
                         </span>
+                        <div className='invalid-feedback'>
+                            The number entered is outside the
+                            range of the dataset.
+                        </div>
                         <ReactTooltip id="sampleMean-tt"
                             event="focus"
                             eventOff="blur">
