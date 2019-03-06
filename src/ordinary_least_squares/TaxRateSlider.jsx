@@ -42,7 +42,11 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
             noValidate={true} >
             <fieldset>
                 <div className="form-group">
-                    <div style={{ height: '50px', width: '100%'}}>
+                    <label htmlFor={'tax-rate-slider'}>
+                        Cigarette Tax Rates
+                    </label>
+                    <div id={'tax-rate-slider'}
+                        style={{ height: '50px', width: '100%'}}>
                         <Rheostat
                             min={0}
                             max={3}
