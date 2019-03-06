@@ -19,13 +19,13 @@ const TaxRatePitComponent = ({ style, children }) => {
             <div style={{marginTop: 16}}>
                 {((children) => {
                     switch (children) {
-                    case 1:
+                    case 0:
                         return '3%';
-                    case 25:
+                    case 1:
                         return '5%';
-                    case 50:
+                    case 2:
                         return '7%';
-                    case 75:
+                    case 3:
                         return '7.5%';
                     }
                 })(children)}
@@ -34,48 +34,56 @@ const TaxRatePitComponent = ({ style, children }) => {
     );
 };
 
-export const TaxRateSlider = ({taxRateIdx, handleTaxRateIdx,
-    flipGraphs, handleFlipGraphs}) => {
+export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
+    handleTaxRateIdx, flipGraphs, handleFlipGraphs}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
             className="tax-rate-slider was-validated"
-            noValidate >
+            noValidate={true} >
             <fieldset>
-                <div className="form-row">
-                    <div className="form-group col-10">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                min={1}
-                                max={100}
-                                values={[taxRateIdx ?
-                                    taxRateIdx : 1]}
-                                pitComponent={TaxRatePitComponent}
-                                pitPoints={[1, 25, 50, 75]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleTaxRateIdx(
-                                        sliderState.values[0]);
-                                }} />
-                        </div>
+                <div className="form-group">
+                    <div style={{ height: '50px', width: '100%'}}>
+                        <Rheostat
+                            min={0}
+                            max={3}
+                            values={[Math.floor(taxRateIdx / 25)]}
+                            pitComponent={TaxRatePitComponent}
+                            pitPoints={[0, 1, 2, 3]}
+                            snap
+                            onValuesUpdated={(sliderState) => {
+                                handleTaxRate(
+                                    sliderState.values[0]);
+                            }} />
                     </div>
-                    <div className={'form-group col-2 form-inline'}>
-                        i =&nbsp;<NumericField
-                            id={'tax-rate-field'}
-                            className={'form-control form-control-sm'}
-                            min={1}
-                            max={100}
-                            value={taxRateIdx ? taxRateIdx : 1}
-                            onChange={handleTaxRateIdx}/>
-                        <div className='invalid-feedback'>
-                            The number entered is outside the
-                            range of the dataset.
-                        </div>
+                    <div style={{ height: '50px', width: '100%'}}>
+                        <Rheostat
+                            min={0}
+                            max={24}
+                            values={[(taxRateIdx % 25)]}
+                            onValuesUpdated={(sliderState) => {
+                                handleTaxSampleIdx(
+                                    sliderState.values[0]);
+                            }} />
                     </div>
-                    <div className={'form-group col-1 form-inline'}>
-                        Flip Graphs?
-                        <input type="checkbox"
-                            value={flipGraphs}
-                            onChange={handleFlipGraphs}/>
+                </div>
+                <div className={'form-group form-inline'}>
+                    i =&nbsp;<NumericField
+                        id={'tax-rate-field'}
+                        className={'form-control form-control-sm'}
+                        min={0}
+                        max={24}
+                        value={(taxRateIdx % 25)}
+                        onChange={handleTaxSampleIdx}/>
+                    <div className='invalid-feedback'>
+                        The number entered is outside the
+                        range of the dataset.
                     </div>
+                </div>
+                <div className={'form-group form-inline'}>
+                    Flip Graphs?
+                    <input type="checkbox"
+                        checked={flipGraphs}
+                        onChange={handleFlipGraphs}/>
                 </div>
             </fieldset>
         </form>
@@ -89,6 +97,8 @@ TaxRatePitComponent.propTypes = {
 
 TaxRateSlider.propTypes = {
     taxRateIdx: PropTypes.number,
+    handleTaxRate: PropTypes.func,
+    handleTaxSampleIdx: PropTypes.func,
     handleTaxRateIdx: PropTypes.func,
     flipGraphs: PropTypes.bool,
     handleFlipGraphs: PropTypes.func,

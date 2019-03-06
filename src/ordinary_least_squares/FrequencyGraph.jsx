@@ -9,9 +9,11 @@ math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const FrequencyGraphA = (
-    {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
+    {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            width={700}
+            hieght={100}
             style={{
                 parent: {
                     height: 'inherit',
@@ -39,7 +41,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(props.index + 1);
+                                        handleTaxRateIdx(props.index);
                                     }}
                                 ];
                             }
@@ -62,7 +64,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(25 + props.index + 1);
+                                        handleTaxRateIdx(25 + props.index);
                                     }}
                                 ];
                             }
@@ -85,7 +87,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(50 + props.index + 1);
+                                        handleTaxRateIdx(50 + props.index);
                                     }}
                                 ];
                             }
@@ -108,7 +110,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(75 + props.index + 1);
+                                        handleTaxRateIdx(75 + props.index);
                                     }}
                                 ];
                             }
@@ -130,7 +132,7 @@ export const FrequencyGraphA = (
 };
 
 export const FrequencyGraphB = (
-    {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
+    {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [1, 8]}}>
@@ -156,7 +158,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(props.index + 1);
+                                        handleTaxRateIdx(props.index);
                                     }}
                                 ];
                             }
@@ -179,7 +181,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(25 + props.index + 1);
+                                        handleTaxRateIdx(25 + props.index);
                                     }}
                                 ];
                             }
@@ -202,7 +204,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(50 + props.index + 1);
+                                        handleTaxRateIdx(50 + props.index);
                                     }}
                                 ];
                             }
@@ -225,7 +227,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(75 + props.index + 1);
+                                        handleTaxRateIdx(75 + props.index);
                                     }}
                                 ];
                             }
@@ -247,13 +249,11 @@ export const FrequencyGraphB = (
 };
 
 FrequencyGraphA.propTypes = {
-    taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
     handleTaxRateIdx: PropTypes.func,
 };
 
 FrequencyGraphB.propTypes = {
-    taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
     handleTaxRateIdx: PropTypes.func,
 };

@@ -9,9 +9,11 @@ math.config({matrix: 'Array'});
 import { BAR_BORDER, INDICATOR } from '../colors.js';
 
 export const TaxRateGraphA = (
-    {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
+    {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            width={700}
+            hieght={100}
             style={{
                 parent: {
                     height: 'inherit',
@@ -41,7 +43,7 @@ export const TaxRateGraphA = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(props.index + 1);
+                                    handleTaxRateIdx(props.index);
                                 }}
                             ];
                         }
@@ -66,7 +68,7 @@ export const TaxRateGraphA = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(25 + props.index + 1);
+                                    handleTaxRateIdx(25 + props.index);
                                 }}
                             ];
                         }
@@ -91,7 +93,7 @@ export const TaxRateGraphA = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(50 + props.index + 1);
+                                    handleTaxRateIdx(50 + props.index);
                                 }}
                             ];
                         }
@@ -116,7 +118,7 @@ export const TaxRateGraphA = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(75 + props.index + 1);
+                                    handleTaxRateIdx(75 + props.index);
                                 }}
                             ];
                         }
@@ -149,7 +151,7 @@ export const TaxRateGraphA = (
 };
 
 export const TaxRateGraphB = (
-    {taxRateIdx, activeDataIdx, handleTaxRateIdx}) => {
+    {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             domain={{x: [2, 8]}}>
@@ -175,7 +177,7 @@ export const TaxRateGraphB = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(props.index + 1);
+                                    handleTaxRateIdx(props.index);
                                 }}
                             ];
                         }
@@ -200,7 +202,7 @@ export const TaxRateGraphB = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(25 + props.index + 1);
+                                    handleTaxRateIdx(25 + props.index);
                                 }}
                             ];
                         }
@@ -225,7 +227,7 @@ export const TaxRateGraphB = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(50 + props.index + 1);
+                                    handleTaxRateIdx(50 + props.index);
                                 }}
                             ];
                         }
@@ -250,7 +252,7 @@ export const TaxRateGraphB = (
                                 target: 'data',
                                 mutation: (props) => {
                                     /* eslint-disable-next-line */
-                                    handleTaxRateIdx(75 + props.index + 1);
+                                    handleTaxRateIdx(75 + props.index);
                                 }}
                             ];
                         }
@@ -283,13 +285,11 @@ export const TaxRateGraphB = (
 };
 
 TaxRateGraphA.propTypes = {
-    taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
     handleTaxRateIdx: PropTypes.func,
 };
 
 TaxRateGraphB.propTypes = {
-    taxRateIdx: PropTypes.number,
     activeDataIdx: PropTypes.array,
     handleTaxRateIdx: PropTypes.func,
 };

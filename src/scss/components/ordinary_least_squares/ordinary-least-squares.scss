@@ -1,3 +1,11 @@
 #tax-rate-field {
     @extend %valid-focus-reset;
 }
+
+.ols-state-a {
+    div:first-child {
+        div {
+            margin-bottom: 1em;
+        }
+    }
+}
