@@ -22,11 +22,11 @@ export const TaxRateGraphA = (
             }}
             domain={{x: [8, 31]}}>
             <VictoryAxis
-                tickValues={[9, 31]} />
-            <VictoryAxis
                 dependentAxis={true}
                 tickValues={
-                    [2, 3, 4, 5, 6, 7, 8]} />
+                    math.range(2, 8, true)} />
+            <VictoryAxis
+                tickValues={math.range(9, 31, true)} />
             {/* 3% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
@@ -157,10 +157,10 @@ export const TaxRateGraphB = (
             domain={{x: [2, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
-                tickValues={[9, 31]} />
+                tickValues={math.range(9, 31, true)} />
             <VictoryAxis
                 tickValues={
-                    [2, 3, 4, 5, 6, 7, 8]} />
+                    math.range(2, 8, true)} />
             {/* 3% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
