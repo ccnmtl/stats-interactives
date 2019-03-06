@@ -17,15 +17,27 @@ export const FrequencyGraphA = (
             style={{
                 parent: {
                     height: 'inherit',
-                    padding: '0em 0em 0em 0em',
-                }
+                },
             }}
+            padding={{left: 40, top: 20, right: 20, bottom: 45}}
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
+                label={'Frequency of Smokers'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={
                     math.range(1, 8, true)} />
             <VictoryAxis
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={math.range(9, 31, true)} />
             {/* 3% graph */}
             { activeDataIdx[0] === 0 &&
@@ -135,13 +147,26 @@ export const FrequencyGraphB = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            padding={{left: 10, top: 10, right: 50, bottom: 45}}
             domain={{x: [1, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 35,
+                    },
+                }}
                 tickValues={math.range(9, 31, true)} />
             <VictoryAxis
                 invertAxis={true}
+                label={'Frequency of Smokers'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={
                     math.range(1, 8, true)} />
             {/* 3% graph */}

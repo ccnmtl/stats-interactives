@@ -17,15 +17,27 @@ export const TaxRateGraphA = (
             style={{
                 parent: {
                     height: 'inherit',
-                    padding: '0em 0em 0em 0em',
                 }
             }}
+            padding={{left: 40, top: 20, right: 20, bottom: 45}}
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
+                label={'Tax Rate'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={
                     math.range(2, 8, true)} />
             <VictoryAxis
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={math.range(9, 31, true)} />
             {/* 3% graph */}
             <VictoryScatter
@@ -154,11 +166,24 @@ export const TaxRateGraphB = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            padding={{left: 50, top: 10, right: 10, bottom: 45}}
             domain={{x: [2, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 35,
+                    },
+                }}
                 tickValues={math.range(9, 31, true)} />
             <VictoryAxis
+                label={'Tax Rate'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={
                     math.range(2, 8, true)} />
             {/* 3% graph */}
