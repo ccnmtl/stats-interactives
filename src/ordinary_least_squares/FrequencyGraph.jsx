@@ -17,16 +17,28 @@ export const FrequencyGraphA = (
             style={{
                 parent: {
                     height: 'inherit',
-                    padding: '0em 0em 0em 0em',
-                }
+                },
             }}
+            padding={{left: 40, top: 20, right: 20, bottom: 45}}
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
+                label={'Frequency of Smokers'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
                 tickValues={
-                    [1, 2, 3, 4, 5, 6, 7, 8]} />
+                    math.range(1, 8, true)} />
             <VictoryAxis
-                tickValues={[9, 31]} />
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
+                tickValues={math.range(9, 31, true)} />
             {/* 3% graph */}
             { activeDataIdx[0] === 0 &&
                 <VictoryScatter
@@ -49,7 +61,7 @@ export const FrequencyGraphA = (
                     }]}
                     size={4}
                     y={(datum) => datum[1]}
-                    x={(datum) => Math.floor(datum[0])}/>}
+                    x={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 5% graph */}
             { activeDataIdx[0] === 1 &&
                 <VictoryScatter
@@ -72,7 +84,7 @@ export const FrequencyGraphA = (
                     }]}
                     size={4}
                     y={(datum) => datum[1]}
-                    x={(datum) => Math.floor(datum[0])}/>}
+                    x={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 7% graph */}
             { activeDataIdx[0] === 2 &&
                 <VictoryScatter
@@ -95,7 +107,7 @@ export const FrequencyGraphA = (
                     }]}
                     size={4}
                     y={(datum) => datum[1]}
-                    x={(datum) => Math.floor(datum[0])}/>}
+                    x={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 7.5% graph */}
             { activeDataIdx[0] === 3 &&
                 <VictoryScatter
@@ -126,7 +138,7 @@ export const FrequencyGraphA = (
                     strokeWidth: '1px' } }}
                 size={4}
                 y={(datum) => datum[1]}
-                x={(datum) => Math.floor(datum[0])}/>
+                x={(datum) => Math.floor(datum[0]) + 0.5}/>
         </VictoryChart>
     );
 };
@@ -135,15 +147,28 @@ export const FrequencyGraphB = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            padding={{left: 10, top: 10, right: 50, bottom: 45}}
             domain={{x: [1, 8]}}>
-            <VictoryAxis
-                invertAxis={true}
-                tickValues={
-                    [1, 2, 3, 4, 5, 6, 7, 8]} />
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
-                tickValues={[9, 31]} />
+                label={'Cigarettes Smoked per Day'}
+                style={{
+                    axisLabel: {
+                        padding: 35,
+                    },
+                }}
+                tickValues={math.range(9, 31, true)} />
+            <VictoryAxis
+                invertAxis={true}
+                label={'Frequency of Smokers'}
+                style={{
+                    axisLabel: {
+                        padding: 30,
+                    },
+                }}
+                tickValues={
+                    math.range(1, 8, true)} />
             {/* 3% graph */}
             { activeDataIdx[0] === 0 &&
                 <VictoryScatter
@@ -166,7 +191,7 @@ export const FrequencyGraphB = (
                     }]}
                     size={4}
                     x={(datum) => datum[1]}
-                    y={(datum) => Math.floor(datum[0])}/>}
+                    y={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 5% graph */}
             { activeDataIdx[0] === 1 &&
                 <VictoryScatter
@@ -189,7 +214,7 @@ export const FrequencyGraphB = (
                     }]}
                     size={4}
                     x={(datum) => datum[1]}
-                    y={(datum) => Math.floor(datum[0])}/>}
+                    y={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 7% graph */}
             { activeDataIdx[0] === 2 &&
                 <VictoryScatter
@@ -212,7 +237,7 @@ export const FrequencyGraphB = (
                     }]}
                     size={4}
                     x={(datum) => datum[1]}
-                    y={(datum) => Math.floor(datum[0])}/>}
+                    y={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* 7.5% graph */}
             { activeDataIdx[0] === 3 &&
                 <VictoryScatter
@@ -235,7 +260,7 @@ export const FrequencyGraphB = (
                     }]}
                     size={4}
                     x={(datum) => datum[1]}
-                    y={(datum) => Math.floor(datum[0])}/>}
+                    y={(datum) => Math.floor(datum[0]) + 0.5}/>}
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
@@ -243,7 +268,7 @@ export const FrequencyGraphB = (
                     strokeWidth: '1px' } }}
                 size={4}
                 x={(datum) => datum[1]}
-                y={(datum) => Math.floor(datum[0])}/>
+                y={(datum) => Math.floor(datum[0]) + 0.5}/>
         </VictoryChart>
     );
 };
