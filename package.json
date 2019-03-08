@@ -41,7 +41,7 @@
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
     "jStat": "^1.7.1",
-    "jest": "^23.6.0",
+    "jest": "^24.3.0",
     "mathjs": "^5.2.3",
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
