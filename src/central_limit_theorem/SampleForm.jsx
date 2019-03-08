@@ -20,7 +20,7 @@ export const SampleForm = ({
                     <div className="form-row">
                         <label htmlFor="sampleSize"
                             className="float-right">
-                            Sample Size:</label>
+                            Select a Sample Size:</label>
                         <span className="help-tooltip"
                             tabIndex="0"
                             data-tip
@@ -57,7 +57,7 @@ export const SampleForm = ({
                     <div className="form-row">
                         <label htmlFor="numberOfSamples"
                             className="float-right">
-                            Number of Samples:</label>
+                            Select a Number of Samples:</label>
                         <span className="help-tooltip"
                             tabIndex="0"
                             data-tip
