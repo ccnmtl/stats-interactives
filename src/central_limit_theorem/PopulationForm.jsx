@@ -61,7 +61,7 @@ export const PopulationForm  = (
                     <div className="form-group">
                         <div className="form-row ">
                             <label htmlFor="distType">
-                                Choose a Distribution Type</label>
+                                Choose a Distribution Type:</label>
                         </div>
                         <div className="form-row ">
                             <select id="distType"

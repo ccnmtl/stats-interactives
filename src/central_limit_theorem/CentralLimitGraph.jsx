@@ -400,7 +400,7 @@ export class CentralLimitGraph extends Component {
                                 this.state.activeSampleMeansData &&
                                 <p>Mean of {this.state.numberOfSamples} Sample
                                     Means: {this.state.meanOfSampleMeans} |
-                                    Sample mean = x&#772; = {
+                                    Sample mean x&#772; = {
                                     /* eslint-disable-next-line */
                                     this.state.activeSampleMeansData[0]['datum']}
                                 </p>}
