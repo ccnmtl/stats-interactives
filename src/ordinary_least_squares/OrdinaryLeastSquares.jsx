@@ -78,7 +78,7 @@ export class OrdinaryLeastSquares extends Component {
                 <h2>Ordinary Least Squares</h2>
                 {this.state.flipGraphs === false ? (
                     <div className="row ols-state-a">
-                        <div className="col-4">
+                        <div className="col-6">
                             <div>
                                 Lorem ipsum dolor sit amet, consetetur
                                 sadipscing elitr, sed diam nonumy eirmod
@@ -108,15 +108,19 @@ export class OrdinaryLeastSquares extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-8">
-                            <TaxRateGraphA
-                                taxRateIdx={this.state.taxRateIdx}
-                                activeDataIdx={this.state.activeDataIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}/>
-                            <FrequencyGraphA
-                                taxRateIdx={this.state.taxRateIdx}
-                                activeDataIdx={this.state.activeDataIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}/>
+                        <div className="col-6">
+                            <div className={'graph-A-container'}>
+                                <TaxRateGraphA
+                                    taxRateIdx={this.state.taxRateIdx}
+                                    activeDataIdx={this.state.activeDataIdx}
+                                    handleTaxRateIdx={this.handleTaxRateIdx}/>
+                            </div>
+                            <div className={'graph-A-container'}>
+                                <FrequencyGraphA
+                                    taxRateIdx={this.state.taxRateIdx}
+                                    activeDataIdx={this.state.activeDataIdx}
+                                    handleTaxRateIdx={this.handleTaxRateIdx}/>
+                            </div>
                         </div>
                     </div>
                 ) : (
