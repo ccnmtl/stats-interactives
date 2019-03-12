@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from './Nav';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
-import { OrdinaryLeastSquares } from
-    './ordinary_least_squares/OrdinaryLeastSquares';
+import { LinearRegressionModel } from
+    './linear_regression_model/LinearRegressionModel';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { NotFound } from './NotFound';
 import 'rheostat/initialize';
@@ -58,8 +58,9 @@ export class App extends Component {
                             <Route exact path="/" component={withTracker(Home)} />
                             <Route path="/central-limit-theorem"
                                 component={withTracker(CentralLimitGraph)} />
-                            <Route path="/ols-regression"
-                                component={withTracker(OrdinaryLeastSquares)} />
+                            <Route path="/linear-regression-model"
+                                component={
+                                    withTracker(LinearRegressionModel)} />
                             <Route component={withTracker(NotFound)} />
                         </Switch>
                     </main>

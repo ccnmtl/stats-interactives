@@ -12,13 +12,6 @@ export const FrequencyGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
-            width={700}
-            hieght={100}
-            style={{
-                parent: {
-                    height: 'inherit',
-                },
-            }}
             padding={{left: 40, top: 20, right: 20, bottom: 45}}
             domain={{x: [8, 31]}}>
             <VictoryAxis
@@ -38,7 +31,11 @@ export const FrequencyGraphA = (
                         padding: 30,
                     },
                 }}
-                tickValues={math.range(9, 31, true)} />
+                tickValues={math.range(9, 31, true).map((val) => {
+                    if (val % 2 === 1) {
+                        return val;
+                    }
+                })} />
             {/* 3% graph */}
             { activeDataIdx[0] === 0 &&
                 <VictoryScatter
