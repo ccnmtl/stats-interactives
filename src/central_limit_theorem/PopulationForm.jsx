@@ -61,7 +61,7 @@ export const PopulationForm  = (
                     <div className="form-group">
                         <div className="form-row ">
                             <label htmlFor="distType">
-                                Distribution Type</label>
+                                Choose a Distribution Type:</label>
                         </div>
                         <div className="form-row ">
                             <select id="distType"
@@ -80,7 +80,7 @@ export const PopulationForm  = (
                         <div className="form-row">
                             <label htmlFor="mean"
                                 className="float-right">
-                                Mean:</label>
+                                Select a Mean:</label>
                             <span className="help-tooltip"
                                 tabIndex="0"
                                 data-tip
@@ -120,7 +120,7 @@ export const PopulationForm  = (
                         <div className="form-row">
                             <label htmlFor="stdDev"
                                 className="float-right">
-                                Standard Deviation:</label>
+                                Select a Standard Deviation:</label>
                             <span className="help-tooltip"
                                 tabIndex="0"
                                 data-tip

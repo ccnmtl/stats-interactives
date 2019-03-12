@@ -10,7 +10,7 @@ import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
     {populationGraphData, samplesGraphData, samplesMax,
-        observationIdx, observationData, domain, sampleMean}) => {
+        observationIdx, domain, sampleMean}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
@@ -35,15 +35,17 @@ export const PopulationGraph  = (
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/> }
             {samplesGraphData &&
-                <VictoryScatter data={samplesGraphData}
+                <VictoryScatter data={samplesGraphData.slice(0, observationIdx)}
                     style={{ data: { fill: 'white', stroke: BAR_BORDER,
                         strokeWidth: '1px' } }}
                     size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
             }
-            {observationData &&
-                <VictoryScatter data={observationData}
+            {samplesGraphData &&
+                    <VictoryScatter data={
+                        samplesGraphData.slice(
+                            observationIdx - 1, observationIdx)}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: '1px' } }}
                     size={4}
