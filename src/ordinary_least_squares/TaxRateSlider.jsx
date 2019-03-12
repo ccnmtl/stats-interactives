@@ -3,6 +3,19 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
 
+const getTaxRateFromIdx = (val) => {
+    switch (val) {
+    case 0:
+        return '3%';
+    case 1:
+        return '5%';
+    case 2:
+        return '7%';
+    case 3:
+        return '7.5%';
+    }
+};
+
 const TaxRatePitComponent = ({ style, children }) => {
     return (
         <div
@@ -17,18 +30,7 @@ const TaxRatePitComponent = ({ style, children }) => {
             }}
         >
             <div style={{marginTop: 16}}>
-                {((children) => {
-                    switch (children) {
-                    case 0:
-                        return '3%';
-                    case 1:
-                        return '5%';
-                    case 2:
-                        return '7%';
-                    case 3:
-                        return '7.5%';
-                    }
-                })(children)}
+                {getTaxRateFromIdx(children)}
             </div>
         </div>
     );
@@ -59,7 +61,11 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                                     sliderState.values[0]);
                             }} />
                     </div>
-                    <div style={{ height: '50px', width: '100%'}}>
+                    <label htmlFor="observation-slider">
+                        Observations for {getTaxRateFromIdx(taxRateIdx / 25)}:
+                    </label>
+                    <div id={'observation-slider'}
+                        style={{ height: '50px', width: '100%'}}>
                         <Rheostat
                             min={0}
                             max={24}
