@@ -62,7 +62,8 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                             }} />
                     </div>
                     <label htmlFor="observation-slider">
-                        Observations for {getTaxRateFromIdx(taxRateIdx / 25)}:
+                        Observations for {
+                            getTaxRateFromIdx(Math.floor(taxRateIdx / 25))}:
                     </label>
                     <div id={'observation-slider'}
                         style={{ height: '50px', width: '100%'}}>
