@@ -2,10 +2,117 @@
     @extend %valid-focus-reset;
 }
 
-.ols-state-a {
+.state-a-container {
     div:first-child {
         div {
             margin-bottom: 1em;
         }
+    }
+}
+
+// Graph Animation
+
+// This CSS is kind of dense. Somethings to note:
+// - The animation consists of toggling between two states:
+//   state-a and state-b.
+//   State A has the graphs stacked veritically
+//   State B has the graphs lined up horizontally
+// - the 'enter' and 'leave' classes get applied
+//   while those particular elements are being animated.
+//   That's why transitions from both states are composed together
+//   under a common class name, but only one occurs at a time.
+
+// The elements are double-wrapped in Bootstrap containers
+// to facilitate the animate. Hence reset the padding.
+.state-a-container, .state-b-container {
+    padding-left: 0em;
+    padding-right: 0em;
+}
+
+.graph-transition-enter {
+    // Transition A => B
+    &.state-b-container {
+        opacity: 0.01;
+        position: absolute;
+        width: 1110px;
+    }
+
+    // Transition B => A
+    &.state-a-container {
+        opacity: 0.01;
+        position: absolute;
+        // Because the element has to positioned absolutely
+        // during the transition, we have to hack the width
+        // so that there isn't a noticible hiccup at the
+        // end of the animation.
+        width: 1110px;
+    }
+}
+
+.graph-transition-enter.graph-transition-enter-active {
+    // Transition A => B
+    &.state-b-container {
+        opacity: 1;
+        transition: all 2000ms ease 5000ms;
+    }
+
+    // Transition B => A
+    &.state-a-container {
+        opacity: 1;
+        transition: opacity 2000ms ease 5000ms;
+    }
+}
+
+// Fired at the start of the transition
+.graph-transition-leave {
+    // Transition A => B
+    &.state-a-container {
+        height: 1134px;
+    }
+
+    .state-a-info-container {
+        // fade out
+        opacity: 0.01;
+        transition: opacity 5000ms ease;
+    }
+
+    .state-a-graph-container {
+        // rotate, then fade out
+        opacity: 0.01;
+        transform-origin: center 265px;
+        transform: rotate(90deg);
+        transition: transform 5000ms ease, opacity 2000ms ease 5000ms;
+    }
+
+    // Transition B => A
+    &.state-b-container {
+        height: 795px;
+
+        .state-b-info-container {
+            opacity: 0.01;
+            transition: opacity 250ms ease;
+        }
+
+        .state-b-graph-container {
+            opacity: 0.01;
+            transform-origin: 75% 50%;
+            transform: rotate(-90deg);
+            transition: transform 5000ms ease, opacity 2000ms ease 5000ms;
+        }
+
+    }
+}
+
+// Applied one tick after .graph-transition-leave is applied
+.graph-transition-leave.graph-transition-leave-active {
+    // Transition A => B
+    &.state-a-container {
+        height: 795px;
+        transition: height 5000ms ease;
+    }
+
+    &.state-b-container {
+        height: 1134px;
+        transition: height 5000ms ease;
     }
 }
