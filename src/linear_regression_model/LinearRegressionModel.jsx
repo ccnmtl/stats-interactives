@@ -76,6 +76,12 @@ export class LinearRegressionModel extends Component {
             <Nav/>
             <div className='container'>
                 <h2>Linear Regression Model</h2>
+                <div className={'form-group form-inline'}>
+                    Flip Graphs?
+                    <input type="checkbox"
+                        checked={this.state.flipGraphs}
+                        onChange={this.handleFlipGraphs}/>
+                </div>
                 {this.state.flipGraphs === false ? (
                     <div className="row ols-state-a">
                         <div className="col-6">
