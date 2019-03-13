@@ -5,6 +5,7 @@ import { Nav } from './Nav';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { LinearRegressionModel } from
     './linear_regression_model/LinearRegressionModel';
+import { LeastSquares } from './estimation_least_squares/LeastSquares';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { NotFound } from './NotFound';
 import 'rheostat/initialize';
@@ -61,6 +62,8 @@ export class App extends Component {
                             <Route path="/linear-regression-model"
                                 component={
                                     withTracker(LinearRegressionModel)} />
+                            <Route path="/least-squares"
+                                component={withTracker(LeastSquares)} />
                             <Route component={withTracker(NotFound)} />
                         </Switch>
                     </main>
