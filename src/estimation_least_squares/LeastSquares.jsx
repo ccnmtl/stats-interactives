@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Nav } from '../Nav.jsx';
 
 import { RegressionForm } from './RegressionForm';
+import { RegressionGraph } from './RegressionGraph';
 
 export class LeastSquares extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ export class LeastSquares extends Component {
             seed: '',
             slope: 0,
             intercept: 0,
-            regressionFunc: null,
+            regressionFunc: (x) => 0,
             population: null,
         };
 
@@ -28,7 +29,13 @@ export class LeastSquares extends Component {
         });
     }
     handleGeneratePop() {
-        let population = null;
+        let population = [
+            [10, 10],
+            [20, 30],
+            [30, 20],
+            [40, 50],
+            [50, 40],
+            [60, 70]];
 
         this.setState({
             population: population,
@@ -64,6 +71,11 @@ export class LeastSquares extends Component {
                             handleIntercept={this.handleIntercept}/>
                     </div>
                     <div className={'col-8'}>
+                        <div className={'graph-container'}>
+                            <RegressionGraph
+                                population={this.state.population}
+                                regressionFunc={this.state.regressionFunc}/>
+                        </div>
                     </div>
                 </div>
             </div>
