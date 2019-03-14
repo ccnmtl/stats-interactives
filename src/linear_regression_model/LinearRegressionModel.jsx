@@ -77,6 +77,14 @@ export class LinearRegressionModel extends Component {
             <Nav/>
             <div className='container'>
                 <h2>Linear Regression Model</h2>
+                <ul className="nav nav-pills small justify-content-end">
+                    <li className="nav-item">
+                        <a className="nav-link active" href="#">Vertical</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Horizontal</a>
+                    </li>
+                </ul>
                 <div className={'form-group form-inline'}>
                     Flip Graphs?
                     <input type="checkbox"
