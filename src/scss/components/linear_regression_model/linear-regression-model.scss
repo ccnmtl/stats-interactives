@@ -1,0 +1,6 @@
+/*remove gutter fromgraphs in horizontal graph view*/
+.ols-state-a .col-6:last-child .graph-A-container:first-child .VictoryContainer {margin-bottom:0!important;}
+
+/*remove gutter fromgraphs in vertical graph view*/
+.ols-state-b .col-6:first-child {padding-right: 0;}
+.ols-state-b .col-6:last-child {padding-left: 0;}
