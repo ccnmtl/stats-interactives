@@ -86,8 +86,8 @@ export class LinearRegressionModel extends Component {
                 </div>
                 <CSSTransitionGroup
                     transitionName="graph-transition"
-                    transitionEnterTimeout={8000}
-                    transitionLeaveTimeout={8000}>
+                    transitionEnterTimeout={3000}
+                    transitionLeaveTimeout={3000}>
                 {this.state.flipGraphs === false ? (
                     <div key={this.state.flipGraphs}
                         className="container state-a-container">

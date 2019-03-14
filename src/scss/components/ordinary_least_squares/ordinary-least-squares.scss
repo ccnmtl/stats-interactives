@@ -53,13 +53,13 @@
     // Transition A => B
     &.state-b-container {
         opacity: 1;
-        transition: all 2000ms ease 5000ms;
+        transition: all 1000ms ease 2000ms;
     }
 
     // Transition B => A
     &.state-a-container {
         opacity: 1;
-        transition: opacity 2000ms ease 5000ms;
+        transition: opacity 1000ms ease 2000ms;
     }
 }
 
@@ -73,7 +73,7 @@
     .state-a-info-container {
         // fade out
         opacity: 0.01;
-        transition: opacity 5000ms ease;
+        transition: opacity 2000ms ease;
     }
 
     .state-a-graph-container {
@@ -81,7 +81,7 @@
         opacity: 0.01;
         transform-origin: center 265px;
         transform: rotate(90deg);
-        transition: transform 5000ms ease, opacity 2000ms ease 5000ms;
+        transition: transform 3000ms ease, opacity 1000ms ease 2000ms;
     }
 
     // Transition B => A
@@ -97,7 +97,7 @@
             opacity: 0.01;
             transform-origin: 75% 50%;
             transform: rotate(-90deg);
-            transition: transform 5000ms ease, opacity 2000ms ease 5000ms;
+            transition: transform 3000ms ease, opacity 1000ms ease 2000ms;
         }
 
     }
@@ -108,11 +108,11 @@
     // Transition A => B
     &.state-a-container {
         height: 795px;
-        transition: height 5000ms ease;
+        transition: height 3000ms ease;
     }
 
     &.state-b-container {
         height: 1134px;
-        transition: height 5000ms ease;
+        transition: height 3000ms ease;
     }
 }
