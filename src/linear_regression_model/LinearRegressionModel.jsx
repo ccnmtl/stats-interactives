@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
@@ -76,101 +77,124 @@ export class LinearRegressionModel extends Component {
             <Nav/>
             <div className='container'>
                 <h2>Linear Regression Model</h2>
-                {this.state.flipGraphs === false ? (
-                    <div className="row ols-state-a">
-                        <div className="col-6">
-                            <div>
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy eirmod
-                                tempor invidunt ut labore et dolore magna
-                                aliquyam erat, sed diam voluptua. At vero eos
-                                et accusam et justo duo dolores et ea rebum.
-                                Stet clita kasd gubergren, no sea takimata
-                                sanctus est Lorem ipsum dolor sit amet.
-                            </div>
-                            <div>
-                                <TaxRateSlider
-                                    taxRateIdx={this.state.taxRateIdx}
-                                    handleTaxRate={this.handleTaxRate}
-                                    handleTaxSampleIdx={this.handleTaxSampleIdx}
-                                    flipGraphs={this.state.flipGraphs}
-                                    handleFlipGraphs={this.handleFlipGraphs}/>
-                            </div>
-                            <div>
-                                <div className="col-12">
-                                    Y<sub>i</sub>: {this.state.y_i}
+                <div className={'form-group form-inline'}>
+                    Flip Graphs?
+                    <input type="checkbox"
+                        checked={this.state.flipGraphs}
+                        onChange={this.handleFlipGraphs}/>
+                </div>
+                <CSSTransitionGroup
+                    transitionName="graph-transition"
+                    transitionEnterTimeout={3000}
+                    transitionLeaveTimeout={3000}>
+                    {this.state.flipGraphs === false ? (
+                        <div key={this.state.flipGraphs}
+                            className="container state-a-container">
+                            <div className="row">
+                                <div className="col-6 state-a-info-container">
+                                    <div>
+                                        Lorem ipsum dolor sit amet, consetetur
+                                        sadipscing elitr, sed diam nonumy
+                                        eirmod tempor invidunt ut labore et
+                                        dolore magna aliquyam erat, sed diam
+                                        voluptua. At vero eos et accusam et
+                                        justo duo dolores et ea rebum. Stet
+                                        clita kasd gubergren, no sea takimata
+                                        sanctus est Lorem ipsum dolor sit amet.
+                                    </div>
+                                    <div>
+                                        <TaxRateSlider
+                                            taxRateIdx={this.state.taxRateIdx}
+                                            handleTaxRate={this.handleTaxRate}
+                                            handleTaxSampleIdx={
+                                                this.handleTaxSampleIdx} />
+                                    </div>
+                                    <div>
+                                        <div className="col-12">
+                                            Y<sub>i</sub>: {this.state.y_i}
+                                        </div>
+                                        <div className="col-12">
+                                            μ: {this.state.mean}
+                                        </div>
+                                        <div className="col-12">
+                                            ε: {this.state.epsilon}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="col-12">
-                                    μ: {this.state.mean}
+                                <div className="col-6 state-a-graph-container">
+                                    <div className={'graph-A-container'}>
+                                        <TaxRateGraphA
+                                            taxRateIdx={this.state.taxRateIdx}
+                                            activeDataIdx={
+                                                this.state.activeDataIdx}
+                                            handleTaxRateIdx={
+                                                this.handleTaxRateIdx}/>
+                                    </div>
+                                    <div className={'graph-A-container'}>
+                                        <FrequencyGraphA
+                                            taxRateIdx={this.state.taxRateIdx}
+                                            activeDataIdx={
+                                                this.state.activeDataIdx}
+                                            handleTaxRateIdx={
+                                                this.handleTaxRateIdx}/>
+                                    </div>
                                 </div>
-                                <div className="col-12">
-                                    ε: {this.state.epsilon}
+                            </div>
+                        </div>
+                    ) : (
+                        <div key={this.state.flipGraphs}
+                            className="container state-b-container">
+                            <div className="row state-b-graph-container">
+                                <div className="col-6">
+                                    <FrequencyGraphB
+                                        taxRateIdx={this.state.taxRateIdx}
+                                        activeDataIdx={
+                                            this.state.activeDataIdx}
+                                        handleTaxRateIdx={
+                                            this.handleTaxRateIdx}/>
+                                </div>
+                                <div className="col-6">
+                                    <TaxRateGraphB
+                                        taxRateIdx={this.state.taxRateIdx}
+                                        activeDataIdx={
+                                            this.state.activeDataIdx}
+                                        handleTaxRateIdx={
+                                            this.handleTaxRateIdx}/>
+                                </div>
+                            </div>
+                            <div className="row state-b-info-container">
+                                <div className="col-4">
+                                    <TaxRateSlider
+                                        taxRateIdx={this.state.taxRateIdx}
+                                        handleTaxRate={this.handleTaxRate}
+                                        handleTaxSampleIdx={
+                                            this.handleTaxSampleIdx} />
+                                </div>
+                                <div className="col-4">
+                                    <div className="col-12">
+                                        Y<sub>i</sub>: {this.state.y_i}
+                                    </div>
+                                    <div className="col-12">
+                                        μ: {this.state.mean}
+                                    </div>
+                                    <div className="col-12">
+                                        ε: {this.state.epsilon}
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    Lorem ipsum dolor sit amet, consetetur
+                                    sadipscing elitr, sed diam nonumy
+                                    eirmod tempor invidunt ut labore et
+                                    dolore magna aliquyam erat, sed diam
+                                    voluptua. At vero eos et accusam et
+                                    justo duo dolores et ea rebum. Stet
+                                    clita kasd gubergren, no sea takimata
+                                    sanctus est Lorem ipsum dolor sit amet.
                                 </div>
                             </div>
                         </div>
-                        <div className="col-6">
-                            <div className={'graph-A-container'}>
-                                <TaxRateGraphA
-                                    taxRateIdx={this.state.taxRateIdx}
-                                    activeDataIdx={this.state.activeDataIdx}
-                                    handleTaxRateIdx={this.handleTaxRateIdx}/>
-                            </div>
-                            <div className={'graph-A-container'}>
-                                <FrequencyGraphA
-                                    taxRateIdx={this.state.taxRateIdx}
-                                    activeDataIdx={this.state.activeDataIdx}
-                                    handleTaxRateIdx={this.handleTaxRateIdx}/>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <>
-                    <div className="row">
-                        <div className="col-6">
-                            <FrequencyGraphB
-                                taxRateIdx={this.state.taxRateIdx}
-                                activeDataIdx={this.state.activeDataIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}/>
-                        </div>
-                        <div className="col-6">
-                            <TaxRateGraphB
-                                taxRateIdx={this.state.taxRateIdx}
-                                activeDataIdx={this.state.activeDataIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-4">
-                            <TaxRateSlider
-                                taxRateIdx={this.state.taxRateIdx}
-                                handleTaxRate={this.handleTaxRate}
-                                handleTaxSampleIdx={this.handleTaxSampleIdx}
-                                flipGraphs={this.state.flipGraphs}
-                                handleFlipGraphs={this.handleFlipGraphs}/>
-                        </div>
-                        <div className="col-4">
-                            <div className="col-12">
-                                Y<sub>i</sub>: {this.state.y_i}
-                            </div>
-                            <div className="col-12">
-                                μ: {this.state.mean}
-                            </div>
-                            <div className="col-12">
-                                ε: {this.state.epsilon}
-                            </div>
-                        </div>
-                        <div className="col-4">
-                            Lorem ipsum dolor sit amet, consetetur
-                            sadipscing elitr, sed diam nonumy eirmod
-                            tempor invidunt ut labore et dolore magna
-                            aliquyam erat, sed diam voluptua. At vero eos
-                            et accusam et justo duo dolores et ea rebum.
-                            Stet clita kasd gubergren, no sea takimata
-                            sanctus est Lorem ipsum dolor sit amet.
-                        </div>
-                    </div>
-                    </>
-                )}
+                    )}
+                </CSSTransitionGroup>
             </div>
             <hr/>
             </>

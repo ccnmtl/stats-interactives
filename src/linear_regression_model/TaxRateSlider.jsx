@@ -37,7 +37,7 @@ const TaxRatePitComponent = ({ style, children }) => {
 };
 
 export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
-    handleTaxRateIdx, flipGraphs, handleFlipGraphs}) => {
+    handleTaxRateIdx}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
             className="tax-rate-slider was-validated"
@@ -90,12 +90,6 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                         range of the dataset.
                     </div>
                 </div>
-                <div className={'form-group form-inline'}>
-                    Flip Graphs?
-                    <input type="checkbox"
-                        checked={flipGraphs}
-                        onChange={handleFlipGraphs}/>
-                </div>
             </fieldset>
         </form>
     );
@@ -111,6 +105,4 @@ TaxRateSlider.propTypes = {
     handleTaxRate: PropTypes.func,
     handleTaxSampleIdx: PropTypes.func,
     handleTaxRateIdx: PropTypes.func,
-    flipGraphs: PropTypes.bool,
-    handleFlipGraphs: PropTypes.func,
 };
