@@ -6,22 +6,9 @@ body { background-color: rgba(238, 238, 238, 1); padding-bottom: 3em;}
 	padding: 2em;
 }
 
-.btn-primary, .btn-danger, .btn-success
-{
-	border: 0;
-	border-radius: 0;
-}
-
-.btn-danger, .btn-success
-{
-	margin: 1em;
-}
-
-.btn-primary:hover, .btn-danger:hover, .btn-success:hover
-
-{
-	border: 0;
-	border-radius: 0;
+.btn {
+    border: 1;
+    border-radius: 0;
 }
 
 fieldset

@@ -1,5 +1,12 @@
-#tax-rate-field {
-    @extend %valid-focus-reset;
+.linear-regression-toggle {
+    margin-bottom: 1em;
+    a.btn-outline-primary {
+        pointer-events: none;
+    }
+
+    a:first-of-type {
+        margin-right: 1em;
+    }
 }
 
 .state-a-container {
@@ -9,6 +16,17 @@
         }
     }
 }
+
+#tax-rate-field {
+    @extend %valid-focus-reset;
+}
+
+/*remove gutter from graphs in horizontal graph view*/
+.ols-state-a .col-6:last-child .graph-A-container:first-child .VictoryContainer {margin-bottom:0!important;}
+
+/*remove gutter from graphs in vertical graph view*/
+.ols-state-b .col-6:first-child {padding-right: 0;}
+.ols-state-b .col-6:last-child {padding-left: 0;}
 
 // Graph Animation
 
