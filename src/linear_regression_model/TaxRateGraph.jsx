@@ -12,13 +12,16 @@ export const TaxRateGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
-            padding={{left: 40, top: 20, right: 20, bottom: 45}}
+            width={603}
+            height={318}
+            padding={{left: 45, top: 10, right: 20, bottom: 50}}
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
                 label={'Tax Rate'}
                 style={{
                     axisLabel: {
+                        fontSize: '16px',
                         padding: 30,
                     },
                 }}
@@ -28,6 +31,7 @@ export const TaxRateGraphA = (
                 label={'Cigarettes Smoked per Day'}
                 style={{
                     axisLabel: {
+                        fontSize: '16px',
                         padding: 30,
                     },
                 }}
