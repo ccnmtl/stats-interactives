@@ -76,24 +76,30 @@ export class LinearRegressionModel extends Component {
             <>
             <Nav/>
             <div className='container'>
-                <h2>Linear Regression Model</h2>
-                <div className={'d-flex justify-content-end ' +
-                    'linear-regression-toggle'}>
-                    <a className={!this.state.flipGraphs ?
-                        'btn btn-outline-primary btn-sm' :
-                        'btn btn-primary btn-sm active'}
-                    role={'button'}
-                    disabled={this.state.flipGraphs}
-                    onClick={this.handleFlipGraphs}>
-                        Vertical
-                    </a>
-                    <a className={this.state.flipGraphs ?
-                        'btn btn-outline-primary btn-sm' :
-                        'btn btn-primary btn-sm active'}
-                    role={'button'}
-                    onClick={this.handleFlipGraphs}>
-                        Horizontal
-                    </a>
+                <div className={'row'}>
+                    <div className={'col-10'}>
+                        <h2>Linear Regression Model</h2>
+                    </div>
+                    <div className={'col-2'}>
+                        <div className={'d-flex justify-content-end ' +
+                            'linear-regression-toggle'}>
+                            <a className={!this.state.flipGraphs ?
+                                'btn btn-outline-primary btn-sm' :
+                                'btn btn-primary btn-sm active'}
+                            role={'button'}
+                            disabled={this.state.flipGraphs}
+                            onClick={this.handleFlipGraphs}>
+                                Vertical
+                            </a>
+                            <a className={this.state.flipGraphs ?
+                                'btn btn-outline-primary btn-sm' :
+                                'btn btn-primary btn-sm active'}
+                            role={'button'}
+                            onClick={this.handleFlipGraphs}>
+                                Horizontal
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <CSSTransitionGroup
                     transitionName="graph-transition"
@@ -103,7 +109,7 @@ export class LinearRegressionModel extends Component {
                         <div key={this.state.flipGraphs}
                             className="container state-a-container">
                             <div className="row">
-                                <div className="col-6 state-a-info-container">
+                                <div className="col-5 state-a-info-container">
                                     <div>
                                         Lorem ipsum dolor sit amet, consetetur
                                         sadipscing elitr, sed diam nonumy
@@ -133,7 +139,7 @@ export class LinearRegressionModel extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-6 state-a-graph-container">
+                                <div className="col-7 state-a-graph-container">
                                     <div className={'graph-A-container'}>
                                         <TaxRateGraphA
                                             taxRateIdx={this.state.taxRateIdx}
@@ -157,7 +163,7 @@ export class LinearRegressionModel extends Component {
                         <div key={this.state.flipGraphs}
                             className="container state-b-container">
                             <div className="row state-b-graph-container">
-                                <div className="col-6">
+                                <div className="col-6 graph-B-container">
                                     <FrequencyGraphB
                                         taxRateIdx={this.state.taxRateIdx}
                                         activeDataIdx={
@@ -165,7 +171,7 @@ export class LinearRegressionModel extends Component {
                                         handleTaxRateIdx={
                                             this.handleTaxRateIdx}/>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-6 graph-B-container">
                                     <TaxRateGraphB
                                         taxRateIdx={this.state.taxRateIdx}
                                         activeDataIdx={
