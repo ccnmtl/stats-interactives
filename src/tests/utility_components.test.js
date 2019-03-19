@@ -51,6 +51,15 @@ describe('The NumericField componenet', () => {
         console.error = originalConsoleError;
     });
 
+    test('to throw an errow when an invalid step prop type is passed', () => {
+        let originalConsoleError = console.error;
+        console.error = jest.fn();
+        const wrapper = (<NumericField min={1} max={100} value={42} step={new String()}/>);
+        expect(console.error).toHaveBeenCalledTimes(1);
+
+        console.error = originalConsoleError;
+    });
+
     test('that the state of the component is updated when value prop is updated', () => {
         const wrapper = mount(<NumericField min={1} max={100} value={42}/>);
         const instance = wrapper.instance();
@@ -77,4 +86,6 @@ describe('The NumericField componenet', () => {
         wrapper.find('input').simulate('keyUp', {keyCode: 40});
         expect(instance.setValue).toHaveBeenCalled();
     });
+
+
 });

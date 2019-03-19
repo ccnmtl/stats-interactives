@@ -68,6 +68,7 @@ export class NumericField extends Component {
                 className={this.props.className}
                 disabled={typeof this.props.disabled === 'boolean' ?
                     this.props.disabled : undefined}
+                step={this.props.step ? this.props.step : 1}
                 min={this.props.min}
                 max={this.props.max}
                 value={this.state.fieldValue}
@@ -83,6 +84,18 @@ export class NumericField extends Component {
 NumericField.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
+    step: (props, propName, componentName) => {
+        let val = props[propName];
+        if (typeof val === 'number' && val < 0) {
+            return new Error(
+                'Invalid value for "step" prop: ' +
+                'the provided step, ' + val + ', is less than 0'
+            );
+        } else if (typeof val !== 'number' && typeof val !== 'undefined') {
+            return new Error('Val Prop Invalid Type: expected val to be ' +
+                ' Number, received ' + typeof val);
+        }
+    },
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     value: (props, propName, componentName) => {
