@@ -10,6 +10,7 @@ export class NumericField extends Component {
         this.onFocus = this.onFocus.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
+        this.onClick = this.onClick.bind(this);
 
         this.state = {
             value: this.props.value,
@@ -54,6 +55,12 @@ export class NumericField extends Component {
             this.setValue(e);
         }
     }
+    onClick(e) {
+        if (this.state.value !== e.currentTarget.value) {
+            e.target = e.currentTarget;
+            this.setValue(e);
+        }
+    }
     render() {
         return (
             <input type="number"
@@ -67,6 +74,7 @@ export class NumericField extends Component {
                 onFocus={this.onFocus}
                 onBlur={this.setValue}
                 onKeyUp={this.onKeyUp}
+                onClick={this.onClick}
                 onChange={this.onChange}/>
         );
     }
