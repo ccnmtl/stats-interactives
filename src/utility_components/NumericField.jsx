@@ -6,9 +6,10 @@ export class NumericField extends Component {
     constructor(props) {
         super(props);
 
+        this.setValue = this.setValue.bind(this);
         this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
 
         this.state = {
             value: this.props.value,
@@ -28,7 +29,7 @@ export class NumericField extends Component {
     onFocus(e) {
         e.target.select();
     }
-    onBlur(e) {
+    setValue(e) {
         // Validate and push state up here
         let val = forceNumber(e.target.value);
         if (val >= this.props.min && val <= this.props.max) {
@@ -48,6 +49,11 @@ export class NumericField extends Component {
             fieldValue: forceNumber(e.target.value),
         });
     }
+    onKeyUp(e) {
+        if (e.keyCode === 38 || e.keyCode === 40) {
+            this.setValue(e);
+        }
+    }
     render() {
         return (
             <input type="number"
@@ -59,7 +65,8 @@ export class NumericField extends Component {
                 max={this.props.max}
                 value={this.state.fieldValue}
                 onFocus={this.onFocus}
-                onBlur={this.onBlur}
+                onBlur={this.setValue}
+                onKeyUp={this.onKeyUp}
                 onChange={this.onChange}/>
         );
     }
