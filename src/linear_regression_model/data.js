@@ -1,3 +1,6 @@
+import * as math from 'mathjs';
+var jStat = require('jStat').jStat;
+
 /* Smoking Frequency Matrix
  *
  * This 3D matrix is composed of illustrative values that relate
@@ -102,3 +105,30 @@ export const SMOKING_FREQ = [
         [18.41, 1],
     ],
 ];
+
+let createPDF = (data, offset) => {
+    let mean = jStat.mean(data.reduce((acc, val) => {
+        acc.push(val[0]);
+        return acc;
+    }), []);
+    let min = Math.min(...data.map((e) => e[0]));
+    let max = Math.max(...data.map((e) => e[0]));
+    let stdDev = 2;
+
+    let range = math.range(min, max, 0.01, true);
+    let horizontal = range.reduce((acc, val) => {
+        acc.push([val, (jStat.normal.pdf(val, mean, stdDev) * 4) + offset]);
+        return acc;
+    }, []);
+
+    let vertical = horizontal.map((val) => {
+        return [offset - (val[1] - offset), val[0]];
+    });
+
+    return [horizontal, vertical];
+};
+
+export const THREE_PCT_DIST = createPDF(SMOKING_FREQ[0], 3);
+export const FIVE_PCT_DIST = createPDF(SMOKING_FREQ[1], 5);
+export const SEVEN_PCT_DIST = createPDF(SMOKING_FREQ[2], 7);
+export const SEVENFIVE_PCT_DIST = createPDF(SMOKING_FREQ[3], 7.5);
