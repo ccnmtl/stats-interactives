@@ -52,7 +52,7 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                         <Rheostat
                             min={0}
                             max={3}
-                            values={[Math.floor(taxRateIdx / 25)]}
+                            values={[Math.floor(taxRateIdx / 20)]}
                             pitComponent={TaxRatePitComponent}
                             pitPoints={[0, 1, 2, 3]}
                             snap
@@ -63,14 +63,14 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                     </div>
                     <label htmlFor="observation-slider">
                         Observations for {
-                            getTaxRateFromIdx(Math.floor(taxRateIdx / 25))}:
+                            getTaxRateFromIdx(Math.floor(taxRateIdx / 20))}:
                     </label>
                     <div id={'observation-slider'}
                         style={{ height: '50px', width: '100%'}}>
                         <Rheostat
                             min={0}
-                            max={24}
-                            values={[(taxRateIdx % 25)]}
+                            max={19}
+                            values={[(taxRateIdx % 20)]}
                             onValuesUpdated={(sliderState) => {
                                 handleTaxSampleIdx(
                                     sliderState.values[0]);
@@ -82,8 +82,8 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                         id={'tax-rate-field'}
                         className={'form-control form-control-sm'}
                         min={0}
-                        max={24}
-                        value={(taxRateIdx % 25)}
+                        max={19}
+                        value={(taxRateIdx % 20)}
                         onChange={handleTaxSampleIdx}/>
                     <div className='invalid-feedback'>
                         The number entered is outside the

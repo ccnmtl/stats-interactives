@@ -19,7 +19,7 @@ export class LinearRegressionModel extends Component {
         this.initialState = {
             taxRateIdx: 0,
             activeTaxRate: 3.0,
-            y_i: 1,
+            y_i: SMOKING_FREQ[0][0][0],
             mean: 20,
             epsilon: 5,
             activeDataIdx: [0, 0],
@@ -34,8 +34,8 @@ export class LinearRegressionModel extends Component {
         }));
     }
     handleTaxRateIdx(idx) {
-        let taxRateRow = Math.floor(idx / 25);
-        let taxRateCol = idx % 25;
+        let taxRateRow = Math.floor(idx / 20);
+        let taxRateCol = idx % 20;
         let mean = 0;
         switch (taxRateRow) {
         case 0:
@@ -63,12 +63,12 @@ export class LinearRegressionModel extends Component {
         });
     }
     handleTaxRate(idx) {
-        let row = idx * 25;
-        let col = this.state.taxRateIdx % 25;
+        let row = idx * 20;
+        let col = this.state.taxRateIdx % 20;
         this.handleTaxRateIdx(row + col);
     }
     handleTaxSampleIdx(idx) {
-        let row = Math.floor(this.state.taxRateIdx / 25) * 25;
+        let row = Math.floor(this.state.taxRateIdx / 20) * 20;
         this.handleTaxRateIdx(row + idx);
     }
     render() {

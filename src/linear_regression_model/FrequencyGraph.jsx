@@ -77,7 +77,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(25 + props.index);
+                                        handleTaxRateIdx(20 + props.index);
                                     }}
                                 ];
                             }
@@ -100,7 +100,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(50 + props.index);
+                                        handleTaxRateIdx(40 + props.index);
                                     }}
                                 ];
                             }
@@ -123,7 +123,7 @@ export const FrequencyGraphA = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(75 + props.index);
+                                        handleTaxRateIdx(60 + props.index);
                                     }}
                                 ];
                             }
@@ -207,7 +207,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(25 + props.index);
+                                        handleTaxRateIdx(20 + props.index);
                                     }}
                                 ];
                             }
@@ -230,7 +230,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(50 + props.index);
+                                        handleTaxRateIdx(40 + props.index);
                                     }}
                                 ];
                             }
@@ -253,7 +253,7 @@ export const FrequencyGraphB = (
                                     target: 'data',
                                     mutation: (props) => {
                                         /* eslint-disable-next-line */
-                                        handleTaxRateIdx(75 + props.index);
+                                        handleTaxRateIdx(60 + props.index);
                                     }}
                                 ];
                             }
