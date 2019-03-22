@@ -37,7 +37,7 @@ const TaxRatePitComponent = ({ style, children }) => {
 };
 
 export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
-    handleTaxRateIdx}) => {
+    handleTaxRateIdx, y_i, mean, epsilon}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
             className="tax-rate-slider was-validated"
@@ -64,7 +64,18 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                     <label htmlFor="observation-slider">
                         Observations for {
                             getTaxRateFromIdx(Math.floor(taxRateIdx / 20))}:
+                        &nbsp;i =&nbsp;<NumericField
+                            id={'tax-rate-field'}
+                            className={'form-control form-control-sm'}
+                            min={0}
+                            max={19}
+                            value={(taxRateIdx % 20)}
+                            onChange={handleTaxSampleIdx}/>
                     </label>
+                    <div className='invalid-feedback'>
+                        The number entered is outside the
+                        range of the dataset.
+                    </div>
                     <div id={'observation-slider'}
                         style={{ height: '50px', width: '100%'}}>
                         <Rheostat
@@ -77,17 +88,15 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
                             }} />
                     </div>
                 </div>
-                <div className={'form-group form-inline'}>
-                    i =&nbsp;<NumericField
-                        id={'tax-rate-field'}
-                        className={'form-control form-control-sm'}
-                        min={0}
-                        max={19}
-                        value={(taxRateIdx % 20)}
-                        onChange={handleTaxSampleIdx}/>
-                    <div className='invalid-feedback'>
-                        The number entered is outside the
-                        range of the dataset.
+                <div className={'form-row lrm-values'}>
+                    <div className="col">
+                        Y<sub>i</sub>: {y_i}
+                    </div>
+                    <div className="col">
+                        μ: {mean}
+                    </div>
+                    <div className="col">
+                        ε: {epsilon}
                     </div>
                 </div>
             </fieldset>
@@ -105,4 +114,7 @@ TaxRateSlider.propTypes = {
     handleTaxRate: PropTypes.func,
     handleTaxSampleIdx: PropTypes.func,
     handleTaxRateIdx: PropTypes.func,
+    y_i: PropTypes.number,
+    mean: PropTypes.number,
+    epsilon: PropTypes.number,
 };
