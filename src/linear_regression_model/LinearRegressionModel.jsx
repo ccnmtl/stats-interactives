@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import MathJax from 'react-mathjax2';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
@@ -157,6 +158,15 @@ export class LinearRegressionModel extends Component {
                                             x-axis and the response variable
                                             is on the y-axis.
                                         </p>
+                                        <div>
+                                            <MathJax.Context input={'ascii'}>
+                                                <div>
+                                                    <MathJax.Node>
+                                                        {'mu_Y = 29 - 2 * x'}
+                                                    </MathJax.Node>
+                                                </div>
+                                            </MathJax.Context>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-5 state-a-graph-container">
