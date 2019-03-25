@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SMOKING_FREQ} from './data';
+import { SMOKING_FREQ, THREE_PCT_DIST, FIVE_PCT_DIST,
+    SEVEN_PCT_DIST, SEVENFIVE_PCT_DIST } from './data';
 import {
-    VictoryChart, VictoryTheme,
+    VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
@@ -69,6 +70,13 @@ export const FrequencyGraphA = (
                     size={7}
                     y={(datum) => datum[1]}
                     x={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 0 &&
+                <VictoryLine
+                    data={THREE_PCT_DIST[0]}
+                    interpolation={'monotoneX'}
+                    x={0}
+                    y={1}/>
+            }
             {/* 5% graph */}
             { activeDataIdx[0] === 1 &&
                 <VictoryScatter
@@ -92,6 +100,13 @@ export const FrequencyGraphA = (
                     size={7}
                     y={(datum) => datum[1]}
                     x={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 1 &&
+                <VictoryLine
+                    data={FIVE_PCT_DIST[0]}
+                    interpolation={'monotoneX'}
+                    x={0}
+                    y={1}/>
+            }
             {/* 7% graph */}
             { activeDataIdx[0] === 2 &&
                 <VictoryScatter
@@ -115,6 +130,13 @@ export const FrequencyGraphA = (
                     size={7}
                     y={(datum) => datum[1]}
                     x={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 2 &&
+                <VictoryLine
+                    data={SEVEN_PCT_DIST[0]}
+                    interpolation={'monotoneX'}
+                    x={0}
+                    y={1}/>
+            }
             {/* 7.5% graph */}
             { activeDataIdx[0] === 3 &&
                 <VictoryScatter
@@ -138,6 +160,13 @@ export const FrequencyGraphA = (
                     size={7}
                     y={(datum) => datum[1]}
                     x={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 3 &&
+                <VictoryLine
+                    data={SEVENFIVE_PCT_DIST[0]}
+                    interpolation={'monotoneX'}
+                    x={0}
+                    y={1}/>
+            }
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
@@ -211,6 +240,14 @@ export const FrequencyGraphB = (
                     size={4.5}
                     x={(datum) => datum[1]}
                     y={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 0 &&
+                <VictoryLine
+                    data={THREE_PCT_DIST[1]}
+                    interpolation={'monotoneX'}
+                    sortKey={1}
+                    x={0}
+                    y={1}/>
+            }
             {/* 5% graph */}
             { activeDataIdx[0] === 1 &&
                 <VictoryScatter
@@ -234,6 +271,14 @@ export const FrequencyGraphB = (
                     size={4.5}
                     x={(datum) => datum[1]}
                     y={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 1 &&
+                <VictoryLine
+                    data={FIVE_PCT_DIST[1]}
+                    interpolation={'monotoneX'}
+                    sortKey={1}
+                    x={0}
+                    y={1}/>
+            }
             {/* 7% graph */}
             { activeDataIdx[0] === 2 &&
                 <VictoryScatter
@@ -257,6 +302,14 @@ export const FrequencyGraphB = (
                     size={4.5}
                     x={(datum) => datum[1]}
                     y={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 2 &&
+                <VictoryLine
+                    data={SEVEN_PCT_DIST[1]}
+                    interpolation={'monotoneX'}
+                    sortKey={1}
+                    x={0}
+                    y={1}/>
+            }
             {/* 7.5% graph */}
             { activeDataIdx[0] === 3 &&
                 <VictoryScatter
@@ -280,6 +333,14 @@ export const FrequencyGraphB = (
                     size={4.5}
                     x={(datum) => datum[1]}
                     y={(datum) => Math.floor(datum[0]) + 0.5}/>}
+            { activeDataIdx[0] === 3 &&
+                <VictoryLine
+                    data={SEVENFIVE_PCT_DIST[1]}
+                    interpolation={'monotoneX'}
+                    sortKey={1}
+                    x={0}
+                    y={1}/>
+            }
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
@@ -301,4 +362,3 @@ FrequencyGraphB.propTypes = {
     activeDataIdx: PropTypes.array,
     handleTaxRateIdx: PropTypes.func,
 };
-
