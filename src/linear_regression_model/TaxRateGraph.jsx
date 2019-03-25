@@ -13,8 +13,6 @@ export const TaxRateGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
-            width={603}
-            height={318}
             padding={{left: 45, top: 10, right: 20, bottom: 50}}
             domain={{x: [8, 31]}}>
             <VictoryAxis

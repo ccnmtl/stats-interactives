@@ -19,6 +19,15 @@
 
 #tax-rate-field {
     @extend %valid-focus-reset;
+    display: inline;
+}
+
+#observation-slider {
+    height: 25px !important;
+}
+
+.lrm-values {
+    font-size: 1rem;
 }
 
 /*remove gutter from graphs in horizontal graph view*/
@@ -28,9 +37,6 @@
 .ols-state-b .col-6:first-child {padding-right: 0;}
 .ols-state-b .col-6:last-child {padding-left: 0;}
 
-.graph-A-container {
-    height: 350px;
-}
 // Graph Animation
 
 // This CSS is kind of dense. Somethings to note:
