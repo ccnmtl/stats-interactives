@@ -80,13 +80,13 @@
     // Transition A => B
     &.state-b-container {
         opacity: 1;
-        transition: all 1000ms ease 2000ms;
+        transition: all 1000ms ease-out 2000ms;
     }
 
     // Transition B => A
     &.state-a-container {
         opacity: 1;
-        transition: opacity 1000ms ease 2000ms;
+        transition: opacity 1000ms ease-out 2000ms;
     }
 }
 
@@ -100,33 +100,52 @@
     .state-a-info-container {
         // fade out
         opacity: 0.01;
-        transition: opacity 2000ms ease;
+        transition: opacity 2000ms ease-out;
     }
 
     .state-a-graph-container {
         // rotate, then fade out
         opacity: 0.01;
-        transform-origin: center 265px;
+        transform-origin: center 222px;
         transform: rotate(90deg);
-        transition: transform 3000ms ease, opacity 1000ms ease 2000ms;
+        transition: transform 1500ms ease-out, opacity 500ms ease-in 2500ms;
+
+        .graph-A-container.tax-rate-graph {
+            transform: rotate3d(0, 1, 0, 180deg);
+            transition: transform 1500ms ease-out;
+        }
+
+        .graph-A-container.frequency-graph {
+            transform: rotate(180deg);
+            transition: transform 1500ms ease-in;
+        }
     }
 
     // Transition B => A
     &.state-b-container {
         height: 795px;
 
-        .state-b-info-container {
-            opacity: 0.01;
-            transition: opacity 250ms ease;
-        }
-
         .state-b-graph-container {
+            .state-b-info-container {
+                opacity: 0.01;
+                transition: opacity 25ms ease-out;
+            }
+
             opacity: 0.01;
-            transform-origin: 75% 50%;
+            transform-origin: 79% 222px;
             transform: rotate(-90deg);
-            transition: transform 3000ms ease, opacity 1000ms ease 2000ms;
+            transition: transform 1500ms ease-out, opacity 500ms ease-in 2500ms;
         }
 
+        .graph-B-container.frequency-graph {
+            transform: rotate(180deg);
+            transition: transform 1500ms ease-in;
+        }
+
+        .graph-B-container.tax-rate-graph {
+            transform: rotate3d(1, 0, 0, 180deg);
+            transition: transform 1500ms ease-out;
+        }
     }
 }
 
