@@ -4,6 +4,8 @@ import { Nav } from '../Nav.jsx';
 import { RegressionForm } from './RegressionForm';
 import { RegressionGraph } from './RegressionGraph';
 
+var seedrandom = require('seedrandom');
+
 export class LeastSquares extends Component {
     constructor(props) {
         super(props);
@@ -15,9 +17,9 @@ export class LeastSquares extends Component {
 
         this.initialState = {
             seed: '',
-            slope: 0,
+            slope: 1,
             intercept: 0,
-            regressionFunc: (x) => 0,
+            regressionFunc: (x) => x,
             population: null,
         };
 
@@ -29,14 +31,14 @@ export class LeastSquares extends Component {
         });
     }
     handleGeneratePop() {
-        let population = [
-            [10, 10],
-            [20, 30],
-            [30, 20],
-            [40, 50],
-            [50, 40],
-            [60, 70]];
+        seedrandom(this.state.seed, {global: true});
 
+        let population = [...Array(6)].map(() => {
+            let scale = 4;
+            let offset = -2;
+            return [(Math.random() * scale) + offset,
+                (Math.random() * scale) + offset];
+        });
         this.setState({
             population: population,
         });
