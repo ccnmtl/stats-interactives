@@ -15,6 +15,8 @@ export class LeastSquares extends Component {
         this.handleSlope = this.handleSlope.bind(this);
         this.handleIntercept = this.handleIntercept.bind(this);
         this.findLinearRegression = this.findLinearRegression.bind(this);
+        this.handleShowBestFit = this.handleShowBestFit.bind(this);
+        this.reset = this.reset.bind(this);
 
         this.initialState = {
             seed: '',
@@ -23,6 +25,7 @@ export class LeastSquares extends Component {
             regressionFunc: (x) => x,
             bestFitFunc: null,
             population: null,
+            showBestFit: false,
         };
 
         this.state = this.initialState;
@@ -90,6 +93,14 @@ export class LeastSquares extends Component {
             regressionFunc: (x) => {return state.slope * x + val;}
         }));
     }
+    handleShowBestFit() {
+        this.setState((prevState) => ({
+            showBestFit: !prevState.showBestFit,
+        }));
+    }
+    reset() {
+        this.setState(this.initialState);
+    }
     render() {
         return (
             <>
@@ -105,14 +116,19 @@ export class LeastSquares extends Component {
                             slope={this.state.slope}
                             intercept={this.state.intercept}
                             handleSlope={this.handleSlope}
-                            handleIntercept={this.handleIntercept}/>
+                            handleIntercept={this.handleIntercept}
+                            handleShowBestFit={this.handleShowBestFit}
+                            reset={this.reset}
+                            hasPopulation={
+                                this.state.population ? true : false}/>
                     </div>
                     <div className={'col-8'}>
                         <div className={'graph-container'}>
                             <RegressionGraph
                                 population={this.state.population}
                                 regressionFunc={this.state.regressionFunc}
-                                bestFitFunc={this.state.bestFitFunc}/>
+                                bestFitFunc={this.state.bestFitFunc}
+                                showBestFit={this.state.showBestFit}/>
                         </div>
                     </div>
                 </div>

@@ -5,13 +5,22 @@ import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
-    slope, intercept, handleSlope, handleIntercept }) => {
+    slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
+    reset, hasPopulation }) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
     const handleGenPop = (e) => {
         e.preventDefault();
         handleGeneratePop();
+    };
+    const hndlBestFit = (e) => {
+        e.preventDefault();
+        handleShowBestFit();
+    };
+    const hndlReset = (e) => {
+        e.preventDefault();
+        reset();
     };
     return (
         <>
@@ -60,62 +69,91 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                 </div>
             </fieldset>
         </form>
-        <form onSubmit={(e) => {e.preventDefault();}}>
-            <fieldset>
-                <div className={'form-group'}>
-                    <div className={'form-row'}>
-                        <label htmlFor={'slope'}>
-                            Slope:
-                        </label>
-                        <NumericField
-                            id={'slope'}
-                            className={'form-control form-control-sm'}
-                            min={-5}
-                            max={5}
-                            value={slope}
-                            step={0.01}
-                            onChange={handleSlope} />
-                    </div>
-                    <div className={'form-row'}>
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                min={0}
-                                max={999}
-                                values={[(slope * 100) + 500]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleSlope(
-                                        (sliderState.values[0] * 0.01) - 5);
-                                }} />
+        { hasPopulation &&
+            <form onSubmit={(e) => {e.preventDefault();}}>
+                <fieldset>
+                    <div className={'form-group'}>
+                        <div className={'form-row'}>
+                            <label htmlFor={'slope'}>
+                                Slope:
+                            </label>
+                            <NumericField
+                                id={'slope'}
+                                className={'form-control form-control-sm'}
+                                min={-5}
+                                max={5}
+                                value={slope}
+                                step={0.01}
+                                onChange={handleSlope} />
+                        </div>
+                        <div className={'form-row'}>
+                            <div style={{ height: '50px', width: '100%'}}>
+                                <Rheostat
+                                    min={0}
+                                    max={999}
+                                    values={[(slope * 100) + 500]}
+                                    onValuesUpdated={(sliderState) => {
+                                        handleSlope(
+                                            (sliderState.values[0] * 0.01) - 5);
+                                    }} />
+                            </div>
+                        </div>
+                        <div className={'form-row'}>
+                            <label htmlFor={'intercept'}>
+                                Intercept:
+                            </label>
+                            <NumericField
+                                id={'intercept'}
+                                className={'form-control form-control-sm'}
+                                min={-5}
+                                max={5}
+                                step={0.01}
+                                value={intercept}
+                                onChange={handleIntercept} />
+                        </div>
+                        <div className={'form-row'}>
+                            <div style={{ height: '50px', width: '100%'}}>
+                                <Rheostat
+                                    min={0}
+                                    max={999}
+                                    values={[(intercept * 100) + 500]}
+                                    onValuesUpdated={(sliderState) => {
+                                        handleIntercept(
+                                            (sliderState.values[0] * 0.01) - 5);
+                                    }} />
+                            </div>
                         </div>
                     </div>
-                    <div className={'form-row'}>
-                        <label htmlFor={'intercept'}>
-                            Intercept:
-                        </label>
-                        <NumericField
-                            id={'intercept'}
-                            className={'form-control form-control-sm'}
-                            min={-5}
-                            max={5}
-                            step={0.01}
-                            value={intercept}
-                            onChange={handleIntercept} />
-                    </div>
-                    <div className={'form-row'}>
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                min={0}
-                                max={999}
-                                values={[(intercept * 100) + 500]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleIntercept(
-                                        (sliderState.values[0] * 0.01) - 5);
-                                }} />
+                </fieldset>
+            </form>
+        }
+        {hasPopulation &&
+            <form onSubmit={(e) => {e.preventDefault();}}
+                className="needs-validation" noValidate >
+                <fieldset>
+                    <div className="form-group">
+                        <div className="form-group">
+                            <div className="form-row">
+                                <input className="btn btn-primary btn-block"
+                                    disabled={!hasPopulation}
+                                    id="generate-population"
+                                    type="submit"
+                                    onClick={hndlBestFit}
+                                    value="Toggle Best Fit"/>
+                            </div>
+                            <div className="form-row">
+                                <input className="btn btn-danger btn-block"
+                                    disabled={!hasPopulation}
+                                    id="generate-population"
+                                    type="submit"
+                                    onClick={hndlReset}
+                                    value="Reset"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        }
         </>
     );
 };
@@ -128,4 +166,7 @@ RegressionForm.propTypes = {
     intercept: PropTypes.number,
     handleSlope: PropTypes.func,
     handleIntercept: PropTypes.func,
+    handleShowBestFit: PropTypes.func,
+    reset: PropTypes.func,
+    hasPopulation: PropTypes.bool,
 };
