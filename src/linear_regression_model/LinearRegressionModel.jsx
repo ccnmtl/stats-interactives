@@ -158,7 +158,8 @@ export class LinearRegressionModel extends Component {
                                     </div>
                                 </div>
                                 <div className="col-5 state-a-graph-container">
-                                    <div className={'graph-A-container'}>
+                                    <div className={
+                                        'graph-A-container tax-rate-graph'}>
                                         <TaxRateGraphA
                                             taxRateIdx={this.state.taxRateIdx}
                                             activeDataIdx={
@@ -166,7 +167,8 @@ export class LinearRegressionModel extends Component {
                                             handleTaxRateIdx={
                                                 this.handleTaxRateIdx}/>
                                     </div>
-                                    <div className={'graph-A-container'}>
+                                    <div className={
+                                        'graph-A-container frequency-graph'}>
                                         <FrequencyGraphA
                                             taxRateIdx={this.state.taxRateIdx}
                                             activeDataIdx={
@@ -181,7 +183,7 @@ export class LinearRegressionModel extends Component {
                         <div key={this.state.flipGraphs}
                             className="container state-b-container">
                             <div className="row state-b-graph-container">
-                                <div className={'col-4'}>
+                                <div className={'col-4 state-b-info-container'}>
                                     <TaxRateSlider
                                         taxRateIdx={this.state.taxRateIdx}
                                         handleTaxRateIdx={
@@ -203,7 +205,8 @@ export class LinearRegressionModel extends Component {
                                         taxation.
                                     </p>
                                 </div>
-                                <div className="col-3 graph-B-container">
+                                <div className={
+                                    'col-3 graph-B-container frequency-graph'} >
                                     <FrequencyGraphB
                                         taxRateIdx={this.state.taxRateIdx}
                                         activeDataIdx={
@@ -211,7 +214,8 @@ export class LinearRegressionModel extends Component {
                                         handleTaxRateIdx={
                                             this.handleTaxRateIdx}/>
                                 </div>
-                                <div className="col-5 graph-B-container">
+                                <div className={
+                                    'col-5 graph-B-container tax-rate-graph'}>
                                     <TaxRateGraphB
                                         taxRateIdx={this.state.taxRateIdx}
                                         activeDataIdx={
