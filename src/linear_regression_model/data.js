@@ -117,12 +117,15 @@ let createPDF = (data, offset) => {
 
     let range = math.range(min, max, 0.01, true);
     let horizontal = range.reduce((acc, val) => {
-        acc.push([val, (jStat.normal.pdf(val, mean, stdDev) * 4) + offset]);
+        acc.push(
+            [val + 0.5, (jStat.normal.pdf(val, mean + 0.5, stdDev) * 25) + 1]);
         return acc;
     }, []);
+    horizontal.unshift([math.floor(data[0][0]) - 1.5, 1]);
+    horizontal.push([math.floor(data[data.length - 1][0]) + 2.5, 1]);
 
     let vertical = horizontal.map((val) => {
-        return [offset - (val[1] - offset), val[0]];
+        return [val[1], val[0] + 0.5];
     });
 
     return [horizontal, vertical];

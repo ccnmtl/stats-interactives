@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import MathJax from 'react-mathjax2';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
@@ -12,8 +13,6 @@ export class LinearRegressionModel extends Component {
         super(props);
 
         this.handleTaxRateIdx = this.handleTaxRateIdx.bind(this);
-        this.handleTaxRate = this.handleTaxRate.bind(this);
-        this.handleTaxSampleIdx = this.handleTaxSampleIdx.bind(this);
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
 
         this.initialState = {
@@ -62,15 +61,6 @@ export class LinearRegressionModel extends Component {
             epsilon: epsilon,
         });
     }
-    handleTaxRate(idx) {
-        let row = idx * 20;
-        let col = this.state.taxRateIdx % 20;
-        this.handleTaxRateIdx(row + col);
-    }
-    handleTaxSampleIdx(idx) {
-        let row = Math.floor(this.state.taxRateIdx / 20) * 20;
-        this.handleTaxRateIdx(row + idx);
-    }
     render() {
         return (
             <>
@@ -113,9 +103,8 @@ export class LinearRegressionModel extends Component {
                                     <div>
                                         <TaxRateSlider
                                             taxRateIdx={this.state.taxRateIdx}
-                                            handleTaxRate={this.handleTaxRate}
-                                            handleTaxSampleIdx={
-                                                this.handleTaxSampleIdx}
+                                            handleTaxRateIdx={
+                                                this.handleTaxRateIdx}
                                             y_i={this.state.y_i}
                                             mean={this.state.mean}
                                             epsilon={this.state.epsilon}/>
@@ -157,6 +146,15 @@ export class LinearRegressionModel extends Component {
                                             x-axis and the response variable
                                             is on the y-axis.
                                         </p>
+                                        <div>
+                                            <MathJax.Context input={'ascii'}>
+                                                <div>
+                                                    <MathJax.Node>
+                                                        {'mu_Y = 29 - 2 * x'}
+                                                    </MathJax.Node>
+                                                </div>
+                                            </MathJax.Context>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-5 state-a-graph-container">
@@ -186,9 +184,8 @@ export class LinearRegressionModel extends Component {
                                 <div className={'col-4'}>
                                     <TaxRateSlider
                                         taxRateIdx={this.state.taxRateIdx}
-                                        handleTaxRate={this.handleTaxRate}
-                                        handleTaxSampleIdx={
-                                            this.handleTaxSampleIdx}
+                                        handleTaxRateIdx={
+                                            this.handleTaxRateIdx}
                                         y_i={this.state.y_i}
                                         mean={this.state.mean}
                                         epsilon={this.state.epsilon}/>

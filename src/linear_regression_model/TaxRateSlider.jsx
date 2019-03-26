@@ -7,12 +7,14 @@ const getTaxRateFromIdx = (val) => {
     switch (val) {
     case 0:
         return '3%';
-    case 1:
+    case 19:
         return '5%';
-    case 2:
+    case 39:
         return '7%';
-    case 3:
+    case 59:
         return '7.5%';
+    default:
+        return '';
     }
 };
 
@@ -36,7 +38,7 @@ const TaxRatePitComponent = ({ style, children }) => {
     );
 };
 
-export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
+export const TaxRateSlider = ({taxRateIdx,
     handleTaxRateIdx, y_i, mean, epsilon}) => {
     return (
         <form onSubmit={(e) => {e.preventDefault();}}
@@ -44,46 +46,33 @@ export const TaxRateSlider = ({taxRateIdx, handleTaxRate, handleTaxSampleIdx,
             noValidate={true} >
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor={'tax-rate-slider'}>
-                        Cigarette Tax Rates
-                    </label>
-                    <div id={'tax-rate-slider'}
-                        style={{ height: '50px', width: '100%'}}>
-                        <Rheostat
-                            min={0}
-                            max={3}
-                            values={[Math.floor(taxRateIdx / 20)]}
-                            pitComponent={TaxRatePitComponent}
-                            pitPoints={[0, 1, 2, 3]}
-                            snap
-                            onValuesUpdated={(sliderState) => {
-                                handleTaxRate(
-                                    sliderState.values[0]);
-                            }} />
-                    </div>
                     <label htmlFor="observation-slider">
-                        Observations for {
+                        Tax rate observations for {
                             getTaxRateFromIdx(Math.floor(taxRateIdx / 20))}:
                         &nbsp;i =&nbsp;<NumericField
                             id={'tax-rate-field'}
                             className={'form-control form-control-sm'}
                             min={0}
-                            max={19}
-                            value={(taxRateIdx % 20)}
-                            onChange={handleTaxSampleIdx}/>
+                            max={79}
+                            value={(taxRateIdx)}
+                            onChange={handleTaxRateIdx}/>
                     </label>
                     <div className='invalid-feedback'>
                         The number entered is outside the
                         range of the dataset.
                     </div>
                     <div id={'observation-slider'}
-                        style={{ height: '50px', width: '100%'}}>
+                        style={{ height: '50px',
+                            width: '100%',
+                            marginBottom: '3em'}}>
                         <Rheostat
                             min={0}
-                            max={19}
-                            values={[(taxRateIdx % 20)]}
+                            max={79}
+                            values={[taxRateIdx]}
+                            pitComponent={TaxRatePitComponent}
+                            pitPoints={[0, 19, 39, 59]}
                             onValuesUpdated={(sliderState) => {
-                                handleTaxSampleIdx(
+                                handleTaxRateIdx(
                                     sliderState.values[0]);
                             }} />
                     </div>
@@ -111,8 +100,6 @@ TaxRatePitComponent.propTypes = {
 
 TaxRateSlider.propTypes = {
     taxRateIdx: PropTypes.number,
-    handleTaxRate: PropTypes.func,
-    handleTaxSampleIdx: PropTypes.func,
     handleTaxRateIdx: PropTypes.func,
     y_i: PropTypes.number,
     mean: PropTypes.number,

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SMOKING_FREQ, THREE_PCT_DIST, FIVE_PCT_DIST,
-    SEVEN_PCT_DIST, SEVENFIVE_PCT_DIST } from './data';
+import { SMOKING_FREQ } from './data';
 import {
-    VictoryChart, VictoryTheme, VictoryLine,
+    VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
@@ -64,13 +63,6 @@ export const TaxRateGraphA = (
                 size={4}
                 y={() => 3}
                 x={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 0 &&
-                <VictoryLine
-                    data={THREE_PCT_DIST[0]}
-                    x={0}
-                    y={1}/>
-
-            }
             {/* 5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
@@ -96,12 +88,6 @@ export const TaxRateGraphA = (
                 size={4}
                 y={() => 5}
                 x={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 1 &&
-                <VictoryLine
-                    data={FIVE_PCT_DIST[0]}
-                    x={0}
-                    y={1}/>
-            }
             {/* 7% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
@@ -127,12 +113,6 @@ export const TaxRateGraphA = (
                 size={4}
                 y={() => 7}
                 x={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 2 &&
-                <VictoryLine
-                    data={SEVEN_PCT_DIST[0]}
-                    x={0}
-                    y={1}/>
-            }
             {/* 7.5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
@@ -158,12 +138,6 @@ export const TaxRateGraphA = (
                 size={4}
                 y={() => 7.5}
                 x={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 3 &&
-                <VictoryLine
-                    data={SEVENFIVE_PCT_DIST[0]}
-                    x={0}
-                    y={1}/>
-            }
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
@@ -236,13 +210,6 @@ export const TaxRateGraphB = (
                 size={4}
                 x={() => 3}
                 y={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 0 &&
-                <VictoryLine
-                    data={THREE_PCT_DIST[1]}
-                    sortKey={1}
-                    x={0}
-                    y={1}/>
-            }
             {/* 5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
@@ -268,13 +235,6 @@ export const TaxRateGraphB = (
                 size={4}
                 x={() => 5}
                 y={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 1 &&
-                <VictoryLine
-                    data={FIVE_PCT_DIST[1]}
-                    sortKey={1}
-                    x={0}
-                    y={1}/>
-            }
             {/* 7% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
@@ -300,13 +260,6 @@ export const TaxRateGraphB = (
                 size={4}
                 x={() => 7}
                 y={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 2 &&
-                <VictoryLine
-                    data={SEVEN_PCT_DIST[1]}
-                    sortKey={1}
-                    x={0}
-                    y={1}/>
-            }
             {/* 7.5% graph */}
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
@@ -332,13 +285,6 @@ export const TaxRateGraphB = (
                 size={4}
                 x={() => 7.5}
                 y={(datum) => datum[0]}/>
-            { activeDataIdx[0] === 3 &&
-                <VictoryLine
-                    data={SEVENFIVE_PCT_DIST[1]}
-                    sortKey={1}
-                    x={0}
-                    y={1}/>
-            }
             {/* active data graph */}
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
