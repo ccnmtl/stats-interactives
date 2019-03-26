@@ -70,20 +70,21 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                         <NumericField
                             id={'slope'}
                             className={'form-control form-control-sm'}
-                            min={0}
-                            max={100}
+                            min={-5}
+                            max={5}
                             value={slope}
+                            step={0.01}
                             onChange={handleSlope} />
                     </div>
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
                                 min={0}
-                                max={100}
-                                values={[slope]}
+                                max={999}
+                                values={[(slope * 100) + 500]}
                                 onValuesUpdated={(sliderState) => {
                                     handleSlope(
-                                        sliderState.values[0]);
+                                        (sliderState.values[0] * 0.01) - 5);
                                 }} />
                         </div>
                     </div>
@@ -94,8 +95,9 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                         <NumericField
                             id={'intercept'}
                             className={'form-control form-control-sm'}
-                            min={0}
-                            max={100}
+                            min={-5}
+                            max={5}
+                            step={0.01}
                             value={intercept}
                             onChange={handleIntercept} />
                     </div>
@@ -103,11 +105,11 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
                                 min={0}
-                                max={100}
-                                values={[intercept]}
+                                max={999}
+                                values={[(intercept * 100) + 500]}
                                 onValuesUpdated={(sliderState) => {
                                     handleIntercept(
-                                        sliderState.values[0]);
+                                        (sliderState.values[0] * 0.01) - 5);
                                 }} />
                         </div>
                     </div>

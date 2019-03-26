@@ -7,8 +7,8 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER } from '../colors.js';
 
-const MIN = 0;
-const MAX = 100;
+const MIN = -5;
+const MAX = 5;
 
 export const RegressionGraph = ({population, regressionFunc}) => {
     return (
@@ -19,26 +19,22 @@ export const RegressionGraph = ({population, regressionFunc}) => {
                 label={'X Axis'}
                 style={{
                     axisLabel: {
-                        padding: 30,
+                        padding: '160',
                     },
                 }}
                 tickValues={math.range(MIN, MAX, true).map((val) => {
-                    if (val % 10 === 0) {
-                        return val;
-                    }
+                    return val;
                 })} />
             <VictoryAxis
                 dependentAxis={true}
                 label={'Y Axis'}
                 style={{
                     axisLabel: {
-                        padding: 30,
+                        padding: '160',
                     },
                 }}
                 tickValues={math.range(MIN, MAX, true).map((val) => {
-                    if (val % 10 === 0) {
-                        return val;
-                    }
+                    return val;
                 })} />
             {population &&
                 population.map((val) => {
