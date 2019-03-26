@@ -10,7 +10,7 @@ import { BAR_BORDER } from '../colors.js';
 const MIN = -5;
 const MAX = 5;
 
-export const RegressionGraph = ({population, regressionFunc}) => {
+export const RegressionGraph = ({population, regressionFunc, bestFitFunc}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 40, top: 20, right: 20, bottom: 45}}
@@ -70,6 +70,13 @@ export const RegressionGraph = ({population, regressionFunc}) => {
                     samples={10}
                     y={(datum) => regressionFunc(datum.x)}/>
             }
+            { population &&
+                <VictoryLine
+                    samples={10}
+                    style={{ data: { stroke: 'red',
+                        strokeWidth: '1px' } }}
+                    y={(datum) => bestFitFunc(datum.x)}/>
+            }
         </VictoryChart>
     );
 };
@@ -77,4 +84,5 @@ export const RegressionGraph = ({population, regressionFunc}) => {
 RegressionGraph.propTypes = {
     population: PropTypes.array,
     regressionFunc: PropTypes.func,
+    bestFitFunc: PropTypes.func,
 };
