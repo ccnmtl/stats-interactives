@@ -5,14 +5,17 @@ import {
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
-export const ErrorGraph = ({optimalSize, errorSize, showBestFit}) => {
+export const ErrorGraph = ({optimalSize, errorSize,
+    showBestFit, estimatedSSEOpacity}) => {
     return (
-        <div>
+        <div className={'error-graph-container'}>
             <VictoryGroup theme={VictoryTheme.material}
                 padding={{left: 0, top: 0, right: 0, bottom: 0}}
                 domain={{x: [0, 1], y: [0, 1]}}>
                 <VictoryArea
-                    style={{data: { fill: 'red', fillOpacity: 0.5 }}}
+                    style={{data: {
+                        fill: 'red',
+                        fillOpacity: estimatedSSEOpacity }}}
                     data={[{x: 0, y: errorSize},
                         {x: errorSize, y: errorSize}]}/>
                 {showBestFit &&
@@ -30,4 +33,5 @@ ErrorGraph.propTypes = {
     optimalSize: PropTypes.number,
     errorSize: PropTypes.number,
     showBestFit: PropTypes.bool,
+    estimatedSSEOpacity: PropTypes.number,
 };
