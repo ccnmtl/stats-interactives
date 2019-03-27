@@ -105,8 +105,8 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             <NumericField
                                 id={'intercept'}
                                 className={'form-control form-control-sm'}
-                                min={-5}
-                                max={5}
+                                min={-4}
+                                max={4}
                                 step={0.01}
                                 value={intercept}
                                 onChange={handleIntercept} />
@@ -115,11 +115,11 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             <div style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
                                     min={0}
-                                    max={999}
-                                    values={[(intercept * 100) + 500]}
+                                    max={799}
+                                    values={[(intercept * 100) + 400]}
                                     onValuesUpdated={(sliderState) => {
                                         handleIntercept(
-                                            (sliderState.values[0] * 0.01) - 5);
+                                            (sliderState.values[0] * 0.01) - 4);
                                     }} />
                             </div>
                         </div>
