@@ -46,13 +46,13 @@ export const RegressionGraph = ({population, regressionFunc,
                     if (val[1] < lineY) {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fillOpacity: 0.5 }}}
+                            style={{data: {fill: 'red', fillOpacity: 0.5 }}}
                             data={[{x: val[0], y: lineY, y0: val[1]},
                                 {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
                     } else {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fillOpacity: 0.5 }}}
+                            style={{data: {fill: 'red', fillOpacity: 0.5 }}}
                             data={[{x: val[0] - diffY, y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
                     }
@@ -67,13 +67,13 @@ export const RegressionGraph = ({population, regressionFunc,
                     if (val[1] < lineY) {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fill: 'red', fillOpacity: 0.5 }}}
+                            style={{data: { fill: 'green', fillOpacity: 0.5 }}}
                             data={[{x: val[0], y: lineY, y0: val[1]},
                                 {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
                     } else {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fill: 'red', fillOpacity: 0.5 }}}
+                            style={{data: { fill: 'green', fillOpacity: 0.5 }}}
                             data={[{x: val[0] - diffY, y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
                     }
@@ -91,12 +91,14 @@ export const RegressionGraph = ({population, regressionFunc,
             { population &&
                 <VictoryLine
                     samples={10}
+                    style={{ data: { stroke: 'red',
+                        strokeWidth: '1px' } }}
                     y={(datum) => regressionFunc(datum.x)}/>
             }
             { population && showBestFit &&
                 <VictoryLine
                     samples={10}
-                    style={{ data: { stroke: 'red',
+                    style={{ data: { stroke: 'green',
                         strokeWidth: '1px' } }}
                     y={(datum) => bestFitFunc(datum.x)}/>
             }
