@@ -3,6 +3,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import MathJax from 'react-mathjax2';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
+var jStat = require('jStat').jStat;
 import { SMOKING_FREQ } from './data';
 import { TaxRateSlider } from './TaxRateSlider';
 import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
@@ -15,12 +16,16 @@ export class LinearRegressionModel extends Component {
         this.handleTaxRateIdx = this.handleTaxRateIdx.bind(this);
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
 
+        // inline initial mean and epsilon value
+        let mean = 23.38;
+        let epsilon = 4.23;
+
         this.initialState = {
             taxRateIdx: 0,
             activeTaxRate: 3.0,
             y_i: SMOKING_FREQ[0][0][0],
-            mean: 20,
-            epsilon: 5,
+            mean: mean,
+            epsilon: epsilon,
             activeDataIdx: [0, 0],
             flipGraphs: false,
         };
@@ -35,24 +40,17 @@ export class LinearRegressionModel extends Component {
     handleTaxRateIdx(idx) {
         let taxRateRow = Math.floor(idx / 20);
         let taxRateCol = idx % 20;
-        let mean = 0;
-        switch (taxRateRow) {
-        case 0:
-            mean = 20;
-            break;
-        case 1:
-            mean = 15;
-            break;
-        case 2:
-            mean = 10;
-            break;
-        case 3:
-            mean = 5;
-            break;
-        }
+        let mean = jStat.mean(SMOKING_FREQ[taxRateRow].reduce((acc, val) => {
+            acc.push(val[0]);
+            return acc;
+        }, []));
 
         let epsilon = Math.abs(math.round(
-            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0]), 2);
+            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0], 2));
+
+        // round off mean after used to calc epsilon
+        mean = math.round(mean, 2);
+
         this.setState({
             taxRateIdx: idx,
             activeDataIdx: [taxRateRow, taxRateCol],

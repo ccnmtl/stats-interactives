@@ -23,7 +23,7 @@ const TaxRatePitComponent = ({ style, children }) => {
     return (
         <div
             className={'lrm-slider-pit'}
-            id={children == 0 && 'lrm-slider-pit-first'}
+            id={children == 0 ? 'lrm-slider-pit-first' : ''}
             style={{
                 ...style,
                 background: '#a2a2a2',

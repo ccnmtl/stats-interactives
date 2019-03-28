@@ -107,10 +107,7 @@ export const SMOKING_FREQ = [
 ];
 
 let createPDF = (data, offset) => {
-    let mean = jStat.mean(data.reduce((acc, val) => {
-        acc.push(val[0]);
-        return acc;
-    }), []);
+    let mean = jStat.mean(data.map((e) => e[0]));
     let min = Math.min(...data.map((e) => e[0]));
     let max = Math.max(...data.map((e) => e[0]));
     let stdDev = 2;
@@ -118,11 +115,12 @@ let createPDF = (data, offset) => {
     let range = math.range(min, max, 0.01, true);
     let horizontal = range.reduce((acc, val) => {
         acc.push(
-            [val + 0.5, (jStat.normal.pdf(val, mean + 0.5, stdDev) * 25) + 1]);
+            [val + 0.5, (jStat.normal.pdf(val, mean, stdDev) * 25) + 1]);
         return acc;
     }, []);
-    horizontal.unshift([math.floor(data[0][0]) - 1.5, 1]);
-    horizontal.push([math.floor(data[data.length - 1][0]) + 2.5, 1]);
+    horizontal = [[math.floor(data[0][0]) - 1.5, 1]].concat(horizontal);
+    horizontal = horizontal.concat(
+        [[math.floor(data[data.length - 1][0]) + 2.5, 1]]);
 
     let vertical = horizontal.map((val) => {
         return [val[1], val[0] + 0.5];
