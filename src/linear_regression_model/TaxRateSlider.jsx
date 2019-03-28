@@ -4,14 +4,15 @@ import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
 
 const getTaxRateFromIdx = (val) => {
-    switch (val) {
+    let taxRateIdx = Math.floor((val + 1) / 20);
+    switch (taxRateIdx) {
     case 0:
         return '3%';
-    case 19:
+    case 1:
         return '5%';
-    case 39:
+    case 2:
         return '7%';
-    case 59:
+    case 3:
         return '7.5%';
     default:
         return '';
@@ -48,7 +49,7 @@ export const TaxRateSlider = ({taxRateIdx,
                 <div className="form-group">
                     <label htmlFor="observation-slider">
                         Tax rate observations for {
-                            getTaxRateFromIdx(Math.floor(taxRateIdx / 20))}:
+                            getTaxRateFromIdx(taxRateIdx)}:
                         &nbsp;i =&nbsp;<NumericField
                             id={'tax-rate-field'}
                             className={'form-control form-control-sm'}
