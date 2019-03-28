@@ -22,14 +22,15 @@ const getTaxRateFromIdx = (val) => {
 const TaxRatePitComponent = ({ style, children }) => {
     return (
         <div
+            className={'lrm-slider-pit'}
+            id={children == 0 && 'lrm-slider-pit-first'}
             style={{
                 ...style,
                 background: '#a2a2a2',
-                width: 1,
                 height: 12,
                 top: 10,
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
         >
             <div style={{marginTop: 16}}>
