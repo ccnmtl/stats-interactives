@@ -23,6 +23,7 @@ export class LeastSquares extends Component {
         this.calculateSSE = this.calculateSSE.bind(this);
         this.calculateEstimatedSSESize = this.calculateEstimatedSSESize
             .bind(this);
+        this.calculateRelativeError = this.calculateRelativeError.bind(this);
         this.handleShowBestFit = this.handleShowBestFit.bind(this);
         this.reset = this.reset.bind(this);
 
@@ -37,6 +38,7 @@ export class LeastSquares extends Component {
             alpha: null,
             showBestFit: false,
             estimatedSSE: null,
+            estimatedSSEOpacity: null,
             optimalSSE: null,
             errorSize: null,
             optimalSize: THRESHOLD,
@@ -88,14 +90,17 @@ export class LeastSquares extends Component {
             return acc;
         }, 0);
     }
-    calculateEstimatedSSESize(optSize, estimatedSSE) {
+    calculateRelativeError(estimatedSSE, optSSE) {
         // First calculate the relative size of the error box,
         // bounding it between 0 and 1
-        let error = 1 - (1 / (1 + (estimatedSSE - this.state.optimalSSE)));
+        return 1 - (1 / (1 + (estimatedSSE - optSSE)));
+    }
+    calculateEstimatedSSESize(optSize, estimatedSSE) {
+        let error = this.calculateRelativeError(
+            estimatedSSE, this.state.optimalSSE);
         // Use the relative size of the error as percentage of the space
         // between the optimal size of the box and 1
-        let size = optSize + (error * (1 - optSize));
-        return Number.isFinite(size) ? size : optSize;
+        return optSize + (error * (1 - optSize));
     }
     handleGeneratePop() {
         seedrandom(this.state.seed, {global: true});
@@ -123,6 +128,8 @@ export class LeastSquares extends Component {
             alpha: alpha,
             estimatedSSE: estimatedSSE,
             errorSize: errorSize,
+            estimatedSSEOpacity: this.calculateRelativeError(
+                estimatedSSE, optimalSSE),
         });
     }
     handleSlope(val) {
@@ -135,6 +142,8 @@ export class LeastSquares extends Component {
             regressionFunc: regressionFunc,
             estimatedSSE: estimatedSSE,
             errorSize: errorSize,
+            estimatedSSEOpacity: this.calculateRelativeError(
+                estimatedSSE, this.state.optimalSSE),
         });
     }
     handleIntercept(val) {
@@ -147,6 +156,8 @@ export class LeastSquares extends Component {
             regressionFunc: regressionFunc,
             estimatedSSE: estimatedSSE,
             errorSize: errorSize,
+            estimatedSSEOpacity: this.calculateRelativeError(
+                estimatedSSE, this.state.optimalSSE),
         });
     }
     handleShowBestFit() {
@@ -181,7 +192,9 @@ export class LeastSquares extends Component {
                         <ErrorGraph
                             optimalSize={this.state.optimalSize}
                             errorSize={this.state.errorSize}
-                            showBestFit={this.state.showBestFit} />
+                            showBestFit={this.state.showBestFit}
+                            estimatedSSEOpacity={
+                                this.state.estimatedSSEOpacity}/>
                         }
                         {this.state.showBestFit &&
                             <p>beta: {this.state.beta},
