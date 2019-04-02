@@ -82,14 +82,14 @@ export const TaxRateSlider = ({taxRateIdx,
                 </div>
                 <div className={'form-row lrm-values'}>
                     <MathJax.Context input={'ascii'}>
-                        <div className="col">
+                        <div className="col-12">
                             <MathJax.Node>
                                 {'Y_i = ' + y_i}
                             </MathJax.Node>
                         </div>
                     </MathJax.Context>
                     <MathJax.Context input={'ascii'}>
-                        <div className="col">
+                        <div className="col-12">
                             <MathJax.Node>
                                 {'mu_Y = 29 - 2 * ' +
                                         getTaxRateFromIdx(taxRateIdx) +
@@ -98,7 +98,7 @@ export const TaxRateSlider = ({taxRateIdx,
                         </div>
                     </MathJax.Context>
                     <MathJax.Context input={'ascii'}>
-                        <div className="col">
+                        <div className="col-12">
                             <MathJax.Node>
                                 {'epsilon = ' + epsilon}
                             </MathJax.Node>
