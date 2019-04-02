@@ -6,7 +6,7 @@ import {
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_BORDER, INDICATOR } from '../colors.js';
+import { BAR_BORDER, INDICATOR, INACTIVE } from '../colors.js';
 
 export const TaxRateGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
@@ -42,7 +42,7 @@ export const TaxRateGraphA = (
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 0 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 0 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -67,7 +67,7 @@ export const TaxRateGraphA = (
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 1 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 1 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -92,7 +92,7 @@ export const TaxRateGraphA = (
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 2 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 2 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -117,7 +117,7 @@ export const TaxRateGraphA = (
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 3 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 3 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -189,7 +189,7 @@ export const TaxRateGraphB = (
             <VictoryScatter
                 data={SMOKING_FREQ[0]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 0 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 0 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -214,7 +214,7 @@ export const TaxRateGraphB = (
             <VictoryScatter
                 data={SMOKING_FREQ[1]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 1 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 1 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -239,7 +239,7 @@ export const TaxRateGraphB = (
             <VictoryScatter
                 data={SMOKING_FREQ[2]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 2 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 2 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
@@ -264,7 +264,7 @@ export const TaxRateGraphB = (
             <VictoryScatter
                 data={SMOKING_FREQ[3]}
                 style={{ data: {
-                    fill: activeDataIdx[0] === 3 ? INDICATOR : 'black',
+                    fill: activeDataIdx[0] === 3 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
                     strokeWidth: '1px' }
                 }}
