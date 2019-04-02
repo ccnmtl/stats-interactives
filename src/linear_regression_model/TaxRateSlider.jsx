@@ -5,16 +5,16 @@ import { NumericField } from '../utility_components/NumericField';
 import MathJax from 'react-mathjax2';
 
 const getTaxRateFromIdx = (val) => {
-    let taxRateIdx = Math.floor((val + 1) / 20);
+    let taxRateIdx = Math.floor((val) / 20);
     switch (taxRateIdx) {
     case 0:
-        return '3%';
+        return '3';
     case 1:
-        return '5%';
+        return '5';
     case 2:
-        return '7%';
+        return '7';
     case 3:
-        return '7.5%';
+        return '7.5';
     default:
         return '';
     }
@@ -35,7 +35,7 @@ const TaxRatePitComponent = ({ style, children }) => {
             }}
         >
             <div style={{marginTop: 16}}>
-                {getTaxRateFromIdx(children)}
+                {getTaxRateFromIdx(children) + '%'}
             </div>
         </div>
     );
@@ -51,7 +51,7 @@ export const TaxRateSlider = ({taxRateIdx,
                 <div className="form-group">
                     <label htmlFor="observation-slider">
                         Tax rate observations for {
-                            getTaxRateFromIdx(taxRateIdx)}:
+                            getTaxRateFromIdx(taxRateIdx) + '%'}:
                         &nbsp;i =&nbsp;<NumericField
                             id={'tax-rate-field'}
                             className={'form-control form-control-sm'}
@@ -91,7 +91,9 @@ export const TaxRateSlider = ({taxRateIdx,
                     <MathJax.Context input={'ascii'}>
                         <div className="col">
                             <MathJax.Node>
-                                {'mu_i = ' + mean}
+                                {'mu_Y = 29 - 2 * ' +
+                                        getTaxRateFromIdx(taxRateIdx) +
+                                        ' = ' + mean}
                             </MathJax.Node>
                         </div>
                     </MathJax.Context>

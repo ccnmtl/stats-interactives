@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
-var jStat = require('jStat').jStat;
 import { SMOKING_FREQ } from './data';
 import { TaxRateSlider } from './TaxRateSlider';
 import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
@@ -16,7 +15,7 @@ export class LinearRegressionModel extends Component {
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
 
         // inline initial mean and epsilon value
-        let mean = 23.38;
+        let mean = 23;
         let epsilon = 4.23;
 
         this.initialState = {
@@ -39,10 +38,18 @@ export class LinearRegressionModel extends Component {
     handleTaxRateIdx(idx) {
         let taxRateRow = Math.floor(idx / 20);
         let taxRateCol = idx % 20;
-        let mean = jStat.mean(SMOKING_FREQ[taxRateRow].reduce((acc, val) => {
-            acc.push(val[0]);
-            return acc;
-        }, []));
+        let mean = 29 - 2 * ((taxCol) => {
+            switch (taxCol) {
+            case 0:
+                return 3;
+            case 1:
+                return 5;
+            case 2:
+                return 7;
+            case 3:
+                return 7.5;
+            }
+        })(taxRateRow);
 
         let epsilon = Math.abs(math.round(
             mean - SMOKING_FREQ[taxRateRow][taxRateCol][0], 2));
