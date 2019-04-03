@@ -5,7 +5,7 @@ import { NumericField } from '../utility_components/NumericField';
 import { BlockMath, InlineMath } from 'react-katex';
 
 const getTaxRateFromIdx = (val) => {
-    let taxRateIdx = Math.floor((val) / 20);
+    let taxRateIdx = Math.floor((val)/ 20);
     switch (taxRateIdx) {
     case 0:
         return '3';
@@ -24,7 +24,7 @@ const TaxRatePitComponent = ({ style, children }) => {
     return (
         <div
             className={'lrm-slider-pit'}
-            id={children == 0 ? 'lrm-slider-pit-first' : ''}
+            id={children == 60 ? 'lrm-slider-pit-last' : ''}
             style={{
                 ...style,
                 background: '#a2a2a2',
@@ -73,7 +73,7 @@ export const TaxRateSlider = ({taxRateIdx,
                             max={79}
                             values={[taxRateIdx]}
                             pitComponent={TaxRatePitComponent}
-                            pitPoints={[0, 19, 39, 59]}
+                            pitPoints={[0, 20, 40, 60]}
                             onValuesUpdated={(sliderState) => {
                                 handleTaxRateIdx(
                                     sliderState.values[0]);
