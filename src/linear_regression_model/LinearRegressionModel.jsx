@@ -71,16 +71,16 @@ export class LinearRegressionModel extends Component {
                         <div className={'d-flex justify-content-end ' +
                             'linear-regression-toggle'}>
                             <a className={!this.state.flipGraphs ?
-                                'btn btn-outline-primary btn-sm' :
-                                'btn btn-primary btn-sm active'}
+                                'btn btn-light btn-sm' :
+                                'btn btn-light btn-sm active'}
                             role={'button'}
                             disabled={this.state.flipGraphs}
                             onClick={this.handleFlipGraphs}>
                                 Vertical
                             </a>
                             <a className={this.state.flipGraphs ?
-                                'btn btn-outline-primary btn-sm' :
-                                'btn btn-primary btn-sm active'}
+                                'btn btn-light btn-sm' :
+                                'btn btn-light btn-sm active'}
                             role={'button'}
                             onClick={this.handleFlipGraphs}>
                                 Horizontal
