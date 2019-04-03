@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
-import MathJax from 'react-mathjax2';
+import { BlockMath, InlineMath } from 'react-katex';
 
 const getTaxRateFromIdx = (val) => {
     let taxRateIdx = Math.floor((val) / 20);
@@ -80,30 +80,23 @@ export const TaxRateSlider = ({taxRateIdx,
                             }} />
                     </div>
                 </div>
-                <div className={'form-row lrm-values'}>
-                    <MathJax.Context input={'ascii'}>
-                        <div className="col-12">
-                            <MathJax.Node>
-                                {'Y_i = ' + y_i}
-                            </MathJax.Node>
-                        </div>
-                    </MathJax.Context>
-                    <MathJax.Context input={'ascii'}>
-                        <div className="col-12">
-                            <MathJax.Node>
-                                {'mu_Y = 29 - 2 * ' +
-                                        getTaxRateFromIdx(taxRateIdx) +
-                                        ' = ' + mean}
-                            </MathJax.Node>
-                        </div>
-                    </MathJax.Context>
-                    <MathJax.Context input={'ascii'}>
-                        <div className="col-12">
-                            <MathJax.Node>
-                                {'epsilon = ' + epsilon}
-                            </MathJax.Node>
-                        </div>
-                    </MathJax.Context>
+                <div className={'lrm-values'}>
+                    <p>
+                        <InlineMath>
+                            {String.raw`Y_i = ${y_i}`}
+                        </InlineMath>
+                    </p>
+                    <p>
+                        <InlineMath>
+                            {/* eslint-disable-next-line */}
+                            {String.raw`\mu_Y = 29 - 2 * ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
+                        </InlineMath>
+                    </p>
+                    <p>
+                        <InlineMath>
+                            {String.raw`\varepsilon = ${epsilon}`}
+                        </InlineMath>
+                    </p>
                 </div>
                 {isStateA ? (
                 <>
@@ -145,13 +138,9 @@ export const TaxRateSlider = ({taxRateIdx,
                             is on the y-axis.
                         </p>
                         <div>
-                            <MathJax.Context input={'ascii'}>
-                                <div>
-                                    <MathJax.Node>
-                                        {'mu_Y = 29 - 2 * x'}
-                                    </MathJax.Node>
-                                </div>
-                            </MathJax.Context>
+                            <BlockMath>
+                                \mu_Y = 29 - 2 * x
+                            </BlockMath>
                         </div>
                     </div>
                 </>

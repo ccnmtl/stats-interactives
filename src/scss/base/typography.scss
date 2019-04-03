@@ -1,5 +1,9 @@
 * { font-family: 'Roboto', sans-serif; }
 
+.katex * {
+    font-family: KaTeX_Main;
+}
+
 h1 {
 	font-family: 'Roboto Condensed', sans-serif;
 	text-transform: uppercase;
