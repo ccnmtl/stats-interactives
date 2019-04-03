@@ -5,7 +5,8 @@ import {
     VictoryScatter, VictoryArea, VictoryAxis, VictoryTooltip} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_BORDER } from '../colors.js';
+import { BAR_BORDER, LEAST_SQAURES_EST,
+    LEAST_SQAURES_OPT } from '../colors.js';
 
 const MIN = -5;
 const MAX = 5;
@@ -47,13 +48,15 @@ export const RegressionGraph = ({population, regressionFunc,
                     if (val[1] < lineY) {
                         return (<VictoryArea
                             key={val}
-                            style={{data: {fill: 'red', fillOpacity: 0.5 }}}
+                            style={{data: {
+                                fill: LEAST_SQAURES_EST, fillOpacity: 0.5 }}}
                             data={[{x: val[0], y: lineY, y0: val[1]},
                                 {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
                     } else {
                         return (<VictoryArea
                             key={val}
-                            style={{data: {fill: 'red', fillOpacity: 0.5 }}}
+                            style={{data: {
+                                fill: LEAST_SQAURES_EST, fillOpacity: 0.5 }}}
                             data={[{x: val[0] - diffY, y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
                     }
@@ -68,13 +71,15 @@ export const RegressionGraph = ({population, regressionFunc,
                     if (val[1] < lineY) {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fill: 'green', fillOpacity: 0.5 }}}
+                            style={{data: {
+                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
                             data={[{x: val[0], y: lineY, y0: val[1]},
                                 {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
                     } else {
                         return (<VictoryArea
                             key={val}
-                            style={{data: { fill: 'green', fillOpacity: 0.5 }}}
+                            style={{data: {
+                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
                             data={[{x: val[0] - diffY, y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
                     }
@@ -83,7 +88,8 @@ export const RegressionGraph = ({population, regressionFunc,
             { population &&
                 <VictoryScatter
                     data={population}
-                    style={{ data: { fill: 'blue', stroke: BAR_BORDER,
+                    style={{ data: {
+                        fill: LEAST_SQAURES_EST, stroke: BAR_BORDER,
                         strokeWidth: '1px' } }}
                     size={4}
                     labels={(datum) => {
@@ -95,14 +101,14 @@ export const RegressionGraph = ({population, regressionFunc,
             { population &&
                 <VictoryLine
                     samples={10}
-                    style={{ data: { stroke: 'red',
+                    style={{ data: { stroke: LEAST_SQAURES_EST,
                         strokeWidth: '1px' } }}
                     y={(datum) => regressionFunc(datum.x)}/>
             }
             { population && showBestFit &&
                 <VictoryLine
                     samples={10}
-                    style={{ data: { stroke: 'green',
+                    style={{ data: { stroke: LEAST_SQAURES_OPT,
                         strokeWidth: '1px' } }}
                     y={(datum) => bestFitFunc(datum.x)}/>
             }
