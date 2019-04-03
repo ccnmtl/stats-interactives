@@ -182,9 +182,12 @@ export class LeastSquares extends Component {
                             handleGeneratePop={this.handleGeneratePop}
                             slope={this.state.slope}
                             intercept={this.state.intercept}
+                            beta={this.state.beta}
+                            alpha={this.state.alpha}
                             handleSlope={this.handleSlope}
                             handleIntercept={this.handleIntercept}
                             handleShowBestFit={this.handleShowBestFit}
+                            showBestFit={this.state.showBestFit}
                             reset={this.reset}
                             hasPopulation={
                                 this.state.population ? true : false}/>
@@ -195,10 +198,6 @@ export class LeastSquares extends Component {
                             showBestFit={this.state.showBestFit}
                             estimatedSSEOpacity={
                                 this.state.estimatedSSEOpacity}/>
-                        }
-                        {this.state.showBestFit &&
-                            <p>beta: {this.state.beta},
-                            alpha: {this.state.alpha}</p>
                         }
                     </div>
                     <div className={'col-8'}>

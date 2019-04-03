@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
+import * as math from 'mathjs';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
-    reset, hasPopulation }) => {
+    reset, hasPopulation, beta, alpha, showBestFit}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -85,6 +86,11 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 value={slope}
                                 step={0.01}
                                 onChange={handleSlope} />
+                            {showBestFit &&
+                                <span className={'best-fit-label'}>
+                                    Best Fit Slope: {math.round(beta, 2)}
+                                </span>
+                            }
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -110,6 +116,11 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 step={0.01}
                                 value={intercept}
                                 onChange={handleIntercept} />
+                            {showBestFit &&
+                                <span className={'best-fit-label'}>
+                                    Best Fit Intercept: {math.round(alpha, 2)}
+                                </span>
+                            }
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -169,4 +180,7 @@ RegressionForm.propTypes = {
     handleShowBestFit: PropTypes.func,
     reset: PropTypes.func,
     hasPopulation: PropTypes.bool,
+    beta: PropTypes.number,
+    alpha: PropTypes.number,
+    showBestFit: PropTypes.bool,
 };
