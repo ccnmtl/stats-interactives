@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    VictoryChart, VictoryTheme, VictoryLine,
-    VictoryScatter, VictoryArea, VictoryAxis} from 'victory';
+    VictoryChart, VictoryTheme, VictoryLine, VictoryVoronoiContainer,
+    VictoryScatter, VictoryArea, VictoryAxis, VictoryTooltip} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER } from '../colors.js';
@@ -14,6 +14,7 @@ export const RegressionGraph = ({population, regressionFunc,
     bestFitFunc, showBestFit}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            containerComponent={<VictoryVoronoiContainer/>}
             padding={{left: 40, top: 20, right: 20, bottom: 45}}
             domain={{x: [MIN, MAX], y: [MIN, MAX]}}>
             <VictoryAxis
@@ -85,6 +86,9 @@ export const RegressionGraph = ({population, regressionFunc,
                     style={{ data: { fill: 'blue', stroke: BAR_BORDER,
                         strokeWidth: '1px' } }}
                     size={4}
+                    labels={(datum) => {
+                        return '(' + datum[0] + ', ' + datum[1] + ')';}}
+                    labelComponent={<VictoryTooltip />}
                     x={(datum) => datum[0]}
                     y={(datum) => datum[1]} />
             }
