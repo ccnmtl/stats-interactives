@@ -106,8 +106,8 @@ export const SMOKING_FREQ = [
     ],
 ];
 
-let createPDF = (data, offset) => {
-    let mean = jStat.mean(data.map((e) => e[0]));
+let createPDF = (data, taxRate) => {
+    let mean = 29 - 2 * taxRate;
     let min = Math.min(...data.map((e) => e[0]));
     let max = Math.max(...data.map((e) => e[0]));
     let stdDev = 2;

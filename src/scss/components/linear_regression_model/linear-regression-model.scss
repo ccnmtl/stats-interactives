@@ -2,9 +2,10 @@
     width: 25%;
 }
 
-#lrm-slider-pit-first {
+#lrm-slider-pit-last {
     width: 23.75%;
 }
+
 .linear-regression-toggle {
     margin-bottom: 1em;
     a.btn-outline-primary {
@@ -19,7 +20,7 @@
 .state-a-container {
     div:first-child {
         div {
-            margin-bottom: 1em;
+            margin-bottom: 2em;
         }
     }
 }
@@ -90,7 +91,7 @@
 .graph-transition-leave {
     // Transition A => B
     &.state-a-container {
-        height: 1134px;
+        height: 790px;
     }
 
     .state-a-info-container {
@@ -119,7 +120,7 @@
 
     // Transition B => A
     &.state-b-container {
-        height: 795px;
+        height: 450px;
 
         .state-b-graph-container {
             .state-b-info-container {
@@ -149,12 +150,12 @@
 .graph-transition-leave.graph-transition-leave-active {
     // Transition A => B
     &.state-a-container {
-        height: 795px;
+        height: 450px;
         transition: height 3000ms ease;
     }
 
     &.state-b-container {
-        height: 1134px;
-        transition: height 3000ms ease;
+        height: 790px;
+        transition: height 1000ms ease-out;
     }
 }
