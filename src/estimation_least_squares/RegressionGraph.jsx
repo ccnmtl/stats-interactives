@@ -93,7 +93,8 @@ export const RegressionGraph = ({population, regressionFunc,
                         strokeWidth: '1px' } }}
                     size={4}
                     labels={(datum) => {
-                        return '(' + datum[0] + ', ' + datum[1] + ')';}}
+                        return '(' + math.round(datum[0], 2) +
+                            ', ' + math.round(datum[1], 2) + ')';}}
                     labelComponent={<VictoryTooltip />}
                     x={(datum) => datum[0]}
                     y={(datum) => datum[1]} />

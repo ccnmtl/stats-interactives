@@ -7,7 +7,8 @@ import * as math from 'mathjs';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
-    reset, hasPopulation, beta, alpha, showBestFit}) => {
+    reset, hasPopulation, beta, alpha, showBestFit,
+    estimatedSSE, optimalSSE}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -29,6 +30,22 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
             className="needs-validation" noValidate >
             <fieldset>
                 <div className="form-group">
+                    <div className="form-row">
+                        <p>Amet fugit aspernatur officiis ratione harum Eaque
+                            cupiditate asperiores fugit temporibus
+                            voluptatibus. Harum illum officiis maiores neque
+                            at praesentium accusantium Eius inventore
+                            voluptate a tempora nesciunt. Animi quia velit
+                            ullam?
+                        </p>
+                        <p>Amet fugit aspernatur officiis ratione harum Eaque
+                            cupiditate asperiores fugit temporibus
+                            voluptatibus. Harum illum officiis maiores neque
+                            at praesentium accusantium Eius inventore
+                            voluptate a tempora nesciunt. Animi quia velit
+                            ullam?
+                        </p>
+                    </div>
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
                             Seed:</label>
@@ -134,6 +151,16 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     }} />
                             </div>
                         </div>
+                        <div className={'form-row'}>
+                            <div>
+                                Estimated SSE: {math.round(estimatedSSE, 2)}
+                            </div>
+                            {showBestFit &&
+                            <div className={'best-fit-label'}>
+                                Best Fit SSE: {math.round(optimalSSE, 2)}
+                            </div>
+                            }
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -183,4 +210,6 @@ RegressionForm.propTypes = {
     beta: PropTypes.number,
     alpha: PropTypes.number,
     showBestFit: PropTypes.bool,
+    estimatedSSE: PropTypes.number,
+    optimalSSE: PropTypes.number,
 };
