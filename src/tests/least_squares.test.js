@@ -49,5 +49,3 @@ describe('Ensure that the same seed generates the same population and samples', 
         expect(pop1).toEqual(pop3);
     });
 });
-
-

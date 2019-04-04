@@ -105,16 +105,39 @@ export class LeastSquares extends Component {
     handleGeneratePop() {
         seedrandom(this.state.seed, {global: true});
 
-        let population = [...Array(6)].map(() => {
-            let scale = 4;
-            let offset = -2;
-            return [(Math.random() * scale) + offset,
-                (Math.random() * scale) + offset];
-        });
+        const minSSE = 3;
+        const maxSSE = 15;
+        const minSlope = -5;
+        const maxSlope = 5;
+        const minIntercept = -4;
+        const maxIntercept = 4;
 
-        let [beta, alpha ] = this.findLinearRegression(population);
-        let bestFitFunc = (x) => {return beta * x + alpha;};
-        let optimalSSE = this.calculateSSE(population, bestFitFunc);
+        let population = [];
+        let beta = null;
+        let alpha = null;
+        let optimalSSE = null;
+        let bestFitFunc = null;
+
+        let popNotFound = true;
+        while (popNotFound) {
+            population = [...Array(6)].map(() => {
+                let scale = 10;
+                let offset = -5;
+                return [(Math.random() * scale) + offset,
+                    (Math.random() * scale) + offset];
+            });
+
+            [beta, alpha] = this.findLinearRegression(population);
+            bestFitFunc = (x) => {return beta * x + alpha;};
+            optimalSSE = this.calculateSSE(population, bestFitFunc);
+
+            if (minSlope <= beta && beta <= maxSlope &&
+                minIntercept <= alpha && alpha <= maxIntercept &&
+                minSSE <= optimalSSE && optimalSSE <= maxSSE) {
+                popNotFound = false;
+            }
+        }
+
 
         let estimatedSSE = this.calculateSSE(
             population, this.state.regressionFunc);
