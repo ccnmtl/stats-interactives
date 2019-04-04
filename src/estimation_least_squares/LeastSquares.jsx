@@ -175,16 +175,21 @@ export class LeastSquares extends Component {
             <div className='container'>
                 <h2>Estimation of Least Squares</h2>
                 <div className={'row'}>
-                    <div className={'col-4'}>
+                    <div className={'col-6'}>
                         <RegressionForm
                             seed={this.state.seed}
                             handleSeed={this.handleSeed}
                             handleGeneratePop={this.handleGeneratePop}
                             slope={this.state.slope}
                             intercept={this.state.intercept}
+                            beta={this.state.beta}
+                            alpha={this.state.alpha}
+                            estimatedSSE={this.state.estimatedSSE}
+                            optimalSSE={this.state.optimalSSE}
                             handleSlope={this.handleSlope}
                             handleIntercept={this.handleIntercept}
                             handleShowBestFit={this.handleShowBestFit}
+                            showBestFit={this.state.showBestFit}
                             reset={this.reset}
                             hasPopulation={
                                 this.state.population ? true : false}/>
@@ -196,12 +201,8 @@ export class LeastSquares extends Component {
                             estimatedSSEOpacity={
                                 this.state.estimatedSSEOpacity}/>
                         }
-                        {this.state.showBestFit &&
-                            <p>beta: {this.state.beta},
-                            alpha: {this.state.alpha}</p>
-                        }
                     </div>
-                    <div className={'col-8'}>
+                    <div className={'col-6'}>
                         <div className={'graph-container'}>
                             <RegressionGraph
                                 population={this.state.population}
