@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryAxis, VictoryTheme, VictoryArea} from 'victory';
+import { LEAST_SQAURES_EST, LEAST_SQAURES_OPT } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
@@ -37,13 +38,13 @@ export const ErrorGraph = ({optimalSize, errorSize,
                     })} />
                 <VictoryArea
                     style={{data: {
-                        fill: 'red',
+                        fill: LEAST_SQAURES_EST,
                         fillOpacity: estimatedSSEOpacity }}}
                     data={[{x: 0, y: 4},
                         {x: errorSize, y: 4}]}/>
                 {showBestFit &&
                 <VictoryArea
-                    style={{data: { fill: 'green', fillOpacity: 1 }}}
+                    style={{data: { fill: LEAST_SQAURES_OPT, fillOpacity: 1 }}}
                     data={[{x: 0, y: 4},
                         {x: optimalSize, y: 4}]}/>
                 }
