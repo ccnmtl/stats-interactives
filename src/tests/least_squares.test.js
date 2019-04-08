@@ -8,6 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Preview } from '../App.jsx';
 import { Nav } from '../Nav.jsx';
 import { LeastSquares } from '../estimation_least_squares/LeastSquares';
+var seedrandom = require('seedrandom');
 
 configure({adapter: new Adapter()});
 
@@ -49,3 +50,45 @@ describe('Ensure that the same seed generates the same population and samples', 
         expect(pop1).toEqual(pop3);
     });
 });
+
+test('Unit test validatePopulation', () => {
+    const wrapper = mount(
+        <MemoryRouter>
+            <LeastSquares />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('LeastSquares')
+    let clg_instance = clg.instance()
+
+    seedrandom('my-new-seed', {global: true});
+    let pop = clg_instance.generatePopulation()
+
+    let beta = null;
+    let alpha = null;
+    [beta, alpha] = clg_instance.findLinearRegression(pop);
+    let bestFitFunc = (x) => {return beta * x + alpha;};
+    let optimalSSE = clg_instance.calculateSSE(pop, bestFitFunc);
+
+    expect(clg_instance.validatePopulation(pop)).toEqual(false);
+});
+
+test('Unit test generatePopulation', () => {
+    const wrapper = mount(
+        <MemoryRouter>
+            <LeastSquares />
+        </MemoryRouter>
+    );
+    let clg = wrapper.find('LeastSquares')
+    let clg_instance = clg.instance()
+
+    seedrandom('my-new-seed', {global: true});
+    let pop = clg_instance.generatePopulation()
+
+    expect(pop.length).toEqual(6);
+    pop.map((val) => {
+        expect(val[0] > -5).toEqual(true);
+        expect(val[0] < 5).toEqual(true);
+        expect(val[1] > -5).toEqual(true);
+        expect(val[1] < 5).toEqual(true);
+    })
+})
