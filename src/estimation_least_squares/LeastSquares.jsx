@@ -23,6 +23,8 @@ export class LeastSquares extends Component {
         this.calculateSSE = this.calculateSSE.bind(this);
         this.getEstimatedSSEOpacity = this.getEstimatedSSEOpacity.bind(this);
         this.handleShowBestFit = this.handleShowBestFit.bind(this);
+        this.generatePopulation = this.generatePopulation.bind(this);
+        this.validatePopulation= this.validatePopulation.bind(this);
         this.reset = this.reset.bind(this);
 
         this.initialState = {
@@ -88,9 +90,20 @@ export class LeastSquares extends Component {
             return acc;
         }, 0);
     }
-    handleGeneratePop() {
-        seedrandom(this.state.seed, {global: true});
+    generatePopulation() {
+        let len = 6;
+        let min = -5;
+        let max = 5;
 
+        let scale = max - min;
+        let offset = min;
+        return [...Array(len)].map(() => {
+            return [(Math.random() * scale) + offset,
+                (Math.random() * scale) + offset];
+        });
+    }
+    validatePopulation(population, alpha, beta, optimalSSE) {
+        // Population Constraints
         const minSSE = 3;
         const maxSSE = 15;
         const minSlope = -5;
@@ -98,29 +111,35 @@ export class LeastSquares extends Component {
         const minIntercept = -4;
         const maxIntercept = 4;
 
+        if (minSlope <= beta && beta <= maxSlope &&
+            minIntercept <= alpha && alpha <= maxIntercept &&
+            minSSE <= optimalSSE && optimalSSE <= maxSSE) {
+            return true;
+        }
+        return false;
+    }
+    handleGeneratePop() {
+        seedrandom(this.state.seed, {global: true});
+
         let population = [];
         let beta = null;
         let alpha = null;
         let optimalSSE = null;
         let bestFitFunc = null;
 
-        let popNotFound = true;
-        while (popNotFound) {
-            population = [...Array(6)].map(() => {
-                let scale = 10;
-                let offset = -5;
-                return [(Math.random() * scale) + offset,
-                    (Math.random() * scale) + offset];
-            });
+        /*eslint-disable-next-line no-constant-condition*/
+        while (true) {
+            population = this.generatePopulation();
 
             [beta, alpha] = this.findLinearRegression(population);
             bestFitFunc = (x) => {return beta * x + alpha;};
             optimalSSE = this.calculateSSE(population, bestFitFunc);
 
-            if (minSlope <= beta && beta <= maxSlope &&
-                minIntercept <= alpha && alpha <= maxIntercept &&
-                minSSE <= optimalSSE && optimalSSE <= maxSSE) {
-                popNotFound = false;
+            // Rerun the loop until we get a population that
+            // conforms to the required constraints.
+            if (this.validatePopulation(
+                population, alpha, beta, optimalSSE)) {
+                break;
             }
         }
 
