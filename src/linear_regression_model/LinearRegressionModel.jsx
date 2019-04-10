@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-/* eslint-disable */
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
-import { TaxRateSlider } from './TaxRateSlider';
-import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
-import { FrequencyGraphA, FrequencyGraphB } from './FrequencyGraph';
+import { StateAContainer, StateBContainer } from './GraphStateContainers';
 
 export class LinearRegressionModel extends Component {
     constructor(props) {
@@ -102,82 +99,29 @@ export class LinearRegressionModel extends Component {
                             key={this.state.flipGraphs}
                             classNames="graph-transition"
                             timeout={3000}>
-                            <div className="container state-a-container">
-                                <div className="row">
-                                    <div className="col-7 state-a-info-container">
-                                        <div>
-                                            <TaxRateSlider
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}
-                                                y_i={this.state.y_i}
-                                                mean={this.state.mean}
-                                                epsilon={this.state.epsilon}
-                                                isStateA={true}/>
-                                        </div>
-                                    </div>
-                                    <div className="col-5 state-a-graph-container">
-                                        <div className={
-                                            'graph-A-container tax-rate-graph'}>
-                                            <TaxRateGraphA
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                activeDataIdx={
-                                                    this.state.activeDataIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}/>
-                                        </div>
-                                        <div className={
-                                            'graph-A-container frequency-graph'}>
-                                            <FrequencyGraphA
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                activeDataIdx={
-                                                    this.state.activeDataIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <StateAContainer
+                                taxRateIdx={this.state.taxRateIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                y_i={this.state.y_i}
+                                mean={this.state.mean}
+                                epsilon={this.state.epsilon}
+                                activeDataIdx={this.state.activeDataIdx}
+                            />
                         </CSSTransition>
                     ) : (
-                    <CSSTransition
-                        key={this.state.flipGraphs}
-                        classNames="graph-transition"
-                        timeout={3000}>
-                        <div key={this.state.flipGraphs}
-                            className="container state-b-container">
-                            <div className="row state-b-graph-container">
-                                <div className={'col-4 state-b-info-container'}>
-                                    <TaxRateSlider
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}
-                                        y_i={this.state.y_i}
-                                        mean={this.state.mean}
-                                        epsilon={this.state.epsilon}
-                                        isStateA={false}/>
-                                </div>
-                                <div className={
-                                    'col-3 graph-B-container frequency-graph'} >
-                                    <FrequencyGraphB
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        activeDataIdx={
-                                            this.state.activeDataIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}/>
-                                </div>
-                                <div className={
-                                    'col-5 graph-B-container tax-rate-graph'}>
-                                    <TaxRateGraphB
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        activeDataIdx={
-                                            this.state.activeDataIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}/>
-                                </div>
-                            </div>
-                        </div>
-                    </CSSTransition>
+                        <CSSTransition
+                            key={this.state.flipGraphs}
+                            classNames="graph-transition"
+                            timeout={3000}>
+                            <StateBContainer
+                                taxRateIdx={this.state.taxRateIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                y_i={this.state.y_i}
+                                mean={this.state.mean}
+                                epsilon={this.state.epsilon}
+                                activeDataIdx={this.state.activeDataIdx}
+                            />
+                        </CSSTransition>
                     )}
                 </TransitionGroup>
             </div>
