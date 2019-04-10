@@ -41,7 +41,7 @@
 //   state-a and state-b.
 //   State A has the graphs stacked veritically
 //   State B has the graphs lined up horizontally
-// - the 'enter' and 'leave' classes get applied
+// - the 'enter' and 'exit' classes get applied
 //   while those particular elements are being animated.
 //   That's why transitions from both states are composed together
 //   under a common class name, but only one occurs at a time.
@@ -88,7 +88,7 @@
 }
 
 // Fired at the start of the transition
-.graph-transition-leave {
+.graph-transition-exit {
     // Transition A => B
     &.state-a-container {
         height: 790px;
@@ -146,8 +146,8 @@
     }
 }
 
-// Applied one tick after .graph-transition-leave is applied
-.graph-transition-leave.graph-transition-leave-active {
+// Applied one tick after .graph-transition-exit is applied
+.graph-transition-exit.graph-transition-exit-active {
     // Transition A => B
     &.state-a-container {
         height: 450px;
