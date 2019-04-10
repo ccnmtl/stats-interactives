@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
+/* eslint-disable */
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
@@ -95,49 +96,54 @@ export class LinearRegressionModel extends Component {
                         </div>
                     </div>
                 </div>
-                <CSSTransitionGroup
-                    transitionName="graph-transition"
-                    transitionEnterTimeout={3000}
-                    transitionLeaveTimeout={3000}>
+                <TransitionGroup>
                     {this.state.flipGraphs === false ? (
-                        <div key={this.state.flipGraphs}
-                            className="container state-a-container">
-                            <div className="row">
-                                <div className="col-7 state-a-info-container">
-                                    <div>
-                                        <TaxRateSlider
-                                            taxRateIdx={this.state.taxRateIdx}
-                                            handleTaxRateIdx={
-                                                this.handleTaxRateIdx}
-                                            y_i={this.state.y_i}
-                                            mean={this.state.mean}
-                                            epsilon={this.state.epsilon}
-                                            isStateA={true}/>
+                        <CSSTransition
+                            key={this.state.flipGraphs}
+                            classNames="graph-transition"
+                            timeout={3000}>
+                            <div className="container state-a-container">
+                                <div className="row">
+                                    <div className="col-7 state-a-info-container">
+                                        <div>
+                                            <TaxRateSlider
+                                                taxRateIdx={this.state.taxRateIdx}
+                                                handleTaxRateIdx={
+                                                    this.handleTaxRateIdx}
+                                                y_i={this.state.y_i}
+                                                mean={this.state.mean}
+                                                epsilon={this.state.epsilon}
+                                                isStateA={true}/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-5 state-a-graph-container">
-                                    <div className={
-                                        'graph-A-container tax-rate-graph'}>
-                                        <TaxRateGraphA
-                                            taxRateIdx={this.state.taxRateIdx}
-                                            activeDataIdx={
-                                                this.state.activeDataIdx}
-                                            handleTaxRateIdx={
-                                                this.handleTaxRateIdx}/>
-                                    </div>
-                                    <div className={
-                                        'graph-A-container frequency-graph'}>
-                                        <FrequencyGraphA
-                                            taxRateIdx={this.state.taxRateIdx}
-                                            activeDataIdx={
-                                                this.state.activeDataIdx}
-                                            handleTaxRateIdx={
-                                                this.handleTaxRateIdx}/>
+                                    <div className="col-5 state-a-graph-container">
+                                        <div className={
+                                            'graph-A-container tax-rate-graph'}>
+                                            <TaxRateGraphA
+                                                taxRateIdx={this.state.taxRateIdx}
+                                                activeDataIdx={
+                                                    this.state.activeDataIdx}
+                                                handleTaxRateIdx={
+                                                    this.handleTaxRateIdx}/>
+                                        </div>
+                                        <div className={
+                                            'graph-A-container frequency-graph'}>
+                                            <FrequencyGraphA
+                                                taxRateIdx={this.state.taxRateIdx}
+                                                activeDataIdx={
+                                                    this.state.activeDataIdx}
+                                                handleTaxRateIdx={
+                                                    this.handleTaxRateIdx}/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </CSSTransition>
                     ) : (
+                    <CSSTransition
+                        key={this.state.flipGraphs}
+                        classNames="graph-transition"
+                        timeout={3000}>
                         <div key={this.state.flipGraphs}
                             className="container state-b-container">
                             <div className="row state-b-graph-container">
@@ -171,8 +177,9 @@ export class LinearRegressionModel extends Component {
                                 </div>
                             </div>
                         </div>
+                    </CSSTransition>
                     )}
-                </CSSTransitionGroup>
+                </TransitionGroup>
             </div>
             <hr/>
             </>
