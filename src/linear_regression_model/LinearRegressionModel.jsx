@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-/* eslint-disable */
+import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
 import { SMOKING_FREQ } from './data';
-import { TaxRateSlider } from './TaxRateSlider';
-import { TaxRateGraphA, TaxRateGraphB } from './TaxRateGraph';
-import { FrequencyGraphA, FrequencyGraphB } from './FrequencyGraph';
+import { StateAContainer, StateBContainer } from './GraphStateContainers';
 
 export class LinearRegressionModel extends Component {
     constructor(props) {
@@ -14,6 +12,7 @@ export class LinearRegressionModel extends Component {
 
         this.handleTaxRateIdx = this.handleTaxRateIdx.bind(this);
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
+        this.handleFreeToggleLock = this.handleFreeToggleLock.bind(this);
 
         // inline initial mean and epsilon value
         let mean = 23;
@@ -27,6 +26,7 @@ export class LinearRegressionModel extends Component {
             epsilon: epsilon,
             activeDataIdx: [0, 0],
             flipGraphs: false,
+            toggleLock: false,
         };
 
         this.state = this.initialState;
@@ -34,7 +34,13 @@ export class LinearRegressionModel extends Component {
     handleFlipGraphs() {
         this.setState((prevState) => ({
             flipGraphs: !prevState.flipGraphs,
+            toggleLock: true,
         }));
+    }
+    handleFreeToggleLock() {
+        this.setState({
+            toggleLock: false,
+        });
     }
     handleTaxRateIdx(idx) {
         let taxRateRow = Math.floor(idx / 20);
@@ -78,21 +84,16 @@ export class LinearRegressionModel extends Component {
                     <div className={'col-2'}>
                         <div className={'d-flex justify-content-end ' +
                             'linear-regression-toggle'}>
-                            <a className={!this.state.flipGraphs ?
-                                'btn btn-light btn-sm' :
-                                'btn btn-light btn-sm active'}
-                            role={'button'}
-                            disabled={this.state.flipGraphs}
-                            onClick={this.handleFlipGraphs}>
-                                Vertical
-                            </a>
-                            <a className={this.state.flipGraphs ?
-                                'btn btn-light btn-sm' :
-                                'btn btn-light btn-sm active'}
-                            role={'button'}
-                            onClick={this.handleFlipGraphs}>
-                                Horizontal
-                            </a>
+                            <VerticalButton
+                                flipGraphs={this.state.flipGraphs}
+                                handleFlipGraphs={this.handleFlipGraphs}
+                                toggleLock={this.state.toggleLock}
+                            />
+                            <HorizontalButton
+                                flipGraphs={this.state.flipGraphs}
+                                handleFlipGraphs={this.handleFlipGraphs}
+                                toggleLock={this.state.toggleLock}
+                            />
                         </div>
                     </div>
                 </div>
@@ -100,84 +101,33 @@ export class LinearRegressionModel extends Component {
                     {this.state.flipGraphs === false ? (
                         <CSSTransition
                             key={this.state.flipGraphs}
+                            onExited={this.handleFreeToggleLock}
                             classNames="graph-transition"
                             timeout={3000}>
-                            <div className="container state-a-container">
-                                <div className="row">
-                                    <div className="col-7 state-a-info-container">
-                                        <div>
-                                            <TaxRateSlider
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}
-                                                y_i={this.state.y_i}
-                                                mean={this.state.mean}
-                                                epsilon={this.state.epsilon}
-                                                isStateA={true}/>
-                                        </div>
-                                    </div>
-                                    <div className="col-5 state-a-graph-container">
-                                        <div className={
-                                            'graph-A-container tax-rate-graph'}>
-                                            <TaxRateGraphA
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                activeDataIdx={
-                                                    this.state.activeDataIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}/>
-                                        </div>
-                                        <div className={
-                                            'graph-A-container frequency-graph'}>
-                                            <FrequencyGraphA
-                                                taxRateIdx={this.state.taxRateIdx}
-                                                activeDataIdx={
-                                                    this.state.activeDataIdx}
-                                                handleTaxRateIdx={
-                                                    this.handleTaxRateIdx}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <StateAContainer
+                                taxRateIdx={this.state.taxRateIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                y_i={this.state.y_i}
+                                mean={this.state.mean}
+                                epsilon={this.state.epsilon}
+                                activeDataIdx={this.state.activeDataIdx}
+                            />
                         </CSSTransition>
                     ) : (
-                    <CSSTransition
-                        key={this.state.flipGraphs}
-                        classNames="graph-transition"
-                        timeout={3000}>
-                        <div key={this.state.flipGraphs}
-                            className="container state-b-container">
-                            <div className="row state-b-graph-container">
-                                <div className={'col-4 state-b-info-container'}>
-                                    <TaxRateSlider
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}
-                                        y_i={this.state.y_i}
-                                        mean={this.state.mean}
-                                        epsilon={this.state.epsilon}
-                                        isStateA={false}/>
-                                </div>
-                                <div className={
-                                    'col-3 graph-B-container frequency-graph'} >
-                                    <FrequencyGraphB
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        activeDataIdx={
-                                            this.state.activeDataIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}/>
-                                </div>
-                                <div className={
-                                    'col-5 graph-B-container tax-rate-graph'}>
-                                    <TaxRateGraphB
-                                        taxRateIdx={this.state.taxRateIdx}
-                                        activeDataIdx={
-                                            this.state.activeDataIdx}
-                                        handleTaxRateIdx={
-                                            this.handleTaxRateIdx}/>
-                                </div>
-                            </div>
-                        </div>
-                    </CSSTransition>
+                        <CSSTransition
+                            key={this.state.flipGraphs}
+                            onExited={this.handleFreeToggleLock}
+                            classNames="graph-transition"
+                            timeout={3000}>
+                            <StateBContainer
+                                taxRateIdx={this.state.taxRateIdx}
+                                handleTaxRateIdx={this.handleTaxRateIdx}
+                                y_i={this.state.y_i}
+                                mean={this.state.mean}
+                                epsilon={this.state.epsilon}
+                                activeDataIdx={this.state.activeDataIdx}
+                            />
+                        </CSSTransition>
                     )}
                 </TransitionGroup>
             </div>
@@ -186,3 +136,43 @@ export class LinearRegressionModel extends Component {
         );
     }
 }
+
+const VerticalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
+    return (
+        <button
+            className={
+                flipGraphs ?
+                    'btn btn-light btn-sm' :
+                    'btn btn-light btn-sm active'}
+            disabled={toggleLock || !flipGraphs}
+            onClick={handleFlipGraphs}>
+            Vertical
+        </button>
+    );
+};
+
+VerticalButton.propTypes = {
+    flipGraphs: PropTypes.bool,
+    handleFlipGraphs: PropTypes.func,
+    toggleLock: PropTypes.bool,
+};
+
+const HorizontalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
+    return (
+        <button
+            className={flipGraphs ?
+                'btn btn-light btn-sm active' :
+                'btn btn-light btn-sm'}
+            disabled={toggleLock || flipGraphs}
+            onClick={handleFlipGraphs}>
+                Horizontal
+        </button>
+    );
+};
+
+HorizontalButton.propTypes = {
+    flipGraphs: PropTypes.bool,
+    handleFlipGraphs: PropTypes.func,
+    toggleLock: PropTypes.bool,
+};
+
