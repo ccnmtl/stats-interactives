@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
 import * as math from 'mathjs';
@@ -11,6 +12,7 @@ export class LinearRegressionModel extends Component {
 
         this.handleTaxRateIdx = this.handleTaxRateIdx.bind(this);
         this.handleFlipGraphs = this.handleFlipGraphs.bind(this);
+        this.handleFreeToggleLock = this.handleFreeToggleLock.bind(this);
 
         // inline initial mean and epsilon value
         let mean = 23;
@@ -24,6 +26,7 @@ export class LinearRegressionModel extends Component {
             epsilon: epsilon,
             activeDataIdx: [0, 0],
             flipGraphs: false,
+            toggleLock: false,
         };
 
         this.state = this.initialState;
@@ -31,7 +34,13 @@ export class LinearRegressionModel extends Component {
     handleFlipGraphs() {
         this.setState((prevState) => ({
             flipGraphs: !prevState.flipGraphs,
+            toggleLock: true,
         }));
+    }
+    handleFreeToggleLock() {
+        this.setState({
+            toggleLock: false,
+        });
     }
     handleTaxRateIdx(idx) {
         let taxRateRow = Math.floor(idx / 20);
@@ -75,21 +84,16 @@ export class LinearRegressionModel extends Component {
                     <div className={'col-2'}>
                         <div className={'d-flex justify-content-end ' +
                             'linear-regression-toggle'}>
-                            <a className={!this.state.flipGraphs ?
-                                'btn btn-light btn-sm' :
-                                'btn btn-light btn-sm active'}
-                            role={'button'}
-                            disabled={this.state.flipGraphs}
-                            onClick={this.handleFlipGraphs}>
-                                Vertical
-                            </a>
-                            <a className={this.state.flipGraphs ?
-                                'btn btn-light btn-sm' :
-                                'btn btn-light btn-sm active'}
-                            role={'button'}
-                            onClick={this.handleFlipGraphs}>
-                                Horizontal
-                            </a>
+                            <VerticalButton
+                                flipGraphs={this.state.flipGraphs}
+                                handleFlipGraphs={this.handleFlipGraphs}
+                                toggleLock={this.state.toggleLock}
+                            />
+                            <HorizontalButton
+                                flipGraphs={this.state.flipGraphs}
+                                handleFlipGraphs={this.handleFlipGraphs}
+                                toggleLock={this.state.toggleLock}
+                            />
                         </div>
                     </div>
                 </div>
@@ -97,6 +101,7 @@ export class LinearRegressionModel extends Component {
                     {this.state.flipGraphs === false ? (
                         <CSSTransition
                             key={this.state.flipGraphs}
+                            onExited={this.handleFreeToggleLock}
                             classNames="graph-transition"
                             timeout={3000}>
                             <StateAContainer
@@ -111,6 +116,7 @@ export class LinearRegressionModel extends Component {
                     ) : (
                         <CSSTransition
                             key={this.state.flipGraphs}
+                            onExited={this.handleFreeToggleLock}
                             classNames="graph-transition"
                             timeout={3000}>
                             <StateBContainer
@@ -130,3 +136,43 @@ export class LinearRegressionModel extends Component {
         );
     }
 }
+
+const VerticalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
+    return (
+        <button
+            className={
+                flipGraphs ?
+                    'btn btn-light btn-sm' :
+                    'btn btn-light btn-sm active'}
+            disabled={toggleLock || !flipGraphs}
+            onClick={handleFlipGraphs}>
+            Vertical
+        </button>
+    );
+};
+
+VerticalButton.propTypes = {
+    flipGraphs: PropTypes.bool,
+    handleFlipGraphs: PropTypes.func,
+    toggleLock: PropTypes.bool,
+};
+
+const HorizontalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
+    return (
+        <button
+            className={flipGraphs ?
+                'btn btn-light btn-sm active' :
+                'btn btn-light btn-sm'}
+            disabled={toggleLock || flipGraphs}
+            onClick={handleFlipGraphs}>
+                Horizontal
+        </button>
+    );
+};
+
+HorizontalButton.propTypes = {
+    flipGraphs: PropTypes.bool,
+    handleFlipGraphs: PropTypes.func,
+    toggleLock: PropTypes.bool,
+};
+
