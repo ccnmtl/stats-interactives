@@ -102,9 +102,9 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     // Creates an 'ordered' histogram, where each value is
     // represented in the histogram rather than accumulated;
     // and where each value is inserted in the order of the passed array
-    let nBins = bins || NO_OF_BINS;
-    let min = minum || MIN_BIN;
-    let max = maxum || MAX_BIN;
+    let nBins = bins;
+    let min = minum;
+    let max = maxum;
     let binSize = (max - min) / nBins;
 
     let flatBinIndicies = getBinIndices(nBins, binSize, min).map((e) => e[0]);
