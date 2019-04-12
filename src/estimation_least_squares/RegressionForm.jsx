@@ -65,7 +65,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             value={seed}
                             onChange={hndlSeed}
                             placeholder={
-                                'Enter a seed to generate a population'}
+                                'Enter a seed to generate a samples'}
                             autoFocus required/>
                     </div>
                     <div className="form-group">
@@ -74,7 +74,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 disabled={seed ? false : true}
                                 id="generate-population"
                                 type="submit"
-                                value="Generate Population"/>
+                                value="Generate Samples"/>
                         </div>
                     </div>
                 </div>
