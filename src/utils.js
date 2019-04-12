@@ -102,9 +102,9 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
     // Creates an 'ordered' histogram, where each value is
     // represented in the histogram rather than accumulated;
     // and where each value is inserted in the order of the passed array
-    let nBins = bins || NO_OF_BINS;
-    let min = minum || MIN_BIN;
-    let max = maxum || MAX_BIN;
+    let nBins = bins;
+    let min = minum;
+    let max = maxum;
     let binSize = (max - min) / nBins;
 
     let flatBinIndicies = getBinIndices(nBins, binSize, min).map((e) => e[0]);
@@ -128,4 +128,43 @@ export const createScatterPlotHistogram = (samples, bins, minum, maxum) => {
 
 export const getHistogramMaxima = (hist) => {
     return Math.max(...hist.map((e) => e[1]));
+};
+
+export const findLinearRegression = (data) => {
+    // Per wikipedia:
+    // https://en.wikipedia.org/wiki/Ordinary_least_squares#Simple_linear_regression_model
+    let len = data.length;
+    let sumXY = data.reduce((acc, val) => {
+        acc += val[0] * val[1];
+        return acc;
+    }, 0);
+
+    let sumX = data.reduce((acc, val) => {
+        acc += val[0];
+        return acc;
+    }, 0);
+
+    let sumY = data.reduce((acc, val) => {
+        acc += val[1];
+        return acc;
+    }, 0);
+
+    let powX = data.reduce((acc, val) => {
+        acc += val[0] * val[0];
+        return acc;
+    }, 0);
+
+    let beta = (
+        (sumXY - (1/len * sumX * sumY)) / (powX - (1/len * sumX * sumX))
+    );
+
+    let alpha = (sumY / len) - (beta * (sumX / len));
+
+    return [beta, alpha];
+};
+
+export const unpackData = (data, index) => {
+    // takes a 2D matrix and unpacks the given index
+    // returns a flattened array
+    return data.map((val) => {return val[index];});
 };
