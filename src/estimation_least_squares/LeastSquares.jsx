@@ -7,8 +7,8 @@ import { ErrorGraph } from './ErrorGraph';
 
 var seedrandom = require('seedrandom');
 
-const ERROR_GRAPH_X = 10;
-const ERROR_GRAPH_Y = 4;
+const ERROR_GRAPH_X = 4;
+const ERROR_GRAPH_Y = 10;
 const ERROR_GRAPH_AREA = ERROR_GRAPH_X * ERROR_GRAPH_Y;
 
 export class LeastSquares extends Component {
@@ -146,7 +146,7 @@ export class LeastSquares extends Component {
 
         let estimatedSSE = this.calculateSSE(
             population, this.state.regressionFunc);
-        let errorSize = estimatedSSE / ERROR_GRAPH_Y;
+        let errorSize = estimatedSSE / ERROR_GRAPH_X;
 
         this.setState({
             population: population,
@@ -157,14 +157,14 @@ export class LeastSquares extends Component {
             estimatedSSE: estimatedSSE,
             errorSize: errorSize,
             estimatedSSEOpacity: this.getEstimatedSSEOpacity(estimatedSSE),
-            optimalSize: optimalSSE / ERROR_GRAPH_Y,
+            optimalSize: optimalSSE / ERROR_GRAPH_X,
         });
     }
     handleSlope(val) {
         let regressionFunc = (x) => {return val * x + this.state.intercept;};
         let estimatedSSE = this.calculateSSE(
             this.state.population, regressionFunc);
-        let errorSize = estimatedSSE / ERROR_GRAPH_Y;
+        let errorSize = estimatedSSE / ERROR_GRAPH_X;
         this.setState({
             slope: val,
             regressionFunc: regressionFunc,
@@ -177,7 +177,7 @@ export class LeastSquares extends Component {
         let regressionFunc = (x) => {return this.state.slope * x + val;};
         let estimatedSSE = this.calculateSSE(
             this.state.population, regressionFunc);
-        let errorSize = estimatedSSE / ERROR_GRAPH_Y;
+        let errorSize = estimatedSSE / ERROR_GRAPH_X;
         this.setState({
             intercept: val,
             regressionFunc: regressionFunc,
@@ -204,7 +204,7 @@ export class LeastSquares extends Component {
             <div className='container'>
                 <h2>Estimation of Least Squares</h2>
                 <div className={'row'}>
-                    <div className={'col-6'}>
+                    <div className={'col-4'}>
                         <RegressionForm
                             seed={this.state.seed}
                             handleSeed={this.handleSeed}
@@ -223,21 +223,24 @@ export class LeastSquares extends Component {
                             hasPopulation={
                                 this.state.population ? true : false}/>
                     </div>
-                    <div className={'col-6'}>
-                        <div className={'graph-container'}>
-                            {this.state.population &&
-                            <ErrorGraph
-                                optimalSize={this.state.optimalSize}
-                                errorSize={this.state.errorSize}
-                                showBestFit={this.state.showBestFit}
-                                estimatedSSEOpacity={
-                                    this.state.estimatedSSEOpacity}/>
-                            }
-                            <RegressionGraph
-                                population={this.state.population}
-                                regressionFunc={this.state.regressionFunc}
-                                bestFitFunc={this.state.bestFitFunc}
-                                showBestFit={this.state.showBestFit}/>
+                    <div className={'col-8'}>
+                        <div className={'ls-graph-container'}>
+                            <div className={'graph-container ls-error-graph'}>
+                                <ErrorGraph
+                                    optimalSize={this.state.optimalSize}
+                                    errorSize={this.state.errorSize}
+                                    showBestFit={this.state.showBestFit}
+                                    estimatedSSEOpacity={
+                                        this.state.estimatedSSEOpacity}/>
+                            </div>
+                            <div className={
+                                'graph-contianer ls-regression-graph'}>
+                                <RegressionGraph
+                                    population={this.state.population}
+                                    regressionFunc={this.state.regressionFunc}
+                                    bestFitFunc={this.state.bestFitFunc}
+                                    showBestFit={this.state.showBestFit}/>
+                            </div>
                         </div>
                     </div>
                 </div>

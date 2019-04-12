@@ -38,13 +38,6 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             voluptate a tempora nesciunt. Animi quia velit
                             ullam?
                         </p>
-                        <p>Amet fugit aspernatur officiis ratione harum Eaque
-                            cupiditate asperiores fugit temporibus
-                            voluptatibus. Harum illum officiis maiores neque
-                            at praesentium accusantium Eius inventore
-                            voluptate a tempora nesciunt. Animi quia velit
-                            ullam?
-                        </p>
                     </div>
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
@@ -72,7 +65,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             value={seed}
                             onChange={hndlSeed}
                             placeholder={
-                                'Enter a seed to generate a population'}
+                                'Enter a seed to generate a sample'}
                             autoFocus required/>
                     </div>
                     <div className="form-group">
@@ -81,7 +74,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 disabled={seed ? false : true}
                                 id="generate-population"
                                 type="submit"
-                                value="Generate Population"/>
+                                value="Generate Samples"/>
                         </div>
                     </div>
                 </div>
@@ -100,7 +93,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 className={'form-control form-control-sm'}
                                 min={-5}
                                 max={5}
-                                value={slope}
+                                value={math.round(slope, 2)}
                                 step={0.01}
                                 onChange={handleSlope} />
                             {showBestFit &&
@@ -131,7 +124,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 min={-4}
                                 max={4}
                                 step={0.01}
-                                value={intercept}
+                                value={math.round(intercept, 2)}
                                 onChange={handleIntercept} />
                             {showBestFit &&
                                 <span className={'best-fit-label'}>
