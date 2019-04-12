@@ -2,3 +2,17 @@
     margin-left: 1em;
     background-color: #FFFF66;
 }
+
+.ls-graph-container {
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: #FFFFFF;
+}
+
+.ls-error-graph {
+    flex: 4.8;
+}
+
+.ls-regression-graph {
+    flex: 10;
+}

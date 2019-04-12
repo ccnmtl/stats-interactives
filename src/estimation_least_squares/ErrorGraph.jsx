@@ -11,42 +11,32 @@ export const ErrorGraph = ({optimalSize, errorSize,
     return (
         <div className={'error-graph-container'}>
             <VictoryChart theme={VictoryTheme.material}
-                height={190}
-                width={400}
-                padding={{left: 40, top: 10, right: 20, bottom: 40}}
-                domain={{x: [0, 10], y: [0, 4]}}>
+                height={400}
+                width={190}
+                padding={{left: 30, top: 25, right: 5, bottom: 30}}
+                domain={{x: [0, 4], y: [0, 10]}}>
                 <VictoryAxis
-                    label={'X Axis'}
-                    style={{
-                        axisLabel: {
-                            padding: '160',
-                        },
-                    }}
-                    tickValues={math.range(0, 10, true).map((val) => {
+                    tickValues={math.range(0, 4, true).map((val) => {
                         return val;
                     })} />
                 <VictoryAxis
                     dependentAxis={true}
-                    label={'Y Axis'}
-                    style={{
-                        axisLabel: {
-                            padding: '160',
-                        },
-                    }}
-                    tickValues={math.range(0, 4, true).map((val) => {
+                    tickValues={math.range(0, 10, true).map((val) => {
                         return val;
                     })} />
+                {errorSize &&
                 <VictoryArea
                     style={{data: {
                         fill: LEAST_SQAURES_EST,
                         fillOpacity: estimatedSSEOpacity }}}
-                    data={[{x: 0, y: 4},
-                        {x: errorSize, y: 4}]}/>
+                    data={[{x: 0, y: errorSize},
+                        {x: 4, y: errorSize}]}/>
+                }
                 {showBestFit &&
                 <VictoryArea
                     style={{data: { fill: LEAST_SQAURES_OPT, fillOpacity: 1 }}}
-                    data={[{x: 0, y: 4},
-                        {x: optimalSize, y: 4}]}/>
+                    data={[{x: 0, y: optimalSize},
+                        {x: 4, y: optimalSize}]}/>
                 }
             </VictoryChart>
         </div>

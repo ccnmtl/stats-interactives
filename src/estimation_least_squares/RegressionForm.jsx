@@ -38,13 +38,6 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             voluptate a tempora nesciunt. Animi quia velit
                             ullam?
                         </p>
-                        <p>Amet fugit aspernatur officiis ratione harum Eaque
-                            cupiditate asperiores fugit temporibus
-                            voluptatibus. Harum illum officiis maiores neque
-                            at praesentium accusantium Eius inventore
-                            voluptate a tempora nesciunt. Animi quia velit
-                            ullam?
-                        </p>
                     </div>
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">

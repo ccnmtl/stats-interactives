@@ -16,7 +16,7 @@ export const RegressionGraph = ({population, regressionFunc,
     return (
         <VictoryChart theme={VictoryTheme.material}
             containerComponent={<VictoryVoronoiContainer/>}
-            padding={{left: 40, top: 20, right: 20, bottom: 45}}
+            padding={{left: 40, top: 20, right: 15, bottom: 45}}
             domain={{x: [MIN, MAX], y: [MIN, MAX]}}>
             <VictoryAxis
                 label={'X Axis'}
