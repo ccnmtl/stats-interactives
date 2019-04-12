@@ -96,9 +96,7 @@ export class CLTLeastSquares extends Component {
     }
     getPopulationRegression(pop) {
         return pop.map((val) => {
-            let beta, alpha = null;
-            [beta, alpha] = findLinearRegression(val);
-            return [beta, alpha];
+            return findLinearRegression(val);
         });
     }
     getPopulationVariance(pop) {
