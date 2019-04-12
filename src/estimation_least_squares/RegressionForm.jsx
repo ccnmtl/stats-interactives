@@ -65,7 +65,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                             value={seed}
                             onChange={hndlSeed}
                             placeholder={
-                                'Enter a seed to generate a samples'}
+                                'Enter a seed to generate a sample'}
                             autoFocus required/>
                     </div>
                     <div className="form-group">
