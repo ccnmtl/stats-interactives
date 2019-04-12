@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryLine, VictoryVoronoiContainer,
-    VictoryScatter, VictoryArea, VictoryAxis, VictoryTooltip} from 'victory';
+    VictoryScatter, VictoryArea, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, LEAST_SQAURES_EST,
@@ -92,10 +92,6 @@ export const RegressionGraph = ({population, regressionFunc,
                         fill: LEAST_SQAURES_EST, stroke: BAR_BORDER,
                         strokeWidth: '1px' } }}
                     size={4}
-                    labels={(datum) => {
-                        return '(' + math.round(datum[0], 2) +
-                            ', ' + math.round(datum[1], 2) + ')';}}
-                    labelComponent={<VictoryTooltip />}
                     x={(datum) => datum[0]}
                     y={(datum) => datum[1]} />
             }
