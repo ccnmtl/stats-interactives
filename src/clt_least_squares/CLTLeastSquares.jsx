@@ -100,9 +100,15 @@ export class CLTLeastSquares extends Component {
             return findLinearRegression(val);
         });
     }
-    getPopulationVariance(pop) {
-        return pop.map((val) => {
-            return jStat.variance(val);
+    getPopulationVariance(population, populationRegression) {
+        return population.map((val, i) => {
+            let residuals = val.map((el) => {
+                let slope = populationRegression[i][0];
+                let intercept = populationRegression[i][1];
+                let y_hat = slope * el[0] + intercept;
+                return el[1] - y_hat;
+            });
+            return jStat.variance(residuals);
         });
     }
     handleGeneratePop() {
@@ -131,13 +137,8 @@ export class CLTLeastSquares extends Component {
         let interceptFreqGraphData = interceptFreq.slice(
             0, this.state.sampleIdx + 1);
 
-        let popY = population.map((val) => {
-            return val.map((v) => {
-                return v[1];
-            });
-        });
-
-        let populationVariance = this.getPopulationVariance(popY);
+        let populationVariance = this.getPopulationVariance(
+            population, populationRegression);
         let varianceFreq = createScatterPlotHistogram(
             populationVariance,
             NO_OF_BINS,
