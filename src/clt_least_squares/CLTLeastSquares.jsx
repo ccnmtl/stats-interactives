@@ -36,6 +36,7 @@ export class CLTLeastSquares extends Component {
         this.initialState = {
             seed: '',
             population: null,
+            populationRegression: null,
             sampleIdx: 0,
             beta: 0.5,
             alpha: 0.5,
@@ -149,6 +150,7 @@ export class CLTLeastSquares extends Component {
 
         this.setState({
             population: population,
+            populationRegression: populationRegression,
             slopeFreq: slopeFreq,
             interceptFreq: interceptFreq,
             slopeFreqGraphData: slopeFreqGraphData,
@@ -195,6 +197,8 @@ export class CLTLeastSquares extends Component {
                         <div>
                             <PopulationGraph
                                 population={this.state.population}
+                                populationRegression={
+                                    this.state.populationRegression}
                                 sampleIdx={this.state.sampleIdx}/>
                         </div>
                         <div>
