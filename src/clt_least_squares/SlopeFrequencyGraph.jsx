@@ -14,7 +14,7 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
             domain={{x: [0, 1], y: [0, 100]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Intercept Frequency'}
+                label={'The Y axis'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -27,6 +27,7 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                 tickValues={
                     [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]} />
             <VictoryAxis
+                label={'The X axis'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
