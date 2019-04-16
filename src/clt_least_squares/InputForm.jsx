@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
+import { InlineMath } from 'react-katex';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, stdDev, handleStdDev,
@@ -54,7 +55,9 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                 <div className={'form-group'}>
                     <div className={'form-row'}>
                         <label htmlFor={'slope'}>
-                            Beta:
+                            <InlineMath>
+                                {String.raw`\beta_0`}
+                            </InlineMath>
                         </label>
                         <NumericField
                             id={'beta'}
@@ -79,7 +82,9 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                     </div>
                     <div className={'form-row'}>
                         <label htmlFor={'alpha'}>
-                            Alpha:
+                            <InlineMath>
+                                {String.raw`\beta_1`}
+                            </InlineMath>
                         </label>
                         <NumericField
                             id={'alpha'}
