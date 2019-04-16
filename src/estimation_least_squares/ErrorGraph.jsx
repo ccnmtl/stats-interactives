@@ -7,8 +7,9 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
 export const ErrorGraph = ({optimalSize, errorSize,
-    showBestFit, estimatedSSEOpacity}) => {
+    showBestFit, estimatedSSEOpacity, estimatedSSE, optimalSSE}) => {
     return (
+        <>
         <div className={'error-graph-container'}>
             <VictoryChart theme={VictoryTheme.material}
                 height={400}
@@ -40,6 +41,15 @@ export const ErrorGraph = ({optimalSize, errorSize,
                 }
             </VictoryChart>
         </div>
+        {estimatedSSE &&
+        <div className={'estimated-sse-label'}>
+            Estimated SSE: {math.round(estimatedSSE, 2)}
+        </div>}
+        {showBestFit &&
+        <div className={'best-fit-label'}>
+            Best Fit SSE: {math.round(optimalSSE, 2)}
+        </div>}
+        </>
     );
 };
 
@@ -48,4 +58,6 @@ ErrorGraph.propTypes = {
     errorSize: PropTypes.number,
     showBestFit: PropTypes.bool,
     estimatedSSEOpacity: PropTypes.number,
+    estimatedSSE: PropTypes.number,
+    optimalSSE: PropTypes.number,
 };
