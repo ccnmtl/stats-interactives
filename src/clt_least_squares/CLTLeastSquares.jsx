@@ -90,7 +90,8 @@ export class CLTLeastSquares extends Component {
         return [...Array(NO_OF_SAMPLES)].map((val) => {
             return [...Array(SAMPLE_SIZE)].map((val) => {
                 let x = Math.random();
-                let y = Math.random();
+                let ySample = this.state.beta * x + this.state.alpha;
+                let y = jStat.normal.sample(ySample, this.state.stdDev);
                 return [x, y];
             });
         });

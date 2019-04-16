@@ -12,7 +12,7 @@ export const PopulationGraph = ({
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 1], y: [0, 1]}}>
+            domain={{x: [0, 1], y: [-3, 3]}}>
             <VictoryAxis
                 dependentAxis={true}
                 label={'The Y axis'}
@@ -26,8 +26,9 @@ export const PopulationGraph = ({
                     }
                 }}
                 tickValues={
-                    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
+                    [-3, -2, -1, 0, 1, 2, 3]} />
             <VictoryAxis
+                orientation={'bottom'}
                 label={'The X axis'}
                 style={{
                     axisLabel: {
@@ -49,6 +50,8 @@ export const PopulationGraph = ({
             {populationRegression &&
                 <VictoryLine
                     samples={10}
+                    style={{ data: { fill: 'blue', stroke: 'red',
+                        strokeWidth: '3px' } }}
                     y={(d) => {
                         let slope = populationRegression[sampleIdx][0];
                         let intercept = populationRegression[sampleIdx][1];
