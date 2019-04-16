@@ -14,22 +14,6 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
         e.preventDefault();
         handleGeneratePop();
     };
-    const hndlBeta = (e) => {
-        e.preventDefault();
-        handleBeta();
-    };
-    const hndlAlpha = (e) => {
-        e.preventDefault();
-        handleAlpha();
-    };
-    const hndlStdDev= (e) => {
-        e.preventDefault();
-        handleStdDev();
-    };
-    const hndlSampleIdx= (e) => {
-        e.preventDefault();
-        handleSampleIdx();
-    };
     return (
         <>
         <form onSubmit={handleGenPop}
@@ -79,7 +63,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             max={1}
                             value={beta}
                             step={0.01}
-                            onChange={hndlBeta} />
+                            onChange={handleBeta} />
                     </div>
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
@@ -104,7 +88,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             max={1}
                             step={0.01}
                             value={alpha}
-                            onChange={hndlAlpha} />
+                            onChange={handleAlpha} />
                     </div>
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
@@ -129,7 +113,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             max={1}
                             step={0.01}
                             value={stdDev}
-                            onChange={hndlStdDev} />
+                            onChange={handleStdDev} />
                     </div>
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
@@ -168,7 +152,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 max={99}
                                 value={sampleIdx}
                                 step={1}
-                                onChange={hndlSampleIdx} />
+                                onChange={handleSampleIdx} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
