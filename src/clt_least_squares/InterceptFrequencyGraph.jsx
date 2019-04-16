@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as math from 'mathjs';
+import { BAR_BORDER, INDICATOR } from '../colors.js';
 math.config({matrix: 'Array'});
 
 import {
@@ -44,7 +45,9 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                 })} />
             {samples &&
                 <VictoryScatter data={samples}
-                    size={7}
+                    style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: 2 } }}
+                    size={5}
                     y={(datum) => datum[0]}
                     x={(datum) => datum[1]} />
             }
