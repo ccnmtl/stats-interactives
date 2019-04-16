@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DOT_SIZE } from './CLTLeastSquares';
+import { BAR_BORDER, INACTIVE } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
@@ -43,7 +45,9 @@ export const PopulationGraph = ({
                     [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
             {population &&
                 <VictoryScatter data={population[sampleIdx]}
-                    size={7}
+                    style={{ data: { fill: INACTIVE, stroke: BAR_BORDER,
+                        strokeWidth: 2 } }}
+                    size={DOT_SIZE}
                     y={(datum) => datum[1]}
                     x={(datum) => datum[0]} />
             }
