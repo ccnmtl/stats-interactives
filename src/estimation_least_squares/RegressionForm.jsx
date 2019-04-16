@@ -7,8 +7,7 @@ import * as math from 'mathjs';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
-    reset, hasPopulation, beta, alpha, showBestFit,
-    estimatedSSE, optimalSSE}) => {
+    reset, hasPopulation, beta, alpha, showBestFit}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -144,16 +143,6 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row'}>
-                            <div>
-                                Estimated SSE: {math.round(estimatedSSE, 2)}
-                            </div>
-                            {showBestFit &&
-                            <div className={'best-fit-label'}>
-                                Best Fit SSE: {math.round(optimalSSE, 2)}
-                            </div>
-                            }
-                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -203,6 +192,4 @@ RegressionForm.propTypes = {
     beta: PropTypes.number,
     alpha: PropTypes.number,
     showBestFit: PropTypes.bool,
-    estimatedSSE: PropTypes.number,
-    optimalSSE: PropTypes.number,
 };

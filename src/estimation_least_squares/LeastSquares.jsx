@@ -213,8 +213,6 @@ export class LeastSquares extends Component {
                             intercept={this.state.intercept}
                             beta={this.state.beta}
                             alpha={this.state.alpha}
-                            estimatedSSE={this.state.estimatedSSE}
-                            optimalSSE={this.state.optimalSSE}
                             handleSlope={this.handleSlope}
                             handleIntercept={this.handleIntercept}
                             handleShowBestFit={this.handleShowBestFit}
@@ -230,6 +228,8 @@ export class LeastSquares extends Component {
                                     optimalSize={this.state.optimalSize}
                                     errorSize={this.state.errorSize}
                                     showBestFit={this.state.showBestFit}
+                                    estimatedSSE={this.state.estimatedSSE}
+                                    optimalSSE={this.state.optimalSSE}
                                     estimatedSSEOpacity={
                                         this.state.estimatedSSEOpacity}/>
                             </div>
