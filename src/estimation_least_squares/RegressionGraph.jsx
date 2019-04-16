@@ -72,14 +72,14 @@ export const RegressionGraph = ({population, regressionFunc,
                         return (<VictoryArea
                             key={val}
                             style={{data: {
-                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.95 }}}
+                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
                             data={[{x: val[0], y: lineY, y0: val[1]},
                                 {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
                     } else {
                         return (<VictoryArea
                             key={val}
                             style={{data: {
-                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.95 }}}
+                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
                             data={[{x: val[0] - diffY, y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
                     }
