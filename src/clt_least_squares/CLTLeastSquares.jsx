@@ -129,11 +129,14 @@ export class CLTLeastSquares extends Component {
         );
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
 
+        let interceptFreqNoOfBins = 30;
+        let interceptFreqMinBin = -3;
+        let interceptFreqMaxBin = 3;
         let interceptFreq = createScatterPlotHistogram(
             unpackData(populationRegression, 1),
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
+            interceptFreqNoOfBins,
+            interceptFreqMinBin,
+            interceptFreqMaxBin
         );
         let interceptFreqGraphData = interceptFreq.slice(
             0, this.state.sampleIdx + 1);
