@@ -36,6 +36,7 @@ export class CLTLeastSquares extends Component {
         this.initialState = {
             seed: '',
             population: null,
+            populationRegression: null,
             sampleIdx: 0,
             beta: 0.5,
             alpha: 0.5,
@@ -89,7 +90,8 @@ export class CLTLeastSquares extends Component {
         return [...Array(NO_OF_SAMPLES)].map((val) => {
             return [...Array(SAMPLE_SIZE)].map((val) => {
                 let x = Math.random();
-                let y = Math.random();
+                let ySample = this.state.beta * x + this.state.alpha;
+                let y = jStat.normal.sample(ySample, this.state.stdDev);
                 return [x, y];
             });
         });
@@ -99,9 +101,15 @@ export class CLTLeastSquares extends Component {
             return findLinearRegression(val);
         });
     }
-    getPopulationVariance(pop) {
-        return pop.map((val) => {
-            return jStat.variance(val);
+    getPopulationVariance(population, populationRegression) {
+        return population.map((val, i) => {
+            let residuals = val.map((el) => {
+                let slope = populationRegression[i][0];
+                let intercept = populationRegression[i][1];
+                let y_hat = slope * el[0] + intercept;
+                return el[1] - y_hat;
+            });
+            return jStat.variance(residuals);
         });
     }
     handleGeneratePop() {
@@ -121,22 +129,20 @@ export class CLTLeastSquares extends Component {
         );
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
 
+        let interceptFreqNoOfBins = 30;
+        let interceptFreqMinBin = -3;
+        let interceptFreqMaxBin = 3;
         let interceptFreq = createScatterPlotHistogram(
             unpackData(populationRegression, 1),
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
+            interceptFreqNoOfBins,
+            interceptFreqMinBin,
+            interceptFreqMaxBin
         );
         let interceptFreqGraphData = interceptFreq.slice(
             0, this.state.sampleIdx + 1);
 
-        let popY = population.map((val) => {
-            return val.map((v) => {
-                return v[1];
-            });
-        });
-
-        let populationVariance = this.getPopulationVariance(popY);
+        let populationVariance = this.getPopulationVariance(
+            population, populationRegression);
         let varianceFreq = createScatterPlotHistogram(
             populationVariance,
             NO_OF_BINS,
@@ -149,6 +155,7 @@ export class CLTLeastSquares extends Component {
 
         this.setState({
             population: population,
+            populationRegression: populationRegression,
             slopeFreq: slopeFreq,
             interceptFreq: interceptFreq,
             slopeFreqGraphData: slopeFreqGraphData,
@@ -195,6 +202,8 @@ export class CLTLeastSquares extends Component {
                         <div>
                             <PopulationGraph
                                 population={this.state.population}
+                                populationRegression={
+                                    this.state.populationRegression}
                                 sampleIdx={this.state.sampleIdx}/>
                         </div>
                         <div>

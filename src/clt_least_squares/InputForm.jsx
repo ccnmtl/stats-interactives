@@ -14,22 +14,6 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
         e.preventDefault();
         handleGeneratePop();
     };
-    const hndlBeta = (e) => {
-        e.preventDefault();
-        handleBeta();
-    };
-    const hndlAlpha = (e) => {
-        e.preventDefault();
-        handleAlpha();
-    };
-    const hndlStdDev= (e) => {
-        e.preventDefault();
-        handleStdDev();
-    };
-    const hndlSampleIdx= (e) => {
-        e.preventDefault();
-        handleSampleIdx();
-    };
     return (
         <>
         <form onSubmit={handleGenPop}
@@ -65,101 +49,94 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 'Enter a seed to generate a population'}
                             autoFocus required/>
                     </div>
-                    <div className="form-group">
-                        <div className="form-row">
-                            <input className="btn btn-primary btn-block"
-                                disabled={seed ? false : true}
-                                id="generate-population"
-                                type="submit"
-                                value="Generate Population"/>
+                </div>
+                { seed &&
+                <div className={'form-group'}>
+                    <div className={'form-row'}>
+                        <label htmlFor={'slope'}>
+                            Beta:
+                        </label>
+                        <NumericField
+                            id={'beta'}
+                            className={'form-control form-control-sm'}
+                            min={0}
+                            max={1}
+                            value={beta}
+                            step={0.01}
+                            onChange={handleBeta} />
+                    </div>
+                    <div className={'form-row'}>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                min={0}
+                                max={99}
+                                values={[(beta * 100)]}
+                                onValuesUpdated={(sliderState) => {
+                                    handleBeta(
+                                        (sliderState.values[0] * 0.01));
+                                }} />
                         </div>
                     </div>
-                </div>
+                    <div className={'form-row'}>
+                        <label htmlFor={'alpha'}>
+                            Alpha:
+                        </label>
+                        <NumericField
+                            id={'alpha'}
+                            className={'form-control form-control-sm'}
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            value={alpha}
+                            onChange={handleAlpha} />
+                    </div>
+                    <div className={'form-row'}>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                min={0}
+                                max={99}
+                                values={[(alpha * 100)]}
+                                onValuesUpdated={(sliderState) => {
+                                    handleAlpha(
+                                        (sliderState.values[0] * 0.01));
+                                }} />
+                        </div>
+                    </div>
+                    <div className={'form-row'}>
+                        <label htmlFor={'std-dev'}>
+                            Standard Deviation:
+                        </label>
+                        <NumericField
+                            id={'std-dev'}
+                            className={'form-control form-control-sm'}
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            value={stdDev}
+                            onChange={handleStdDev} />
+                    </div>
+                    <div className={'form-row'}>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                min={0}
+                                max={99}
+                                values={[(stdDev * 100)]}
+                                onValuesUpdated={(sliderState) => {
+                                    handleStdDev(
+                                        (sliderState.values[0] * 0.01));
+                                }} />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <input className="btn btn-primary btn-block"
+                            disabled={seed ? false : true}
+                            id="generate-population"
+                            type="submit"
+                            value="Generate Population"/>
+                    </div>
+                </div>}
             </fieldset>
         </form>
-        { seed &&
-            <form onSubmit={(e) => {e.preventDefault();}}>
-                <fieldset>
-                    <div className={'form-group'}>
-                        <div className={'form-row'}>
-                            <label htmlFor={'slope'}>
-                                Beta:
-                            </label>
-                            <NumericField
-                                id={'beta'}
-                                className={'form-control form-control-sm'}
-                                min={0}
-                                max={1}
-                                value={beta}
-                                step={0.01}
-                                onChange={hndlBeta} />
-                        </div>
-                        <div className={'form-row'}>
-                            <div style={{ height: '50px', width: '100%'}}>
-                                <Rheostat
-                                    min={0}
-                                    max={99}
-                                    values={[(beta * 100)]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleBeta(
-                                            (sliderState.values[0] * 0.01));
-                                    }} />
-                            </div>
-                        </div>
-                        <div className={'form-row'}>
-                            <label htmlFor={'alpha'}>
-                                Alpha:
-                            </label>
-                            <NumericField
-                                id={'alpha'}
-                                className={'form-control form-control-sm'}
-                                min={0}
-                                max={1}
-                                step={0.01}
-                                value={alpha}
-                                onChange={hndlAlpha} />
-                        </div>
-                        <div className={'form-row'}>
-                            <div style={{ height: '50px', width: '100%'}}>
-                                <Rheostat
-                                    min={0}
-                                    max={99}
-                                    values={[(alpha * 100)]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleAlpha(
-                                            (sliderState.values[0] * 0.01));
-                                    }} />
-                            </div>
-                        </div>
-                        <div className={'form-row'}>
-                            <label htmlFor={'std-dev'}>
-                                Standard Deviation:
-                            </label>
-                            <NumericField
-                                id={'std-dev'}
-                                className={'form-control form-control-sm'}
-                                min={0}
-                                max={1}
-                                step={0.01}
-                                value={stdDev}
-                                onChange={hndlStdDev} />
-                        </div>
-                        <div className={'form-row'}>
-                            <div style={{ height: '50px', width: '100%'}}>
-                                <Rheostat
-                                    min={0}
-                                    max={99}
-                                    values={[(stdDev * 100)]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleStdDev(
-                                            (sliderState.values[0] * 0.01));
-                                    }} />
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        }
         { hasPopulation &&
             <form onSubmit={(e) => {e.preventDefault();}}>
                 <fieldset>
@@ -175,7 +152,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 max={99}
                                 value={sampleIdx}
                                 step={1}
-                                onChange={hndlSampleIdx} />
+                                onChange={handleSampleIdx} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>

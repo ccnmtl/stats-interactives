@@ -11,11 +11,11 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 50, bottom: 50}}
-            domain={{x: [0, 1], y: [0, 100]}}>
+            domain={{x: [0, 50], y: [-3, 3]}}>
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
-                label={'The Y axis'}
+                label={'Intercept Frequency'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -25,10 +25,10 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+                tickValues={math.range(-3, 3, true).map((val) => {
+                    return val;
+                })} />
             <VictoryAxis
-                label={'The X axis'}
                 invertAxis={true}
                 style={{
                     axisLabel: {
@@ -39,13 +39,14 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
+                tickValues={math.range(0, 50, 10, true).map((val) => {
+                    return val;
+                })} />
             {samples &&
                 <VictoryScatter data={samples}
                     size={7}
-                    y={(datum) => datum[1]}
-                    x={(datum) => datum[0]} />
+                    y={(datum) => datum[0]}
+                    x={(datum) => datum[1]} />
             }
         </VictoryChart>
     );
