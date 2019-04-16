@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DOT_SIZE } from './CLTLeastSquares';
 import * as math from 'mathjs';
-import { BAR_BORDER, INDICATOR } from '../colors.js';
+import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 math.config({matrix: 'Array'});
 
 import {
@@ -45,9 +46,17 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                 })} />
             {samples &&
                 <VictoryScatter data={samples}
+                    style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
+                        strokeWidth: 2 } }}
+                    size={DOT_SIZE}
+                    y={(datum) => datum[0]}
+                    x={(datum) => datum[1]} />
+            }
+            {samples &&
+                <VictoryScatter data={samples.slice(-1)}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: 2 } }}
-                    size={5}
+                    size={DOT_SIZE}
                     y={(datum) => datum[0]}
                     x={(datum) => datum[1]} />
             }

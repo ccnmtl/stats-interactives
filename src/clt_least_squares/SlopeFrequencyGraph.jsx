@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BAR_BORDER, INDICATOR } from '../colors.js';
+import { DOT_SIZE } from './CLTLeastSquares';
+import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
@@ -42,9 +43,17 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                     [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
             {samples &&
                 <VictoryScatter data={samples}
+                    style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
+                        strokeWidth: 2 } }}
+                    size={DOT_SIZE}
+                    y={(datum) => datum[1]}
+                    x={(datum) => datum[0]} />
+            }
+            {samples &&
+                <VictoryScatter data={samples.slice(-1)}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
                         strokeWidth: 2 } }}
-                    size={5}
+                    size={DOT_SIZE}
                     y={(datum) => datum[1]}
                     x={(datum) => datum[0]} />
             }

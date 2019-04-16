@@ -12,6 +12,8 @@ var seedrandom = require('seedrandom');
 /* eslint-disable-next-line */
 var jStat = require('jStat').jStat;
 
+export const DOT_SIZE = 4;
+
 const SAMPLE_SIZE = 100;
 const NO_OF_SAMPLES = 100;
 const MIN_BIN = 0;
