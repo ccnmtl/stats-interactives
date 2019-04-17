@@ -27,8 +27,14 @@ export class LeastSquares extends Component {
         this.validatePopulation= this.validatePopulation.bind(this);
         this.reset = this.reset.bind(this);
 
-        /* eslint-disable-next-line */
-        let isAssessment = this.props.location.pathname === '/least-squares-estimation-assessment';
+        /* eslint-disable */
+        // This guard condition is needed to pass tests, as the location
+        // object isn't passed on render in the test suite
+        let isAssessment = false;
+        if (typeof(this.props.location) !== 'undefined'){
+            isAssessment = this.props.location.pathname === '/least-squares-estimation-assessment';
+        }
+        /* eslint-enable */
 
         this.initialState = {
             seed: '',
@@ -123,7 +129,8 @@ export class LeastSquares extends Component {
         return false;
     }
     handleGeneratePop() {
-        let seed = this.state.isAssessment ? seed + 'IHeartStatistics' : seed;
+        let seed = this.state.isAssessment ?
+            this.state.seed + 'IHeartStatistics' : this.state.seed;
         seedrandom(seed, {global: true});
 
         let population = [];
