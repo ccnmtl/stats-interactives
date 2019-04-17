@@ -4,6 +4,7 @@ import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
+import * as math from 'mathjs';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, stdDev, handleStdDev,
@@ -18,7 +19,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     return (
         <>
         <form onSubmit={handleGenPop}
-            className="needs-validation" noValidate >
+            className="needs-validation clt-least-squares-form" noValidate >
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
@@ -54,55 +55,81 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                 { seed &&
                 <div className={'form-group'}>
                     <div className={'form-row'}>
-                        <label htmlFor={'slope'}>
+                        <label htmlFor={'alpha'}>
                             <InlineMath>
                                 {String.raw`\beta_0`}
                             </InlineMath>
                         </label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="alpha-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="alpha-tt" event="focus"
+                            eventOff="blur">
+                            <span>Intercept</span>
+                        </ReactTooltip>
+                        <NumericField
+                            id={'alpha'}
+                            className={
+                                'form-control form-control-sm numeric-field'}
+                            min={-1}
+                            max={1}
+                            step={0.01}
+                            value={math.round(alpha, 2)}
+                            onChange={handleAlpha} />
+                    </div>
+                    <div className={'form-row'}>
+                        <div style={{ height: '50px', width: '100%'}}>
+                            <Rheostat
+                                min={-100}
+                                max={100}
+                                values={[math.round(alpha * 100, 2)]}
+                                onValuesUpdated={(sliderState) => {
+                                    handleAlpha(
+                                        (sliderState.values[0] * 0.01));
+                                }} />
+                        </div>
+                    </div>
+                    <div className={'form-row'}>
+                        <label htmlFor={'slope'}>
+                            <InlineMath>
+                                {String.raw`\beta_1`}
+                            </InlineMath>
+                        </label>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="beta-tt">
+                            <sup>
+                                <i className="fas fa-question-circle"></i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="beta-tt" event="focus"
+                            eventOff="blur">
+                            <span>Slope</span>
+                        </ReactTooltip>
                         <NumericField
                             id={'beta'}
-                            className={'form-control form-control-sm'}
-                            min={0}
+                            className={
+                                'form-control form-control-sm numeric-field'}
+                            min={-1}
                             max={1}
-                            value={beta}
+                            value={math.round(beta, 2)}
                             step={0.01}
                             onChange={handleBeta} />
                     </div>
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
-                                min={0}
-                                max={99}
-                                values={[(beta * 100)]}
+                                min={-100}
+                                max={100}
+                                values={[math.round(beta * 100, 2)]}
                                 onValuesUpdated={(sliderState) => {
                                     handleBeta(
-                                        (sliderState.values[0] * 0.01));
-                                }} />
-                        </div>
-                    </div>
-                    <div className={'form-row'}>
-                        <label htmlFor={'alpha'}>
-                            <InlineMath>
-                                {String.raw`\beta_1`}
-                            </InlineMath>
-                        </label>
-                        <NumericField
-                            id={'alpha'}
-                            className={'form-control form-control-sm'}
-                            min={0}
-                            max={1}
-                            step={0.01}
-                            value={alpha}
-                            onChange={handleAlpha} />
-                    </div>
-                    <div className={'form-row'}>
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
-                                min={0}
-                                max={99}
-                                values={[(alpha * 100)]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleAlpha(
                                         (sliderState.values[0] * 0.01));
                                 }} />
                         </div>
