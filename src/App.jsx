@@ -63,7 +63,7 @@ export class App extends Component {
                             <Route path="/linear-regression-model"
                                 component={
                                     withTracker(LinearRegressionModel)} />
-                            <Route path="/least-squares"
+                            <Route path="/least-squares-estimation"
                                 component={withTracker(LeastSquares)} />
                             <Route path="/clt-least-squares"
                                 component={withTracker(CLTLeastSquares)} />
