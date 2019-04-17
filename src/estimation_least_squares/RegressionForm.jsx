@@ -7,7 +7,7 @@ import * as math from 'mathjs';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
-    reset, hasPopulation, beta, alpha, showBestFit}) => {
+    reset, hasPopulation, beta, alpha, showBestFit, isAssessment}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -160,6 +160,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                 <fieldset>
                     <div className="form-group">
                         <div className="form-group">
+                            {!isAssessment &&
                             <div className="form-row">
                                 <input className="btn btn-primary btn-block"
                                     disabled={!hasPopulation}
@@ -167,7 +168,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     type="submit"
                                     onClick={hndlBestFit}
                                     value="Toggle Best Fit"/>
-                            </div>
+                            </div>}
                             <div className="form-row">
                                 <input className="btn btn-danger btn-block"
                                     disabled={!hasPopulation}
@@ -199,4 +200,5 @@ RegressionForm.propTypes = {
     beta: PropTypes.number,
     alpha: PropTypes.number,
     showBestFit: PropTypes.bool,
+    isAssessment: PropTypes.bool,
 };
