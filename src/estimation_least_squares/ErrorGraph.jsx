@@ -42,11 +42,11 @@ export const ErrorGraph = ({optimalSize, errorSize,
             </VictoryChart>
         </div>
         {estimatedSSE &&
-        <div className={'estimated-sse-label'}>
+        <div className={'sse-label'}>
             Estimated SSE: {math.round(estimatedSSE, 2)}
         </div>}
         {showBestFit &&
-        <div className={'best-fit-label'}>
+        <div className={'sse-label best-fit-label'}>
             Best Fit SSE: {math.round(optimalSSE, 2)}
         </div>}
         </>

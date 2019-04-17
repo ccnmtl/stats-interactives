@@ -6,7 +6,7 @@ import {
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { BAR_BORDER, LEAST_SQAURES_EST,
-    LEAST_SQAURES_OPT } from '../colors.js';
+    LEAST_SQAURES_OPT, INDICATOR } from '../colors.js';
 
 const MIN = -5;
 const MAX = 5;
@@ -86,16 +86,6 @@ export const RegressionGraph = ({population, regressionFunc,
                 })
             }
             { population &&
-                <VictoryScatter
-                    data={population}
-                    style={{ data: {
-                        fill: LEAST_SQAURES_EST, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
-                    size={4}
-                    x={(datum) => datum[0]}
-                    y={(datum) => datum[1]} />
-            }
-            { population &&
                 <VictoryLine
                     samples={10}
                     style={{ data: { stroke: LEAST_SQAURES_EST,
@@ -108,6 +98,16 @@ export const RegressionGraph = ({population, regressionFunc,
                     style={{ data: { stroke: LEAST_SQAURES_OPT,
                         strokeWidth: '1px' } }}
                     y={(datum) => bestFitFunc(datum.x)}/>
+            }
+            { population &&
+                <VictoryScatter
+                    data={population}
+                    style={{ data: {
+                        fill: INDICATOR, stroke: BAR_BORDER,
+                        strokeWidth: '1px' } }}
+                    size={4}
+                    x={(datum) => datum[0]}
+                    y={(datum) => datum[1]} />
             }
         </VictoryChart>
     );

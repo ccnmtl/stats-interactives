@@ -83,23 +83,26 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
             <form onSubmit={(e) => {e.preventDefault();}}>
                 <fieldset>
                     <div className={'form-group'}>
-                        <div className={'form-row'}>
-                            <label htmlFor={'slope'}>
-                                Slope:
-                            </label>
-                            <NumericField
-                                id={'slope'}
-                                className={'form-control form-control-sm'}
-                                min={-5}
-                                max={5}
-                                value={math.round(slope, 2)}
-                                step={0.01}
-                                onChange={handleSlope} />
-                            {showBestFit &&
-                                <span className={'best-fit-label'}>
-                                    Best Fit Slope: {math.round(beta, 2)}
-                                </span>
-                            }
+                        <div className={'form-row ls-form-row'}>
+                            <div className={'ls-form-col ls-col-a'}>
+                                <label htmlFor={'slope'}>
+                                    Slope:
+                                </label>
+                                <NumericField
+                                    id={'slope'}
+                                    className={'form-control form-control-sm'}
+                                    min={-5}
+                                    max={5}
+                                    value={math.round(slope, 2)}
+                                    step={0.01}
+                                    onChange={handleSlope} />
+                            </div>
+                            <div className={'ls-form-col ls-col-b'}>
+                                {showBestFit &&
+                                    <span className={'best-fit-label'}>
+                                        Best Fit Slope: {math.round(beta, 2)}
+                                    </span>}
+                            </div>
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -113,23 +116,27 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row'}>
-                            <label htmlFor={'intercept'}>
-                                Intercept:
-                            </label>
-                            <NumericField
-                                id={'intercept'}
-                                className={'form-control form-control-sm'}
-                                min={-4}
-                                max={4}
-                                step={0.01}
-                                value={math.round(intercept, 2)}
-                                onChange={handleIntercept} />
-                            {showBestFit &&
-                                <span className={'best-fit-label'}>
-                                    Best Fit Intercept: {math.round(alpha, 2)}
-                                </span>
-                            }
+                        <div className={'form-row ls-form-row'}>
+                            <div className={'ls-form-col ls-col-a'}>
+                                <label htmlFor={'intercept'}>
+                                    Intercept:
+                                </label>
+                                <NumericField
+                                    id={'intercept'}
+                                    className={'form-control form-control-sm'}
+                                    min={-4}
+                                    max={4}
+                                    step={0.01}
+                                    value={math.round(intercept, 2)}
+                                    onChange={handleIntercept} />
+                            </div>
+                            <div className={'ls-form-col ls-col-b'}>
+                                {showBestFit &&
+                                    <span className={'best-fit-label'}>
+                                        Best Fit Intercept: {
+                                            math.round(alpha, 2)}
+                                    </span>}
+                            </div>
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
