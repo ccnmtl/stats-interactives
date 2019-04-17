@@ -236,6 +236,14 @@ export class LeastSquares extends Component {
                     </div>
                     <div className={'col-8'}>
                         <div className={'ls-graph-container'}>
+                            <div className={
+                                'graph-contianer ls-regression-graph'}>
+                                <RegressionGraph
+                                    population={this.state.population}
+                                    regressionFunc={this.state.regressionFunc}
+                                    bestFitFunc={this.state.bestFitFunc}
+                                    showBestFit={this.state.showBestFit}/>
+                            </div>
                             <div className={'graph-container ls-error-graph'}>
                                 <ErrorGraph
                                     optimalSize={this.state.optimalSize}
@@ -245,14 +253,6 @@ export class LeastSquares extends Component {
                                     optimalSSE={this.state.optimalSSE}
                                     estimatedSSEOpacity={
                                         this.state.estimatedSSEOpacity}/>
-                            </div>
-                            <div className={
-                                'graph-contianer ls-regression-graph'}>
-                                <RegressionGraph
-                                    population={this.state.population}
-                                    regressionFunc={this.state.regressionFunc}
-                                    bestFitFunc={this.state.bestFitFunc}
-                                    showBestFit={this.state.showBestFit}/>
                             </div>
                         </div>
                     </div>
