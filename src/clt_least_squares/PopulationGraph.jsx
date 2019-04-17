@@ -5,6 +5,11 @@ import { BAR_BORDER, INACTIVE } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
+const X_MIN = 0;
+const X_MAX = 1;
+const Y_MIN = -6;
+const Y_MAX = 6;
+
 import {
     VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
@@ -14,7 +19,7 @@ export const PopulationGraph = ({
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 1], y: [-3, 3]}}>
+            domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 label={'The Y axis'}
@@ -27,8 +32,9 @@ export const PopulationGraph = ({
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [-3, -2, -1, 0, 1, 2, 3]} />
+                tickValues={math.range(Y_MIN, Y_MAX, true).map((val) => {
+                    return val;
+                })} />
             <VictoryAxis
                 orientation={'bottom'}
                 label={'The X axis'}
@@ -41,8 +47,9 @@ export const PopulationGraph = ({
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
+                tickValues={math.range(X_MIN, X_MAX, 0.1, true).map((val) => {
+                    return math.round(val, 1);
+                })} />
             {population &&
                 <VictoryScatter data={population[sampleIdx]}
                     style={{ data: { fill: INACTIVE, stroke: BAR_BORDER,
