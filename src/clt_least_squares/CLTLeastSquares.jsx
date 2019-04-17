@@ -9,16 +9,12 @@ import { findLinearRegression, createScatterPlotHistogram,
     unpackData} from  '../utils';
 
 var seedrandom = require('seedrandom');
-/* eslint-disable-next-line */
 var jStat = require('jStat').jStat;
 
 export const DOT_SIZE = 4;
 
 const SAMPLE_SIZE = 100;
 const NO_OF_SAMPLES = 100;
-const MIN_BIN = 0;
-const MAX_BIN = 1;
-const NO_OF_BINS = 10;
 
 export class CLTLeastSquares extends Component {
     constructor(props) {
@@ -42,7 +38,7 @@ export class CLTLeastSquares extends Component {
             sampleIdx: 0,
             beta: 0,
             alpha: 0,
-            stdDev: 0.1,
+            stdDev: 0.2,
             slopeFreq: null,
             slopeFreqGraphData: null,
             interceptFreq: null,
@@ -124,11 +120,7 @@ export class CLTLeastSquares extends Component {
         let population = this.generatePopulation();
         let populationRegression = this.getPopulationRegression(population);
         let slopeFreq = createScatterPlotHistogram(
-            unpackData(populationRegression, 0),
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
-        );
+            unpackData(populationRegression, 0), 40, -2, 2);
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
 
         let interceptFreqNoOfBins = 30;
@@ -146,11 +138,7 @@ export class CLTLeastSquares extends Component {
         let populationVariance = this.getPopulationVariance(
             population, populationRegression);
         let varianceFreq = createScatterPlotHistogram(
-            populationVariance,
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
-        );
+            populationVariance, 20, 0, 2);
 
         let varianceFreqGraphData = varianceFreq.slice(
             0, this.state.sampleIdx + 1);
@@ -201,8 +189,9 @@ export class CLTLeastSquares extends Component {
                         <div className={'cls-graph-container'}>
                             <h3>Sampling Distribution MSE</h3>
                             <div>
-                                <VarianceGraph samples={
-                                    this.state.varianceFreqGraphData} />
+                                <VarianceGraph
+                                    samples={
+                                        this.state.varianceFreqGraphData} />
                             </div>
                         </div>
                     </div>

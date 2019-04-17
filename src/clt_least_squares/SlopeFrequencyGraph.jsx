@@ -13,7 +13,7 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 1], y: [0, 100]}}>
+            domain={{x: [-2, 2], y: [0, 100]}}>
             <VictoryAxis
                 dependentAxis={true}
                 style={{
@@ -34,8 +34,11 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
+                tickValues={math.range(
+                    -2, 2, 0.5, true
+                ).map((val) => {
+                    return math.round(val, 1);
+                })} />
             {samples &&
                 <VictoryScatter data={samples}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
