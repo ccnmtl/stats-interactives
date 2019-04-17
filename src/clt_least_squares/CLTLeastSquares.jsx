@@ -190,27 +190,39 @@ export class CLTLeastSquares extends Component {
                                 this.state.population ? true : false} />
                     </div>
                     <div className={'col-4'}>
-                        <div>
-                            <InterceptFrequencyGraph
-                                samples={
-                                    this.state.interceptFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution Intercept</h3>
+                            <div>
+                                <InterceptFrequencyGraph
+                                    samples={
+                                        this.state.interceptFreqGraphData} />
+                            </div>
                         </div>
-                        <div>
-                            <VarianceGraph
-                                samples={this.state.varianceFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution MSE</h3>
+                            <div>
+                                <VarianceGraph samples={
+                                    this.state.varianceFreqGraphData} />
+                            </div>
                         </div>
                     </div>
                     <div className={'col-4'}>
-                        <div>
-                            <PopulationGraph
-                                population={this.state.population}
-                                populationRegression={
-                                    this.state.populationRegression}
-                                sampleIdx={this.state.sampleIdx}/>
+                        <div className={'cls-graph-container'}>
+                            <h3>Sample Data</h3>
+                            <div>
+                                <PopulationGraph
+                                    population={this.state.population}
+                                    populationRegression={
+                                        this.state.populationRegression}
+                                    sampleIdx={this.state.sampleIdx}/>
+                            </div>
                         </div>
-                        <div>
-                            <SlopeFrequencyGraph
-                                samples={this.state.slopeFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution Slope</h3>
+                            <div>
+                                <SlopeFrequencyGraph
+                                    samples={this.state.slopeFreqGraphData} />
+                            </div>
                         </div>
                     </div>
                 </div>
