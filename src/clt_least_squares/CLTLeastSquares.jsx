@@ -215,6 +215,7 @@ export class CLTLeastSquares extends Component {
                     </div>
                 </div>
             </div>
+            <hr/>
             </>
         );
     }
