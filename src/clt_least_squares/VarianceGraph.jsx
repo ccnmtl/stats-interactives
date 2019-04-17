@@ -16,12 +16,7 @@ export const VarianceGraph = ({samples, sampleIdx}) => {
             domain={{x: [0, 1], y: [0, 100]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'The Y axis'}
                 style={{
-                    axisLabel: {
-                        fontSize: 12,
-                        padding: 35,
-                    },
                     tickLabels: {
                         fontSize: 12,
                     }
@@ -29,7 +24,7 @@ export const VarianceGraph = ({samples, sampleIdx}) => {
                 tickValues={
                     [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]} />
             <VictoryAxis
-                label={'The X axis'}
+                label={'Regression MSE'}
                 style={{
                     axisLabel: {
                         fontSize: 12,

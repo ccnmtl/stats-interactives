@@ -22,12 +22,7 @@ export const PopulationGraph = ({
             domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'The Y axis'}
                 style={{
-                    axisLabel: {
-                        fontSize: 12,
-                        padding: 35,
-                    },
                     tickLabels: {
                         fontSize: 12,
                     }
@@ -37,12 +32,7 @@ export const PopulationGraph = ({
                 })} />
             <VictoryAxis
                 orientation={'bottom'}
-                label={'The X axis'}
                 style={{
-                    axisLabel: {
-                        fontSize: 12,
-                        padding: 35,
-                    },
                     tickLabels: {
                         fontSize: 12,
                     }

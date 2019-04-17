@@ -22,7 +22,7 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
-                label={'Intercept Frequency'}
+                label={'Regression Intercept'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
