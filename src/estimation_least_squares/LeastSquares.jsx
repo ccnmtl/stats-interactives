@@ -238,6 +238,7 @@ export class LeastSquares extends Component {
                         <div className={'ls-graph-container'}>
                             <div className={
                                 'graph-contianer ls-regression-graph'}>
+                                <h2>Samples and Regression Line</h2>
                                 <RegressionGraph
                                     population={this.state.population}
                                     regressionFunc={this.state.regressionFunc}
@@ -245,6 +246,7 @@ export class LeastSquares extends Component {
                                     showBestFit={this.state.showBestFit}/>
                             </div>
                             <div className={'graph-container ls-error-graph'}>
+                                <h2>Sum of Square Errors</h2>
                                 <ErrorGraph
                                     optimalSize={this.state.optimalSize}
                                     errorSize={this.state.errorSize}

@@ -25,6 +25,17 @@
     display: flex;
     flex-flow: row nowrap;
     padding-bottom: 1em;
+
+    h2 {
+        font-size: 1.1em;
+        color: #000000;
+        margin-left: 2em
+    }
+    
+    .VictoryContainer {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 }
 
 .sse-label {
@@ -34,10 +45,13 @@
 .ls-error-graph {
     flex: 4.8;
     background-color: #FFFFFF;
+    padding-top: 0.5em;
+    margin-bottom: -1.8em;
 }
 
 .ls-regression-graph {
     flex: 10;
     margin-right: 1.5em;
+    padding-top: 0.5em;
     background-color: #FFFFFF;
 }

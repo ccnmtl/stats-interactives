@@ -14,7 +14,7 @@ export const ErrorGraph = ({optimalSize, errorSize,
             <VictoryChart theme={VictoryTheme.material}
                 height={400}
                 width={190}
-                padding={{left: 30, top: 25, right: 5, bottom: 30}}
+                padding={{left: 30, top: 12, right: 5, bottom: 30}}
                 domain={{x: [0, 4], y: [0, 10]}}>
                 <VictoryAxis
                     tickValues={math.range(0, 4, true).map((val) => {
