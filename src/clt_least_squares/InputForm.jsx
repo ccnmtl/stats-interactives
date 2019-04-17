@@ -114,7 +114,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         <NumericField
                             id={'std-dev'}
                             className={'form-control form-control-sm'}
-                            min={0}
+                            min={0.1}
                             max={1}
                             step={0.01}
                             value={stdDev}
@@ -123,8 +123,8 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                     <div className={'form-row'}>
                         <div style={{ height: '50px', width: '100%'}}>
                             <Rheostat
-                                min={0}
-                                max={99}
+                                min={10}
+                                max={100}
                                 values={[(stdDev * 100)]}
                                 onValuesUpdated={(sliderState) => {
                                     handleStdDev(
