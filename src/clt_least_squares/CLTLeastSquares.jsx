@@ -111,7 +111,7 @@ export class CLTLeastSquares extends Component {
                 let y_hat = slope * el[0] + intercept;
                 return el[1] - y_hat;
             });
-            return jStat.variance(residuals);
+            return jStat.variance(residuals) * (99 / 98);
         });
     }
     handleGeneratePop() {
