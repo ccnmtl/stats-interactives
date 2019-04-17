@@ -1,6 +1,7 @@
 .best-fit-label {
     margin-left: 1em;
-    background-color: #0D993F;
+    background-color: rgba(13, 153, 63, 0.5);
+    display: inline-table;
 }
 
 .estimated-sse-label {
@@ -11,6 +12,7 @@
     display: flex;
     flex-flow: row nowrap;
     background-color: #FFFFFF;
+    padding-bottom: 1em;
 }
 
 .ls-error-graph {
