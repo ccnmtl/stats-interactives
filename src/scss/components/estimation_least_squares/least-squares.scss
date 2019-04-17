@@ -1,16 +1,35 @@
 .best-fit-label {
-    margin-left: 1em;
-    background-color: #0D993F;
+    background-color: rgba(13, 153, 63, 0.3);
+    display: inline-table;
 }
 
-.estimated-sse-label {
-    margin-left: 1em;
+.ls-form-row {
+    .ls-form-col {
+        flex: 1;
+        display: flex;
+        flex-flow: row nowrap;
+    }  
+
+    .ls-col-a {
+        flex: 0.9;
+        justify-content: flex-end;
+    }
+
+    .ls-col-b {
+        flex: 1;
+        justify-content: flex-start;
+    }
 }
 
 .ls-graph-container {
     display: flex;
     flex-flow: row nowrap;
     background-color: #FFFFFF;
+    padding-bottom: 1em;
+}
+
+.sse-label {
+    margin-left: 1em;
 }
 
 .ls-error-graph {
