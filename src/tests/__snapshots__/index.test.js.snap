@@ -9,11 +9,16 @@ exports[`Nav elements render as expected 1`] = `
     href="/"
     onClick={[Function]}
   >
-    StatsInteractives
+    <span
+      className="stats"
+    >
+      Stats
+    </span>
+    Interactives
     <span
       className="beta"
     >
-      Beta
+       Beta
     </span>
   </a>
   <div
@@ -57,19 +62,98 @@ exports[`Nav elements render as expected 1`] = `
 `;
 
 exports[`Preview elements render as expected 1`] = `
-<div
-  className="col-md-4"
->
-  <h2>
-    <a
-      href="/central-limit-theorem"
-      onClick={[Function]}
+Array [
+  <div
+    className="card col-md-6"
+  >
+    <div
+      className="card-body"
     >
-      The Central Limit Theorem
-    </a>
-  </h2>
-  <p>
-    In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.
-  </p>
-</div>
+      <h2
+        className="card-title"
+      >
+        <a
+          href="/central-limit-theorem"
+          onClick={[Function]}
+        >
+          The Central Limit Theorem
+        </a>
+      </h2>
+      <p
+        className="card-text"
+      >
+        In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.
+      </p>
+    </div>
+  </div>,
+  <div
+    className="card col-md-6"
+  >
+    <div
+      className="card-body"
+    >
+      <h2
+        className="card-title"
+      >
+        <a
+          href="/linear-regression-model"
+          onClick={[Function]}
+        >
+          Linear Regression Model
+        </a>
+      </h2>
+      <p
+        className="card-text"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.
+      </p>
+    </div>
+  </div>,
+  <div
+    className="card col-md-6"
+  >
+    <div
+      className="card-body"
+    >
+      <h2
+        className="card-title"
+      >
+        <a
+          href="/least-squares-estimation"
+          onClick={[Function]}
+        >
+          Least Squares Estimation
+        </a>
+      </h2>
+      <p
+        className="card-text"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.
+      </p>
+    </div>
+  </div>,
+  <div
+    className="card col-md-6"
+  >
+    <div
+      className="card-body"
+    >
+      <h2
+        className="card-title"
+      >
+        <a
+          href="/sampling-distribution-regression"
+          onClick={[Function]}
+        >
+          Sampling Distribution Regression
+        </a>
+      </h2>
+      <p
+        className="card-text"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.
+      </p>
+    </div>
+  </div>,
+]
 `;
