@@ -9,27 +9,24 @@ import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const VarianceGraph = ({samples, sampleIdx}) => {
+export const VarianceGraph = ({samples}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 1], y: [0, 100]}}>
+            domain={{x: [0, 2], y: [0, 100]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'The Y axis'}
                 style={{
-                    axisLabel: {
-                        fontSize: 12,
-                        padding: 35,
-                    },
                     tickLabels: {
                         fontSize: 12,
                     }
                 }}
                 tickValues={
-                    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+                    math.range(0, 100, 10, true).map((val) => {
+                        return val;
+                    })} />
             <VictoryAxis
-                label={'The X axis'}
+                label={'Regression MSE'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -39,8 +36,11 @@ export const VarianceGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={
-                    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]} />
+                tickValues={math.range(
+                    0, 2, 0.2, true
+                ).map((val) => {
+                    return math.round(val, 1);
+                })} />
             {samples &&
                 <VictoryScatter data={samples}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
@@ -63,7 +63,6 @@ export const VarianceGraph = ({samples, sampleIdx}) => {
 
 VarianceGraph.propTypes = {
     samples: PropTypes.array,
-    sampleIdx: PropTypes.number,
 };
 
 

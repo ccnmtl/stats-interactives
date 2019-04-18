@@ -9,16 +9,12 @@ import { findLinearRegression, createScatterPlotHistogram,
     unpackData} from  '../utils';
 
 var seedrandom = require('seedrandom');
-/* eslint-disable-next-line */
 var jStat = require('jStat').jStat;
 
 export const DOT_SIZE = 4;
 
 const SAMPLE_SIZE = 100;
 const NO_OF_SAMPLES = 100;
-const MIN_BIN = 0;
-const MAX_BIN = 1;
-const NO_OF_BINS = 10;
 
 export class CLTLeastSquares extends Component {
     constructor(props) {
@@ -40,9 +36,9 @@ export class CLTLeastSquares extends Component {
             population: null,
             populationRegression: null,
             sampleIdx: 0,
-            beta: 0.5,
-            alpha: 0.5,
-            stdDev: 1,
+            beta: 0,
+            alpha: 0,
+            stdDev: 0.2,
             slopeFreq: null,
             slopeFreqGraphData: null,
             interceptFreq: null,
@@ -111,7 +107,7 @@ export class CLTLeastSquares extends Component {
                 let y_hat = slope * el[0] + intercept;
                 return el[1] - y_hat;
             });
-            return jStat.variance(residuals);
+            return jStat.variance(residuals) * (99 / 98);
         });
     }
     handleGeneratePop() {
@@ -124,11 +120,7 @@ export class CLTLeastSquares extends Component {
         let population = this.generatePopulation();
         let populationRegression = this.getPopulationRegression(population);
         let slopeFreq = createScatterPlotHistogram(
-            unpackData(populationRegression, 0),
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
-        );
+            unpackData(populationRegression, 0), 40, -2, 2);
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
 
         let interceptFreqNoOfBins = 30;
@@ -146,11 +138,7 @@ export class CLTLeastSquares extends Component {
         let populationVariance = this.getPopulationVariance(
             population, populationRegression);
         let varianceFreq = createScatterPlotHistogram(
-            populationVariance,
-            NO_OF_BINS,
-            MIN_BIN,
-            MAX_BIN
-        );
+            populationVariance, 20, 0, 2);
 
         let varianceFreqGraphData = varianceFreq.slice(
             0, this.state.sampleIdx + 1);
@@ -190,31 +178,45 @@ export class CLTLeastSquares extends Component {
                                 this.state.population ? true : false} />
                     </div>
                     <div className={'col-4'}>
-                        <div>
-                            <InterceptFrequencyGraph
-                                samples={
-                                    this.state.interceptFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution Intercept</h3>
+                            <div>
+                                <InterceptFrequencyGraph
+                                    samples={
+                                        this.state.interceptFreqGraphData} />
+                            </div>
                         </div>
-                        <div>
-                            <VarianceGraph
-                                samples={this.state.varianceFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution MSE</h3>
+                            <div>
+                                <VarianceGraph
+                                    samples={
+                                        this.state.varianceFreqGraphData} />
+                            </div>
                         </div>
                     </div>
                     <div className={'col-4'}>
-                        <div>
-                            <PopulationGraph
-                                population={this.state.population}
-                                populationRegression={
-                                    this.state.populationRegression}
-                                sampleIdx={this.state.sampleIdx}/>
+                        <div className={'cls-graph-container'}>
+                            <h3>Sample Data</h3>
+                            <div>
+                                <PopulationGraph
+                                    population={this.state.population}
+                                    populationRegression={
+                                        this.state.populationRegression}
+                                    sampleIdx={this.state.sampleIdx}/>
+                            </div>
                         </div>
-                        <div>
-                            <SlopeFrequencyGraph
-                                samples={this.state.slopeFreqGraphData} />
+                        <div className={'cls-graph-container'}>
+                            <h3>Sampling Distribution Slope</h3>
+                            <div>
+                                <SlopeFrequencyGraph
+                                    samples={this.state.slopeFreqGraphData} />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr/>
             </>
         );
     }

@@ -5,6 +5,11 @@ import * as math from 'mathjs';
 import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 math.config({matrix: 'Array'});
 
+const X_MIN = 0;
+const X_MAX = 50;
+const Y_MIN = -6;
+const Y_MAX = 6;
+
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
@@ -13,11 +18,11 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 50, top: 20, right: 50, bottom: 50}}
-            domain={{x: [0, 50], y: [-3, 3]}}>
+            domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
-                label={'Intercept Frequency'}
+                label={'Regression Intercept'}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -27,7 +32,7 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={math.range(-3, 3, true).map((val) => {
+                tickValues={math.range(Y_MIN, Y_MAX, true).map((val) => {
                     return val;
                 })} />
             <VictoryAxis
@@ -41,7 +46,7 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={math.range(0, 50, 10, true).map((val) => {
+                tickValues={math.range(X_MIN, X_MAX, 10, true).map((val) => {
                     return val;
                 })} />
             {samples &&
