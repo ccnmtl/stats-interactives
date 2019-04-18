@@ -84,6 +84,21 @@ const PreviewData = [
         'title': 'The Central Limit Theorem',
         'text': 'In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.'
     },
+    {
+        'slug': '/linear-regression-model',
+        'title': 'Linear Regression Model',
+        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+    },
+    {
+        'slug': '/least-squares-estimation',
+        'title': 'Least Squares Estimation',
+        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+    },
+    {
+        'slug': '/sampling-distribution-regression',
+        'title': 'Sampling Distribution Regression',
+        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+    },
 ];
 
 const PreviewBlock = (props) => (
@@ -118,71 +133,36 @@ const Home = () => (
     <div className="container">
         <div className="row">
             <div className="col-md-4">
-            <p>
-                <strong>StatsInteractives</strong> is an initiative that was specifically designed
-                for Doru Cojoc&#39;s Quantitative Analysis I course at
-                Columbia SIPA.
-            </p>
-            <p>The four simulations within this prototype were built to:</p>
-            <ul>
-                <li>
-                serve a test of effectiveness at improving learning outcomes
-                </li>
-                <li>
-                address these outcomes by turning them into web interactives,
-                openly available
-                </li>
-                <li>
-                provide students for their own study and experimentation
-                </li>
-                <li>
-                be used here or elsewhere by embedding or linking to
-                the media directly
-                </li>
-            </ul>
-            <p>For more information, please <a href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc">contact Dr. Cojoc</a> directly.</p>
-        </div>
+                <p>
+                    <strong>StatsInteractives</strong> is an initiative
+                        specifically designed for Doru Cojoc&#39;s
+                        Quantitative Analysis I course at Columbia SIPA.
+                </p>
+                <p>The four simulations within this prototype were built to:</p>
+                <ul>
+                    <li>
+                            serve a test of effectiveness at improving
+                            learning outcomes
+                    </li>
+                    <li>
+                            address these outcomes by turning them into web
+                            interactives, openly available
+                    </li>
+                    <li>
+                            provide students for their own study and
+                            experimentation
+                    </li>
+                    <li>
+                            be used here or elsewhere by embedding or linking to
+                            the media directly
+                    </li>
+                </ul>
+                <p>For more information, please <a href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc">contact Dr. Cojoc</a> directly.</p>
+            </div>
             <div className="col-md-8">
-                <div class="container">
-                    <div class="row">
+                <div className="container">
+                    <div className="row">
                         <Preview />
-                        <div className="card col-md-6">
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                    Interactive 2
-                                </h2>
-                                <p className="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec 
-                                    sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti sociosqu 
-                                    ad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt. 
-                                </p>
-                            </div>
-                        </div>
-                        <div class="w-100"></div>
-                        <div className="card col-md-6">
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                    Interactive 3
-                                </h2>
-                                 <p className="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec 
-                                    sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti sociosqu 
-                                    ad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt. 
-                                </p>
-                            </div>
-                        </div>
-                        <div className="card col-md-6">
-                            <div className="card-body">
-                                <h2 className="card-title">
-                                    Interactive 4
-                                </h2>
-                                <p className="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec 
-                                    sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti sociosqu 
-                                    ad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt. 
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
