@@ -16,7 +16,7 @@ export const TaxRateGraphA = (
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Tax Rate'}
+                label={'Tax Rate (X axis)'}
                 style={{
                     axisLabel: {
                         fontSize: '16px',
@@ -26,7 +26,7 @@ export const TaxRateGraphA = (
                 tickValues={
                     math.range(2, 8, true)} />
             <VictoryAxis
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         fontSize: '16px',
@@ -172,7 +172,7 @@ export const TaxRateGraphB = (
             domain={{x: [2, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         padding: 35,
@@ -180,7 +180,7 @@ export const TaxRateGraphB = (
                 }}
                 tickValues={math.range(9, 31, true)} />
             <VictoryAxis
-                label={'Tax Rate'}
+                label={'Tax Rate (X axis)'}
                 style={{
                     axisLabel: {
                         padding: 30,
