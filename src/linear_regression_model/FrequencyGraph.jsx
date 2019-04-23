@@ -19,7 +19,7 @@ export const FrequencyGraphA = (
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Frequency of Smokers'}
+                label={'Freq. of Smokers (X axis)'}
                 style={{
                     axisLabel: {
                         fontSize: 24,
@@ -32,7 +32,7 @@ export const FrequencyGraphA = (
                 tickValues={
                     math.range(1, 8, true)} />
             <VictoryAxis
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         fontSize: 24,
@@ -192,7 +192,7 @@ export const FrequencyGraphB = (
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         padding: 35,
@@ -205,7 +205,7 @@ export const FrequencyGraphB = (
                 tickValues={math.range(9, 31, true)} />
             <VictoryAxis
                 invertAxis={true}
-                label={'Frequency of Smokers'}
+                label={'Frequency of Smokers (X axis)'}
                 style={{
                     axisLabel: {
                         padding: 30,

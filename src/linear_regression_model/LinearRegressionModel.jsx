@@ -82,7 +82,7 @@ export class LinearRegressionModel extends Component {
                         <h2>Linear Regression Model</h2>
                     </div>
                     <div className={'col-2'}>
-                        <div className={'d-flex justify-content-end ' +
+                        <div className={'d-flex ' +
                             'linear-regression-toggle'}>
                             <VerticalButton
                                 flipGraphs={this.state.flipGraphs}
@@ -142,8 +142,8 @@ const VerticalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
         <button
             className={
                 flipGraphs ?
-                    'btn btn-light btn-sm' :
-                    'btn btn-light btn-sm active'}
+                    'btn btn-success btn-sm' :
+                    'btn btn-success btn-sm active'}
             disabled={toggleLock || !flipGraphs}
             onClick={handleFlipGraphs}>
             Vertical
@@ -161,8 +161,8 @@ const HorizontalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
     return (
         <button
             className={flipGraphs ?
-                'btn btn-light btn-sm active' :
-                'btn btn-light btn-sm'}
+                'btn btn-success btn-sm active' :
+                'btn btn-success btn-sm'}
             disabled={toggleLock || flipGraphs}
             onClick={handleFlipGraphs}>
                 Horizontal

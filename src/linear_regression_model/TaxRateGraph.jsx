@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SMOKING_FREQ } from './data';
 import {
-    VictoryChart, VictoryTheme,
+    VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
@@ -16,7 +16,7 @@ export const TaxRateGraphA = (
             domain={{x: [8, 31]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Tax Rate'}
+                label={'Tax Rate (X axis)'}
                 style={{
                     axisLabel: {
                         fontSize: '16px',
@@ -26,7 +26,7 @@ export const TaxRateGraphA = (
                 tickValues={
                     math.range(2, 8, true)} />
             <VictoryAxis
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         fontSize: '16px',
@@ -157,6 +157,9 @@ export const TaxRateGraphA = (
                     }
                 }}
                 x={(datum) => datum[0]}/>
+            <VictoryLine
+                samples={10}
+                x={(d) => 29 - 2 * d.y}/>
         </VictoryChart>
     );
 };
@@ -169,7 +172,7 @@ export const TaxRateGraphB = (
             domain={{x: [2, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
-                label={'Cigarettes Smoked per Day'}
+                label={'Cigarettes Smoked per Day (Y axis)'}
                 style={{
                     axisLabel: {
                         padding: 35,
@@ -177,7 +180,7 @@ export const TaxRateGraphB = (
                 }}
                 tickValues={math.range(9, 31, true)} />
             <VictoryAxis
-                label={'Tax Rate'}
+                label={'Tax Rate (X axis)'}
                 style={{
                     axisLabel: {
                         padding: 30,
@@ -304,6 +307,9 @@ export const TaxRateGraphB = (
                     }
                 }}
                 y={(datum) => datum[0]}/>
+            <VictoryLine
+                samples={10}
+                y={(d) => 29 - 2 * d.x}/>
         </VictoryChart>
     );
 };
