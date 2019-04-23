@@ -8,11 +8,12 @@
 
 .linear-regression-toggle {
     margin-bottom: 1em;
+    justify-content: space-between;
     a.btn-outline-primary {
         pointer-events: none;
     }
 
-    a:first-of-type {
+    button {
         margin-right: 0em;
     }
 }
