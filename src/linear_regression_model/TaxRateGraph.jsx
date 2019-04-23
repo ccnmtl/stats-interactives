@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SMOKING_FREQ } from './data';
 import {
-    VictoryChart, VictoryTheme,
+    VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
@@ -157,6 +157,9 @@ export const TaxRateGraphA = (
                     }
                 }}
                 x={(datum) => datum[0]}/>
+            <VictoryLine
+                samples={10}
+                x={(d) => 29 - 2 * d.y}/>
         </VictoryChart>
     );
 };
@@ -304,6 +307,9 @@ export const TaxRateGraphB = (
                     }
                 }}
                 y={(datum) => datum[0]}/>
+            <VictoryLine
+                samples={10}
+                y={(d) => 29 - 2 * d.x}/>
         </VictoryChart>
     );
 };
