@@ -28,6 +28,10 @@ export const DISTRIBUTION_TYPE = [
         value: 'skew_right',
         display: 'Skew Right',
     },
+    {
+        value: 'skew_left',
+        display: 'Skew Left',
+    },
 ];
 
 export class CentralLimitGraph extends Component {
@@ -127,6 +131,12 @@ export class CentralLimitGraph extends Component {
                 exponentialBarHeight(graphDomain, mean, stdDev)
                     .map((val, idx) => {return [graphDomain[idx], val];});
             break;
+        case 'skew_left':
+            populationGraphData =
+                exponentialBarHeight(graphDomain, mean * -1, stdDev)
+                    .map((val, idx) => {
+                        return [graphDomain[idx] * -1 - 1, val];});
+            break;
         default:
             populationGraphData = normalBarHeight(graphDomain, mean, stdDev)
                 .map((val, idx) => {return [idx, val];});
@@ -165,6 +175,11 @@ export class CentralLimitGraph extends Component {
             return [...Array(size)].map((e) => {
                 return math.round(
                     jStat.exponential.sample(rate) - stdDev + mean, 3);
+            });
+        case 'skew_left':
+            return [...Array(size)].map((e) => {
+                return math.round(
+                    (jStat.exponential.sample(rate) - stdDev + mean) * -1, 3);
             });
         default:
             // return a normal distribution
