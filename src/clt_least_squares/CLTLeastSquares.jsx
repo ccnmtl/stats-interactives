@@ -23,7 +23,7 @@ export class CLTLeastSquares extends Component {
         this.handleSeed = this.handleSeed.bind(this);
         this.handleBeta = this.handleBeta.bind(this);
         this.handleAlpha = this.handleAlpha.bind(this);
-        this.handleStdDev = this.handleStdDev.bind(this);
+        this.handleVariance = this.handleVariance.bind(this);
         this.handleGeneratePop = this.handleGeneratePop.bind(this);
         this.handleSampleIdx = this.handleSampleIdx.bind(this);
         this.getPopulationRegression = this.
@@ -39,7 +39,7 @@ export class CLTLeastSquares extends Component {
             sampleIdx: 0,
             beta: 0,
             alpha: 0,
-            stdDev: 0.2,
+            variance: 0.5,
             slopeFreq: null,
             slopeFreqGraphData: null,
             interceptFreq: null,
@@ -66,9 +66,9 @@ export class CLTLeastSquares extends Component {
             alpha: alpha,
         });
     }
-    handleStdDev(stdDev) {
+    handleVariance(variance) {
         this.setState({
-            stdDev: stdDev,
+            variance: variance,
         });
     }
     handleSampleIdx(idx) {
@@ -91,7 +91,8 @@ export class CLTLeastSquares extends Component {
             return [...Array(SAMPLE_SIZE)].map((val) => {
                 let x = Math.random();
                 let ySample = this.state.beta * x + this.state.alpha;
-                let y = jStat.normal.sample(ySample, this.state.stdDev);
+                let stdDev = Math.sqrt(this.state.variance);
+                let y = jStat.normal.sample(ySample, stdDev);
                 return [x, y];
             });
         });
@@ -124,7 +125,7 @@ export class CLTLeastSquares extends Component {
         let paramatizedSeed = this.state.seed +
             this.state.beta +
             this.state.alpha +
-            this.state.stdDev;
+            this.state.variance;
         seedrandom(paramatizedSeed, {global: true});
 
         let population = this.generatePopulation();
@@ -193,8 +194,8 @@ export class CLTLeastSquares extends Component {
                             handleBeta={this.handleBeta}
                             alpha={this.state.alpha}
                             handleAlpha={this.handleAlpha}
-                            stdDev={this.state.stdDev}
-                            handleStdDev={this.handleStdDev}
+                            variance={this.state.variance}
+                            handleVariance={this.handleVariance}
                             sampleIdx={this.state.sampleIdx}
                             handleSampleIdx={this.handleSampleIdx}
                             hasPopulation={

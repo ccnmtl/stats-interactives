@@ -7,7 +7,7 @@ import { InlineMath, BlockMath } from 'react-katex';
 import * as math from 'mathjs';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
-    handleBeta, alpha, handleAlpha, hasPopulation, stdDev, handleStdDev,
+    handleBeta, alpha, handleAlpha, hasPopulation, variance, handleVariance,
     sampleIdx, handleSampleIdx, populationRegression, populationSSE}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
@@ -135,26 +135,40 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             </div>
                         </div>
                         <div className={'form-row'}>
-                            <label htmlFor={'std-dev'}>
-                                Standard Deviation:
+                            <label htmlFor={'variance'}>
+                                <InlineMath>
+                                    {String.raw`\sum^2`}
+                                </InlineMath>
                             </label>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="variance-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle"></i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="variance-tt" event="focus"
+                                eventOff="blur">
+                                <span>Variance of the Disturbances.</span>
+                            </ReactTooltip>
                             <NumericField
-                                id={'std-dev'}
+                                id={'variance'}
                                 className={'form-control form-control-sm'}
-                                min={0.2}
-                                max={1}
+                                min={0.5}
+                                max={1.5}
                                 step={0.01}
-                                value={stdDev}
-                                onChange={handleStdDev} />
+                                value={variance}
+                                onChange={handleVariance} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
-                                    min={20}
-                                    max={100}
-                                    values={[(stdDev * 100)]}
+                                    min={50}
+                                    max={150}
+                                    values={[(variance * 100)]}
                                     onValuesUpdated={(sliderState) => {
-                                        handleStdDev(
+                                        handleVariance(
                                             (sliderState.values[0] * 0.01));
                                     }} />
                             </div>
@@ -241,8 +255,8 @@ InputForm.propTypes = {
     handleBeta: PropTypes.func,
     alpha: PropTypes.number,
     handleAlpha: PropTypes.func,
-    stdDev: PropTypes.number,
-    handleStdDev: PropTypes.func,
+    variance: PropTypes.number,
+    handleVariance: PropTypes.func,
     sampleIdx: PropTypes.number,
     handleSampleIdx: PropTypes.func,
     hasPopulation: PropTypes.bool,
