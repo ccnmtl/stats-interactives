@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
-import { InlineMath } from 'react-katex';
+import { InlineMath, BlockMath } from 'react-katex';
 import * as math from 'mathjs';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, stdDev, handleStdDev,
-    sampleIdx, handleSampleIdx}) => {
+    sampleIdx, handleSampleIdx, populationRegression, populationSSE}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -200,6 +200,31 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                         }} />
                                 </div>
                             </div>
+                            <div className={'form-row'}>
+                                <div className={'col-4'}>
+                                    <BlockMath>
+                                        {String.raw`b_0 = ${math.round(
+                                            /* eslint-disable-next-line */
+                                            populationRegression[sampleIdx][1], 2)
+                                        }`}
+                                    </BlockMath>
+                                </div>
+                                <div className={'col-4'}>
+                                    <BlockMath>
+                                        {String.raw`b_1 = ${math.round(
+                                            /* eslint-disable-next-line */
+                                            populationRegression[sampleIdx][0], 2)
+                                        }`}
+                                    </BlockMath>
+                                </div>
+                                <div className={'col-4'}>
+                                    <BlockMath>
+                                        {String.raw`SSE = ${math.round(
+                                            populationSSE[sampleIdx], 2)
+                                        }`}
+                                    </BlockMath>
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
                 </form>
@@ -221,4 +246,6 @@ InputForm.propTypes = {
     sampleIdx: PropTypes.number,
     handleSampleIdx: PropTypes.func,
     hasPopulation: PropTypes.bool,
+    populationRegression: PropTypes.array,
+    populationSSE: PropTypes.array,
 };

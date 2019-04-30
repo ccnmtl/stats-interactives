@@ -163,6 +163,14 @@ export const findLinearRegression = (data) => {
     return [beta, alpha];
 };
 
+export const calculateSSE = (data, func) => {
+    return data.reduce((acc, val) => {
+        let squaredErr = Math.pow(val[1] - func(val[0]), 2);
+        acc += squaredErr;
+        return acc;
+    }, 0);
+};
+
 export const unpackData = (data, index) => {
     // takes a 2D matrix and unpacks the given index
     // returns a flattened array

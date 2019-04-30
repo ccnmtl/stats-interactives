@@ -6,7 +6,7 @@ import { InterceptFrequencyGraph } from './InterceptFrequencyGraph';
 import { SlopeFrequencyGraph } from './SlopeFrequencyGraph';
 import { VarianceGraph } from './VarianceGraph';
 import { findLinearRegression, createScatterPlotHistogram,
-    unpackData} from  '../utils';
+    unpackData, calculateSSE} from  '../utils';
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
@@ -30,6 +30,7 @@ export class CLTLeastSquares extends Component {
             getPopulationRegression.bind(this);
         this.getPopulationVariance = this.
             getPopulationVariance.bind(this);
+        this.getPopulationSSE= this.getPopulationSSE.bind(this);
 
         this.initialState = {
             seed: '',
@@ -45,6 +46,7 @@ export class CLTLeastSquares extends Component {
             interceptFreqGraphData: null,
             varianceFreq: null,
             varianceFreqGraphData: null,
+            populationSSE: null,
         };
 
         this.state = this.initialState;
@@ -110,6 +112,14 @@ export class CLTLeastSquares extends Component {
             return jStat.variance(residuals) * (99 / 98);
         });
     }
+    getPopulationSSE(population, populationRegression) {
+        return population.map((val, i) => {
+            let slope = populationRegression[i][0];
+            let intercept = populationRegression[i][1];
+            let bestFitFunc = (x) => slope * x + intercept;
+            return calculateSSE(val, bestFitFunc);
+        });
+    }
     handleGeneratePop() {
         let paramatizedSeed = this.state.seed +
             this.state.beta +
@@ -143,6 +153,9 @@ export class CLTLeastSquares extends Component {
         let varianceFreqGraphData = varianceFreq.slice(
             0, this.state.sampleIdx + 1);
 
+        let populationSSE = this.getPopulationSSE(
+            population, populationRegression);
+
         this.setState({
             population: population,
             populationRegression: populationRegression,
@@ -152,6 +165,7 @@ export class CLTLeastSquares extends Component {
             interceptFreqGraphData: interceptFreqGraphData,
             varianceFreq: varianceFreq,
             varianceFreqGraphData: varianceFreqGraphData,
+            populationSSE: populationSSE,
         });
     }
     render() {
@@ -184,7 +198,10 @@ export class CLTLeastSquares extends Component {
                             sampleIdx={this.state.sampleIdx}
                             handleSampleIdx={this.handleSampleIdx}
                             hasPopulation={
-                                this.state.population ? true : false} />
+                                this.state.population ? true : false}
+                            populationRegression={
+                                this.state.populationRegression}
+                            populationSSE={this.state.populationSSE}/>
                     </div>
                     <div className={'col-4'}>
                         <div className={'cls-graph-container'}>
