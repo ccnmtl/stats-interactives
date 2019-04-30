@@ -180,21 +180,23 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 <NumericField
                                     id={'sample'}
                                     className={'form-control form-control-sm'}
-                                    min={0}
-                                    max={99}
-                                    value={sampleIdx}
+                                    min={1}
+                                    max={100}
+                                    value={sampleIdx + 1}
                                     step={1}
-                                    onChange={handleSampleIdx} />
+                                    onChange={(val) => {
+                                        handleSampleIdx(val - 1);
+                                    }} />
                             </div>
                             <div className={'form-row'}>
                                 <div style={{ height: '50px', width: '100%'}}>
                                     <Rheostat
-                                        min={0}
-                                        max={99}
+                                        min={1}
+                                        max={100}
                                         values={[sampleIdx]}
                                         onValuesUpdated={(sliderState) => {
                                             handleSampleIdx(
-                                                sliderState.values[0]);
+                                                sliderState.values[0] - 1);
                                         }} />
                                 </div>
                             </div>
