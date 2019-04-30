@@ -48,7 +48,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             value={seed}
                             onChange={hndlSeed}
                             placeholder={
-                                'Enter a seed to generate a population'}
+                                'Enter a seed to start the simulation'}
                             autoFocus required/>
                     </div>
                 </div>
