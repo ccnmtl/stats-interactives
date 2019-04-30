@@ -159,7 +159,7 @@ export class CLTLeastSquares extends Component {
             <>
             <Nav />
             <div className={'container'}>
-                <h2>Central Limit - Least Squares</h2>
+                <h2>Sampling Distribution of Regression Coefficients</h2>
                 <div className={'row'}>
                     <div className={'col-4'}>
                         <InputForm
