@@ -4,6 +4,7 @@ import { Nav } from '../Nav.jsx';
 import { RegressionForm } from './RegressionForm';
 import { RegressionGraph } from './RegressionGraph';
 import { ErrorGraph } from './ErrorGraph';
+import { findLinearRegression, calculateSSE} from  '../utils';
 
 var seedrandom = require('seedrandom');
 
@@ -19,8 +20,6 @@ export class LeastSquares extends Component {
         this.handleGeneratePop = this.handleGeneratePop.bind(this);
         this.handleSlope = this.handleSlope.bind(this);
         this.handleIntercept = this.handleIntercept.bind(this);
-        this.findLinearRegression = this.findLinearRegression.bind(this);
-        this.calculateSSE = this.calculateSSE.bind(this);
         this.getEstimatedSSEOpacity = this.getEstimatedSSEOpacity.bind(this);
         this.handleShowBestFit = this.handleShowBestFit.bind(this);
         this.generatePopulation = this.generatePopulation.bind(this);
@@ -60,45 +59,6 @@ export class LeastSquares extends Component {
         this.setState({
             seed: seed,
         });
-    }
-    findLinearRegression(data) {
-        // Per wikipedia:
-        // https://en.wikipedia.org/wiki/Ordinary_least_squares#Simple_linear_regression_model
-        let len = data.length;
-        let sumXY = data.reduce((acc, val) => {
-            acc += val[0] * val[1];
-            return acc;
-        }, 0);
-
-        let sumX = data.reduce((acc, val) => {
-            acc += val[0];
-            return acc;
-        }, 0);
-
-        let sumY = data.reduce((acc, val) => {
-            acc += val[1];
-            return acc;
-        }, 0);
-
-        let powX = data.reduce((acc, val) => {
-            acc += val[0] * val[0];
-            return acc;
-        }, 0);
-
-        let beta = (
-            (sumXY - (1/len * sumX * sumY)) / (powX - (1/len * sumX * sumX))
-        );
-
-        let alpha = (sumY / 6) - (beta * (sumX / 6));
-
-        return [beta, alpha];
-    }
-    calculateSSE(data, func) {
-        return data.reduce((acc, val) => {
-            let squaredErr = Math.pow(val[1] - func(val[0]), 2);
-            acc += squaredErr;
-            return acc;
-        }, 0);
     }
     generatePopulation() {
         let len = 6;
@@ -143,9 +103,9 @@ export class LeastSquares extends Component {
         while (true) {
             population = this.generatePopulation();
 
-            [beta, alpha] = this.findLinearRegression(population);
+            [beta, alpha] = findLinearRegression(population);
             bestFitFunc = (x) => {return beta * x + alpha;};
-            optimalSSE = this.calculateSSE(population, bestFitFunc);
+            optimalSSE = calculateSSE(population, bestFitFunc);
 
             // Rerun the loop until we get a population that
             // conforms to the required constraints.
@@ -156,7 +116,7 @@ export class LeastSquares extends Component {
         }
 
 
-        let estimatedSSE = this.calculateSSE(
+        let estimatedSSE = calculateSSE(
             population, this.state.regressionFunc);
         let errorSize = estimatedSSE / ERROR_GRAPH_X;
 
@@ -174,7 +134,7 @@ export class LeastSquares extends Component {
     }
     handleSlope(val) {
         let regressionFunc = (x) => {return val * x + this.state.intercept;};
-        let estimatedSSE = this.calculateSSE(
+        let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
         let errorSize = estimatedSSE / ERROR_GRAPH_X;
         this.setState({
@@ -187,7 +147,7 @@ export class LeastSquares extends Component {
     }
     handleIntercept(val) {
         let regressionFunc = (x) => {return this.state.slope * x + val;};
-        let estimatedSSE = this.calculateSSE(
+        let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
         let errorSize = estimatedSSE / ERROR_GRAPH_X;
         this.setState({
