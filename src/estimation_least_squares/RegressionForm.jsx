@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
+import { InlineMath } from 'react-katex';
 import * as math from 'mathjs';
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
@@ -88,6 +89,21 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 <label htmlFor={'slope'}>
                                     Slope:
                                 </label>
+                                <span className="help-tooltip"
+                                    tabIndex="0"
+                                    data-tip
+                                    data-for="slope-tt">
+                                    <sup>
+                                        <i className="fas fa-question-circle">
+                                        </i>
+                                    </sup>
+                                </span>
+                                <ReactTooltip id="slope-tt" event="focus"
+                                    eventOff="blur">
+                                    <InlineMath>
+                                        {String.raw`b_0`}
+                                    </InlineMath>
+                                </ReactTooltip>
                                 <NumericField
                                     id={'slope'}
                                     className={'form-control form-control-sm'}
@@ -121,6 +137,21 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 <label htmlFor={'intercept'}>
                                     Intercept:
                                 </label>
+                                <span className="help-tooltip"
+                                    tabIndex="0"
+                                    data-tip
+                                    data-for="intercept-tt">
+                                    <sup>
+                                        <i className="fas fa-question-circle">
+                                        </i>
+                                    </sup>
+                                </span>
+                                <ReactTooltip id="intercept-tt" event="focus"
+                                    eventOff="blur">
+                                    <InlineMath>
+                                        {String.raw`b_1`}
+                                    </InlineMath>
+                                </ReactTooltip>
                                 <NumericField
                                     id={'intercept'}
                                     className={'form-control form-control-sm'}
