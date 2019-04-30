@@ -70,7 +70,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         </span>
                         <ReactTooltip id="alpha-tt" event="focus"
                             eventOff="blur">
-                            <span>Intercept</span>
+                            <span>Intercept of the regression.</span>
                         </ReactTooltip>
                         <NumericField
                             id={'alpha'}
@@ -110,7 +110,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         </span>
                         <ReactTooltip id="beta-tt" event="focus"
                             eventOff="blur">
-                            <span>Slope</span>
+                            <span>Slope of the regression.</span>
                         </ReactTooltip>
                         <NumericField
                             id={'beta'}
