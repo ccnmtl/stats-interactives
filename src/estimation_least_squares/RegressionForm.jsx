@@ -31,12 +31,17 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
-                        <p>Amet fugit aspernatur officiis ratione harum Eaque
-                            cupiditate asperiores fugit temporibus
-                            voluptatibus. Harum illum officiis maiores neque
-                            at praesentium accusantium Eius inventore
-                            voluptate a tempora nesciunt. Animi quia velit
-                            ullam?
+                        <p>Enter text into the seed field below to generate a
+                            unique sample, and then change the slope and the
+                            intercept of the regression prediction equation to
+                            see how the residuals (the prediction error)
+                            change. The graph to the right shows the sum of
+                            squared residuals. Try to come close to the OLS
+                            prediction equation, which is the prediction line
+                            which minimizes the sum of squared residuals.
+                        {!isAssessment && 'You can see the OLS prediction ' +
+                            'equation by clicking on the Toggle Best Fit ' +
+                            'button below.'}
                         </p>
                     </div>
                     <div className="form-row">
