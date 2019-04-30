@@ -161,6 +161,15 @@ export class CLTLeastSquares extends Component {
             <div className={'container'}>
                 <h2>Sampling Distribution of Regression Coefficients</h2>
                 <div className={'row'}>
+                    <div className={'col-12'}>
+                        <p>Elit explicabo rerum ea distinctio nesciunt a velit
+                            optio quod officiis. Perspiciatis animi nobis et
+                            ab saepe Nam amet ullam ullam eum dolore facilis
+                            consequatur maiores Sed necessitatibus nobis est.
+                        </p>
+                    </div>
+                </div>
+                <div className={'row'}>
                     <div className={'col-4'}>
                         <InputForm
                             seed={this.state.seed}
