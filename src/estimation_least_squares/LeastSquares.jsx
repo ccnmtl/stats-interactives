@@ -62,8 +62,8 @@ export class LeastSquares extends Component {
     }
     generatePopulation() {
         let len = 6;
-        let min = -5;
-        let max = 5;
+        let min = -4;
+        let max = 4;
 
         let scale = max - min;
         let offset = min;
