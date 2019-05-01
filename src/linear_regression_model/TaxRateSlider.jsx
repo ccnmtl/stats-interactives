@@ -55,10 +55,10 @@ export const TaxRateSlider = ({taxRateIdx,
                         &nbsp;i =&nbsp;<NumericField
                             id={'tax-rate-field'}
                             className={'form-control form-control-sm'}
-                            min={0}
-                            max={79}
-                            value={(taxRateIdx)}
-                            onChange={handleTaxRateIdx}/>
+                            min={1}
+                            max={80}
+                            value={(taxRateIdx + 1)}
+                            onChange={(val) => {handleTaxRateIdx(val -1);}}/>
                     </label>
                     <div className='invalid-feedback'>
                         The number entered is outside the
@@ -69,32 +69,33 @@ export const TaxRateSlider = ({taxRateIdx,
                             width: '100%',
                             marginBottom: '3em'}}>
                         <Rheostat
-                            min={0}
-                            max={79}
+                            min={1}
+                            max={80}
                             values={[taxRateIdx]}
                             pitComponent={TaxRatePitComponent}
                             pitPoints={[0, 20, 40, 60]}
                             onValuesUpdated={(sliderState) => {
                                 handleTaxRateIdx(
-                                    sliderState.values[0]);
+                                    sliderState.values[0] - 1);
                             }} />
                     </div>
                 </div>
                 <div className={'lrm-values'}>
                     <p>
                         <InlineMath>
-                            {String.raw`Y_i = ${y_i}`}
+                            {String.raw`Y_{${taxRateIdx + 1}} = ${y_i}`}
                         </InlineMath>
                     </p>
                     <p>
                         <InlineMath>
                             {/* eslint-disable-next-line */}
-                            {String.raw`\mu_Y = 29 - 2 * ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
+                            {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
                         </InlineMath>
                     </p>
                     <p>
                         <InlineMath>
-                            {String.raw`\varepsilon = ${epsilon}`}
+                            {String.raw`
+                                \varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
                         </InlineMath>
                     </p>
                 </div>
@@ -139,7 +140,7 @@ export const TaxRateSlider = ({taxRateIdx,
                         </p>
                         <div>
                             <BlockMath>
-                                \mu_Y = 29 - 2 * x
+                                \mu_Y = 29 - 2 \cdot x
                             </BlockMath>
                         </div>
                     </div>

@@ -49,3 +49,8 @@ form * {font-family: 'Roboto Condensed', sans-serif;}
 form label {font-family: 'Roboto Condensed', sans-serif;}
 
 #seed, #distType {width: 100%;}
+
+.help-tooltip:focus {
+    outline: none;
+    color: #0D993F;
+}

@@ -62,8 +62,8 @@ export class LeastSquares extends Component {
     }
     generatePopulation() {
         let len = 6;
-        let min = -5;
-        let max = 5;
+        let min = -4;
+        let max = 4;
 
         let scale = max - min;
         let offset = min;
@@ -206,7 +206,7 @@ export class LeastSquares extends Component {
                                     showBestFit={this.state.showBestFit}/>
                             </div>
                             <div className={'graph-container ls-error-graph'}>
-                                <h2>Sum of Square Errors</h2>
+                                <h2>Sum of Residuals Squared</h2>
                                 <ErrorGraph
                                     optimalSize={this.state.optimalSize}
                                     errorSize={this.state.errorSize}

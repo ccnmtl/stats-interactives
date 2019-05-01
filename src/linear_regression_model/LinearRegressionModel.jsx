@@ -58,8 +58,8 @@ export class LinearRegressionModel extends Component {
             }
         })(taxRateRow);
 
-        let epsilon = Math.abs(math.round(
-            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0], 2));
+        let epsilon = math.round(
+            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0], 2);
 
         // round off mean after used to calc epsilon
         mean = math.round(mean, 2);

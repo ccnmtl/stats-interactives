@@ -13,7 +13,7 @@ export const TaxRateGraphA = (
     return (
         <VictoryChart theme={VictoryTheme.material}
             padding={{left: 45, top: 10, right: 20, bottom: 50}}
-            domain={{x: [8, 31]}}>
+            domain={{x: [8, 31], y: [2, 8]}}>
             <VictoryAxis
                 dependentAxis={true}
                 label={'Tax Rate (X axis)'}
