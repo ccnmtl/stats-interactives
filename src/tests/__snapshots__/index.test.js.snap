@@ -145,7 +145,7 @@ Array [
           href="/sampling-distribution-regression"
           onClick={[Function]}
         >
-          Sampling Distribution Regression
+          Sampling Distribution Regression Coefficients
         </a>
       </h2>
       <p

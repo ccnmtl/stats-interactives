@@ -96,7 +96,7 @@ const PreviewData = [
     },
     {
         'slug': '/sampling-distribution-regression',
-        'title': 'Sampling Distribution Regression',
+        'title': 'Sampling Distribution Regression Coefficients',
         'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
     },
 ];
