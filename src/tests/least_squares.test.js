@@ -8,6 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Preview } from '../App.jsx';
 import { Nav } from '../Nav.jsx';
 import { LeastSquares } from '../estimation_least_squares/LeastSquares';
+import { findLinearRegression, calculateSSE } from '../utils.js';
 var seedrandom = require('seedrandom');
 
 configure({adapter: new Adapter()});
@@ -65,9 +66,9 @@ test('Unit test validatePopulation', () => {
 
     let beta = null;
     let alpha = null;
-    [beta, alpha] = clg_instance.findLinearRegression(pop);
+    [beta, alpha] = findLinearRegression(pop);
     let bestFitFunc = (x) => {return beta * x + alpha;};
-    let optimalSSE = clg_instance.calculateSSE(pop, bestFitFunc);
+    let optimalSSE = calculateSSE(pop, bestFitFunc);
 
     expect(clg_instance.validatePopulation(pop)).toEqual(false);
 });
