@@ -179,7 +179,7 @@ export class CentralLimitGraph extends Component {
         case 'skew_left':
             return [...Array(size)].map((e) => {
                 return math.round(
-                    (jStat.exponential.sample(rate) - stdDev + mean) * -1, 3);
+                    ((jStat.exponential.sample(rate) * -1) + stdDev + mean), 3);
             });
         default:
             // return a normal distribution
