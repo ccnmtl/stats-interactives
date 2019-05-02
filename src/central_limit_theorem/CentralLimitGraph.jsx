@@ -389,7 +389,7 @@ export class CentralLimitGraph extends Component {
                         }
                     </div>
                     <div className='col-8 graph-col'>
-                        <div className="graph-container sticky-top">
+                        <div className="graph-container sp-sticky-top">
                             <h4>
                                 Population and Current Sample</h4>
                             {this.state.observationData &&

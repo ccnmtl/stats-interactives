@@ -54,3 +54,12 @@ form label {font-family: 'Roboto Condensed', sans-serif;}
     outline: none;
     color: #0D993F;
 }
+
+.sp-sticky-top {
+    // this is kind of a kludge, this should be autoprefixed from the Bootstrap
+    // call .sticky-top but its not
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}

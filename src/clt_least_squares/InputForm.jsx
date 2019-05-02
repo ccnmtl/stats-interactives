@@ -17,7 +17,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
         handleGeneratePop();
     };
     return (
-        <div className={'sticky-top'}>
+        <div className={'sp-sticky-top'}>
             <form onSubmit={handleGenPop}
                 className="needs-validation clt-least-squares-form" noValidate >
                 <fieldset>
