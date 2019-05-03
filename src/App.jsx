@@ -83,7 +83,7 @@ const PreviewData = [
     {
         'slug': '/linear-regression-model',
         'title': 'Linear Regression Model',
-        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+        'text': 'A linear regression model assumes that the mean of the response variable is affected by the explanatory variables and that individual observations vary around the mean due to other factors.',
     },
     {
         'slug': '/least-squares-estimation',
