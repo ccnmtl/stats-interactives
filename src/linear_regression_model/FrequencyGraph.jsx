@@ -13,6 +13,10 @@ export const FrequencyGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={`The frequency of smokers who smoke a given
+                number of cigarettes per day.`}
+            desc={`As tax rates increase, the frequency of the number of
+                cigarettes smoked each day decreases.`}
             width={603}
             height={318}
             padding={{left: 74, top: 20, right: 20, bottom: 65}}
@@ -185,6 +189,10 @@ export const FrequencyGraphB = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={`The frequency of smokers who smoke a given
+                number of cigarettes per day.`}
+            desc={`As tax rates increase, the frequency of the number of
+                cigarettes smoked each day decreases.`}
             width={220}
             height={413}
             padding={{left: 50, top: 15, right: 50, bottom: 50}}
