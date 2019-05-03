@@ -22,7 +22,7 @@ const getTaxRateFromIdx = (val) => {
 
 const TaxRatePitComponent = ({ style, children }) => {
     return (
-        <div
+        <div aria-hidden="true"
             className={'lrm-slider-pit'}
             id={children == 60 ? 'lrm-slider-pit-last' : ''}
             style={{
