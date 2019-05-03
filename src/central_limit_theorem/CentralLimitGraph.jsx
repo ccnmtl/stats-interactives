@@ -347,8 +347,8 @@ export class CentralLimitGraph extends Component {
         return (
             <>
             <Nav/>
-            <div className='container'>
-                <h2>The Central Limit Theorem</h2>
+            <main className='container'>
+                <h1>The Central Limit Theorem</h1>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}
@@ -441,7 +441,7 @@ export class CentralLimitGraph extends Component {
                         Reset Simulation
                     </button>
                 </div>
-            </div>
+            </main>
             <hr/>
             </>
         );

@@ -173,8 +173,8 @@ export class CLTLeastSquares extends Component {
         return (
             <>
             <Nav />
-            <div className={'container'}>
-                <h2>Sampling Distribution of Regression Coefficients</h2>
+            <main className={'container'}>
+                <h1>Sampling Distribution of Regression Coefficients</h1>
                 <div className={'row'}>
                     <div className={'col-12'}>
                         <p>Elit explicabo rerum ea distinctio nesciunt a velit
@@ -242,7 +242,7 @@ export class CLTLeastSquares extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
             <hr/>
             </>
         );

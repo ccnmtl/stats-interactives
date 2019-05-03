@@ -76,10 +76,10 @@ export class LinearRegressionModel extends Component {
         return (
             <>
             <Nav/>
-            <div className='container'>
+            <main className='container'>
                 <div className={'row'}>
                     <div className={'col-10'}>
-                        <h2>Linear Regression Model</h2>
+                        <h1>Linear Regression Model</h1>
                     </div>
                     <div className={'col-2'}>
                         <div className={'d-flex ' +
@@ -130,7 +130,7 @@ export class LinearRegressionModel extends Component {
                         </CSSTransition>
                     )}
                 </TransitionGroup>
-            </div>
+            </main>
             <hr/>
             </>
         );
