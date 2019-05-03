@@ -177,10 +177,16 @@ export class CLTLeastSquares extends Component {
                 <h1>Sampling Distribution of Regression Coefficients</h1>
                 <div className={'row'}>
                     <div className={'col-12'}>
-                        <p>Elit explicabo rerum ea distinctio nesciunt a velit
-                            optio quod officiis. Perspiciatis animi nobis et
-                            ab saepe Nam amet ullam ullam eum dolore facilis
-                            consequatur maiores Sed necessitatibus nobis est.
+                        <p>Enter text in the seed field to start the
+                            simulation. Choose the parameters of the
+                            regression model. Each sample shown in the top
+                            right graph comes from a distribution with the
+                            parameters you selected. Use the sample slider to
+                            move through the samples and visualize how the
+                            prediction line changes with each sample. The other
+                            three graphs depict a histogram of the prediction
+                            line intercept, slope, and of the mean sum of
+                            squared residuals.
                         </p>
                     </div>
                 </div>
