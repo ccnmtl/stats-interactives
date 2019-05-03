@@ -15,6 +15,11 @@ export const RegressionGraph = ({population, regressionFunc,
     bestFitFunc, showBestFit}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Samples and Regression Line'}
+            desc={`This graph shows how the sum of square errors changes as
+                the slope and estimate of a proposed line is changed. If the
+                error increases, the boxes represening the square of the errors
+                also increases.`}
             containerComponent={<VictoryVoronoiContainer/>}
             padding={{left: 15, top: 2, right: 15, bottom: 55}}
             domain={{x: [MIN, MAX], y: [MIN, MAX]}}>

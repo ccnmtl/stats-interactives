@@ -12,6 +12,9 @@ export const ErrorGraph = ({optimalSize, errorSize,
         <>
         <div className={'error-graph-container'}>
             <VictoryChart theme={VictoryTheme.material}
+                title={'Sum of Residuals Squared'}
+                desc={`This graphs shows the total area for all
+                    of the sum of residuals squared.`}
                 height={400}
                 width={190}
                 padding={{left: 30, top: 12, right: 5, bottom: 30}}
