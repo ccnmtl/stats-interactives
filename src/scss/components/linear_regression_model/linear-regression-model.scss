@@ -47,6 +47,11 @@
 //   That's why transitions from both states are composed together
 //   under a common class name, but only one occurs at a time.
 
+// Set the heights of the containers to match thier computed heights. This
+// is to facilitate a smooth animation.
+$state-a-height: 883px;
+$state-b-height: 491px;
+
 // The elements are double-wrapped in Bootstrap containers
 // to facilitate the animate. Hence reset the padding.
 .state-a-container, .state-b-container {
@@ -92,7 +97,7 @@
 .graph-transition-exit {
     // Transition A => B
     &.state-a-container {
-        height: 790px;
+        height: $state-a-height;
     }
 
     .state-a-info-container {
@@ -121,7 +126,7 @@
 
     // Transition B => A
     &.state-b-container {
-        height: 450px;
+        height: $state-b-height;
 
         .state-b-graph-container {
             .state-b-info-container {
@@ -151,12 +156,12 @@
 .graph-transition-exit.graph-transition-exit-active {
     // Transition A => B
     &.state-a-container {
-        height: 450px;
+        height: $state-b-height; 
         transition: height 3000ms ease;
     }
 
     &.state-b-container {
-        height: 790px;
+        height: $state-a-height;
         transition: height 1000ms ease-out;
     }
 }

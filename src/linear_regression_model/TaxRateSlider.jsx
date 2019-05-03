@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
-import { BlockMath, InlineMath } from 'react-katex';
+import { InlineMath } from 'react-katex';
 
 const getTaxRateFromIdx = (val) => {
     let taxRateIdx = Math.floor((val)/ 20);
@@ -104,63 +104,69 @@ export const TaxRateSlider = ({taxRateIdx,
                 {isStateA ? (
                 <>
                     <div className={'lrm-copy'}>
-                        <p>This scatter plot illustrates the
-                            basic assumptions of the OLS
-                            regression. On average, people
-                            smoke different number of
-                            cigarettes at different levels of
-                            cigarette tax. We assume the
-                            average number of cigs smoked is
-                            given by the formula below. People
-                            might smoke more or less than the
-                            average number of cigarettes due
-                            to other factors.
+                        <p>How do cigarette sales taxes affect the average
+                            weekly number of cigarettes consumed by a smoker?
+                            The scatterplot to the left shows the relationship
+                            between these two variables and illustrates the
+                            basic assumption of the OLS regression model. On
+                            average, people smoke a different number of
+                            cigarettes at different levels of cigarette tax
+                            rates. The average number of cigarettes consumed by
+                            smokers who face a given cigarette sales tax&nbsp;
+                        <InlineMath>
+                            {String.raw`(x)`}
+                        </InlineMath>
+                            &nbsp;is given by the formula &nbsp;
+                        <InlineMath>
+                            {String.raw`\mu_y=29 - 2 \cdot x`}
+                        </InlineMath>
+                            &nbsp; A given smoker might smoke more or less
+                            than another smoker who faces the same tax rate due
+                            to other factors (income, age, education, etc.)
                         </p>
-                        <p>Click through different tax rates
-                            to see the distribution of number
-                            of cigarettes for a particular tax
-                            rate. For each tax level you can
-                            click through different smokers to
-                            see how many cigarettes they
-                            consumed.
+                        <p>Click through different tax rates and examine how
+                            the distribution of the number of cigarettes smoked
+                            shown on the histograms in the bottom panel
+                            changes. For each tax rate you can click through
+                            different individual smokers to see how many
+                            cigarettes each person consumed on average every
+                            week. The formula above shows the effect of
+                            cigarette sales taxes on the average number of
+                            cigarettes smoked &nbsp;
+                        <InlineMath>
+                            {String.raw`\mu_y`}
+                        </InlineMath>,
+                            as well as the individual deviations from that
+                            average due to other factors &nbsp;
+                        <InlineMath>
+                            {String.raw`\varepsilon_i`}
+                        </InlineMath>.
                         </p>
-                        <p>Notice we reverse the axes for this
-                            scatter plot so that the
-                            explanatory variable is on the
-                            y-axis and the response variable
-                            is on the x-axis. We did this so
-                            that you can better visualize the
-                            histogram of the number of
-                            cigarettes. (More familiar, easier
-                            to read, etc even though it is not
-                            the convention) Use the toggle
-                            above to switch the axis to the
-                            conventional framework -- where
-                            the explanatory variable is on the
-                            x-axis and the response variable
+                        <p>Notice the axes on this scatter plot are reversed,
+                            so that the explanatory variable is on the y-axis
+                            and the response variable is on the x-axis. The
+                            axes have been reversed to provide a better
+                            visualization of the histogram of the number of
+                            cigarettes. (Seeing a distribution in this
+                            orientation is more familiar, and easier to read,
+                            even though it is not the convention.) Use the
+                            buttons above to switch the axis to the
+                            conventional framework, where the explanatory
+                            variable is on the x-axis and the response variable
                             is on the y-axis.
                         </p>
-                        <div>
-                            <BlockMath>
-                                \mu_Y = 29 - 2 \cdot x
-                            </BlockMath>
-                        </div>
                     </div>
                 </>
                 ) : (
                     <div className={'lrm-copy'}>
-                        <p>The scatter plot is now shown in
-                            the conventional way with the
-                            explanatory variable on the x-axis
-                            and the response variable on the
-                            y-axis. Notice that it represents
-                            the same relationship between
-                            cigarettes and cigarette tax as
-                            before. The tilted histograms to
-                            the left show the same distribution
-                            of the number of cigarettes smoked
-                            on average for each level of
-                            taxation.
+                        <p>The scatter plot is now shown in the conventional
+                            orientation, with the explanatory variable on the
+                            x-axis and the response variable on the y-axis.
+                            Notice that it represents the same relationship
+                            between cigarettes smoked and cigarette tax rate as
+                            before. The tilted histograms to the left show the
+                            same distribution of the number of cigarettes
+                            smoked on average for each level of taxation.
                         </p>
                     </div>
                 )}
