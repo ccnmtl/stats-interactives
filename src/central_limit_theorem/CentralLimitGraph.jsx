@@ -407,6 +407,7 @@ export class CentralLimitGraph extends Component {
                                 samplesMax={this.state.samplesMax}
                                 observationIdx={this.state.observationIdx}
                                 domain={this.state.domain}
+                                distType={this.state.distType}
                                 sampleMean={this.state.sampleMeans ?
                                     this.state.sampleMeans[
                                         this.state.sampleMeansIdx] : null}/>
