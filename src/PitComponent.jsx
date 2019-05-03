@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export function PitComponent({ style, children }) {
     return (
-        <div
+        <div aria-hidden="true"
             style={{
                 ...style,
                 background: '#a2a2a2',

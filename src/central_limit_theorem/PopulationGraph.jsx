@@ -10,10 +10,14 @@ import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
     {populationGraphData, samplesGraphData, samplesMax,
-        observationIdx, domain, sampleMean}) => {
+        observationIdx, domain, sampleMean, distType}) => {
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
+            title={'Population and Current Sample'}
+            desc={`The population is a ${distType} distribution. The
+                distribution of samples largely follows
+                that of the population.`}
             padding={{top: 0, left: 10, right: 10, bottom: 25}}
             width={850}
             height={350}
@@ -65,5 +69,6 @@ PopulationGraph.propTypes = {
     observationData: PropTypes.array,
     domain: PropTypes.array,
     sampleMean: PropTypes.number,
+    distType: PropTypes.string,
 };
 

@@ -173,8 +173,8 @@ export class LeastSquares extends Component {
         return (
             <>
             <Nav/>
-            <div className='container'>
-                <h2>Estimation of Least Squares</h2>
+            <main className='container'>
+                <h1>Estimation of Least Squares</h1>
                 <div className={'row'}>
                     <div className={'col-4'}>
                         <RegressionForm
@@ -219,7 +219,7 @@ export class LeastSquares extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
             <hr />
             </>
         );

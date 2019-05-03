@@ -12,6 +12,9 @@ import {
 export const VarianceGraph = ({samples}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Sampling Distribution MSE'}
+            desc={`The frequency of mean square errors calculated from
+                the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
             domain={{x: [0, 2], y: [0, 100]}}>
             <VictoryAxis

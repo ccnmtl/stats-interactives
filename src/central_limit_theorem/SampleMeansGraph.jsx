@@ -14,6 +14,9 @@ export const SampleMeansGraph = ({
     return (
         <>
         <VictoryChart theme={VictoryTheme.material}
+            title={'Distribution of Sample Means'}
+            desc={`As the number of samples increases, the mean of the samples
+                form a normal distribution centered on the population mean.`}
             padding={{top: 0, left: 10, right: 10, bottom: 25}}
             width={850}
             height={350}

@@ -43,35 +43,31 @@ export class App extends Component {
         if (this.state.hasError) {
             return (
                 <Router>
-                    <main role="main">
-                        <Nav />
-                        <div className='container'>
-                            <p>It looks like something went wrong. Refresh
-                                the page to start over.</p>
-                        </div>
+                    <Nav />
+                    <main className='container'>
+                        <p>It looks like something went wrong. Refresh
+                            the page to start over.</p>
                     </main>
                 </Router>
             );
         } else {
             return (
                 <Router>
-                    <main role="main">
-                        <Switch>
-                            <Route exact path="/" component={withTracker(Home)} />
-                            <Route path="/central-limit-theorem"
-                                component={withTracker(CentralLimitGraph)} />
-                            <Route path="/linear-regression-model"
-                                component={
-                                    withTracker(LinearRegressionModel)} />
-                            <Route path="/least-squares-estimation-assessment"
-                                component={withTracker(LeastSquares)} />
-                            <Route path="/least-squares-estimation"
-                                component={withTracker(LeastSquares)} />
-                            <Route path="/sampling-distribution-regression"
-                                component={withTracker(CLTLeastSquares)} />
-                            <Route component={withTracker(NotFound)} />
-                        </Switch>
-                    </main>
+                    <Switch>
+                        <Route exact path="/" component={withTracker(Home)} />
+                        <Route path="/central-limit-theorem"
+                            component={withTracker(CentralLimitGraph)} />
+                        <Route path="/linear-regression-model"
+                            component={
+                                withTracker(LinearRegressionModel)} />
+                        <Route path="/least-squares-estimation-assessment"
+                            component={withTracker(LeastSquares)} />
+                        <Route path="/least-squares-estimation"
+                            component={withTracker(LeastSquares)} />
+                        <Route path="/sampling-distribution-regression"
+                            component={withTracker(CLTLeastSquares)} />
+                        <Route component={withTracker(NotFound)} />
+                    </Switch>
                 </Router>
             );
         }
@@ -120,7 +116,7 @@ const Home = () => (
     <>
     <div className="jumbotron">
         <div className="container">
-            <h1 className="display-2">
+            <h1 className="display-2 hp-title">
                 <span className="stats">Stats</span>
                 Interactives
                 <span className="beta"> Beta</span>

@@ -173,8 +173,8 @@ export class CLTLeastSquares extends Component {
         return (
             <>
             <Nav />
-            <div className={'container'}>
-                <h2>Sampling Distribution of Regression Coefficients</h2>
+            <main className={'container'}>
+                <h1>Sampling Distribution of Regression Coefficients</h1>
                 <div className={'row'}>
                     <div className={'col-12'}>
                         <p>Elit explicabo rerum ea distinctio nesciunt a velit
@@ -206,7 +206,7 @@ export class CLTLeastSquares extends Component {
                     </div>
                     <div className={'col-4'}>
                         <div className={'cls-graph-container'}>
-                            <h3>Sampling Distribution Intercept</h3>
+                            <h2>Sampling Distribution Intercept</h2>
                             <div>
                                 <InterceptFrequencyGraph
                                     samples={
@@ -214,7 +214,7 @@ export class CLTLeastSquares extends Component {
                             </div>
                         </div>
                         <div className={'cls-graph-container'}>
-                            <h3>Sampling Distribution MSE</h3>
+                            <h2>Sampling Distribution MSE</h2>
                             <div>
                                 <VarianceGraph
                                     samples={
@@ -224,7 +224,7 @@ export class CLTLeastSquares extends Component {
                     </div>
                     <div className={'col-4'}>
                         <div className={'cls-graph-container'}>
-                            <h3>Sample Data</h3>
+                            <h2>Sample Data</h2>
                             <div>
                                 <PopulationGraph
                                     population={this.state.population}
@@ -234,7 +234,7 @@ export class CLTLeastSquares extends Component {
                             </div>
                         </div>
                         <div className={'cls-graph-container'}>
-                            <h3>Sampling Distribution Slope</h3>
+                            <h2>Sampling Distribution Slope</h2>
                             <div>
                                 <SlopeFrequencyGraph
                                     samples={this.state.slopeFreqGraphData} />
@@ -242,7 +242,7 @@ export class CLTLeastSquares extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
             <hr/>
             </>
         );

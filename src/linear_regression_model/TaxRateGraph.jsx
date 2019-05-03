@@ -12,6 +12,9 @@ export const TaxRateGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Tax rates and cigarettes smoked each day.'}
+            desc={`As tax rates increase, the number of cigarettes
+                smoked each day decreases.`}
             padding={{left: 45, top: 10, right: 20, bottom: 50}}
             domain={{x: [8, 31], y: [2, 8]}}>
             <VictoryAxis
@@ -168,6 +171,9 @@ export const TaxRateGraphB = (
     {activeDataIdx, handleTaxRateIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Tax rates and cigarettes smoked each day.'}
+            desc={`As tax rates increase, the number of cigarettes
+                smoked each day decreases.`}
             padding={{left: 50, top: 10, right: 10, bottom: 45}}
             domain={{x: [2, 8]}}>
             <VictoryAxis

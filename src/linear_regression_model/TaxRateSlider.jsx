@@ -22,7 +22,7 @@ const getTaxRateFromIdx = (val) => {
 
 const TaxRatePitComponent = ({ style, children }) => {
     return (
-        <div
+        <div aria-hidden="true"
             className={'lrm-slider-pit'}
             id={children == 60 ? 'lrm-slider-pit-last' : ''}
             style={{
@@ -53,11 +53,13 @@ export const TaxRateSlider = ({taxRateIdx,
                         Tax rate observations for {
                             getTaxRateFromIdx(taxRateIdx) + '%'}:
                         &nbsp;i =&nbsp;<NumericField
+                            tabIndex="0"
                             id={'tax-rate-field'}
                             className={'form-control form-control-sm'}
                             min={1}
                             max={80}
                             value={(taxRateIdx + 1)}
+                            autoFocus
                             onChange={(val) => {handleTaxRateIdx(val -1);}}/>
                     </label>
                     <div className='invalid-feedback'>

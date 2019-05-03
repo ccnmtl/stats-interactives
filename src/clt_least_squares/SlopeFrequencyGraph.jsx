@@ -12,6 +12,9 @@ import {
 export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Sampling Distribution Slope'}
+            desc={`The frequency of slope values calculated from
+                the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
             domain={{x: [-2, 2], y: [0, 100]}}>
             <VictoryAxis

@@ -347,8 +347,8 @@ export class CentralLimitGraph extends Component {
         return (
             <>
             <Nav/>
-            <div className='container'>
-                <h2>The Central Limit Theorem</h2>
+            <main className='container'>
+                <h1>The Central Limit Theorem</h1>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}
@@ -407,6 +407,7 @@ export class CentralLimitGraph extends Component {
                                 samplesMax={this.state.samplesMax}
                                 observationIdx={this.state.observationIdx}
                                 domain={this.state.domain}
+                                distType={this.state.distType}
                                 sampleMean={this.state.sampleMeans ?
                                     this.state.sampleMeans[
                                         this.state.sampleMeansIdx] : null}/>
@@ -441,7 +442,7 @@ export class CentralLimitGraph extends Component {
                         Reset Simulation
                     </button>
                 </div>
-            </div>
+            </main>
             <hr/>
             </>
         );

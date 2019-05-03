@@ -17,6 +17,9 @@ import {
 export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
+            title={'Sampling Distribution Intercept'}
+            desc={`The frequency of y-intercept values calculated from
+                the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 50, bottom: 50}}
             domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
