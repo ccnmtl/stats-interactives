@@ -72,6 +72,7 @@ export class NumericField extends Component {
                 min={this.props.min}
                 max={this.props.max}
                 value={this.state.fieldValue}
+                autoFocus={this.props.autoFocus}
                 onFocus={this.onFocus}
                 onBlur={this.setValue}
                 onKeyUp={this.onKeyUp}
@@ -119,4 +120,5 @@ NumericField.propTypes = {
     },
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
+    autoFocus: PropTypes.bool,
 };
