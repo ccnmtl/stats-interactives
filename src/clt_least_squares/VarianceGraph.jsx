@@ -5,6 +5,11 @@ import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
+const X_MIN = 0;
+const X_MAX = 2;
+const Y_MIN = 0;
+const Y_MAX = 60;
+
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
@@ -16,7 +21,7 @@ export const VarianceGraph = ({samples}) => {
             desc={`The frequency of mean square errors calculated from
                 the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 2], y: [0, 100]}}>
+            domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 style={{
@@ -25,7 +30,7 @@ export const VarianceGraph = ({samples}) => {
                     }
                 }}
                 tickValues={
-                    math.range(0, 100, 10, true).map((val) => {
+                    math.range(Y_MIN, Y_MAX, 10, true).map((val) => {
                         return val;
                     })} />
             <VictoryAxis
@@ -40,7 +45,7 @@ export const VarianceGraph = ({samples}) => {
                     }
                 }}
                 tickValues={math.range(
-                    0, 2, 0.2, true
+                    X_MIN, X_MAX, 0.2, true
                 ).map((val) => {
                     return math.round(val, 1);
                 })} />
