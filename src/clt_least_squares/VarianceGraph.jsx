@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DOT_SIZE } from './CLTLeastSquares';
+import { DOT_SIZE, VARIANCE_FREQ_MIN,
+    VARIANCE_FREQ_MAX} from './CLTLeastSquares';
 import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
-const X_MIN = 0;
-const X_MAX = 2;
 const Y_MIN = 0;
 const Y_MAX = 60;
 
@@ -21,7 +20,8 @@ export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
             desc={`The frequency of mean square errors calculated from
                 the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
+            domain={{x: [VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX],
+                y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 style={{
@@ -45,7 +45,7 @@ export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
                     }
                 }}
                 tickValues={math.range(
-                    X_MIN, X_MAX, 0.2, true
+                    VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX, 0.2, true
                 ).map((val) => {
                     return math.round(val, 1);
                 })} />

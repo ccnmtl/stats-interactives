@@ -17,6 +17,13 @@ export const DOT_SIZE = 4;
 const SAMPLE_SIZE = 100;
 const NO_OF_SAMPLES = 100;
 
+export const INTERCEPT_FREQ_MIN = -4;
+export const INTERCEPT_FREQ_MAX = 4;
+export const SLOPE_FREQ_MIN = -2;
+export const SLOPE_FREQ_MAX = 2;
+export const VARIANCE_FREQ_MIN = 0;
+export const VARIANCE_FREQ_MAX = 2;
+
 export class CLTLeastSquares extends Component {
     constructor(props) {
         super(props);
@@ -127,16 +134,20 @@ export class CLTLeastSquares extends Component {
         let populationRegression = this.getPopulationRegression(population);
         let populationSlopes = unpackData(populationRegression, 0);
         let slopeFreq = createScatterPlotHistogram(
-            populationSlopes, 40, -2, 2);
+            populationSlopes,
+            (SLOPE_FREQ_MAX - SLOPE_FREQ_MIN) * 10,
+            SLOPE_FREQ_MIN,
+            SLOPE_FREQ_MAX);
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
         let slopeCumalativeMean = populationSlopes.map((val, idx, arr) => {
             return math.round(
                 math.mean(arr.slice(0, idx + 1)), 2);
         });
 
-        let interceptFreqNoOfBins = 30;
-        let interceptFreqMinBin = -3;
-        let interceptFreqMaxBin = 3;
+        let interceptFreqNoOfBins =
+            (INTERCEPT_FREQ_MAX - INTERCEPT_FREQ_MIN) * 5;
+        let interceptFreqMinBin = INTERCEPT_FREQ_MIN;
+        let interceptFreqMaxBin = INTERCEPT_FREQ_MAX;
         let populationIntercepts = unpackData(populationRegression, 1);
         let interceptFreq = createScatterPlotHistogram(
             populationIntercepts,
@@ -154,7 +165,10 @@ export class CLTLeastSquares extends Component {
         let populationVariance = this.getPopulationVariance(
             population, populationRegression);
         let varianceFreq = createScatterPlotHistogram(
-            populationVariance, 20, 0, 2);
+            populationVariance,
+            (VARIANCE_FREQ_MAX - VARIANCE_FREQ_MIN) * 10,
+            VARIANCE_FREQ_MIN,
+            VARIANCE_FREQ_MAX);
 
         let varianceFreqGraphData = varianceFreq.slice(
             0, this.state.sampleIdx + 1);
