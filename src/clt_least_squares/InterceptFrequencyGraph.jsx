@@ -7,8 +7,8 @@ math.config({matrix: 'Array'});
 
 const X_MIN = 0;
 const X_MAX = 50;
-const Y_MIN = -5;
-const Y_MAX = 5;
+const Y_MIN = -4;
+const Y_MAX = 4;
 
 import {
     VictoryChart, VictoryTheme,
