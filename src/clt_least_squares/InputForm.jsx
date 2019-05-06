@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, variance, handleVariance,
-    sampleIdx, handleSampleIdx, populationRegression, populationSSE}) => {
+    sampleIdx, handleSampleIdx, populationRegression, populationVariance}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -273,8 +273,8 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             <div className={'form-row clt-ols-active-values'}>
                                 <div className={'col-12'}>
                                     <InlineMath>
-                                        {String.raw`SSE = ${math.round(
-                                            populationSSE[sampleIdx], 2)
+                                        {String.raw`MSE = ${math.round(
+                                            populationVariance[sampleIdx], 2)
                                         }`}
                                     </InlineMath>
                                     <span className="help-tooltip"
@@ -319,5 +319,5 @@ InputForm.propTypes = {
     handleSampleIdx: PropTypes.func,
     hasPopulation: PropTypes.bool,
     populationRegression: PropTypes.array,
-    populationSSE: PropTypes.array,
+    populationVariance: PropTypes.array,
 };
