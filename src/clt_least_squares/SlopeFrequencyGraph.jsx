@@ -14,7 +14,7 @@ import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
+export const SlopeFrequencyGraph = ({samples, slopeCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution Slope'}
@@ -34,7 +34,7 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                         return val;
                     })} />
             <VictoryAxis
-                label={'Regression Slope'}
+                label={`Regression Slope | Mean Slope: ${slopeCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -71,6 +71,5 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
 
 SlopeFrequencyGraph.propTypes = {
     samples: PropTypes.array,
-    sampleIdx: PropTypes.number,
+    slopeCumalativeMean: PropTypes.number,
 };
-

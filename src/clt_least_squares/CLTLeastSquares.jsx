@@ -10,6 +10,7 @@ import { findLinearRegression, createScatterPlotHistogram,
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
+import * as math from 'mathjs';
 
 export const DOT_SIZE = 4;
 
@@ -46,6 +47,9 @@ export class CLTLeastSquares extends Component {
             populationVariance: null,
             varianceFreq: null,
             varianceFreqGraphData: null,
+            interceptCumalativeMean: [0],
+            slopeCumalativeMean: [0],
+            varianceCumalativeMean: [0],
         };
 
         this.state = this.initialState;
@@ -121,21 +125,31 @@ export class CLTLeastSquares extends Component {
 
         let population = this.generatePopulation();
         let populationRegression = this.getPopulationRegression(population);
+        let populationSlopes = unpackData(populationRegression, 0);
         let slopeFreq = createScatterPlotHistogram(
-            unpackData(populationRegression, 0), 40, -2, 2);
+            populationSlopes, 40, -2, 2);
         let slopeFreqGraphData = slopeFreq.slice(0, this.state.sampleIdx + 1);
+        let slopeCumalativeMean = populationSlopes.map((val, idx, arr) => {
+            return math.round(
+                math.mean(arr.slice(0, idx + 1)), 2);
+        });
 
         let interceptFreqNoOfBins = 30;
         let interceptFreqMinBin = -3;
         let interceptFreqMaxBin = 3;
+        let populationIntercepts = unpackData(populationRegression, 1);
         let interceptFreq = createScatterPlotHistogram(
-            unpackData(populationRegression, 1),
+            populationIntercepts,
             interceptFreqNoOfBins,
             interceptFreqMinBin,
             interceptFreqMaxBin
         );
         let interceptFreqGraphData = interceptFreq.slice(
             0, this.state.sampleIdx + 1);
+        let interceptCumalativeMean = populationSlopes.map((val, idx, arr) => {
+            return math.round(
+                math.mean(arr.slice(0, idx + 1)), 2);
+        });
 
         let populationVariance = this.getPopulationVariance(
             population, populationRegression);
@@ -144,6 +158,10 @@ export class CLTLeastSquares extends Component {
 
         let varianceFreqGraphData = varianceFreq.slice(
             0, this.state.sampleIdx + 1);
+        let varianceCumalativeMean = populationVariance.map((val, idx, arr) => {
+            return math.round(
+                math.mean(arr.slice(0, idx + 1)), 2);
+        });
 
         this.setState({
             population: population,
@@ -155,6 +173,9 @@ export class CLTLeastSquares extends Component {
             populationVariance: populationVariance,
             varianceFreq: varianceFreq,
             varianceFreqGraphData: varianceFreqGraphData,
+            interceptCumalativeMean: interceptCumalativeMean,
+            slopeCumalativeMean: slopeCumalativeMean,
+            varianceCumalativeMean: varianceCumalativeMean,
         });
     }
     render() {
@@ -204,7 +225,10 @@ export class CLTLeastSquares extends Component {
                             <div>
                                 <InterceptFrequencyGraph
                                     samples={
-                                        this.state.interceptFreqGraphData} />
+                                        this.state.interceptFreqGraphData}
+                                    interceptCumalativeMean={
+                                        this.state.interceptCumalativeMean[
+                                            this.state.sampleIdx]}/>
                             </div>
                         </div>
                         <div className={'cls-graph-container'}>
@@ -212,7 +236,10 @@ export class CLTLeastSquares extends Component {
                             <div>
                                 <VarianceGraph
                                     samples={
-                                        this.state.varianceFreqGraphData} />
+                                        this.state.varianceFreqGraphData}
+                                    varianceCumalativeMean={
+                                        this.state.varianceCumalativeMean[
+                                            this.state.sampleIdx]}/>
                             </div>
                         </div>
                     </div>
@@ -231,7 +258,10 @@ export class CLTLeastSquares extends Component {
                             <h2>Sampling Distribution Slope</h2>
                             <div>
                                 <SlopeFrequencyGraph
-                                    samples={this.state.slopeFreqGraphData} />
+                                    samples={this.state.slopeFreqGraphData}
+                                    slopeCumalativeMean={
+                                        this.state.slopeCumalativeMean[
+                                            this.state.sampleIdx]}/>
                             </div>
                         </div>
                     </div>

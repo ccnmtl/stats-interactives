@@ -14,7 +14,7 @@ import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
+export const InterceptFrequencyGraph = ({samples, interceptCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution Intercept'}
@@ -40,6 +40,7 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                 })} />
             <VictoryAxis
                 invertAxis={true}
+                label={`Mean Intercept: ${interceptCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -74,5 +75,5 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
 
 InterceptFrequencyGraph.propTypes = {
     samples: PropTypes.array,
-    sampleIdx: PropTypes.number,
+    interceptCumalativeMean: PropTypes.number,
 };

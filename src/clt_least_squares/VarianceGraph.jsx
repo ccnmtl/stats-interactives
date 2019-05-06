@@ -14,7 +14,7 @@ import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const VarianceGraph = ({samples}) => {
+export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution MSE'}
@@ -34,7 +34,7 @@ export const VarianceGraph = ({samples}) => {
                         return val;
                     })} />
             <VictoryAxis
-                label={'Regression MSE'}
+                label={`Regression MSE : Mean MSE: ${varianceCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -71,6 +71,7 @@ export const VarianceGraph = ({samples}) => {
 
 VarianceGraph.propTypes = {
     samples: PropTypes.array,
+    varianceCumalativeMean: PropTypes.number,
 };
 
 
