@@ -85,7 +85,7 @@ export const TaxRateSlider = ({taxRateIdx,
                 <div className={'lrm-values'}>
                     <p>
                         <InlineMath>
-                            {String.raw`Y_{${taxRateIdx + 1}} = ${y_i}`}
+                            {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
                         </InlineMath>
                     </p>
                     <p>
