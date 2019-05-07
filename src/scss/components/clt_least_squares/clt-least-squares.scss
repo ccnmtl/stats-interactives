@@ -23,3 +23,55 @@
 .clt-ols-active-values {
     margin-bottom: 1em;
 }
+
+$highlight-color: #347EA8;
+
+.cls-arrow {
+    width: 50px;
+    height: 25px;
+    display: flex;
+
+    .arrow-point {
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-right: 15px solid $highlight-color;
+        border-bottom: 12px solid transparent;
+    }
+
+    .arrow-shaft {
+        width: 70%;
+        background-color: $highlight-color;
+        margin: 5px 0 5px 0;
+    }
+}
+
+.cls-population-graph-container {
+    border: solid 4px $highlight-color;
+    // The no-op scale is needed to force the arrows
+    // to position relative to the container
+    transform: scale(1);
+
+    .cls-arrow-left {
+        position: absolute;
+        top: calc(50% - 12px);
+        left: -40px;
+        z-index: 10000;
+    }
+
+    .cls-arrow-bottom-left {
+        position: absolute;
+        top: calc(100% - 12px);
+        left: -25px;
+        z-index: 10000;
+        transform: rotate(-45deg);
+    }
+
+    .cls-arrow-bottom {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: calc(50% - 12px);
+        z-index: 10000;
+        transform: rotate(-90deg);
+    }
+}
