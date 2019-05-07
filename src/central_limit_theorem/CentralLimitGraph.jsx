@@ -93,6 +93,7 @@ export class CentralLimitGraph extends Component {
                 value: value,
             });
         }
+        this.handleResetSamples();
         this.setState({
             [key]: value,
         });
