@@ -7,8 +7,8 @@ math.config({matrix: 'Array'});
 
 const X_MIN = 0;
 const X_MAX = 1;
-const Y_MIN = -5;
-const Y_MAX = 5;
+const Y_MIN = -4;
+const Y_MAX = 4;
 
 import {
     VictoryChart, VictoryTheme, VictoryLine,
@@ -43,7 +43,9 @@ export const PopulationGraph = ({
                     return math.round(val, 1);
                 })} />
             {population &&
-                <VictoryScatter data={population[sampleIdx]}
+                    <VictoryScatter data={population[sampleIdx].filter((el) => {
+                        return el[1] <= Y_MAX && el[1] >= Y_MIN;
+                    })}
                     style={{ data: { fill: INACTIVE, stroke: BAR_BORDER,
                         strokeWidth: 2 } }}
                     size={DOT_SIZE}

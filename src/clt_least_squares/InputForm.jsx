@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import ReactTooltip from 'react-tooltip';
 import { NumericField } from '../utility_components/NumericField';
-import { InlineMath, BlockMath } from 'react-katex';
+import { InlineMath } from 'react-katex';
 import * as math from 'mathjs';
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, variance, handleVariance,
-    sampleIdx, handleSampleIdx, populationRegression, populationSSE}) => {
+    sampleIdx, handleSampleIdx, populationRegression, populationVariance}) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -70,7 +70,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             </span>
                             <ReactTooltip id="alpha-tt" event="focus"
                                 eventOff="blur">
-                                <span>Intercept of the regression.</span>
+                                <span>Intercept of the regression model</span>
                             </ReactTooltip>
                             <NumericField
                                 id={'alpha'}
@@ -110,7 +110,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             </span>
                             <ReactTooltip id="beta-tt" event="focus"
                                 eventOff="blur">
-                                <span>Slope of the regression.</span>
+                                <span>Slope of the regression model</span>
                             </ReactTooltip>
                             <NumericField
                                 id={'beta'}
@@ -137,7 +137,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         <div className={'form-row'}>
                             <label htmlFor={'variance'}>
                                 <InlineMath>
-                                    {String.raw`\sum^2`}
+                                    {String.raw`\sigma^2`}
                                 </InlineMath>
                             </label>
                             <span className="help-tooltip"
@@ -178,7 +178,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 disabled={seed ? false : true}
                                 id="generate-population"
                                 type="submit"
-                                value="Generate Population"/>
+                                value="Generate Samples"/>
                         </div>
                     </div>}
                 </fieldset>
@@ -215,28 +215,86 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 </div>
                             </div>
                             <div className={'form-row'}>
-                                <div className={'col-4'}>
-                                    <BlockMath>
+                                <div className={'col-12 clt-ols-active-values'}>
+                                    <InlineMath>
                                         {String.raw`b_0 = ${math.round(
                                             /* eslint-disable-next-line */
                                             populationRegression[sampleIdx][1], 2)
                                         }`}
-                                    </BlockMath>
+                                    </InlineMath>
+                                    <span className="help-tooltip"
+                                        tabIndex="0"
+                                        data-tip
+                                        data-for="b0-active-tt">
+                                        <sup>
+                                            <i className={
+                                                'fas fa-question-circle'}>
+                                            </i>
+                                        </sup>
+                                    </span>
+                                    <ReactTooltip id="b0-active-tt"
+                                        event="focus"
+                                        eventOff="blur">
+                                        <span>
+                                                Intercept of the
+                                                prediction equation
+                                        </span>
+                                    </ReactTooltip>
                                 </div>
-                                <div className={'col-4'}>
-                                    <BlockMath>
+                            </div>
+                            <div className={'form-row clt-ols-active-values'}>
+                                <div className={'col-12'}>
+                                    <InlineMath>
                                         {String.raw`b_1 = ${math.round(
                                             /* eslint-disable-next-line */
                                             populationRegression[sampleIdx][0], 2)
                                         }`}
-                                    </BlockMath>
+                                    </InlineMath>
+                                    <span className="help-tooltip"
+                                        tabIndex="0"
+                                        data-tip
+                                        data-for="b1-active-tt">
+                                        <sup>
+                                            <i className={
+                                                'fas fa-question-circle'}>
+                                            </i>
+                                        </sup>
+                                    </span>
+                                    <ReactTooltip id="b1-active-tt"
+                                        event="focus"
+                                        eventOff="blur">
+                                        <span>
+                                                Slope of the
+                                                prediction equation
+                                        </span>
+                                    </ReactTooltip>
                                 </div>
-                                <div className={'col-4'}>
-                                    <BlockMath>
-                                        {String.raw`SSE = ${math.round(
-                                            populationSSE[sampleIdx], 2)
+                            </div>
+                            <div className={'form-row clt-ols-active-values'}>
+                                <div className={'col-12'}>
+                                    <InlineMath>
+                                        {String.raw`MSE = ${math.round(
+                                            populationVariance[sampleIdx], 2)
                                         }`}
-                                    </BlockMath>
+                                    </InlineMath>
+                                    <span className="help-tooltip"
+                                        tabIndex="0"
+                                        data-tip
+                                        data-for="mse-active-tt">
+                                        <sup>
+                                            <i className={
+                                                'fas fa-question-circle'}>
+                                            </i>
+                                        </sup>
+                                    </span>
+                                    <ReactTooltip id="mse-active-tt"
+                                        event="focus"
+                                        eventOff="blur">
+                                        <span>
+                                            Mean sum of squares
+                                            of the residual
+                                        </span>
+                                    </ReactTooltip>
                                 </div>
                             </div>
                         </div>
@@ -261,5 +319,5 @@ InputForm.propTypes = {
     handleSampleIdx: PropTypes.func,
     hasPopulation: PropTypes.bool,
     populationRegression: PropTypes.array,
-    populationSSE: PropTypes.array,
+    populationVariance: PropTypes.array,
 };

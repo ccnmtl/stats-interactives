@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DOT_SIZE } from './CLTLeastSquares';
+import { DOT_SIZE, SLOPE_FREQ_MIN,
+    SLOPE_FREQ_MAX} from './CLTLeastSquares';
 import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
+
+const Y_MIN = 0;
+const Y_MAX = 35;
 
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
+export const SlopeFrequencyGraph = ({samples, slopeCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution Slope'}
             desc={`The frequency of slope values calculated from
                 the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [-2, 2], y: [0, 100]}}>
+            domain={{x: [SLOPE_FREQ_MIN, SLOPE_FREQ_MAX], y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 style={{
@@ -25,9 +29,11 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                     }
                 }}
                 tickValues={
-                    [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+                    math.range(Y_MIN, Y_MAX, 10, true).map((val) => {
+                        return val;
+                    })} />
             <VictoryAxis
-                label={'Regression Slope'}
+                label={`Regression Slope | Mean Slope: ${slopeCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -38,7 +44,7 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
                     }
                 }}
                 tickValues={math.range(
-                    -2, 2, 0.5, true
+                    SLOPE_FREQ_MIN, SLOPE_FREQ_MAX, 0.5, true
                 ).map((val) => {
                     return math.round(val, 1);
                 })} />
@@ -64,6 +70,5 @@ export const SlopeFrequencyGraph = ({samples, sampleIdx}) => {
 
 SlopeFrequencyGraph.propTypes = {
     samples: PropTypes.array,
-    sampleIdx: PropTypes.number,
+    slopeCumalativeMean: PropTypes.number,
 };
-

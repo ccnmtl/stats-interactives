@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DOT_SIZE } from './CLTLeastSquares';
+import { DOT_SIZE, INTERCEPT_FREQ_MIN,
+    INTERCEPT_FREQ_MAX } from './CLTLeastSquares';
 import * as math from 'mathjs';
 import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 math.config({matrix: 'Array'});
 
+
 const X_MIN = 0;
 const X_MAX = 50;
-const Y_MIN = -5;
-const Y_MAX = 5;
 
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
+export const InterceptFrequencyGraph = ({samples, interceptCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution Intercept'}
             desc={`The frequency of y-intercept values calculated from
                 the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 50, bottom: 50}}
-            domain={{x: [X_MIN, X_MAX], y: [Y_MIN, Y_MAX]}}>
+            domain={{x: [X_MIN, X_MAX],
+                y: [INTERCEPT_FREQ_MIN, INTERCEPT_FREQ_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 orientation={'right'}
@@ -35,11 +36,13 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
                         fontSize: 12,
                     }
                 }}
-                tickValues={math.range(Y_MIN, Y_MAX, true).map((val) => {
+                tickValues={math.range(
+                    INTERCEPT_FREQ_MIN, INTERCEPT_FREQ_MAX, true).map((val) => {
                     return val;
                 })} />
             <VictoryAxis
                 invertAxis={true}
+                label={`Mean Intercept: ${interceptCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -74,5 +77,5 @@ export const InterceptFrequencyGraph = ({samples, sampleIdx}) => {
 
 InterceptFrequencyGraph.propTypes = {
     samples: PropTypes.array,
-    sampleIdx: PropTypes.number,
+    interceptCumalativeMean: PropTypes.number,
 };

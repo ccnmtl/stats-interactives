@@ -1,22 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DOT_SIZE } from './CLTLeastSquares';
+import { DOT_SIZE, VARIANCE_FREQ_MIN,
+    VARIANCE_FREQ_MAX} from './CLTLeastSquares';
 import { BAR_BORDER, BAR_FILL, INDICATOR } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
+
+const Y_MIN = 0;
+const Y_MAX = 60;
 
 import {
     VictoryChart, VictoryTheme,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const VarianceGraph = ({samples}) => {
+export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
             title={'Sampling Distribution MSE'}
             desc={`The frequency of mean square errors calculated from
                 the regression of each sample of the population.`}
             padding={{left: 50, top: 20, right: 20, bottom: 50}}
-            domain={{x: [0, 2], y: [0, 100]}}>
+            domain={{x: [VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX],
+                y: [Y_MIN, Y_MAX]}}>
             <VictoryAxis
                 dependentAxis={true}
                 style={{
@@ -25,11 +30,11 @@ export const VarianceGraph = ({samples}) => {
                     }
                 }}
                 tickValues={
-                    math.range(0, 100, 10, true).map((val) => {
+                    math.range(Y_MIN, Y_MAX, 10, true).map((val) => {
                         return val;
                     })} />
             <VictoryAxis
-                label={'Regression MSE'}
+                label={`Regression MSE : Mean MSE: ${varianceCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
@@ -40,7 +45,7 @@ export const VarianceGraph = ({samples}) => {
                     }
                 }}
                 tickValues={math.range(
-                    0, 2, 0.2, true
+                    VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX, 0.2, true
                 ).map((val) => {
                     return math.round(val, 1);
                 })} />
@@ -66,6 +71,7 @@ export const VarianceGraph = ({samples}) => {
 
 VarianceGraph.propTypes = {
     samples: PropTypes.array,
+    varianceCumalativeMean: PropTypes.number,
 };
 
 
