@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import { Nav } from '../Nav.jsx';
 
 import { RegressionForm } from './RegressionForm';
@@ -89,6 +90,12 @@ export class LeastSquares extends Component {
         return false;
     }
     handleGeneratePop() {
+        ReactGA.event({
+            category: this.state.isAssessment ?
+                'EstimationOfLeastSquaresAssessment' :
+                'EstimationOfLeastSquaresNonAssessment',
+            action: 'Generate Population',
+        });
         let seed = this.state.isAssessment ?
             this.state.seed + 'IHeartStatistics' : this.state.seed;
         seedrandom(seed, {global: true});
@@ -99,6 +106,7 @@ export class LeastSquares extends Component {
         let optimalSSE = null;
         let bestFitFunc = null;
 
+        let populationTrials = 0;
         /*eslint-disable-next-line no-constant-condition*/
         while (true) {
             population = this.generatePopulation();
@@ -107,6 +115,7 @@ export class LeastSquares extends Component {
             bestFitFunc = (x) => {return beta * x + alpha;};
             optimalSSE = calculateSSE(population, bestFitFunc);
 
+            populationTrials += 1;
             // Rerun the loop until we get a population that
             // conforms to the required constraints.
             if (this.validatePopulation(
@@ -114,6 +123,15 @@ export class LeastSquares extends Component {
                 break;
             }
         }
+
+        ReactGA.event({
+            category: this.state.isAssessment ?
+                'EstimationOfLeastSquaresAssessment' :
+                'EstimationOfLeastSquaresNonAssessment',
+            action: 'Change Form Value',
+            label: 'Population Trials',
+            value: populationTrials,
+        });
 
 
         let estimatedSSE = calculateSSE(
@@ -133,6 +151,14 @@ export class LeastSquares extends Component {
         });
     }
     handleSlope(val) {
+        ReactGA.event({
+            category: this.state.isAssessment ?
+                'EstimationOfLeastSquaresAssessment' :
+                'EstimationOfLeastSquaresNonAssessment',
+            action: 'Change Form Value',
+            label: 'Change Slope',
+            value: val,
+        });
         let regressionFunc = (x) => {return val * x + this.state.intercept;};
         let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
@@ -146,6 +172,14 @@ export class LeastSquares extends Component {
         });
     }
     handleIntercept(val) {
+        ReactGA.event({
+            category: this.state.isAssessment ?
+                'EstimationOfLeastSquaresAssessment' :
+                'EstimationOfLeastSquaresNonAssessment',
+            action: 'Change Form Value',
+            label: 'Change Intercept',
+            value: val,
+        });
         let regressionFunc = (x) => {return this.state.slope * x + val;};
         let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
@@ -159,6 +193,12 @@ export class LeastSquares extends Component {
         });
     }
     handleShowBestFit() {
+        ReactGA.event({
+            category: this.state.isAssessment ?
+                'EstimationOfLeastSquaresAssessment' :
+                'EstimationOfLeastSquaresNonAssessment',
+            action: 'Toggle Best Fit',
+        });
         this.setState((prevState) => ({
             showBestFit: !prevState.showBestFit,
         }));

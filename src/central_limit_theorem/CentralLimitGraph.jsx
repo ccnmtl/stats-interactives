@@ -87,7 +87,7 @@ export class CentralLimitGraph extends Component {
     handleChange(key, value) {
         if (key !== 'seed') {
             ReactGA.event({
-                category: 'User',
+                category: 'CentralLimitTheorem',
                 action: 'Upate population params',
                 label: key,
                 value: value,
@@ -101,7 +101,7 @@ export class CentralLimitGraph extends Component {
     handleSampleForm(key, value) {
         this.handleResetSamples();
         ReactGA.event({
-            category: 'User',
+            category: 'CentralLimitTheorem',
             action: 'Upate population params',
             label: key,
             value: value,
@@ -112,7 +112,7 @@ export class CentralLimitGraph extends Component {
     }
     handleGeneratePopulation() {
         ReactGA.event({
-            category: 'User',
+            category: 'CentralLimitGraph',
             action: 'Generate Population'
         });
         let mean = this.state.mean;
@@ -192,7 +192,7 @@ export class CentralLimitGraph extends Component {
     }
     runSample() {
         ReactGA.event({
-            category: 'User',
+            category: 'CentralLimitGraph',
             action: 'Run Sample'
         });
         this.handleResetSamples();
@@ -339,7 +339,7 @@ export class CentralLimitGraph extends Component {
     }
     handleResetSimulation() {
         ReactGA.event({
-            category: 'User',
+            category: 'CentralLimitGraph',
             action: 'Reset Simulation'
         });
         this.setState(this.initialState);

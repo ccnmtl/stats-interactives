@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import { Nav } from '../Nav.jsx';
 import { InputForm } from './InputForm';
 import { PopulationGraph } from './PopulationGraph';
@@ -67,21 +68,45 @@ export class CLTLeastSquares extends Component {
         });
     }
     handleBeta(beta) {
+        ReactGA.event({
+            category: 'SamplingDistibutionRegression',
+            action: 'Change Form Value',
+            label: 'Beta',
+            value: beta,
+        });
         this.setState({
             beta: beta,
         });
     }
     handleAlpha(alpha) {
+        ReactGA.event({
+            category: 'SamplingDistibutionRegression',
+            action: 'Change Form Value',
+            label: 'Alpha',
+            value: alpha,
+        });
         this.setState({
             alpha: alpha,
         });
     }
     handleVariance(variance) {
+        ReactGA.event({
+            category: 'SamplingDistibutionRegression',
+            action: 'Change Form Value',
+            label: 'Variance',
+            value: variance,
+        });
         this.setState({
             variance: variance,
         });
     }
     handleSampleIdx(idx) {
+        ReactGA.event({
+            category: 'SamplingDistibutionRegression',
+            action: 'Change Form Value',
+            label: 'Sample Index',
+            value: idx,
+        });
         let slopeFreqGraphData = this.state.slopeFreq.slice(
             0, this.state.sampleIdx + 1);
         let interceptFreqGraphData = this.state.interceptFreq.slice(
@@ -124,6 +149,10 @@ export class CLTLeastSquares extends Component {
         });
     }
     handleGeneratePop() {
+        ReactGA.event({
+            category: 'SamplingDistibutionRegression',
+            action: 'Generate Samples',
+        });
         let paramatizedSeed = this.state.seed +
             this.state.beta +
             this.state.alpha +

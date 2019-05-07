@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
@@ -32,6 +33,10 @@ export class LinearRegressionModel extends Component {
         this.state = this.initialState;
     }
     handleFlipGraphs() {
+        ReactGA.event({
+            category: 'LinearRegressionModel',
+            action: 'Flip Graphs',
+        });
         this.setState((prevState) => ({
             flipGraphs: !prevState.flipGraphs,
             toggleLock: true,
@@ -43,6 +48,12 @@ export class LinearRegressionModel extends Component {
         });
     }
     handleTaxRateIdx(idx) {
+        ReactGA.event({
+            category: 'LinearRegressionModel',
+            action: 'Change Form Value',
+            label: 'Tax Rate Index',
+            value: idx,
+        });
         let taxRateRow = Math.floor(idx / 20);
         let taxRateCol = idx % 20;
         let mean = 29 - 2 * ((taxCol) => {
