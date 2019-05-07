@@ -258,7 +258,20 @@ export class CLTLeastSquares extends Component {
                         </div>
                     </div>
                     <div className={'col-4'}>
-                        <div className={'cls-graph-container'}>
+                        <div className={`cls-graph-container
+                            cls-population-graph-container`}>
+                            <div className={'cls-arrow cls-arrow-left'}>
+                                <div className={'arrow-point'}></div>
+                                <div className={'arrow-shaft'}></div>
+                            </div>
+                            <div className={'cls-arrow cls-arrow-bottom-left'}>
+                                <div className={'arrow-point'}></div>
+                                <div className={'arrow-shaft'}></div>
+                            </div>
+                            <div className={'cls-arrow cls-arrow-bottom'}>
+                                <div className={'arrow-point'}></div>
+                                <div className={'arrow-shaft'}></div>
+                            </div>
                             <h2>Sample Data</h2>
                             <div>
                                 <PopulationGraph
