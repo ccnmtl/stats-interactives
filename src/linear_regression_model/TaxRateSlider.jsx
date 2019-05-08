@@ -73,7 +73,7 @@ export const TaxRateSlider = ({taxRateIdx,
                         <Rheostat
                             min={1}
                             max={80}
-                            values={[taxRateIdx]}
+                            values={[taxRateIdx + 1]}
                             pitComponent={TaxRatePitComponent}
                             pitPoints={[0, 20, 40, 60]}
                             onValuesUpdated={(sliderState) => {
