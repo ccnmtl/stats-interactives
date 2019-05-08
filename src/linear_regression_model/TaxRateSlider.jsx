@@ -24,7 +24,7 @@ const TaxRatePitComponent = ({ style, children }) => {
     return (
         <div aria-hidden="true"
             className={'lrm-slider-pit'}
-            id={children == 60 ? 'lrm-slider-pit-last' : ''}
+            id={'lrm-slider-pit-n' + children / 20}
             style={{
                 ...style,
                 background: '#a2a2a2',
