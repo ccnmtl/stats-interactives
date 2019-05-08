@@ -53,7 +53,6 @@ export const SampleRangeSlider = ({numberOfSamples,
                             max={sampleSize}
                             values={[observationIdx ?
                                 observationIdx : 1]}
-                            snap={true}
                             disabled={observationIdx ?
                                 false : true}
                             onValuesUpdated={(sliderState) => {
@@ -108,7 +107,6 @@ export const SampleRangeSlider = ({numberOfSamples,
                             max={numberOfSamples}
                             values={[sampleMeansIdx ?
                                 sampleMeansIdx : 1]}
-                            snap={true}
                             onValuesUpdated={(sliderState) => {
                                 handleSampleMeansIdx(
                                     sliderState.values[0]);
