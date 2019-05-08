@@ -82,8 +82,8 @@ export const SampleForm = ({
                                 values={[numberOfSamples]}
                                 snap
                                 pitComponent={PitComponent}
-                                pitPoints={[50, 100, 500, 1000]}
-                                snapPoints={[50, 100, 500, 1000]}
+                                pitPoints={[50, 150, 500, 1000]}
+                                snapPoints={[50, 150, 500, 1000]}
                                 onChange={(sliderState) => {
                                     handleChange('numberOfSamples',
                                         sliderState.values[0]);

@@ -175,6 +175,7 @@ const HorizontalButton = ({flipGraphs, handleFlipGraphs, toggleLock}) => {
                 'btn btn-success btn-sm active' :
                 'btn btn-success btn-sm'}
             disabled={toggleLock || flipGraphs}
+            autoFocus
             onClick={handleFlipGraphs}>
                 Horizontal
         </button>
