@@ -59,7 +59,6 @@ export const TaxRateSlider = ({taxRateIdx,
                             min={1}
                             max={80}
                             value={(taxRateIdx + 1)}
-                            autoFocus
                             onChange={(val) => {handleTaxRateIdx(val -1);}}/>
                     </label>
                     <div className='invalid-feedback'>
