@@ -1,24 +1,13 @@
 .best-fit-label {
+    margin-left: 0.5em;
     background-color: rgba(13, 153, 63, 0.3);
     display: inline-table;
 }
 
-.ls-form-row {
-    .ls-form-col {
-        flex: 1;
-        display: flex;
+.ls-form {
+    .form-row {
         flex-flow: row nowrap;
     }  
-
-    .ls-col-a {
-        flex: 0.9;
-        justify-content: flex-end;
-    }
-
-    .ls-col-b {
-        flex: 1;
-        justify-content: flex-start;
-    }
 }
 
 .ls-graph-container {

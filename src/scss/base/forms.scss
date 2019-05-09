@@ -33,7 +33,7 @@ input {
 }
 
 input[type="number"] {
-   width:5em;
+   width:4.5em;
 }
 
 label {
@@ -50,10 +50,14 @@ form label {font-family: 'Roboto Condensed', sans-serif;}
 
 #seed, #distType {width: 100%;}
 
-.help-tooltip:focus {
-    outline: none;
-    color: #0D993F;
+.help-tooltip {
+    margin-left: 0.25em;
+    &:focus {
+        outline: none;
+        color: #0D993F;
+    }
 }
+
 
 .sp-sticky-top {
     // this is kind of a kludge, this should be autoprefixed from the Bootstrap
