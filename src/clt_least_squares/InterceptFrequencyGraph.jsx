@@ -46,7 +46,7 @@ export const InterceptFrequencyGraph = ({samples, interceptCumalativeMean}) => {
                 style={{
                     axisLabel: {
                         fontSize: 12,
-                        padding: 35,
+                        padding: 80,
                     },
                     tickLabels: {
                         fontSize: 12,
