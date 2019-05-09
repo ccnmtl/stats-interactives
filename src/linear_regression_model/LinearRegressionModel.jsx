@@ -17,7 +17,7 @@ export class LinearRegressionModel extends Component {
 
         // inline initial mean and epsilon value
         let mean = 23;
-        let epsilon = 4.23;
+        let epsilon = -3.85;
 
         this.initialState = {
             taxRateIdx: 0,
@@ -70,7 +70,7 @@ export class LinearRegressionModel extends Component {
         })(taxRateRow);
 
         let epsilon = math.round(
-            mean - SMOKING_FREQ[taxRateRow][taxRateCol][0], 2);
+            SMOKING_FREQ[taxRateRow][taxRateCol][0] - mean, 2);
 
         // round off mean after used to calc epsilon
         mean = math.round(mean, 2);
