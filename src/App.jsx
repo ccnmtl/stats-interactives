@@ -129,13 +129,13 @@ const Home = () => (
     <div className="container">
         <div className="row">
             <div className="col-md-4">
-                <p>
-                    <strong>StatsInteractives</strong> is an initiative
+                <p className="lead">
+                    <b>StatsInteractives</b> is an initiative
                         specifically designed for Doru Cojoc&#39;s
                         Quantitative Analysis I course at Columbia SIPA.
                 </p>
-                <p>The four simulations within this prototype were built to:</p>
-                <ul>
+                <p className="lead">The four simulations within this prototype were built to:</p>
+                <ul className="lead">
                     <li>
                             serve a test of effectiveness at improving
                             learning outcomes
@@ -153,7 +153,7 @@ const Home = () => (
                             the media directly
                     </li>
                 </ul>
-                <p>For more information, please <a href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc">contact Dr. Cojoc</a> directly.</p>
+                <p className="lead">For more information, please <a href="https://sipa.columbia.edu/faculty-research/faculty-directory/doru-c-cojoc">contact Dr. Cojoc</a> directly.</p>
             </div>
             <div className="col-md-8">
                 <div className="container">
