@@ -146,7 +146,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 min={0.5}
                                 max={1.5}
                                 step={0.01}
-                                value={variance}
+                                value={math.round(variance, 2)}
                                 onChange={handleVariance} />
                             <span className="help-tooltip"
                                 tabIndex="0"
@@ -166,7 +166,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 <Rheostat
                                     min={50}
                                     max={150}
-                                    values={[(variance * 100)]}
+                                    values={[math.round(variance * 100, 2)]}
                                     onValuesUpdated={(sliderState) => {
                                         handleVariance(
                                             (sliderState.values[0] * 0.01));
