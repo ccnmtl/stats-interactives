@@ -98,7 +98,7 @@ const PreviewData = [
 ];
 
 const PreviewBlock = (props) => (
-    <div key={props.slug} className="card col-md-6">
+    <div key={props.slug} className="card col-md-3">
         <div className="card-body">
             <h2 className="card-title">
                 <Link to={props.slug}>{ props.title }</Link>
@@ -121,21 +121,20 @@ const Home = () => (
                 Interactives
                 <span className="beta"> Beta</span>
             </h1>
-            <h2 className="display-5">
-            Interactive Visualizations of Statistics
-            </h2>
         </div>
     </div>
     <div className="container">
         <div className="row">
-            <div className="col-md-4">
-                <p className="lead">
+            <div className="col-md-6">
+                <h2 className="display-5">
                     <strong>StatsInteractives</strong> is an initiative
                         specifically designed for Dr. Doru Cojoc&#39;s
                         Quantitative Analysis I course at Columbia SIPA.
-                </p>
-                <p className="lead">The four simulations within this prototype were built to:</p>
-                <ul className="lead">
+                </h2>
+            </div>
+            <div className="col-md-6">
+                <p>The four simulations within this prototype were built to:</p>
+                <ul>
                     <li>
                             serve a test of effectiveness at improving
                             learning outcomes
@@ -154,13 +153,8 @@ const Home = () => (
                     </li>
                 </ul>
             </div>
-            <div className="col-md-8">
-                <div className="container">
-                    <div className="row">
-                        <Preview />
-                    </div>
-                </div>
-            </div>
+        </div>        <div className="row">
+            <Preview />
         </div>
     </div>
     <hr/>
