@@ -37,21 +37,53 @@ export const RegressionGraph = ({population, regressionFunc,
                 population.map((val) => {
                     let lineY = regressionFunc(val[0]);
                     let diffY = math.abs(val[1] - lineY);
-                    // Assumes slope is positive
-                    if (val[1] < lineY) {
-                        return (<VictoryArea
-                            key={val}
-                            style={{data: {
-                                fill: LEAST_SQAURES_EST, fillOpacity: 0.5 }}}
-                            data={[{x: val[0], y: lineY, y0: val[1]},
-                                {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
-                    } else {
-                        return (<VictoryArea
-                            key={val}
-                            style={{data: {
-                                fill: LEAST_SQAURES_EST, fillOpacity: 0.5 }}}
-                            data={[{x: val[0] - diffY, y: val[1], y0: lineY},
+                    let isSlopePositive = (
+                        regressionFunc(1) - regressionFunc(0) >= 0
+                    ) ? true : false;
+
+                    if (isSlopePositive) {
+                        if (val[1] < lineY) {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_EST,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0], y: lineY, y0: val[1]},
+                                    {x: val[0] + diffY,
+                                        y: lineY,
+                                        y0: val[1]}]}/>);
+                        } else {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_EST,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0] - diffY,
+                                    y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
+                        }
+                    } else {
+                        if (val[1] < lineY) {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_EST,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0] - diffY,
+                                    y: val[1], y0: lineY},
+                                {x: val[0], y: val[1], y0: lineY}]}/>);
+                        } else {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_EST,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0], y: lineY, y0: val[1]},
+                                    {x: val[0] + diffY,
+                                        y: lineY,
+                                        y0: val[1]}]}/>);
+                        }
+
                     }
                 })
             }
@@ -60,21 +92,51 @@ export const RegressionGraph = ({population, regressionFunc,
                 population.map((val) => {
                     let lineY = bestFitFunc(val[0]);
                     let diffY = math.abs(val[1] - lineY);
-                    // Assumes slope is positive
-                    if (val[1] < lineY) {
-                        return (<VictoryArea
-                            key={val}
-                            style={{data: {
-                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
-                            data={[{x: val[0], y: lineY, y0: val[1]},
-                                {x: val[0] + diffY, y: lineY, y0: val[1]}]}/>);
-                    } else {
-                        return (<VictoryArea
-                            key={val}
-                            style={{data: {
-                                fill: LEAST_SQAURES_OPT, fillOpacity: 0.5 }}}
-                            data={[{x: val[0] - diffY, y: val[1], y0: lineY},
+                    let isSlopePositive = (
+                        bestFitFunc(1) - bestFitFunc(0) >= 0
+                    ) ? true : false;
+
+                    if (isSlopePositive) {
+                        if (val[1] < lineY) {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_OPT,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0], y: lineY, y0: val[1]},
+                                    {x: val[0] + diffY,
+                                        y: lineY, y0: val[1]}]}/>);
+                        } else {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_OPT,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0] - diffY,
+                                    y: val[1], y0: lineY},
                                 {x: val[0], y: val[1], y0: lineY}]}/>);
+                        }
+                    } else {
+                        if (val[1] < lineY) {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_OPT,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0] - diffY,
+                                    y: val[1], y0: lineY},
+                                {x: val[0], y: val[1], y0: lineY}]}/>);
+                        } else {
+                            return (<VictoryArea
+                                key={val}
+                                style={{data: {
+                                    fill: LEAST_SQAURES_OPT,
+                                    fillOpacity: 0.5 }}}
+                                data={[{x: val[0], y: lineY, y0: val[1]},
+                                    {x: val[0] + diffY,
+                                        y: lineY, y0: val[1]}]}/>);
+                        }
+
                     }
                 })
             }

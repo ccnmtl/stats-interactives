@@ -60,6 +60,15 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                     {String.raw`\beta_0`}
                                 </InlineMath>
                             </label>
+                            <NumericField
+                                id={'alpha'}
+                                className={'form-control form-control-sm \
+                                    numeric-field'}
+                                min={-1}
+                                max={1}
+                                step={0.01}
+                                value={math.round(alpha, 2)}
+                                onChange={handleAlpha} />
                             <span className="help-tooltip"
                                 tabIndex="0"
                                 data-tip
@@ -72,15 +81,6 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 eventOff="blur">
                                 <span>Intercept of the regression model</span>
                             </ReactTooltip>
-                            <NumericField
-                                id={'alpha'}
-                                className={'form-control form-control-sm \
-                                    numeric-field'}
-                                min={-1}
-                                max={1}
-                                step={0.01}
-                                value={math.round(alpha, 2)}
-                                onChange={handleAlpha} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -100,6 +100,15 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                     {String.raw`\beta_1`}
                                 </InlineMath>
                             </label>
+                            <NumericField
+                                id={'beta'}
+                                className={'form-control form-control-sm \
+                                    numeric-field'}
+                                min={-1}
+                                max={1}
+                                value={math.round(beta, 2)}
+                                step={0.01}
+                                onChange={handleBeta} />
                             <span className="help-tooltip"
                                 tabIndex="0"
                                 data-tip
@@ -112,15 +121,6 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 eventOff="blur">
                                 <span>Slope of the regression model</span>
                             </ReactTooltip>
-                            <NumericField
-                                id={'beta'}
-                                className={'form-control form-control-sm \
-                                    numeric-field'}
-                                min={-1}
-                                max={1}
-                                value={math.round(beta, 2)}
-                                step={0.01}
-                                onChange={handleBeta} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -140,6 +140,14 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                     {String.raw`\sigma^2`}
                                 </InlineMath>
                             </label>
+                            <NumericField
+                                id={'variance'}
+                                className={'form-control form-control-sm'}
+                                min={0.5}
+                                max={1.5}
+                                step={0.01}
+                                value={math.round(variance, 2)}
+                                onChange={handleVariance} />
                             <span className="help-tooltip"
                                 tabIndex="0"
                                 data-tip
@@ -150,23 +158,15 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                             </span>
                             <ReactTooltip id="variance-tt" event="focus"
                                 eventOff="blur">
-                                <span>Variance of the Disturbances.</span>
+                                <span>Variance of the disturbances</span>
                             </ReactTooltip>
-                            <NumericField
-                                id={'variance'}
-                                className={'form-control form-control-sm'}
-                                min={0.5}
-                                max={1.5}
-                                step={0.01}
-                                value={variance}
-                                onChange={handleVariance} />
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
                                     min={50}
                                     max={150}
-                                    values={[(variance * 100)]}
+                                    values={[math.round(variance * 100, 2)]}
                                     onValuesUpdated={(sliderState) => {
                                         handleVariance(
                                             (sliderState.values[0] * 0.01));

@@ -27,7 +27,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     return (
         <>
         <form onSubmit={handleGenPop}
-            className="needs-validation" noValidate >
+            className="needs-validation ls-form" noValidate >
             <fieldset>
                 <div className="form-group">
                     <div className="form-row">
@@ -89,41 +89,37 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
             <form onSubmit={(e) => {e.preventDefault();}}>
                 <fieldset>
                     <div className={'form-group'}>
-                        <div className={'form-row ls-form-row'}>
-                            <div className={'ls-form-col ls-col-a'}>
-                                <label htmlFor={'slope'}>
-                                    Slope:
-                                </label>
-                                <span className="help-tooltip"
-                                    tabIndex="0"
-                                    data-tip
-                                    data-for="slope-tt">
-                                    <sup>
-                                        <i className="fas fa-question-circle">
-                                        </i>
-                                    </sup>
-                                </span>
-                                <ReactTooltip id="slope-tt" event="focus"
-                                    eventOff="blur">
-                                    <InlineMath>
-                                        {String.raw`b_0`}
-                                    </InlineMath>
-                                </ReactTooltip>
-                                <NumericField
-                                    id={'slope'}
-                                    className={'form-control form-control-sm'}
-                                    min={-5}
-                                    max={5}
-                                    value={math.round(slope, 2)}
-                                    step={0.01}
-                                    onChange={handleSlope} />
-                            </div>
-                            <div className={'ls-form-col ls-col-b'}>
-                                {showBestFit &&
-                                    <span className={'best-fit-label'}>
-                                        Best Fit Slope: {math.round(beta, 2)}
-                                    </span>}
-                            </div>
+                        <div className={'form-row'}>
+                            <label htmlFor={'slope'}>
+                                Slope:
+                            </label>
+                            <NumericField
+                                id={'slope'}
+                                className={'form-control form-control-sm'}
+                                min={-5}
+                                max={5}
+                                value={math.round(slope, 2)}
+                                step={0.01}
+                                onChange={handleSlope} />
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="slope-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="slope-tt" event="focus"
+                                eventOff="blur">
+                                <InlineMath>
+                                    {String.raw`b_0`}
+                                </InlineMath>
+                            </ReactTooltip>
+                            {showBestFit &&
+                                <span className={'best-fit-label'}>
+                                    Best Fit Slope: {math.round(beta, 2)}
+                                </span>}
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -137,42 +133,38 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row ls-form-row'}>
-                            <div className={'ls-form-col ls-col-a'}>
-                                <label htmlFor={'intercept'}>
-                                    Intercept:
-                                </label>
-                                <span className="help-tooltip"
-                                    tabIndex="0"
-                                    data-tip
-                                    data-for="intercept-tt">
-                                    <sup>
-                                        <i className="fas fa-question-circle">
-                                        </i>
-                                    </sup>
-                                </span>
-                                <ReactTooltip id="intercept-tt" event="focus"
-                                    eventOff="blur">
-                                    <InlineMath>
-                                        {String.raw`b_1`}
-                                    </InlineMath>
-                                </ReactTooltip>
-                                <NumericField
-                                    id={'intercept'}
-                                    className={'form-control form-control-sm'}
-                                    min={-4}
-                                    max={4}
-                                    step={0.01}
-                                    value={math.round(intercept, 2)}
-                                    onChange={handleIntercept} />
-                            </div>
-                            <div className={'ls-form-col ls-col-b'}>
-                                {showBestFit &&
-                                    <span className={'best-fit-label'}>
-                                        Best Fit Intercept: {
-                                            math.round(alpha, 2)}
-                                    </span>}
-                            </div>
+                        <div className={'form-row'}>
+                            <label htmlFor={'intercept'}>
+                                Intercept:
+                            </label>
+                            <NumericField
+                                id={'intercept'}
+                                className={'form-control form-control-sm'}
+                                min={-4}
+                                max={4}
+                                step={0.01}
+                                value={math.round(intercept, 2)}
+                                onChange={handleIntercept} />
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="intercept-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="intercept-tt" event="focus"
+                                eventOff="blur">
+                                <InlineMath>
+                                    {String.raw`b_1`}
+                                </InlineMath>
+                            </ReactTooltip>
+                            {showBestFit &&
+                                <span className={'best-fit-label'}>
+                                    Best Fit Intercept: {
+                                        math.round(alpha, 2)}
+                                </span>}
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>

@@ -40,24 +40,6 @@ exports[`Nav elements render as expected 1`] = `
       </li>
     </ul>
   </div>
-  <button
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    className="navbar-toggler"
-    data-target="#navbarSupportedContent"
-    data-toggle="collapse"
-    type="button"
-  >
-    <span
-      className="navbar-toggler-icon"
-    />
-     
-  </button>
-  <div
-    className="collapse navbar-collapse"
-    id="navbarSupportedContent"
-  />
 </nav>
 `;
 

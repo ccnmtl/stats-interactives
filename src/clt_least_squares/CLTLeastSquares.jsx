@@ -39,6 +39,7 @@ export class CLTLeastSquares extends Component {
             getPopulationRegression.bind(this);
         this.getPopulationVariance = this.
             getPopulationVariance.bind(this);
+        this.handlePopulationReset = this.handlePopulationReset.bind(this);
 
         this.initialState = {
             seed: '',
@@ -67,6 +68,22 @@ export class CLTLeastSquares extends Component {
             seed: seed,
         });
     }
+    handlePopulationReset() {
+        this.setState({
+            population: null,
+            populationRegression: null,
+            slopeFreq: null,
+            interceptFreq: null,
+            slopeFreqGraphData: null,
+            interceptFreqGraphData: null,
+            populationVariance: null,
+            varianceFreq: null,
+            varianceFreqGraphData: null,
+            interceptCumalativeMean: [0],
+            slopeCumalativeMean: [0],
+            varianceCumalativeMean: [0],
+        });
+    }
     handleBeta(beta) {
         ReactGA.event({
             category: 'SamplingDistibutionRegression',
@@ -74,6 +91,7 @@ export class CLTLeastSquares extends Component {
             label: 'Beta',
             value: beta,
         });
+        this.handlePopulationReset();
         this.setState({
             beta: beta,
         });
@@ -85,6 +103,7 @@ export class CLTLeastSquares extends Component {
             label: 'Alpha',
             value: alpha,
         });
+        this.handlePopulationReset();
         this.setState({
             alpha: alpha,
         });
@@ -96,6 +115,7 @@ export class CLTLeastSquares extends Component {
             label: 'Variance',
             value: variance,
         });
+        this.handlePopulationReset();
         this.setState({
             variance: variance,
         });
