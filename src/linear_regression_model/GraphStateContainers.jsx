@@ -59,17 +59,21 @@ export const StateBContainer = ({taxRateIdx, handleTaxRateIdx, y_i,
                 </div>
                 <div className={
                     'col-3 graph-B-container frequency-graph'} >
-                    <FrequencyGraphB
-                        taxRateIdx={taxRateIdx}
-                        activeDataIdx={activeDataIdx}
-                        handleTaxRateIdx={handleTaxRateIdx}/>
+                    <div>
+                        <FrequencyGraphB
+                            taxRateIdx={taxRateIdx}
+                            activeDataIdx={activeDataIdx}
+                            handleTaxRateIdx={handleTaxRateIdx}/>
+                    </div>
                 </div>
                 <div className={
                     'col-5 graph-B-container tax-rate-graph'}>
-                    <TaxRateGraphB
-                        taxRateIdx={taxRateIdx}
-                        activeDataIdx={activeDataIdx}
-                        handleTaxRateIdx={handleTaxRateIdx}/>
+                    <div>
+                        <TaxRateGraphB
+                            taxRateIdx={taxRateIdx}
+                            activeDataIdx={activeDataIdx}
+                            handleTaxRateIdx={handleTaxRateIdx}/>
+                    </div>
                 </div>
             </div>
         </div>
