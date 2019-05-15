@@ -3,10 +3,12 @@ S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-
 INTERMEDIATE_STEPS ?= echo nothing
 
 runserver: $(JS_SENTINAL)
+	cp src/images/* dist/images/.
 	npm run serve
 
 build: $(JS_SENTINAL)
 	npm run build
+	cp src/images/* dist/images/.
 
 dev: $(JS_SENTINAL)
 	npm run dev 
@@ -25,11 +27,13 @@ snapshot: $(JS_SENTINAL)
 
 deploy-stage: $(JS_SENTINAL) 
 	npm run stage \
+	&& cp src/images/* dist/images/. \
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
 deploy-prod: $(JS_SENTINAL) 
 	npm run prod \
+	&& cp src/images/* dist/images/. \
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
