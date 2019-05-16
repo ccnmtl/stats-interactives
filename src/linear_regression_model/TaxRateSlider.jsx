@@ -160,7 +160,7 @@ export const TaxRateSlider = ({taxRateIdx,
                     </div>
                 </div>
                 <div className={'lrm-values'}>
-                    <p>
+                    <div>
                         <InlineMath>
                             {/* eslint-disable-next-line */}
                             {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
@@ -178,8 +178,8 @@ export const TaxRateSlider = ({taxRateIdx,
                             eventOff="blur">
                             <span>Mean of all smokers</span>
                         </ReactTooltip>
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <InlineMath>
                             {String.raw`
                                 \varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
@@ -197,7 +197,7 @@ export const TaxRateSlider = ({taxRateIdx,
                             eventOff="blur">
                             <span>Deviation from the mean</span>
                         </ReactTooltip>
-                    </p>
+                    </div>
                 </div>
                 {isStateA ? (
                 <>
