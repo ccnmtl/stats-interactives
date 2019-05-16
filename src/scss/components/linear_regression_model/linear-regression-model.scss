@@ -1,19 +1,5 @@
-#lrm-slider-pit-n0 {
-    margin-left: 5px;
-    width: calc(25% - 5px);
-}
-
-#lrm-slider-pit-n1 {
-    margin-left: 2px;
-    width: calc(25% - 4px);
-}
-
-#lrm-slider-pit-n2 {
-    width: calc(25% - 3px);
-}
-
-#lrm-slider-pit-n3 {
-    width: calc(25% - 0px);
+.tax-rate-datum {
+    margin-bottom: 0px;
 }
 
 .linear-regression-toggle {
@@ -36,9 +22,25 @@
     }
 }
 
+.tax-rate-data-row {
+    margin-bottom: 0px !important;
+}
+
+.tax-rate-datum {
+    margin-bottom: 0px !important;
+    &.col-12 {
+        margin-bottom: 1em !important;
+    }
+    &.col-12:first-of-type {
+        margin-bottom: 0em !important;
+    }
+}
+
+
 #tax-rate-field {
     @extend %valid-focus-reset;
     display: inline;
+    margin-bottom: 0px;
 }
 
 #observation-slider {
@@ -59,8 +61,8 @@
 
 // Set the heights of the containers to match thier computed heights. This
 // is to facilitate a smooth animation.
-$state-a-height: 883px;
-$state-b-height: 491px;
+$state-a-height: 928px;
+$state-b-height: 520px;
 
 // The elements are double-wrapped in Bootstrap containers
 // to facilitate the animate. Hence reset the padding.

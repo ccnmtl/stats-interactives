@@ -78,7 +78,7 @@ const PreviewData = [
     {
         'slug': '/central-limit-theorem',
         'title': 'The Central Limit Theorem',
-        'text': 'In probability theory, the central limit theorem (CLT) establishes that, in some situations, when independent random variables are added, their properly normalized sum tends toward a normal distribution (informally a "bell curve") even if the original variables themselves are not normally distributed.'
+        'text': 'The Central Limit Theorem establishes that, under some conditions, the mean of a sample drawn from a population follows a normal sampling distribution, even when the distribution of the population itself is not normally distributed.'
     },
     {
         'slug': '/linear-regression-model',
@@ -88,12 +88,12 @@ const PreviewData = [
     {
         'slug': '/least-squares-estimation',
         'title': 'Least Squares Estimation',
-        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+        'text': 'Regressions are used to predict the average values in a data set. The difference between the actual value of an observation and the average value predicted by the regression is called a residual. An ordinary least squares regression minimizes the sum of squares of residuals.',
     },
     {
         'slug': '/sampling-distribution-regression',
-        'title': 'Sampling Distribution Regression Coefficients',
-        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra lorem blandit, blandit lectus vel, tincidunt leo. Donec sagittis eleifend purus at egestas. Praesent eu mattis est. Etiam et lectus sed libero cursus cursus. Class aptent taciti socios quad litora torquent per conubia nostra, per inceptos himenaeos. Integer a dignissim justo. Suspendisse gravida lectus eget tincidunt.',
+        'title': 'Sampling Distribution of Regression Coefficients',
+        'text': 'Regression coefficients, like other sample statistics, are random variables with sampling distributions. Under certain conditions, they are unbiased estimators for the parameters of the regression model. Their standard deviation is directly proportional to the standard deviation of the disturbances.',
     },
 ];
 

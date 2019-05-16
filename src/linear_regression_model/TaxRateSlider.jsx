@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
+import ReactTooltip from 'react-tooltip';
 
 const getTaxRateFromIdx = (val) => {
     let taxRateIdx = Math.floor((val)/ 20);
@@ -20,27 +21,6 @@ const getTaxRateFromIdx = (val) => {
     }
 };
 
-const TaxRatePitComponent = ({ style, children }) => {
-    return (
-        <div aria-hidden="true"
-            className={'lrm-slider-pit'}
-            id={'lrm-slider-pit-n' + children / 20}
-            style={{
-                ...style,
-                background: '#a2a2a2',
-                height: 12,
-                top: 10,
-                display: 'flex',
-                justifyContent: 'center',
-            }}
-        >
-            <div style={{marginTop: 16}}>
-                {getTaxRateFromIdx(children) + '%'}
-            </div>
-        </div>
-    );
-};
-
 export const TaxRateSlider = ({taxRateIdx,
     handleTaxRateIdx, y_i, mean, epsilon, isStateA}) => {
     return (
@@ -48,60 +28,7 @@ export const TaxRateSlider = ({taxRateIdx,
             className="tax-rate-slider was-validated"
             noValidate={true} >
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="observation-slider">
-                        Tax rate observations for {
-                            getTaxRateFromIdx(taxRateIdx) + '%'}:
-                        &nbsp;i =&nbsp;<NumericField
-                            tabIndex="0"
-                            id={'tax-rate-field'}
-                            className={'form-control form-control-sm'}
-                            min={1}
-                            max={80}
-                            value={(taxRateIdx + 1)}
-                            onChange={(val) => {handleTaxRateIdx(val -1);}}/>
-                    </label>
-                    <div className='invalid-feedback'>
-                        The number entered is outside the
-                        range of the dataset.
-                    </div>
-                    <div id={'observation-slider'}
-                        style={{ height: '50px',
-                            width: '100%',
-                            marginBottom: '3em'}}>
-                        <Rheostat
-                            min={1}
-                            max={80}
-                            values={[taxRateIdx + 1]}
-                            pitComponent={TaxRatePitComponent}
-                            pitPoints={[0, 20, 40, 60]}
-                            onValuesUpdated={(sliderState) => {
-                                handleTaxRateIdx(
-                                    sliderState.values[0] - 1);
-                            }} />
-                    </div>
-                </div>
-                <div className={'lrm-values'}>
-                    <p>
-                        <InlineMath>
-                            {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
-                        </InlineMath>
-                    </p>
-                    <p>
-                        <InlineMath>
-                            {/* eslint-disable-next-line */}
-                            {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
-                        </InlineMath>
-                    </p>
-                    <p>
-                        <InlineMath>
-                            {String.raw`
-                                \varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
-                        </InlineMath>
-                    </p>
-                </div>
-                {isStateA ? (
-                <>
+                {isStateA && (
                     <div className={'lrm-copy'}>
                         <p>How do cigarette sales taxes affect the average
                             weekly number of cigarettes consumed by a smoker?
@@ -119,10 +46,162 @@ export const TaxRateSlider = ({taxRateIdx,
                         <InlineMath>
                             {String.raw`\mu_y=29 - 2 \cdot x`}
                         </InlineMath>
-                            &nbsp; A given smoker might smoke more or less
+                            . A given smoker might smoke more or less
                             than another smoker who faces the same tax rate due
                             to other factors (income, age, education, etc.)
                         </p>
+                    </div>
+                )}
+                <div className="form-group">
+                    <div className="form-row">
+                        <strong>
+                            Tax rate observations for {
+                                getTaxRateFromIdx(taxRateIdx) + '%'}
+                        </strong>
+                    </div>
+                    <div className="form-row tax-rate-data-row">
+                        <div className={isStateA ? ('col-4') : ('col-12') +
+                                ' tax-rate-datum'}>
+                            <label htmlFor="observation-slider">
+                                <InlineMath>
+                                    {String.raw`i =`}
+                                </InlineMath>
+                                &nbsp;<NumericField
+                                    tabIndex="0"
+                                    id={'tax-rate-field'}
+                                    className={'form-control form-control-sm'}
+                                    min={1}
+                                    max={80}
+                                    value={(taxRateIdx + 1)}
+                                    onChange={(val) => {
+                                        handleTaxRateIdx(val -1);}}/>
+                                <span className="help-tooltip"
+                                    tabIndex="0"
+                                    data-tip
+                                    data-for="i-tt">
+                                    <sup>
+                                        <i className="fas fa-question-circle">
+                                        </i>
+                                    </sup>
+                                </span>
+                                <ReactTooltip id="i-tt" event="focus"
+                                    eventOff="blur">
+                                    <span>Represents a single smoker in the tax
+                                        data, used to index into&nbsp;
+                                    <InlineMath>
+                                        {String.raw`y`}
+                                    </InlineMath></span>
+                                </ReactTooltip>
+                            </label>
+                            <div className='invalid-feedback'>
+                                The number entered is outside the
+                                range of the dataset.
+                            </div>
+                        </div>
+                        <div className={isStateA ? ('col-4') : ('col-12') +
+                                ' tax-rate-datum'}>
+                            <InlineMath>
+                                {String.raw`x_{${taxRateIdx + 1}} = ${
+                                    getTaxRateFromIdx(taxRateIdx)}`}
+                            </InlineMath>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="x-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="x-tt" event="focus"
+                                eventOff="blur">
+                                <span>Represents the tax rate a smoker is
+                                    subject to</span>
+                            </ReactTooltip>
+                        </div>
+                        <div className={isStateA ? ('col-4') : ('col-12') +
+                                ' tax-rate-datum'}>
+                            <InlineMath>
+                                {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
+                            </InlineMath>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="y-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="y-tt" event="focus"
+                                eventOff="blur">
+                                <span>Represents the number of cigarettes per
+                                    day a given person smokes</span>
+                            </ReactTooltip>
+                        </div>
+                    </div>
+                    <InlineMath>
+                        {String.raw`y =`}
+                    </InlineMath>
+                    <div id={'observation-slider'}
+                        style={{ height: '50px',
+                            width: '100%',
+                            paddingLeft: '2.7em',
+                            marginTop: '-0.8em',
+                            marginBottom: '1em'}}>
+                        <Rheostat
+                            min={1}
+                            max={80}
+                            values={[taxRateIdx + 1]}
+                            onValuesUpdated={(sliderState) => {
+                                handleTaxRateIdx(
+                                    sliderState.values[0] - 1);
+                            }} />
+                    </div>
+                </div>
+                <div className={'lrm-values'}>
+                    <div>
+                        <InlineMath>
+                            {/* eslint-disable-next-line */}
+                            {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
+                        </InlineMath>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="mu-tt">
+                            <sup>
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="mu-tt" event="focus"
+                            eventOff="blur">
+                            <span>Mean of all smokers</span>
+                        </ReactTooltip>
+                    </div>
+                    <div>
+                        <InlineMath>
+                            {String.raw`
+                                \varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
+                        </InlineMath>
+                        <span className="help-tooltip"
+                            tabIndex="0"
+                            data-tip
+                            data-for="epslion-tt">
+                            <sup>
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>
+                        </span>
+                        <ReactTooltip id="epslion-tt" event="focus"
+                            eventOff="blur">
+                            <span>Deviation from the mean</span>
+                        </ReactTooltip>
+                    </div>
+                </div>
+                {isStateA ? (
+                <>
+                    <div className={'lrm-copy'}>
                         <p>Click through different tax rates and examine how
                             the distribution of the number of cigarettes smoked
                             shown on the histograms in the bottom panel
@@ -172,11 +251,6 @@ export const TaxRateSlider = ({taxRateIdx,
             </fieldset>
         </form>
     );
-};
-
-TaxRatePitComponent.propTypes = {
-    style: PropTypes.object,
-    children: PropTypes.number
 };
 
 TaxRateSlider.propTypes = {
