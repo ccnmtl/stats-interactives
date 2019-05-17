@@ -20,10 +20,10 @@ const NO_OF_SAMPLES = 100;
 
 export const INTERCEPT_FREQ_MIN = -4;
 export const INTERCEPT_FREQ_MAX = 4;
-export const SLOPE_FREQ_MIN = -2;
-export const SLOPE_FREQ_MAX = 2;
+export const SLOPE_FREQ_MIN = -2.5;
+export const SLOPE_FREQ_MAX = 2.5;
 export const VARIANCE_FREQ_MIN = 0;
-export const VARIANCE_FREQ_MAX = 2;
+export const VARIANCE_FREQ_MAX = 3;
 
 export class CLTLeastSquares extends Component {
     constructor(props) {

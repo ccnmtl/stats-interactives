@@ -7,7 +7,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
 const Y_MIN = 0;
-const Y_MAX = 60;
+const Y_MAX = 50;
 
 import {
     VictoryChart, VictoryTheme,
