@@ -127,12 +127,9 @@ export class CLTLeastSquares extends Component {
             label: 'Sample Index',
             value: idx,
         });
-        let slopeFreqGraphData = this.state.slopeFreq.slice(
-            0, this.state.sampleIdx + 1);
-        let interceptFreqGraphData = this.state.interceptFreq.slice(
-            0, this.state.sampleIdx + 1);
-        let varianceFreqGraphData = this.state.varianceFreq.slice(
-            0, this.state.sampleIdx + 1);
+        let slopeFreqGraphData = this.state.slopeFreq.slice(0, idx + 1);
+        let interceptFreqGraphData = this.state.interceptFreq.slice(0, idx + 1);
+        let varianceFreqGraphData = this.state.varianceFreq.slice(0, idx + 1);
 
         this.setState({
             sampleIdx: idx,
