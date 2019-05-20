@@ -350,6 +350,19 @@ export class CentralLimitGraph extends Component {
             <Nav/>
             <main className='container'>
                 <h1>The Central Limit Theorem</h1>
+                <div className={'row'}>
+                    <div className={'col-12'}>
+                        <p>Enter text in the seed field to start the
+                            simulation. Choose the shape of the distribution
+                            and its mean and standard deviation. Choose the
+                            number of random samples and the size of each
+                            sample. Slide through the samples to see the
+                            observations in each sample in the histograms on
+                            top. The histogram on the bottom displays the
+                            distribution of the sample means.
+                        </p>
+                    </div>
+                </div>
                 <div className='row'>
                     <div className='col-4'>
                         <PopulationForm seed={this.state.seed}
