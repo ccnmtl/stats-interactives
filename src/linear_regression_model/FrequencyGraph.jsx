@@ -7,7 +7,7 @@ import {
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_BORDER, INDICATOR } from '../colors.js';
+import { BAR_BORDER, INDICATOR, DOT_STROKE } from '../colors.js';
 
 export const FrequencyGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
@@ -63,7 +63,7 @@ export const FrequencyGraphA = (
                 <VictoryScatter
                     data={SMOKING_FREQ[0]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: 2 } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -93,7 +93,7 @@ export const FrequencyGraphA = (
                 <VictoryScatter
                     data={SMOKING_FREQ[1]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: 2 } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -123,7 +123,7 @@ export const FrequencyGraphA = (
                 <VictoryScatter
                     data={SMOKING_FREQ[2]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: 2 } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -153,7 +153,7 @@ export const FrequencyGraphA = (
                 <VictoryScatter
                     data={SMOKING_FREQ[3]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: 2 } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -175,7 +175,7 @@ export const FrequencyGraphA = (
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
                 style={{ data: { fill: 'blue', stroke: BAR_BORDER,
-                    strokeWidth: 2 } }}
+                    strokeWidth: DOT_STROKE } }}
                 size={7}
                 y={(datum) => datum[1]}
                 x={(datum) => Math.floor(datum[0]) + 0.5}/>
@@ -238,7 +238,7 @@ export const FrequencyGraphB = (
                 <VictoryScatter
                     data={SMOKING_FREQ[0]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -269,7 +269,7 @@ export const FrequencyGraphB = (
                 <VictoryScatter
                     data={SMOKING_FREQ[1]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -300,7 +300,7 @@ export const FrequencyGraphB = (
                 <VictoryScatter
                     data={SMOKING_FREQ[2]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -331,7 +331,7 @@ export const FrequencyGraphB = (
                 <VictoryScatter
                     data={SMOKING_FREQ[3]}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     events={[{
                         target: 'data',
                         eventHandlers: {
@@ -353,7 +353,7 @@ export const FrequencyGraphB = (
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
                 style={{ data: { fill: 'blue', stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                    strokeWidth: DOT_STROKE } }}
                 size={4}
                 x={(datum) => datum[1]}
                 y={(datum) => Math.floor(datum[0]) + 0.5}/>

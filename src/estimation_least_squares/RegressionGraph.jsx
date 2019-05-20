@@ -5,7 +5,7 @@ import {
     VictoryScatter, VictoryArea, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_BORDER, LEAST_SQAURES_EST,
+import { BAR_BORDER, LEAST_SQAURES_EST, DOT_STROKE,
     LEAST_SQAURES_OPT, INDICATOR } from '../colors.js';
 
 const MIN = -5;
@@ -159,7 +159,7 @@ export const RegressionGraph = ({population, regressionFunc,
                     data={population}
                     style={{ data: {
                         fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     size={4}
                     x={(datum) => datum[0]}
                     y={(datum) => datum[1]} />

@@ -6,7 +6,7 @@ import {
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
-import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
+import { BAR_FILL, BAR_BORDER, INDICATOR, DOT_STROKE } from '../colors.js';
 
 export const SampleMeansGraph = ({
     sampleMeansGraphData, domain, range, popMean, activeSampleMeansData}) => {
@@ -31,16 +31,17 @@ export const SampleMeansGraph = ({
                 tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
             {sampleMeansGraphData &&
                 <VictoryScatter data={sampleMeansGraphData}
+                    size={4}
                     x={0}
                     y={1}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
-                        strokeWidth: '2px'} }}/>
+                        strokeWidth: DOT_STROKE} }}/>
             }
             {activeSampleMeansData &&
                 <VictoryScatter data={activeSampleMeansData}
                     size={4}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' }, labels: {
+                        strokeWidth: DOT_STROKE }, labels: {
                         fontSize: '24', fontColor: '#000000' } }}/>
             }
         </VictoryChart>

@@ -20,10 +20,10 @@ const NO_OF_SAMPLES = 100;
 
 export const INTERCEPT_FREQ_MIN = -4;
 export const INTERCEPT_FREQ_MAX = 4;
-export const SLOPE_FREQ_MIN = -2;
-export const SLOPE_FREQ_MAX = 2;
+export const SLOPE_FREQ_MIN = -2.5;
+export const SLOPE_FREQ_MAX = 2.5;
 export const VARIANCE_FREQ_MIN = 0;
-export const VARIANCE_FREQ_MAX = 2;
+export const VARIANCE_FREQ_MAX = 3;
 
 export class CLTLeastSquares extends Component {
     constructor(props) {
@@ -121,18 +121,9 @@ export class CLTLeastSquares extends Component {
         });
     }
     handleSampleIdx(idx) {
-        ReactGA.event({
-            category: 'SamplingDistibutionRegression',
-            action: 'Change Form Value',
-            label: 'Sample Index',
-            value: idx,
-        });
-        let slopeFreqGraphData = this.state.slopeFreq.slice(
-            0, this.state.sampleIdx + 1);
-        let interceptFreqGraphData = this.state.interceptFreq.slice(
-            0, this.state.sampleIdx + 1);
-        let varianceFreqGraphData = this.state.varianceFreq.slice(
-            0, this.state.sampleIdx + 1);
+        let slopeFreqGraphData = this.state.slopeFreq.slice(0, idx + 1);
+        let interceptFreqGraphData = this.state.interceptFreq.slice(0, idx + 1);
+        let varianceFreqGraphData = this.state.varianceFreq.slice(0, idx + 1);
 
         this.setState({
             sampleIdx: idx,
@@ -327,6 +318,8 @@ export class CLTLeastSquares extends Component {
                                     population={this.state.population}
                                     populationRegression={
                                         this.state.populationRegression}
+                                    slope={this.state.alpha}
+                                    intercept={this.state.beta}
                                     sampleIdx={this.state.sampleIdx}/>
                             </div>
                         </div>
