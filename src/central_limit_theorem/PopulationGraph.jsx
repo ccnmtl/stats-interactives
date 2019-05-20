@@ -5,7 +5,7 @@ import {
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_FILL, BAR_BORDER, INDICATOR } from '../colors.js';
+import { BAR_FILL, BAR_BORDER, INDICATOR, DOT_STROKE } from '../colors.js';
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 
 export const PopulationGraph  = (
@@ -41,7 +41,7 @@ export const PopulationGraph  = (
             {samplesGraphData &&
                 <VictoryScatter data={samplesGraphData.slice(0, observationIdx)}
                     style={{ data: { fill: 'white', stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
@@ -51,7 +51,7 @@ export const PopulationGraph  = (
                         samplesGraphData.slice(
                             observationIdx - 1, observationIdx)}
                     style={{ data: { fill: INDICATOR, stroke: BAR_BORDER,
-                        strokeWidth: '1px' } }}
+                        strokeWidth: DOT_STROKE } }}
                     size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>

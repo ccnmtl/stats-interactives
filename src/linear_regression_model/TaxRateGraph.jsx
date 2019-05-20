@@ -6,7 +6,7 @@ import {
     VictoryScatter, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
-import { BAR_BORDER, INDICATOR, INACTIVE } from '../colors.js';
+import { BAR_BORDER, INDICATOR, INACTIVE, DOT_STROKE } from '../colors.js';
 
 export const TaxRateGraphA = (
     {activeDataIdx, handleTaxRateIdx}) => {
@@ -47,7 +47,7 @@ export const TaxRateGraphA = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 0 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -72,7 +72,7 @@ export const TaxRateGraphA = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 1 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -97,7 +97,7 @@ export const TaxRateGraphA = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 2 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -122,7 +122,7 @@ export const TaxRateGraphA = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 3 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -145,7 +145,7 @@ export const TaxRateGraphA = (
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
                 style={{ data: { fill: 'blue', stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                    strokeWidth: DOT_STROKE } }}
                 size={4}
                 y={(datum) => {
                     switch (activeDataIdx[0]) {
@@ -200,7 +200,7 @@ export const TaxRateGraphB = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 0 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -225,7 +225,7 @@ export const TaxRateGraphB = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 1 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -250,7 +250,7 @@ export const TaxRateGraphB = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 2 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -275,7 +275,7 @@ export const TaxRateGraphB = (
                 style={{ data: {
                     fill: activeDataIdx[0] === 3 ? INDICATOR : INACTIVE,
                     stroke: BAR_BORDER,
-                    strokeWidth: '1px' }
+                    strokeWidth: DOT_STROKE }
                 }}
                 events={[{
                     target: 'data',
@@ -298,7 +298,7 @@ export const TaxRateGraphB = (
             <VictoryScatter
                 data={[SMOKING_FREQ[activeDataIdx[0]][activeDataIdx[1]]]}
                 style={{ data: { fill: 'blue', stroke: BAR_BORDER,
-                    strokeWidth: '1px' } }}
+                    strokeWidth: DOT_STROKE } }}
                 size={4}
                 x={(datum) => {
                     switch (activeDataIdx[0]) {
