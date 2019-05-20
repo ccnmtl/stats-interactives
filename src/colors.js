@@ -4,3 +4,4 @@ export const INDICATOR = '#FFC800';
 export const INACTIVE = '#a2a2a2';
 export const LEAST_SQAURES_EST = '#1C99DA';
 export const LEAST_SQAURES_OPT = '#0D993F';
+export const DOT_STROKE = '0.5pt';

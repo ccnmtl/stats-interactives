@@ -121,12 +121,6 @@ export class CLTLeastSquares extends Component {
         });
     }
     handleSampleIdx(idx) {
-        ReactGA.event({
-            category: 'SamplingDistibutionRegression',
-            action: 'Change Form Value',
-            label: 'Sample Index',
-            value: idx,
-        });
         let slopeFreqGraphData = this.state.slopeFreq.slice(0, idx + 1);
         let interceptFreqGraphData = this.state.interceptFreq.slice(0, idx + 1);
         let varianceFreqGraphData = this.state.varianceFreq.slice(0, idx + 1);
@@ -324,6 +318,8 @@ export class CLTLeastSquares extends Component {
                                     population={this.state.population}
                                     populationRegression={
                                         this.state.populationRegression}
+                                    slope={this.state.alpha}
+                                    intercept={this.state.beta}
                                     sampleIdx={this.state.sampleIdx}/>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DOT_SIZE } from './CLTLeastSquares';
-import { BAR_BORDER, INACTIVE } from '../colors.js';
+import { BAR_BORDER, INACTIVE, DOT_STROKE } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
@@ -14,7 +14,7 @@ import {
     VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
 
-export const PopulationGraph = ({
+export const PopulationGraph = ({slope, intercept,
     population, populationRegression, sampleIdx}) => {
     return (
         <VictoryChart theme={VictoryTheme.material}
@@ -47,11 +47,18 @@ export const PopulationGraph = ({
                         return el[1] <= Y_MAX && el[1] >= Y_MIN;
                     })}
                     style={{ data: { fill: INACTIVE, stroke: BAR_BORDER,
-                        strokeWidth: 2 } }}
+                        strokeWidth: DOT_STROKE } }}
                     size={DOT_SIZE}
                     y={(datum) => datum[1]}
                     x={(datum) => datum[0]} />
             }
+            <VictoryLine
+                samples={2}
+                style={{ data: {
+                    stroke: 'black',
+                    strokeDasharray: '12, 12',
+                    strokeWidth: '3px' } }}
+                y={(d) => {return slope * d.x + intercept;} } />
             {populationRegression &&
                 <VictoryLine
                     samples={10}
@@ -70,4 +77,6 @@ PopulationGraph.propTypes = {
     population: PropTypes.array,
     populationRegression: PropTypes.array,
     sampleIdx: PropTypes.number,
+    slope: PropTypes.number,
+    intercept: PropTypes.number,
 };
