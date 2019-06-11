@@ -47,7 +47,7 @@ export class NumericField extends Component {
         // track local changes here
         e.preventDefault();
         this.setState({
-            fieldValue: forceNumber(e.target.value),
+            fieldValue: e.target.value,
         });
     }
     onKeyUp(e) {
