@@ -163,7 +163,7 @@ const Home = () => (
                     <h2 className="card-title">
                        About
                     </h2>
-                    <p className="card-text">Stats Interactives are a set of interactives used to illustrate introductory concepts in statistics. The project was built by Prof. Doru Cojoc in collaboration with the Center for Teaching and Learning.</p>
+                    <p className="card-text">Stats Interactives is a set of interactives used to illustrate introductory concepts in statistics. The project was built by the Center for Teaching and Learning in collaboration Prof. Doru Cojoc.</p>
                     <h3>Project Credits</h3>
                     <ul>
                         <li><b>Learning Designer: </b>Mike Tarnow</li>
@@ -176,17 +176,17 @@ const Home = () => (
             <div className="card col-md-4">
                 <div className="card-body">
                     <h2 className="card-title">
-                       Accessability
+                       Accessibility
                     </h2>
                     <p className="card-text">
                         Columbia University&#39;s Center for Teaching and
-                        Learning is committed to making Stats Interactices
+                        Learning is committed to making Stats Interactives
                         inclusive and accessible for everyone, including people
                         with disabilities.
                     </p>
                     <h3>Limitations</h3>
                     <p className="card-text">
-                        Stats Interactive graphically representats theorems to
+                        Stats Interactive graphically represents theorems to
                         convey a deeper understanding of statistical models.
                         These graphs are not currently accessible to screen
                         readers. If you are a Columbia University student and
@@ -196,7 +196,7 @@ const Home = () => (
                     <h3>Assessment Approach</h3>
                     <p className="card-text">
                         We tested Stats Interactives with the following tools.
-                        Stats Interactives show minor violations of the
+                        Stats Interactives shows minor violations of the
                         accessibility standards.
                     </p>
                     <ul>
