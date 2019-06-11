@@ -153,8 +153,67 @@ const Home = () => (
                     </li>
                 </ul>
             </div>
-        </div>        <div className="row">
+        </div>
+        <div className="row">
             <Preview />
+        </div>
+        <div className="row">
+            <div className="card col-md-4">
+                <div className="card-body">
+                    <h2 className="card-title">
+                       About
+                    </h2>
+                    <p className="card-text">Stats Interactives are a set of interactives used to illustrate introductory concepts in statistics. The project was built by Prof. Doru Cojoc in collaboration with the Center for Teaching and Learning.</p>
+                    <h3>Project Credits</h3>
+                    <ul>
+                        <li><b>Learning Designer: </b>Mike Tarnow</li>
+                        <li><b>Project Manager: </b>Kerri O&#39;Connell</li>
+                        <li><b>Designer: </b>Marc Raymond</li>
+                        <li><b>Developer: </b>Nick Buonincontri</li>
+                    </ul>
+                </div>
+            </div>
+            <div className="card col-md-4">
+                <div className="card-body">
+                    <h2 className="card-title">
+                       Accessability
+                    </h2>
+                    <p className="card-text">
+                        Columbia University&#39;s Center for Teaching and
+                        Learning is committed to making Stats Interactices
+                        inclusive and accessible for everyone, including people
+                        with disabilities.
+                    </p>
+                    <h3>Limitations</h3>
+                    <p className="card-text">
+                        Stats Interactive graphically representats theorems to
+                        convey a deeper understanding of statistical models.
+                        These graphs are not currently accessible to screen
+                        readers. If you are a Columbia University student and
+                        require assistance, please contact the university&#39;s
+                        &nbsp;<a href="https://health.columbia.edu/content/disability-services">Office of Disability Services</a>.
+                    </p>
+                    <h3>Assessment Approach</h3>
+                    <p className="card-text">
+                        We tested Stats Interactives with the following tools.
+                        Stats Interactives show minor violations of the
+                        accessibility standards.
+                    </p>
+                    <ul>
+                        <li><a href="https://www.deque.com/axe/">Axe</a>, web accessibility testing tool by <a href="https://www.deque.com/">Deque Systems</a></li>
+                        <li><a href="https://www.apple.com/accessibility/mac/vision/">VoiceOver</a>, the screen reader by Apple</li>
+                        <li><a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>, an open-source, automated auditor by Google</li>
+                    </ul>
+                </div>
+            </div>
+            <div className="card col-md-4">
+                <div className="card-body">
+                    <h2 className="card-title">
+                       License
+                    </h2>
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+                </div>
+            </div>
         </div>
     </div>
     <hr/>
