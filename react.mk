@@ -1,9 +1,7 @@
-S3CMD ?= s3cmd
-S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-mime-type
-INTERMEDIATE_STEPS ?= echo nothing
+S3CMD ?= s3cmd S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-mime-type INTERMEDIATE_STEPS ?= echo nothing
 
 runserver: $(JS_SENTINAL)
-	cp src/images/* dist/images/.
+	-cp src/images/* dist/images/.
 	npm run serve
 
 build: $(JS_SENTINAL)

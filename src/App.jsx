@@ -98,7 +98,7 @@ const PreviewData = [
 ];
 
 const PreviewBlock = (props) => (
-    <div key={props.slug} className="card col-md-3">
+    <div key={props.slug} className="card col-md-3 graphcards">
         <div className="card-body">
             <h2 className="card-title">
                 <Link to={props.slug}>{ props.title }</Link>
@@ -116,103 +116,117 @@ const Home = () => (
     <>
     <div className="jumbotron">
         <div className="container">
-            <h1 className="display-2 hp-title">
-                <span className="stats">Stats</span>
-                Interactives
-                <span className="beta"> Beta</span>
+            <h1 className="display-2 hp-title text-center">
+                <span className="stats">Stats</span> Interactives <span className="beta"> Beta</span>
             </h1>
+            <h2 className="text-center">
+                Introductory Concepts in Statistics
+            </h2>
         </div>
     </div>
     <div className="container">
         <div className="row">
-            <div className="col-md-6">
-                <h2 className="display-5">
-                    <strong>StatsInteractives</strong> is an initiative
-                        specifically designed for Dr. Doru Cojoc&#39;s
-                        Quantitative Analysis I course at Columbia SIPA.
-                </h2>
-            </div>
-            <div className="col-md-6">
-                <p>The four simulations within this prototype were built to:</p>
-                <ul>
-                    <li>
-                            serve a test of effectiveness at improving
-                            learning outcomes
-                    </li>
-                    <li>
-                            address these outcomes by turning them into web
-                            interactives, openly available
-                    </li>
-                    <li>
-                            provide students for their own study and
-                            experimentation
-                    </li>
-                    <li>
-                            be used here or elsewhere by embedding or linking to
-                            the media directly
-                    </li>
-                </ul>
+            <div className="col-md-12">
+                <p className="lead text-center">
+                    StatsInteractives is an initiative specifically designed
+                    for Dr. Doru Cojoc&acute;s Quantitative Analysis I course at
+                    Columbia SIPA.
+                </p>
             </div>
         </div>
-        <div className="row">
+        <div className="row cardrow">
             <Preview />
         </div>
         <div className="row">
-            <div className="card col-md-4">
-                <div className="card-body">
-                    <h2 className="card-title">
-                       About
-                    </h2>
-                    <p className="card-text">Stats Interactives is a set of interactives used to illustrate introductory concepts in statistics. The project was built by the Center for Teaching and Learning in collaboration Prof. Doru Cojoc.</p>
-                    <h3>Project Credits</h3>
-                    <ul>
-                        <li><b>Learning Designer: </b>Mike Tarnow</li>
-                        <li><b>Project Manager: </b>Kerri O&#39;Connell</li>
-                        <li><b>Designer: </b>Marc Raymond</li>
-                        <li><b>Developer: </b>Nick Buonincontri</li>
-                    </ul>
-                </div>
+            <div className="col-md-12 text-center">
+                <h3>
+                    Purpose
+                </h3>
+                <p>
+                    The four simulations within this prototype were
+                    built to serve a test of effectiveness
+                    at improving learning outcomes, address these
+                    outcomes by turning them into web
+                    interactives, openly available, provide students
+                    for their own study and experimentation,
+                    and to be used here or elsewhere by
+                    embedding or linking to the media directly.
+                </p>
             </div>
-            <div className="card col-md-4">
-                <div className="card-body">
-                    <h2 className="card-title">
-                       Accessibility
-                    </h2>
-                    <p className="card-text">
-                        Columbia University&#39;s Center for Teaching and
-                        Learning is committed to making Stats Interactives
-                        inclusive and accessible for everyone, including people
-                        with disabilities.
-                    </p>
-                    <h3>Limitations</h3>
-                    <p className="card-text">
-                        Stats Interactive graphically represents theorems to
-                        convey a deeper understanding of statistical models.
-                        These graphs are not currently accessible to screen
-                        readers. If you are a Columbia University student and
-                        require assistance, please contact the university&#39;s
-                        &nbsp;<a href="https://health.columbia.edu/content/disability-services">Office of Disability Services</a>.
-                    </p>
-                    <h3>Assessment Approach</h3>
-                    <p className="card-text">
-                        We tested Stats Interactives with the following tools.
-                        Stats Interactives shows minor violations of the
-                        accessibility standards.
-                    </p>
-                    <ul>
-                        <li><a href="https://www.deque.com/axe/">Axe</a>, web accessibility testing tool by <a href="https://www.deque.com/">Deque Systems</a></li>
-                        <li><a href="https://www.apple.com/accessibility/mac/vision/">VoiceOver</a>, the screen reader by Apple</li>
-                        <li><a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>, an open-source, automated auditor by Google</li>
-                    </ul>
-                </div>
+        </div>
+        <hr />
+        <div className="row">
+            <div className="col-md-12 text-center">
+                <h3>
+                    Accessibility
+                </h3>
+                <p>
+                    Columbia University&#39;s Center for Teaching and
+                    Learning is committed to making StatsInteractives
+                    inclusive and accessible for everyone, including
+                    people with disabilities.
+                </p>
             </div>
-            <div className="card col-md-4">
-                <div className="card-body">
-                    <h2 className="card-title">
-                       License
-                    </h2>
-                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+        </div>
+        <div className="row">
+            <div className="col-md-6 text-center">
+                <h4>
+                    Limitations
+                </h4>
+                <p>
+                    Stats Interactive graphically represents theorems
+                    to convey a deeper understanding of statistical
+                    models. These graphs are not currently accessible
+                    to screen readers. If you are a Columbia University
+                    student and require assistance, please contact
+                    the university&#39;s <br />
+                    <a href="https://health.columbia.edu/content/disability-services">Office of Disability Services</a>.
+                </p>
+            </div>
+            <div className="col-md-6 text-center">
+                <h4>
+                    Assessment Approach
+                </h4>
+                <p>
+                    StatsInteractives shows minor violations of
+                    the accessibility
+                    standards and was tested with the
+                    following tools.
+                </p>
+                <p>
+                    <a href="https://www.deque.com/axe/">Axe</a>, web accessibility testing tool by <a href="https://www.deque.com/">Deque Systems</a>
+                </p>
+                <p>
+                    <a href="https://www.apple.com/accessibility/mac/vision/">VoiceOver</a>, the screen reader by Apple
+                </p>
+                <p>
+                    <a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>, an open-source, automated auditor by Google
+                </p>
+            </div>
+        </div>
+        <hr />
+        <div className="row">
+            <div className="col-md-6 text-center">
+                <h3>
+                    Project Credits
+                </h3>
+                <p>
+                    <b>Nick Buonincontri</b>, Development<br />
+                    <b>Kerri O&#39;Connell</b>, Project Management<br />
+                    <b>Marc Raymond</b>, Experience Design<br />
+                    <b>Mike Tarnow</b>, Learning Design
+                </p>
+            </div>
+            <div className="col-md-6 text-center">
+                <h3>
+                    License
+                </h3>
+                <div>
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
                 </div>
+                <p>
+                    This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+                </p>
             </div>
         </div>
     </div>
