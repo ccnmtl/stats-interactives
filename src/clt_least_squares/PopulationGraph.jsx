@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DOT_SIZE } from './CLTLeastSquares';
-import { BAR_BORDER, INACTIVE, DOT_STROKE } from '../colors.js';
+import { BAR_BORDER, INACTIVE, DOT_STROKE,
+    LEAST_SQAURES_OPT } from '../colors.js';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
@@ -55,8 +56,7 @@ export const PopulationGraph = ({slope, intercept,
             <VictoryLine
                 samples={2}
                 style={{ data: {
-                    stroke: 'black',
-                    strokeDasharray: '12, 12',
+                    stroke: LEAST_SQAURES_OPT,
                     strokeWidth: '3px' } }}
                 y={(d) => {return slope * d.x + intercept;} } />
             {populationRegression &&
