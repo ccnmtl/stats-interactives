@@ -14,12 +14,15 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     };
     const handleGenPop = (e) => {
         e.preventDefault();
-        handleGeneratePop();
+        if (e.target.checkValidity()) {
+            handleGeneratePop();
+        }
     };
     return (
         <div className={'sp-sticky-top'}>
             <form onSubmit={handleGenPop}
-                className="needs-validation clt-least-squares-form" noValidate >
+                className="was-validated clt-least-squares-form"
+                noValidate={true} >
                 <fieldset>
                     <div className="form-group">
                         <div className="form-row">
@@ -42,9 +45,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         <div>
                             <input type="text"
                                 id="seed"
-                                className={
-                                    seed ? 'form-control is-valid' :
-                                        'form-control' }
+                                className={'form-control'}
                                 value={seed}
                                 onChange={hndlSeed}
                                 placeholder={
@@ -54,7 +55,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                     </div>
                     { seed &&
                     <div className={'form-group'}>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <label htmlFor={'alpha'}>
                                 <InlineMath>
                                     {String.raw`\beta_0`}
@@ -81,8 +82,12 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 eventOff="blur">
                                 <span>Intercept of the regression model</span>
                             </ReactTooltip>
+                            <div className='invalid-feedback'>
+                                The number entered is outside the
+                                range of the dataset.
+                            </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <div style={{ height: '50px', width: '100%'}}>
                                 <Rheostat
                                     min={-100}
@@ -94,7 +99,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <label htmlFor={'slope'}>
                                 <InlineMath>
                                     {String.raw`\beta_1`}
@@ -121,6 +126,10 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 eventOff="blur">
                                 <span>Slope of the regression model</span>
                             </ReactTooltip>
+                            <div className='invalid-feedback'>
+                                The number entered is outside the
+                                range of the dataset.
+                            </div>
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>
@@ -134,7 +143,7 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <label htmlFor={'variance'}>
                                 <InlineMath>
                                     {String.raw`\sigma^2`}
@@ -160,6 +169,10 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 eventOff="blur">
                                 <span>Variance of the disturbances</span>
                             </ReactTooltip>
+                            <div className='invalid-feedback'>
+                                The number entered is outside the
+                                range of the dataset.
+                            </div>
                         </div>
                         <div className={'form-row'}>
                             <div style={{ height: '50px', width: '100%'}}>

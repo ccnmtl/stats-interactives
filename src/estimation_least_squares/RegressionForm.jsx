@@ -86,10 +86,12 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
             </fieldset>
         </form>
         { hasPopulation &&
-            <form onSubmit={(e) => {e.preventDefault();}}>
+            <form onSubmit={(e) => {e.preventDefault();}}
+                className={'was-validated'}
+                id={'ls-estimation-form'} noValidate>
                 <fieldset>
                     <div className={'form-group'}>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <label htmlFor={'slope'}>
                                 Slope:
                             </label>
@@ -116,6 +118,9 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     {String.raw`b_0`}
                                 </InlineMath>
                             </ReactTooltip>
+                            <div className='invalid-feedback'>
+                                Please enter a value between -5 and 5.
+                            </div>
                             {showBestFit &&
                                 <span className={'best-fit-label'}>
                                     Best Fit Slope: {math.round(beta, 2)}
@@ -133,7 +138,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     }} />
                             </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row flex-nowrap'}>
                             <label htmlFor={'intercept'}>
                                 Intercept:
                             </label>
@@ -160,6 +165,9 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     {String.raw`b_1`}
                                 </InlineMath>
                             </ReactTooltip>
+                            <div className='invalid-feedback'>
+                                Please enter a value between -4 and 4.
+                            </div>
                             {showBestFit &&
                                 <span className={'best-fit-label'}>
                                     Best Fit Intercept: {

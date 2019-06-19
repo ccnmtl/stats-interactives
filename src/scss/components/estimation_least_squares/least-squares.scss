@@ -11,6 +11,16 @@
     }  
 }
 
+#ls-estimation-form {
+    input[type="number"] {
+        @extend %valid-focus-reset;
+    }
+    .invalid-feedback {
+        margin-left: 1em;
+        margin-top: -0.5em;
+    }
+}
+
 .ls-graph-container {
     display: flex;
     flex-flow: row nowrap;
