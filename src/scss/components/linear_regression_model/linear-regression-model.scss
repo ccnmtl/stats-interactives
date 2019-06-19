@@ -34,6 +34,10 @@
     &.col-12:first-of-type {
         margin-bottom: 0em !important;
     }
+
+    .invalid-feedback {
+        position: absolute;
+    }
 }
 
 

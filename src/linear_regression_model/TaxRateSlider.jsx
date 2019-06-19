@@ -74,6 +74,10 @@ export const TaxRateSlider = ({taxRateIdx,
                                     value={(taxRateIdx + 1)}
                                     onChange={(val) => {
                                         handleTaxRateIdx(val -1);}}/>
+                                <div className='invalid-feedback'>
+                                    The number entered is outside the
+                                    range of the dataset.
+                                </div>
                                 <span className="help-tooltip"
                                     tabIndex="0"
                                     data-tip
@@ -92,10 +96,6 @@ export const TaxRateSlider = ({taxRateIdx,
                                     </InlineMath></span>
                                 </ReactTooltip>
                             </label>
-                            <div className='invalid-feedback'>
-                                The number entered is outside the
-                                range of the dataset.
-                            </div>
                             <div id={'observation-slider'}
                                 style={{ height: '50px',
                                     width: '100%',
