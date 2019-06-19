@@ -318,8 +318,8 @@ export class CLTLeastSquares extends Component {
                                     population={this.state.population}
                                     populationRegression={
                                         this.state.populationRegression}
-                                    slope={this.state.alpha}
-                                    intercept={this.state.beta}
+                                    slope={this.state.beta}
+                                    intercept={this.state.alpha}
                                     sampleIdx={this.state.sampleIdx}/>
                             </div>
                         </div>
