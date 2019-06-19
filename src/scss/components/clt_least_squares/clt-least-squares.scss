@@ -1,3 +1,16 @@
+.clt-least-squares-form {
+    input[type="text"] {
+        @extend %invalid-focus-reset;
+    }
+    input[type="number"] {
+        @extend %valid-focus-reset;
+    }
+    .invalid-feedback {
+        margin-left: 1em;
+        margin-top: -0.5em;
+    }
+}
+
 .cls-graph-container {
     background-color: #FFFFFF;
     margin-bottom: 1.8em;
