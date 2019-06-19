@@ -1,46 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Nav elements render as expected 1`] = `
-<nav
-  className="navbar navbar-expand-lg navbar-dark"
->
-  <a
-    className="navbar-brand"
-    href="/"
-    onClick={[Function]}
+Array [
+  <nav
+    className="navbar navbar-expand-lg navbar-dark"
   >
-    <span
-      className="stats"
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
     >
-      Stats
-    </span>
-    Interactives
-    <span
-      className="beta"
-    >
-       Beta
-    </span>
-  </a>
-  <div
-    className="navbar-nav-scroll"
-  >
-    <ul
-      className="navbar-nav bd-navbar-nav flex-row"
-    >
-      <li
-        className="nav-item"
+      <span
+        className="stats"
       >
-        <a
-          className="nav-link"
-          href="/"
-          onClick={[Function]}
+        Stats
+      </span>
+      Interactives
+      <span
+        className="beta"
+      >
+         Beta
+      </span>
+    </a>
+    <div
+      className="navbar-nav-scroll"
+    >
+      <ul
+        className="navbar-nav bd-navbar-nav flex-row"
+      >
+        <li
+          className="nav-item"
         >
-          ← Back to the Collection
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+          <a
+            className="nav-link"
+            href="/"
+            onClick={[Function]}
+          >
+            ← Back to the Collection
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>,
+  <div
+    className="container"
+  >
+    <div
+      aria-hidden="true"
+      className="alert alert-danger d-block d-xl-none view-only"
+      role="alert"
+    >
+      Stats Interactives are optimized for larger screens. Please switch to a desktop computer, or expand your browser size.
+    </div>
+  </div>,
+]
 `;
 
 exports[`Preview elements render as expected 1`] = `
