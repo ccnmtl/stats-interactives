@@ -34,6 +34,10 @@
     &.col-12:first-of-type {
         margin-bottom: 0em !important;
     }
+
+    .invalid-feedback {
+        position: absolute;
+    }
 }
 
 
@@ -61,8 +65,8 @@
 
 // Set the heights of the containers to match thier computed heights. This
 // is to facilitate a smooth animation.
-$state-a-height: 928px;
-$state-b-height: 520px;
+$state-a-height: 892px;
+$state-b-height: 469px;
 
 // The elements are double-wrapped in Bootstrap containers
 // to facilitate the animate. Hence reset the padding.
