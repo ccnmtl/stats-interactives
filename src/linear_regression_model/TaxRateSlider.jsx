@@ -60,8 +60,7 @@ export const TaxRateSlider = ({taxRateIdx,
                         </strong>
                     </div>
                     <div className="form-row tax-rate-data-row">
-                        <div className={isStateA ? ('col-4') : ('col-12') +
-                                ' tax-rate-datum'}>
+                        <div className="col-12 tax-rate-datum">
                             <label htmlFor="observation-slider">
                                 <InlineMath>
                                     {String.raw`i =`}
@@ -97,8 +96,25 @@ export const TaxRateSlider = ({taxRateIdx,
                                 The number entered is outside the
                                 range of the dataset.
                             </div>
+                            <div id={'observation-slider'}
+                                style={{ height: '50px',
+                                    width: '100%',
+                                    paddingLeft: '8.5em',
+                                    marginTop: '-1.55em',
+                                    marginBottom: '1em'}}>
+                                <Rheostat
+                                    min={1}
+                                    max={80}
+                                    values={[taxRateIdx + 1]}
+                                    onValuesUpdated={(sliderState) => {
+                                        handleTaxRateIdx(
+                                            sliderState.values[0] - 1);
+                                    }} />
+                            </div>
                         </div>
-                        <div className={isStateA ? ('col-4') : ('col-12') +
+                    </div>
+                    <div className="form-row tax-rate-data-row">
+                        <div className={isStateA ? ('col-6') : ('col-12') +
                                 ' tax-rate-datum'}>
                             <InlineMath>
                                 {String.raw`x_{${taxRateIdx + 1}} = ${
@@ -119,7 +135,7 @@ export const TaxRateSlider = ({taxRateIdx,
                                     subject to</span>
                             </ReactTooltip>
                         </div>
-                        <div className={isStateA ? ('col-4') : ('col-12') +
+                        <div className={isStateA ? ('col-6') : ('col-12') +
                                 ' tax-rate-datum'}>
                             <InlineMath>
                                 {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
@@ -140,63 +156,47 @@ export const TaxRateSlider = ({taxRateIdx,
                             </ReactTooltip>
                         </div>
                     </div>
-                    <InlineMath>
-                        {String.raw`y =`}
-                    </InlineMath>
-                    <div id={'observation-slider'}
-                        style={{ height: '50px',
-                            width: '100%',
-                            paddingLeft: '2.7em',
-                            marginTop: '-0.8em',
-                            marginBottom: '1em'}}>
-                        <Rheostat
-                            min={1}
-                            max={80}
-                            values={[taxRateIdx + 1]}
-                            onValuesUpdated={(sliderState) => {
-                                handleTaxRateIdx(
-                                    sliderState.values[0] - 1);
-                            }} />
-                    </div>
-                </div>
-                <div className={'lrm-values'}>
-                    <div>
-                        <InlineMath>
-                            {/* eslint-disable-next-line */}
-                            {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
-                        </InlineMath>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="mu-tt">
-                            <sup>
-                                <i className="fas fa-question-circle">
-                                </i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="mu-tt" event="focus"
-                            eventOff="blur">
-                            <span>Mean of all smokers</span>
-                        </ReactTooltip>
-                    </div>
-                    <div>
-                        <InlineMath>
-                            {String.raw`
-                                \varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
-                        </InlineMath>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="epslion-tt">
-                            <sup>
-                                <i className="fas fa-question-circle">
-                                </i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="epslion-tt" event="focus"
-                            eventOff="blur">
-                            <span>Deviation from the mean</span>
-                        </ReactTooltip>
+                    <div className="form-row tax-rate-data-row">
+                        <div className={isStateA ? ('col-6') : ('col-12') +
+                                ' tax-rate-datum'}>
+                            <InlineMath>
+                                {/* eslint-disable-next-line */}
+                                {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
+                            </InlineMath>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="mu-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="mu-tt" event="focus"
+                                eventOff="blur">
+                                <span>Mean of all smokers</span>
+                            </ReactTooltip>
+                        </div>
+                        <div className={isStateA ? ('col-6') : ('col-12') +
+                                ' tax-rate-datum'}>
+                            <InlineMath>
+                                {/* eslint-disable-next-line */}
+                                {String.raw`\varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
+                            </InlineMath>
+                            <span className="help-tooltip"
+                                tabIndex="0"
+                                data-tip
+                                data-for="epslion-tt">
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>
+                            </span>
+                            <ReactTooltip id="epslion-tt" event="focus"
+                                eventOff="blur">
+                                <span>Deviation from the mean</span>
+                            </ReactTooltip>
+                        </div>
                     </div>
                 </div>
                 {isStateA ? (
