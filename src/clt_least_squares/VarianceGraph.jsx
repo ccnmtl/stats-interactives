@@ -7,7 +7,7 @@ import * as math from 'mathjs';
 math.config({matrix: 'Array'});
 
 const Y_MIN = 0;
-const Y_MAX = 50;
+const Y_MAX = 60;
 
 import {
     VictoryChart, VictoryTheme,
@@ -45,7 +45,7 @@ export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
                     }
                 }}
                 tickValues={math.range(
-                    VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX, 0.2, true
+                    VARIANCE_FREQ_MIN, VARIANCE_FREQ_MAX, 0.5, true
                 ).map((val) => {
                     return math.round(val, 1);
                 })} />
