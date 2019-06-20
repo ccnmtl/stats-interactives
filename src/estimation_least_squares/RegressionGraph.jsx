@@ -23,7 +23,7 @@ export const RegressionGraph = ({population, regressionFunc,
                 error increases, the boxes represening the square of the errors
                 also increases.`}
             containerComponent={<VictoryVoronoiContainer/>}
-            padding={{left: 15, top: 2, right: 15, bottom: 55}}
+            padding={{left: 25, top: 12, right: 15, bottom: 45}}
             domain={{x: [MIN, MAX], y: [MIN, MAX]}}>
             <VictoryAxis
                 tickValues={math.range(MIN, MAX, true).map((val) => {
