@@ -34,7 +34,7 @@ export const VarianceGraph = ({samples, varianceCumalativeMean}) => {
                         return val;
                     })} />
             <VictoryAxis
-                label={`Regression MSE : Mean MSE: ${varianceCumalativeMean}`}
+                label={`Mean MSE: ${varianceCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
