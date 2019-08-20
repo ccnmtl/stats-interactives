@@ -33,7 +33,7 @@ export const SlopeFrequencyGraph = ({samples, slopeCumalativeMean}) => {
                         return val;
                     })} />
             <VictoryAxis
-                label={`Regression Slope | Mean Slope: ${slopeCumalativeMean}`}
+                label={`Mean Slope: ${slopeCumalativeMean}`}
                 style={{
                     axisLabel: {
                         fontSize: 12,
