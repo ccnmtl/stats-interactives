@@ -4,6 +4,7 @@ import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
 import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 
 const getTaxRateFromIdx = (val) => {
     let taxRateIdx = Math.floor((val)/ 20);
@@ -78,23 +79,18 @@ export const TaxRateSlider = ({taxRateIdx,
                                     The number entered is outside the
                                     range of the dataset.
                                 </div>
-                                <span className="help-tooltip"
-                                    tabIndex="0"
-                                    data-tip
-                                    data-for="i-tt">
+                                <Tooltip tooltip={
                                     <sup>
                                         <i className="fas fa-question-circle">
                                         </i>
                                     </sup>
-                                </span>
-                                <ReactTooltip id="i-tt" event="focus"
-                                    eventOff="blur">
+                                }>
                                     <span>Represents a single smoker in the tax
                                         data, used to index into&nbsp;
                                     <InlineMath>
                                         {String.raw`y`}
                                     </InlineMath></span>
-                                </ReactTooltip>
+                                </Tooltip>
                             </label>
                             <div id={'observation-slider'}
                                 style={{ height: '50px',
