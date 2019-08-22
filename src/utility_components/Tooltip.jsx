@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,7 +15,7 @@ export class Tooltip extends Component {
 
         this.initialState = {
             showTooltip: false,
-        }
+        };
         this.state = this.initialState;
     }
     onButtonClick(e) {
@@ -24,8 +23,8 @@ export class Tooltip extends Component {
         this.setState((state) => {
             return {
                 showTooltip: !state.showTooltip,
-            }
-        })
+            };
+        });
     }
     onButtonBlur(e) {
         e.preventDefault();
@@ -60,4 +59,5 @@ export class Tooltip extends Component {
 
 Tooltip.propTypes = {
     tooltip: PropTypes.object,
+    children: PropTypes.object,
 };
