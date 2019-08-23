@@ -1,3 +1,53 @@
+// Library tooltip styles
 .__react_component_tooltip {
     z-index: 100000;
+}
+
+// Custom tooltip styles
+%button-reset {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.tooltip-trigger {
+    @extend %button-reset;
+    margin-left: 0.25em;
+    &:focus {
+        outline: none;
+        color: #0D993F;
+    }
+}
+
+.tooltip-box {
+    position: absolute;
+    display: inline-block;
+    top: -3em;
+    padding: 0.5em;
+    margin-bottom: 0px !important;
+    margin-right: -100%;
+    z-index: 10000;
+
+    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    &:before {
+        content: "";
+        position: absolute;
+        right: 100%;
+        bottom: -7px;
+        left: 0px;
+        border-top: 7px solid transparent;
+        border-right: 14px solid rgba(0, 0, 0, 0.8);
+        border-bottom: 7px solid transparent;
+        transform: rotate(180deg);
+    }
 }

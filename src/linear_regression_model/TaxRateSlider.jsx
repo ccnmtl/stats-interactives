@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 
 const getTaxRateFromIdx = (val) => {
     let taxRateIdx = Math.floor((val)/ 20);
@@ -78,23 +78,17 @@ export const TaxRateSlider = ({taxRateIdx,
                                     The number entered is outside the
                                     range of the dataset.
                                 </div>
-                                <span className="help-tooltip"
-                                    tabIndex="0"
-                                    data-tip
-                                    data-for="i-tt">
+                                <Tooltip tooltip={
                                     <sup>
                                         <i className="fas fa-question-circle">
                                         </i>
-                                    </sup>
-                                </span>
-                                <ReactTooltip id="i-tt" event="focus"
-                                    eventOff="blur">
+                                    </sup>}>
                                     <span>Represents a single smoker in the tax
                                         data, used to index into&nbsp;
                                     <InlineMath>
                                         {String.raw`y`}
                                     </InlineMath></span>
-                                </ReactTooltip>
+                                </Tooltip>
                             </label>
                             <div id={'observation-slider'}
                                 style={{ height: '50px',
@@ -120,40 +114,28 @@ export const TaxRateSlider = ({taxRateIdx,
                                 {String.raw`x_{${taxRateIdx + 1}} = ${
                                     getTaxRateFromIdx(taxRateIdx)}`}
                             </InlineMath>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="x-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="x-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <span>Represents the tax rate a smoker is
                                     subject to</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                         <div className={isStateA ? ('col-6') : ('col-12') +
                                 ' tax-rate-datum'}>
                             <InlineMath>
                                 {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
                             </InlineMath>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="y-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="y-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <span>Represents the number of cigarettes per
                                     day a given person smokes</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                     </div>
                     <div className="form-row tax-rate-data-row">
@@ -163,19 +145,13 @@ export const TaxRateSlider = ({taxRateIdx,
                                 {/* eslint-disable-next-line */}
                                 {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
                             </InlineMath>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="mu-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="mu-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <span>Mean of all smokers</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                         <div className={isStateA ? ('col-6') : ('col-12') +
                                 ' tax-rate-datum'}>
@@ -183,19 +159,13 @@ export const TaxRateSlider = ({taxRateIdx,
                                 {/* eslint-disable-next-line */}
                                 {String.raw`\varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
                             </InlineMath>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="epslion-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="epslion-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <span>Deviation from the mean</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                     </div>
                 </div>
