@@ -18,6 +18,10 @@ eslint: $(JS_SENTINAL)
 
 test: $(JS_SENTINAL) eslint
 	npm run test
+	npm run cypress:test
+
+cypress:
+	npm run cypress:open
 
 watch-test: $(JS_SENTINAL)
 	npm run watch-test
@@ -37,4 +41,4 @@ deploy-prod: $(JS_SENTINAL)
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
-.PHONY: runserver build dev eslint test deploy-stage deploy-prod
+.PHONY: runserver build dev eslint test deploy-stage deploy-prod cypress

@@ -20,7 +20,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:security/recommended"
+        "plugin:security/recommended",
+        "plugin:cypress/recommended"
     ],  
     "rules": {
         "indent": [
