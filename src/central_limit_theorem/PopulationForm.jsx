@@ -4,7 +4,7 @@ import { forceNumber } from '../utils';
 import Rheostat from 'rheostat';
 import { PitComponent } from '../PitComponent';
 import { DISTRIBUTION_TYPE } from './CentralLimitGraph';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 
 export const PopulationForm  = (
     {seed, populationSize, mean, stdDev, distType,
@@ -29,19 +29,14 @@ export const PopulationForm  = (
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
                             Seed:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="seed-tt">
+                        <Tooltip tooltip={
                             <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="seed-tt" event="focus"
-                            eventOff="blur">
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>}>
                             <span>Enter a different value to see a
                                 different simulation</span>
-                        </ReactTooltip>
+                        </Tooltip>
                     </div>
                     <div>
                         <input type="text"
@@ -81,19 +76,14 @@ export const PopulationForm  = (
                             <label htmlFor="mean"
                                 className="float-right">
                                 Select a Mean:</label>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="mean-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="mean-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>The arithmetic average of the values
                                     in the population.</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                         <div className="form-row slider-labels">
                             <div id="mean"
@@ -121,19 +111,14 @@ export const PopulationForm  = (
                             <label htmlFor="stdDev"
                                 className="float-right">
                                 Select a Standard Deviation:</label>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="stdDev-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="stdDev-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>The average of the square distances
                                     from the mean of the population.</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                         <div className="form-row slider-labels">
                             <div id="stdDev"

@@ -34,7 +34,7 @@ export class Tooltip extends Component {
     }
     render() {
         return (
-            <>
+            <div className={'tooltip-container'}>
                 <button
                     className={'tooltip-trigger'}
                     type='button'
@@ -51,7 +51,7 @@ export class Tooltip extends Component {
                         { this.props.children }
                     </div>
                 }
-            </>
+            </div>
         );
     }
 }
