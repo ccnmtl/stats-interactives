@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
 import { PitComponent } from '../PitComponent';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 
 export const SampleForm = ({
     sampleSize, numberOfSamples, handleChange, runSample, showSampleForm}) => {
@@ -21,19 +21,14 @@ export const SampleForm = ({
                         <label htmlFor="sampleSize"
                             className="float-right">
                             Select a Sample Size:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="sampleSize-tt">
+                        <Tooltip tooltip={
                             <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="sampleSize-tt" event="focus"
-                            eventOff="blur">
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>}>
                             <span>Represents the number of observations
                                 in a given sample.</span>
-                        </ReactTooltip>
+                        </Tooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <div id="sampleSize"
@@ -58,20 +53,15 @@ export const SampleForm = ({
                         <label htmlFor="numberOfSamples"
                             className="float-right">
                             Select the Number of Samples:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="numberOfSamples-tt">
+                        <Tooltip tooltip={
                             <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="numberOfSamples-tt" event="focus"
-                            eventOff="blur">
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>}>
                             <span>The number of individual samples,
                                 each of size n, drawn in the simulation.
                             </span>
-                        </ReactTooltip>
+                        </Tooltip>
                     </div>
                     <div className="form-row slider-labels">
                         <div id="numberOfSamples"

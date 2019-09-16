@@ -13,6 +13,14 @@
     cursor: pointer;
 }
 
+.tooltip-container {
+    position: relative;
+    display: inline;
+    // This sizes the container to the line height of where
+    // ever the tooltip is used
+    height: fit-content;
+}
+
 .tooltip-trigger {
     @extend %button-reset;
     margin-left: 0.25em;
@@ -25,11 +33,14 @@
 .tooltip-box {
     position: absolute;
     display: inline-block;
-    top: -3em;
+    // The box is positioned 150% of the height of the
+    // tooltip container.
+    bottom: 150%;
     padding: 0.5em;
     margin-bottom: 0px !important;
     margin-right: -100%;
     z-index: 10000;
+    width: max-content;
 
     border-radius: 5px;
     border-top-left-radius: 5px;
@@ -43,11 +54,11 @@
         content: "";
         position: absolute;
         right: 100%;
-        bottom: -7px;
+        bottom: -18px;
         left: 0px;
-        border-top: 7px solid transparent;
-        border-right: 14px solid rgba(0, 0, 0, 0.8);
-        border-bottom: 7px solid transparent;
-        transform: rotate(180deg);
+        border-top: 14px solid rgba(0, 0, 0, 0.8);
+        border-right: 12px solid transparent;
+        border-bottom: 4px solid transparent;
+        transform: rotate(0deg);
     }
 }

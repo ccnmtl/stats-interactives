@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
 import * as math from 'mathjs';
@@ -28,19 +28,14 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                         <div className="form-row">
                             <label htmlFor="seed" className="float-right">
                                 Seed:</label>
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="seed-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="seed-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>Enter a different value to see a
                                     different simulation</span>
-                            </ReactTooltip>
+                            </Tooltip>
                         </div>
                         <div>
                             <input type="text"
@@ -70,18 +65,13 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 step={0.01}
                                 value={math.round(alpha, 2)}
                                 onChange={handleAlpha} />
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="alpha-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="alpha-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>Intercept of the regression model</span>
-                            </ReactTooltip>
+                            </Tooltip>
                             <div className='invalid-feedback'>
                                 The number entered is outside the
                                 range of the dataset.
@@ -114,18 +104,13 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 value={math.round(beta, 2)}
                                 step={0.01}
                                 onChange={handleBeta} />
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="beta-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="beta-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>Slope of the regression model</span>
-                            </ReactTooltip>
+                            </Tooltip>
                             <div className='invalid-feedback'>
                                 The number entered is outside the
                                 range of the dataset.
@@ -157,18 +142,13 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                 step={0.01}
                                 value={math.round(variance, 2)}
                                 onChange={handleVariance} />
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="variance-tt">
+                            <Tooltip tooltip={
                                 <sup>
-                                    <i className="fas fa-question-circle"></i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="variance-tt" event="focus"
-                                eventOff="blur">
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
                                 <span>Variance of the disturbances</span>
-                            </ReactTooltip>
+                            </Tooltip>
                             <div className='invalid-feedback'>
                                 The number entered is outside the
                                 range of the dataset.
@@ -235,24 +215,17 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                             populationRegression[sampleIdx][1], 2)
                                         }`}
                                     </InlineMath>
-                                    <span className="help-tooltip"
-                                        tabIndex="0"
-                                        data-tip
-                                        data-for="b0-active-tt">
+                                    <Tooltip tooltip={
                                         <sup>
                                             <i className={
                                                 'fas fa-question-circle'}>
                                             </i>
-                                        </sup>
-                                    </span>
-                                    <ReactTooltip id="b0-active-tt"
-                                        event="focus"
-                                        eventOff="blur">
+                                        </sup>}>
                                         <span>
                                                 Intercept of the
                                                 prediction equation
                                         </span>
-                                    </ReactTooltip>
+                                    </Tooltip>
                                 </div>
                             </div>
                             <div className={'form-row clt-ols-active-values'}>
@@ -263,24 +236,17 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                             populationRegression[sampleIdx][0], 2)
                                         }`}
                                     </InlineMath>
-                                    <span className="help-tooltip"
-                                        tabIndex="0"
-                                        data-tip
-                                        data-for="b1-active-tt">
+                                    <Tooltip tooltip={
                                         <sup>
                                             <i className={
                                                 'fas fa-question-circle'}>
                                             </i>
-                                        </sup>
-                                    </span>
-                                    <ReactTooltip id="b1-active-tt"
-                                        event="focus"
-                                        eventOff="blur">
+                                        </sup>}>
                                         <span>
                                                 Slope of the
                                                 prediction equation
                                         </span>
-                                    </ReactTooltip>
+                                    </Tooltip>
                                 </div>
                             </div>
                             <div className={'form-row clt-ols-active-values'}>
@@ -290,24 +256,17 @@ export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
                                             populationVariance[sampleIdx], 2)
                                         }`}
                                     </InlineMath>
-                                    <span className="help-tooltip"
-                                        tabIndex="0"
-                                        data-tip
-                                        data-for="mse-active-tt">
+                                    <Tooltip tooltip={
                                         <sup>
                                             <i className={
                                                 'fas fa-question-circle'}>
                                             </i>
-                                        </sup>
-                                    </span>
-                                    <ReactTooltip id="mse-active-tt"
-                                        event="focus"
-                                        eventOff="blur">
+                                        </sup>}>
                                         <span>
                                             Mean sum of squares
                                             of the residual
                                         </span>
-                                    </ReactTooltip>
+                                    </Tooltip>
                                 </div>
                             </div>
                         </div>

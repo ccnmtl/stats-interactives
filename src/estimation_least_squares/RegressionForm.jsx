@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rheostat from 'rheostat';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '../utility_components/Tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
 import * as math from 'mathjs';
@@ -47,19 +47,14 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                     <div className="form-row">
                         <label htmlFor="seed" className="float-right">
                             Seed:</label>
-                        <span className="help-tooltip"
-                            tabIndex="0"
-                            data-tip
-                            data-for="seed-tt">
+                        <Tooltip tooltip={
                             <sup>
-                                <i className="fas fa-question-circle"></i>
-                            </sup>
-                        </span>
-                        <ReactTooltip id="seed-tt" event="focus"
-                            eventOff="blur">
+                                <i className="fas fa-question-circle">
+                                </i>
+                            </sup>}>
                             <span>Enter a different value to see a
                                 different simulation</span>
-                        </ReactTooltip>
+                        </Tooltip>
                     </div>
                     <div>
                         <input type="text"
@@ -103,21 +98,15 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 value={math.round(slope, 2)}
                                 step={0.01}
                                 onChange={handleSlope} />
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="slope-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="slope-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <InlineMath>
                                     {String.raw`b_0`}
                                 </InlineMath>
-                            </ReactTooltip>
+                            </Tooltip>
                             <div className='invalid-feedback'>
                                 Please enter a value between -5 and 5.
                             </div>
@@ -150,21 +139,15 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 step={0.01}
                                 value={math.round(intercept, 2)}
                                 onChange={handleIntercept} />
-                            <span className="help-tooltip"
-                                tabIndex="0"
-                                data-tip
-                                data-for="intercept-tt">
+                            <Tooltip tooltip={
                                 <sup>
                                     <i className="fas fa-question-circle">
                                     </i>
-                                </sup>
-                            </span>
-                            <ReactTooltip id="intercept-tt" event="focus"
-                                eventOff="blur">
+                                </sup>}>
                                 <InlineMath>
                                     {String.raw`b_1`}
                                 </InlineMath>
-                            </ReactTooltip>
+                            </Tooltip>
                             <div className='invalid-feedback'>
                                 Please enter a value between -4 and 4.
                             </div>
