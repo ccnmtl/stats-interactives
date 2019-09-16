@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    VictoryChart, VictoryTheme, VictoryLine, VictoryVoronoiContainer,
+    VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryArea, VictoryAxis} from 'victory';
 import * as math from 'mathjs';
 math.config({matrix: 'Array'});
@@ -22,7 +22,6 @@ export const RegressionGraph = ({population, regressionFunc,
                 the slope and estimate of a proposed line is changed. If the
                 error increases, the boxes represening the square of the errors
                 also increases.`}
-            containerComponent={<VictoryVoronoiContainer/>}
             padding={{left: 25, top: 12, right: 15, bottom: 45}}
             domain={{x: [MIN, MAX], y: [MIN, MAX]}}>
             <VictoryAxis
