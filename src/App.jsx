@@ -117,7 +117,7 @@ const Home = () => (
     <div className="jumbotron">
         <div className="container">
             <h1 className="display-2 hp-title text-center">
-                <span className="stats">Stats</span> Interactives <span className="beta"> Beta</span>
+                <span className="stats">Stats</span> Interactives
             </h1>
             <h2 className="text-center">
                 Introductory Concepts in Statistics
