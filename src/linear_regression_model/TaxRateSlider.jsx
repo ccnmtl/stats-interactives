@@ -32,7 +32,7 @@ export const TaxRateSlider = ({taxRateIdx,
                     <div className={'lrm-copy'}>
                         <p>How do cigarette sales taxes affect the average
                             weekly number of cigarettes consumed by a smoker?
-                            The scatterplot to the left shows the relationship
+                            The scatterplot to the right shows the relationship
                             between these two variables and illustrates the
                             basic assumption of the OLS regression model. On
                             average, people smoke a different number of
