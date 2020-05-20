@@ -37,7 +37,7 @@
     "file-loader": "~3.0.1",
     "nodemon": "~1.19.0",
     "start-server-and-test": "^1.10.0",
-    "webpack": "~4.30.0"
+    "webpack": "~4.43.0"
   },
   "dependencies": {
     "@sentry/browser": "~5.1.0",
