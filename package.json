@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@sentry/browser": "~5.1.0",
-    "autoprefixer": "~9.5.0",
+    "autoprefixer": "~9.8.0",
     "babel-core": "~7.0.0-bridge.0",
     "bootstrap": "~4.3.1",
     "css-loader": "~2.1.1",
