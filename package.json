@@ -61,7 +61,7 @@
     "react-router-dom": "~5.2.0",
     "react-test-renderer": "~16.8.5",
     "react-transition-group": "~4.4.1",
-    "rheostat": "~3.0.2",
+    "rheostat": "~4.1.1",
     "sass-loader": "~8.0.2",
     "seedrandom": "~3.0.1",
     "style-loader": "~1.2.1",
