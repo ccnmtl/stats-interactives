@@ -212,55 +212,57 @@ export class LeastSquares extends Component {
     render() {
         return (
             <>
-            <Nav/>
-            <main className='container'>
-                <h1>Estimation of Least Squares</h1>
-                <div className={'row'}>
-                    <div className={'col-4'}>
-                        <RegressionForm
-                            seed={this.state.seed}
-                            handleSeed={this.handleSeed}
-                            handleGeneratePop={this.handleGeneratePop}
-                            slope={this.state.slope}
-                            intercept={this.state.intercept}
-                            beta={this.state.beta}
-                            alpha={this.state.alpha}
-                            handleSlope={this.handleSlope}
-                            handleIntercept={this.handleIntercept}
-                            handleShowBestFit={this.handleShowBestFit}
-                            showBestFit={this.state.showBestFit}
-                            reset={this.reset}
-                            isAssessment={this.state.isAssessment}
-                            hasPopulation={
-                                this.state.population ? true : false}/>
-                    </div>
-                    <div className={'col-8'}>
-                        <div className={'ls-graph-container'}>
-                            <div className={
-                                'graph-contianer ls-regression-graph'}>
-                                <h2>Samples and Regression Line</h2>
-                                <RegressionGraph
-                                    population={this.state.population}
-                                    regressionFunc={this.state.regressionFunc}
-                                    bestFitFunc={this.state.bestFitFunc}
-                                    showBestFit={this.state.showBestFit}/>
-                            </div>
-                            <div className={'graph-container ls-error-graph'}>
-                                <h2>Sum of Residuals Squared</h2>
-                                <ErrorGraph
-                                    optimalSize={this.state.optimalSize}
-                                    errorSize={this.state.errorSize}
-                                    showBestFit={this.state.showBestFit}
-                                    estimatedSSE={this.state.estimatedSSE}
-                                    optimalSSE={this.state.optimalSSE}
-                                    estimatedSSEOpacity={
-                                        this.state.estimatedSSEOpacity}/>
+                <Nav/>
+                <main className='container'>
+                    <h1>Estimation of Least Squares</h1>
+                    <div className={'row'}>
+                        <div className={'col-4'}>
+                            <RegressionForm
+                                seed={this.state.seed}
+                                handleSeed={this.handleSeed}
+                                handleGeneratePop={this.handleGeneratePop}
+                                slope={this.state.slope}
+                                intercept={this.state.intercept}
+                                beta={this.state.beta}
+                                alpha={this.state.alpha}
+                                handleSlope={this.handleSlope}
+                                handleIntercept={this.handleIntercept}
+                                handleShowBestFit={this.handleShowBestFit}
+                                showBestFit={this.state.showBestFit}
+                                reset={this.reset}
+                                isAssessment={this.state.isAssessment}
+                                hasPopulation={
+                                    this.state.population ? true : false}/>
+                        </div>
+                        <div className={'col-8'}>
+                            <div className={'ls-graph-container'}>
+                                <div className={
+                                    'graph-contianer ls-regression-graph'}>
+                                    <h2>Samples and Regression Line</h2>
+                                    <RegressionGraph
+                                        population={this.state.population}
+                                        regressionFunc={
+                                            this.state.regressionFunc}
+                                        bestFitFunc={this.state.bestFitFunc}
+                                        showBestFit={this.state.showBestFit}/>
+                                </div>
+                                <div className={
+                                    'graph-container ls-error-graph'}>
+                                    <h2>Sum of Residuals Squared</h2>
+                                    <ErrorGraph
+                                        optimalSize={this.state.optimalSize}
+                                        errorSize={this.state.errorSize}
+                                        showBestFit={this.state.showBestFit}
+                                        estimatedSSE={this.state.estimatedSSE}
+                                        optimalSSE={this.state.optimalSSE}
+                                        estimatedSSEOpacity={
+                                            this.state.estimatedSSEOpacity}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
-            <hr />
+                </main>
+                <hr />
             </>
         );
     }

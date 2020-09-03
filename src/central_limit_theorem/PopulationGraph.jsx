@@ -13,24 +13,24 @@ export const PopulationGraph  = (
         observationIdx, domain, sampleMean, distType}) => {
     return (
         <>
-        <VictoryChart theme={VictoryTheme.material}
-            title={'Population and Current Sample'}
-            desc={`The population is a ${distType} distribution. The
+            <VictoryChart theme={VictoryTheme.material}
+                title={'Population and Current Sample'}
+                desc={`The population is a ${distType} distribution. The
                 distribution of samples largely follows
                 that of the population.`}
-            padding={{top: 0, left: 10, right: 10, bottom: 25}}
-            width={850}
-            height={350}
-            style={{
-                parent: {
-                    height: 'inherit',
-                    padding: '0.5em 1em 1em 1em',
-                }
-            }}
-            domain={{x: [MIN_BIN, MAX_BIN], y: [0, 1]}}>
-            <VictoryAxis
-                tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
-            {populationGraphData &&
+                padding={{top: 0, left: 10, right: 10, bottom: 25}}
+                width={850}
+                height={350}
+                style={{
+                    parent: {
+                        height: 'inherit',
+                        padding: '0.5em 1em 1em 1em',
+                    }
+                }}
+                domain={{x: [MIN_BIN, MAX_BIN], y: [0, 1]}}>
+                <VictoryAxis
+                    tickValues={math.range(MIN_BIN, MAX_BIN, true)} />
+                {populationGraphData &&
                 <VictoryBar data={populationGraphData}
                     alignment='start'
                     barRatio={1}
@@ -38,15 +38,15 @@ export const PopulationGraph  = (
                     y={1}
                     style={{ data: { fill: BAR_FILL, stroke: BAR_BORDER,
                         strokeWidth: '2px'} }}/> }
-            {samplesGraphData &&
+                {samplesGraphData &&
                 <VictoryScatter data={samplesGraphData.slice(0, observationIdx)}
                     style={{ data: { fill: 'white', stroke: BAR_BORDER,
                         strokeWidth: DOT_STROKE } }}
                     size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
-            }
-            {samplesGraphData &&
+                }
+                {samplesGraphData &&
                     <VictoryScatter data={
                         samplesGraphData.slice(
                             observationIdx - 1, observationIdx)}
@@ -55,8 +55,8 @@ export const PopulationGraph  = (
                     size={4}
                     x={(datum) => datum[0] + 0.5}
                     y={(datum) => (datum[1] / samplesMax)}/>
-            }
-        </VictoryChart>
+                }
+            </VictoryChart>
         </>
     );
 };
