@@ -86,63 +86,63 @@ export class LinearRegressionModel extends Component {
     render() {
         return (
             <>
-            <Nav/>
-            <main className='container'>
-                <div className={'row'}>
-                    <div className={'col-10'}>
-                        <h1>Linear Regression Model</h1>
-                    </div>
-                    <div className={'col-2'}>
-                        <div className={'d-flex ' +
-                            'linear-regression-toggle'}>
-                            <VerticalButton
-                                flipGraphs={this.state.flipGraphs}
-                                handleFlipGraphs={this.handleFlipGraphs}
-                                toggleLock={this.state.toggleLock}
-                            />
-                            <HorizontalButton
-                                flipGraphs={this.state.flipGraphs}
-                                handleFlipGraphs={this.handleFlipGraphs}
-                                toggleLock={this.state.toggleLock}
-                            />
+                <Nav/>
+                <main className='container'>
+                    <div className={'row'}>
+                        <div className={'col-10'}>
+                            <h1>Linear Regression Model</h1>
+                        </div>
+                        <div className={'col-2'}>
+                            <div className={'d-flex ' +
+                                'linear-regression-toggle'}>
+                                <VerticalButton
+                                    flipGraphs={this.state.flipGraphs}
+                                    handleFlipGraphs={this.handleFlipGraphs}
+                                    toggleLock={this.state.toggleLock}
+                                />
+                                <HorizontalButton
+                                    flipGraphs={this.state.flipGraphs}
+                                    handleFlipGraphs={this.handleFlipGraphs}
+                                    toggleLock={this.state.toggleLock}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <TransitionGroup>
-                    {this.state.flipGraphs === false ? (
-                        <CSSTransition
-                            key={this.state.flipGraphs}
-                            onExited={this.handleFreeToggleLock}
-                            classNames="graph-transition"
-                            timeout={3000}>
-                            <StateAContainer
-                                taxRateIdx={this.state.taxRateIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}
-                                y_i={this.state.y_i}
-                                mean={this.state.mean}
-                                epsilon={this.state.epsilon}
-                                activeDataIdx={this.state.activeDataIdx}
-                            />
-                        </CSSTransition>
-                    ) : (
-                        <CSSTransition
-                            key={this.state.flipGraphs}
-                            onExited={this.handleFreeToggleLock}
-                            classNames="graph-transition"
-                            timeout={3000}>
-                            <StateBContainer
-                                taxRateIdx={this.state.taxRateIdx}
-                                handleTaxRateIdx={this.handleTaxRateIdx}
-                                y_i={this.state.y_i}
-                                mean={this.state.mean}
-                                epsilon={this.state.epsilon}
-                                activeDataIdx={this.state.activeDataIdx}
-                            />
-                        </CSSTransition>
-                    )}
-                </TransitionGroup>
-            </main>
-            <hr/>
+                    <TransitionGroup>
+                        {this.state.flipGraphs === false ? (
+                            <CSSTransition
+                                key={this.state.flipGraphs}
+                                onExited={this.handleFreeToggleLock}
+                                classNames="graph-transition"
+                                timeout={3000}>
+                                <StateAContainer
+                                    taxRateIdx={this.state.taxRateIdx}
+                                    handleTaxRateIdx={this.handleTaxRateIdx}
+                                    y_i={this.state.y_i}
+                                    mean={this.state.mean}
+                                    epsilon={this.state.epsilon}
+                                    activeDataIdx={this.state.activeDataIdx}
+                                />
+                            </CSSTransition>
+                        ) : (
+                            <CSSTransition
+                                key={this.state.flipGraphs}
+                                onExited={this.handleFreeToggleLock}
+                                classNames="graph-transition"
+                                timeout={3000}>
+                                <StateBContainer
+                                    taxRateIdx={this.state.taxRateIdx}
+                                    handleTaxRateIdx={this.handleTaxRateIdx}
+                                    y_i={this.state.y_i}
+                                    mean={this.state.mean}
+                                    epsilon={this.state.epsilon}
+                                    activeDataIdx={this.state.activeDataIdx}
+                                />
+                            </CSSTransition>
+                        )}
+                    </TransitionGroup>
+                </main>
+                <hr/>
             </>
         );
     }
