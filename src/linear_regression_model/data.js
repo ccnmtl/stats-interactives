@@ -1,4 +1,9 @@
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
+
 var jStat = require('jStat').jStat;
 
 /* Smoking Frequency Matrix

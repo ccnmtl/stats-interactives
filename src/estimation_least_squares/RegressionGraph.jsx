@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryArea, VictoryAxis} from 'victory';
-import * as math from 'mathjs';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
+
 import { BAR_BORDER, LEAST_SQAURES_EST, DOT_STROKE,
     LEAST_SQAURES_OPT, INDICATOR } from '../colors.js';
 

@@ -11,7 +11,11 @@ import { findLinearRegression, createScatterPlotHistogram,
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 export const DOT_SIZE = 4;
 

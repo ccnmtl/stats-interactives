@@ -4,8 +4,12 @@ import { SMOKING_FREQ } from './data';
 import {
     VictoryChart, VictoryTheme, VictoryLine,
     VictoryScatter, VictoryAxis} from 'victory';
-import * as math from 'mathjs';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
+
 import { BAR_BORDER, INDICATOR, INACTIVE, DOT_STROKE } from '../colors.js';
 
 export const TaxRateGraphA = (
