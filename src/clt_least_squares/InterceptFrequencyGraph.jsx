@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DOT_SIZE, INTERCEPT_FREQ_MIN,
     INTERCEPT_FREQ_MAX } from './CLTLeastSquares';
-import * as math from 'mathjs';
 import { BAR_BORDER, BAR_FILL, INDICATOR, DOT_STROKE } from '../colors.js';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 
 const X_MIN = 0;

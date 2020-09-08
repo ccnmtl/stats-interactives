@@ -4,7 +4,11 @@ import Rheostat from 'rheostat';
 import { Tooltip } from '../utility_components/Tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 export const InputForm = ({seed, handleSeed, handleGeneratePop, beta,
     handleBeta, alpha, handleAlpha, hasPopulation, variance, handleVariance,

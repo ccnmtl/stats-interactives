@@ -3,7 +3,11 @@ import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Nav } from '../Nav.jsx';
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 import { SMOKING_FREQ } from './data';
 import { StateAContainer, StateBContainer } from './GraphStateContainers';
 

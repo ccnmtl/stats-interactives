@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryTheme, VictoryBar,
     VictoryScatter, VictoryAxis} from 'victory';
-import * as math from 'mathjs';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
+
 import { BAR_FILL, BAR_BORDER, INDICATOR, DOT_STROKE } from '../colors.js';
 import { MIN_BIN, MAX_BIN } from './CentralLimitGraph';
 

@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import {
     VictoryChart, VictoryAxis, VictoryTheme, VictoryArea} from 'victory';
 import { LEAST_SQAURES_EST, LEAST_SQAURES_OPT } from '../colors.js';
-import * as math from 'mathjs';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 export const ErrorGraph = ({optimalSize, errorSize,
     showBestFit, estimatedSSEOpacity, estimatedSSE, optimalSSE}) => {
