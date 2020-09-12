@@ -27,7 +27,7 @@
     "babel-loader": "~8.1.0",
     "cypress": "^5.0.0",
     "enzyme-adapter-react-16": "~1.15.2",
-    "eslint": "~7.8.1",
+    "eslint": "~7.9.0",
     "eslint-loader": "~4.0.2",
     "eslint-plugin-cypress": "^2.6.1",
     "eslint-plugin-no-unsafe-innerhtml": "~1.0.16",
