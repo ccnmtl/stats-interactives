@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 import ReactGA from 'react-ga';
 import {
     createHistogramArray, getHistogramMaxima,
@@ -347,12 +351,12 @@ export class CentralLimitGraph extends Component {
     render() {
         return (
             <>
-            <Nav/>
-            <main className='container'>
-                <h1>The Central Limit Theorem</h1>
-                <div className={'row'}>
-                    <div className={'col-12'}>
-                        <p>Enter text in the seed field to start the
+                <Nav/>
+                <main className='container'>
+                    <h1>The Central Limit Theorem</h1>
+                    <div className={'row'}>
+                        <div className={'col-12'}>
+                            <p>Enter text in the seed field to start the
                             simulation. Choose the shape of the distribution
                             and its mean and standard deviation. Choose the
                             number of random samples and the size of each
@@ -360,31 +364,31 @@ export class CentralLimitGraph extends Component {
                             observations in each sample in the histograms on
                             top. The histogram on the bottom displays the
                             distribution of the sample means.
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className='row'>
-                    <div className='col-4'>
-                        <PopulationForm seed={this.state.seed}
-                            populationSize={this.state.populationSize}
-                            mean={this.state.mean}
-                            stdDev={this.state.stdDev}
-                            distType={this.state.distType}
-                            sampleSize={this.state.sampleSize}
-                            handleGeneratePopulation={
-                                this.handleGeneratePopulation}
-                            handleChange={this.handleChange}
-                            showPopForm={this.state.populationGraphData ?
-                                true : false}/>
-                        <SampleForm
-                            sampleSize={this.state.sampleSize}
-                            numberOfSamples={this.state.numberOfSamples}
-                            handleChange={this.handleSampleForm}
-                            runSample={this.runSample}
-                            showSampleForm={
-                                this.state.population ?
+                    <div className='row'>
+                        <div className='col-4'>
+                            <PopulationForm seed={this.state.seed}
+                                populationSize={this.state.populationSize}
+                                mean={this.state.mean}
+                                stdDev={this.state.stdDev}
+                                distType={this.state.distType}
+                                sampleSize={this.state.sampleSize}
+                                handleGeneratePopulation={
+                                    this.handleGeneratePopulation}
+                                handleChange={this.handleChange}
+                                showPopForm={this.state.populationGraphData ?
                                     true : false}/>
-                        {this.state.observationData &&
+                            <SampleForm
+                                sampleSize={this.state.sampleSize}
+                                numberOfSamples={this.state.numberOfSamples}
+                                handleChange={this.handleSampleForm}
+                                runSample={this.runSample}
+                                showSampleForm={
+                                    this.state.population ?
+                                        true : false}/>
+                            {this.state.observationData &&
                         <SampleRangeSlider
                             numberOfSamples={this.state.numberOfSamples}
                             sampleMeansIdx={this.state.sampleMeansIdx}
@@ -400,33 +404,33 @@ export class CentralLimitGraph extends Component {
                             handleObservationIdx={this.handleObservationIdx}
                             handleResetSamples={
                                 this.handleResetSamples}/>
-                        }
-                    </div>
-                    <div className='col-8 graph-col'>
-                        <div className="graph-container sp-sticky-top">
-                            <h4>
+                            }
+                        </div>
+                        <div className='col-8 graph-col'>
+                            <div className="graph-container sp-sticky-top">
+                                <h4>
                                 Population and Current Sample</h4>
-                            {this.state.observationData &&
+                                {this.state.observationData &&
                                 this.state.observationData[0] &&
                                 <p>
                                     Current Value: {
                                         this.state.observationData[0][2]}
                                 </p>
-                            }
-                            <PopulationGraph
-                                populationGraphData={
-                                    this.state.populationGraphData}
-                                samplesGraphData={
-                                    this.state.samplesGraphData}
-                                samplesMax={this.state.samplesMax}
-                                observationIdx={this.state.observationIdx}
-                                domain={this.state.domain}
-                                distType={this.state.distType}
-                                sampleMean={this.state.sampleMeans ?
-                                    this.state.sampleMeans[
-                                        this.state.sampleMeansIdx] : null}/>
-                            <h4>Distribution of Sample Means</h4>
-                            {this.state.meanOfSampleMeans &&
+                                }
+                                <PopulationGraph
+                                    populationGraphData={
+                                        this.state.populationGraphData}
+                                    samplesGraphData={
+                                        this.state.samplesGraphData}
+                                    samplesMax={this.state.samplesMax}
+                                    observationIdx={this.state.observationIdx}
+                                    domain={this.state.domain}
+                                    distType={this.state.distType}
+                                    sampleMean={this.state.sampleMeans ?
+                                        this.state.sampleMeans[
+                                            this.state.sampleMeansIdx] : null}/>
+                                <h4>Distribution of Sample Means</h4>
+                                {this.state.meanOfSampleMeans &&
                                 this.state.activeSampleMeansData &&
                                 <p>Mean of {this.state.numberOfSamples} Sample
                                     Means: {this.state.meanOfSampleMeans} |
@@ -434,30 +438,30 @@ export class CentralLimitGraph extends Component {
                                     /* eslint-disable-next-line */
                                     this.state.activeSampleMeansData[0]['datum']}
                                 </p>}
-                            <SampleMeansGraph
-                                domain={this.state.domain}
-                                range={
-                                    this.state.sampleMeansRange}
-                                sampleMeansGraphData={
-                                    this.state
-                                        .sampleMeansGraphData}
-                                popMean={this.state.mean}
-                                activeSampleMeansData={
-                                    this.state.activeSampleMeansData}/>
+                                <SampleMeansGraph
+                                    domain={this.state.domain}
+                                    range={
+                                        this.state.sampleMeansRange}
+                                    sampleMeansGraphData={
+                                        this.state
+                                            .sampleMeansGraphData}
+                                    popMean={this.state.mean}
+                                    activeSampleMeansData={
+                                        this.state.activeSampleMeansData}/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr/>
-                <div className="text-center">
-                    <button type="button"
-                        className="btn btn-danger"
-                        id='reset-simulation'
-                        onClick={this.handleResetSimulation}>
+                    <hr/>
+                    <div className="text-center">
+                        <button type="button"
+                            className="btn btn-danger"
+                            id='reset-simulation'
+                            onClick={this.handleResetSimulation}>
                         Reset Simulation
-                    </button>
-                </div>
-            </main>
-            <hr/>
+                        </button>
+                    </div>
+                </main>
+                <hr/>
             </>
         );
     }

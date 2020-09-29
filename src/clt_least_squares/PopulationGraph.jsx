@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { DOT_SIZE } from './CLTLeastSquares';
 import { BAR_BORDER, INACTIVE, DOT_STROKE,
     LEAST_SQAURES_OPT } from '../colors.js';
-import * as math from 'mathjs';
-math.config({matrix: 'Array'});
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 const X_MIN = 0;
 const X_MAX = 1;

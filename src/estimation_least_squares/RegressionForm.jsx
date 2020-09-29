@@ -4,7 +4,11 @@ import Rheostat from 'rheostat';
 import { Tooltip } from '../utility_components/Tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
@@ -26,61 +30,62 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
     };
     return (
         <>
-        <form onSubmit={handleGenPop}
-            className="needs-validation ls-form" noValidate >
-            <fieldset>
-                <div className="form-group">
-                    <div className="form-row">
-                        <p>Enter text into the seed field below to generate a
-                            unique sample, and then change the slope and the
-                            intercept of the regression prediction equation to
-                            see how the residuals (the prediction error)
-                            change. The graph to the right shows the sum of
-                            squared residuals. Try to come close to the OLS
-                            prediction equation, which is the prediction line
-                            which minimizes the sum of squared residuals.
-                        {!isAssessment && 'You can see the OLS prediction ' +
-                            'equation by clicking on the Toggle Best Fit ' +
-                            'button below.'}
-                        </p>
-                    </div>
-                    <div className="form-row">
-                        <label htmlFor="seed" className="float-right">
-                            Seed:</label>
-                        <Tooltip tooltip={
-                            <sup>
-                                <i className="fas fa-question-circle">
-                                </i>
-                            </sup>}>
-                            <span>Enter a different value to see a
-                                different simulation</span>
-                        </Tooltip>
-                    </div>
-                    <div>
-                        <input type="text"
-                            id="seed"
-                            className={
-                                seed ? 'form-control is-valid' :
-                                    'form-control' }
-                            value={seed}
-                            onChange={hndlSeed}
-                            placeholder={
-                                'Enter a seed to generate a sample'}
-                            autoFocus required/>
-                    </div>
+            <form onSubmit={handleGenPop}
+                className="needs-validation ls-form" noValidate >
+                <fieldset>
                     <div className="form-group">
                         <div className="form-row">
-                            <input className="btn btn-primary btn-block"
-                                disabled={seed ? false : true}
-                                id="generate-population"
-                                type="submit"
-                                value="Generate Samples"/>
+                            <p>Enter text into the seed field below to generate
+                                a unique sample, and then change the slope and
+                                the intercept of the regression prediction
+                                equation to see how the residuals (the
+                                prediction error) change. The graph to the right
+                                shows the sum of squared residuals. Try to come
+                                close to the OLS prediction equation, which is
+                                the prediction line which minimizes the sum of
+                                squared residuals.
+                            {!isAssessment && 'You can see the OLS prediction '
+                                + 'equation by clicking on the Toggle Best Fit '
+                                + 'button below.'}
+                            </p>
+                        </div>
+                        <div className="form-row">
+                            <label htmlFor="seed" className="float-right">
+                                Seed:</label>
+                            <Tooltip tooltip={
+                                <sup>
+                                    <i className="fas fa-question-circle">
+                                    </i>
+                                </sup>}>
+                                <span>Enter a different value to see a
+                                    different simulation</span>
+                            </Tooltip>
+                        </div>
+                        <div>
+                            <input type="text"
+                                id="seed"
+                                className={
+                                    seed ? 'form-control is-valid' :
+                                        'form-control' }
+                                value={seed}
+                                onChange={hndlSeed}
+                                placeholder={
+                                    'Enter a seed to generate a sample'}
+                                autoFocus required/>
+                        </div>
+                        <div className="form-group">
+                            <div className="form-row">
+                                <input className="btn btn-primary btn-block"
+                                    disabled={seed ? false : true}
+                                    id="generate-population"
+                                    type="submit"
+                                    value="Generate Samples"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
-        { hasPopulation &&
+                </fieldset>
+            </form>
+            { hasPopulation &&
             <form onSubmit={(e) => {e.preventDefault();}}
                 className={'was-validated'}
                 id={'ls-estimation-form'} noValidate>
@@ -172,8 +177,8 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                     </div>
                 </fieldset>
             </form>
-        }
-        {hasPopulation &&
+            }
+            {hasPopulation &&
             <form onSubmit={(e) => {e.preventDefault();}}
                 className="needs-validation" noValidate >
                 <fieldset>
@@ -200,7 +205,7 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                     </div>
                 </fieldset>
             </form>
-        }
+            }
         </>
     );
 };

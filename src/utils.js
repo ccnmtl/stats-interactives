@@ -1,4 +1,8 @@
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 const NO_OF_BINS = 36;
 const MIN_BIN = -18;

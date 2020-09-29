@@ -170,41 +170,41 @@ export const TaxRateSlider = ({taxRateIdx,
                     </div>
                 </div>
                 {isStateA ? (
-                <>
-                    <div className={'lrm-copy'}>
-                        <p>Click through different tax rates and examine how
-                            the distribution of the number of cigarettes smoked
-                            shown on the histograms in the bottom panel
-                            changes. For each tax rate you can click through
-                            different individual smokers to see how many
-                            cigarettes each person consumed on average every
-                            week. The formula above shows the effect of
-                            cigarette sales taxes on the average number of
-                            cigarettes smoked &nbsp;
-                        <InlineMath>
-                            {String.raw`\mu_y`}
-                        </InlineMath>,
-                            as well as the individual deviations from that
-                            average due to other factors &nbsp;
-                        <InlineMath>
-                            {String.raw`\varepsilon_i`}
-                        </InlineMath>.
-                        </p>
-                        <p>Notice the axes on this scatter plot are reversed,
-                            so that the explanatory variable is on the y-axis
-                            and the response variable is on the x-axis. The
-                            axes have been reversed to provide a better
-                            visualization of the histogram of the number of
-                            cigarettes. (Seeing a distribution in this
-                            orientation is more familiar, and easier to read,
-                            even though it is not the convention.) Use the
-                            buttons above to switch the axis to the
-                            conventional framework, where the explanatory
-                            variable is on the x-axis and the response variable
-                            is on the y-axis.
-                        </p>
-                    </div>
-                </>
+                    <>
+                        <div className={'lrm-copy'}>
+                            <p>Click through different tax rates and examine how
+                                the distribution of the number of cigarettes
+                                smoked shown on the histograms in the bottom
+                                panel changes. For each tax rate you can click
+                                through different individual smokers to see how
+                                many cigarettes each person consumed on average
+                                every week. The formula above shows the effect
+                                of cigarette sales taxes on the average number
+                                of cigarettes smoked &nbsp;
+                            <InlineMath>
+                                {String.raw`\mu_y`}
+                            </InlineMath>,
+                                as well as the individual deviations from that
+                                average due to other factors &nbsp;
+                            <InlineMath>
+                                {String.raw`\varepsilon_i`}
+                            </InlineMath>.
+                            </p>
+                            <p>Notice the axes on this scatter plot are
+                                reversed, so that the explanatory variable is on
+                                the y-axis and the response variable is on the
+                                x-axis. The axes have been reversed to provide a
+                                better visualization of the histogram of the
+                                number of cigarettes. (Seeing a distribution in
+                                this orientation is more familiar, and easier to
+                                read, even though it is not the convention.) Use
+                                the buttons above to switch the axis to the
+                                conventional framework, where the explanatory
+                                variable is on the x-axis and the response
+                                variable is on the y-axis.
+                            </p>
+                        </div>
+                    </>
                 ) : (
                     <div className={'lrm-copy'}>
                         <p>The scatter plot is now shown in the conventional

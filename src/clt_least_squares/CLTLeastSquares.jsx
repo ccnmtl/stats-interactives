@@ -11,7 +11,11 @@ import { findLinearRegression, createScatterPlotHistogram,
 
 var seedrandom = require('seedrandom');
 var jStat = require('jStat').jStat;
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
+let config = {
+    matrix: 'Array'
+};
+const math = create(all, config);
 
 export const DOT_SIZE = 4;
 
@@ -235,108 +239,110 @@ export class CLTLeastSquares extends Component {
     render() {
         return (
             <>
-            <Nav />
-            <main className={'container'}>
-                <h1>Sampling Distribution of Regression Coefficients</h1>
-                <div className={'row'}>
-                    <div className={'col-12'}>
-                        <p>Enter text in the seed field to start the
-                            simulation. Choose the parameters of the
-                            regression model. Each sample shown in the top
-                            right graph comes from a distribution with the
-                            parameters you selected. Use the sample slider to
-                            move through the samples and visualize how the
-                            prediction line changes with each sample. The other
-                            three graphs depict a histogram of the prediction
-                            line intercept, slope, and of the mean sum of
-                            squared residuals.
-                        </p>
-                    </div>
-                </div>
-                <div className={'row'}>
-                    <div className={'col-4'}>
-                        <InputForm
-                            seed={this.state.seed}
-                            handleSeed={this.handleSeed}
-                            handleGeneratePop={this.handleGeneratePop}
-                            beta={this.state.beta}
-                            handleBeta={this.handleBeta}
-                            alpha={this.state.alpha}
-                            handleAlpha={this.handleAlpha}
-                            variance={this.state.variance}
-                            handleVariance={this.handleVariance}
-                            sampleIdx={this.state.sampleIdx}
-                            handleSampleIdx={this.handleSampleIdx}
-                            hasPopulation={
-                                this.state.population ? true : false}
-                            populationRegression={
-                                this.state.populationRegression}
-                            populationVariance={this.state.populationVariance}/>
-                    </div>
-                    <div className={'col-4'}>
-                        <div className={'cls-graph-container'}>
-                            <h2>Sampling Distribution Intercept</h2>
-                            <div>
-                                <InterceptFrequencyGraph
-                                    samples={
-                                        this.state.interceptFreqGraphData}
-                                    interceptCumalativeMean={
-                                        this.state.interceptCumalativeMean[
-                                            this.state.sampleIdx]}/>
-                            </div>
-                        </div>
-                        <div className={'cls-graph-container'}>
-                            <h2>Sampling Distribution MSE</h2>
-                            <div>
-                                <VarianceGraph
-                                    samples={
-                                        this.state.varianceFreqGraphData}
-                                    varianceCumalativeMean={
-                                        this.state.varianceCumalativeMean[
-                                            this.state.sampleIdx]}/>
-                            </div>
+                <Nav />
+                <main className={'container'}>
+                    <h1>Sampling Distribution of Regression Coefficients</h1>
+                    <div className={'row'}>
+                        <div className={'col-12'}>
+                            <p>Enter text in the seed field to start the
+                                simulation. Choose the parameters of the
+                                regression model. Each sample shown in the top
+                                right graph comes from a distribution with the
+                                parameters you selected. Use the sample slider
+                                to move through the samples and visualize how
+                                the prediction line changes with each sample.
+                                The other three graphs depict a histogram of the
+                                prediction line intercept, slope, and of the
+                                mean sum of squared residuals.
+                            </p>
                         </div>
                     </div>
-                    <div className={'col-4'}>
-                        <div className={`cls-graph-container
-                            cls-population-graph-container`}>
-                            <div className={'cls-arrow cls-arrow-left'}>
-                                <div className={'arrow-point'}></div>
-                                <div className={'arrow-shaft'}></div>
+                    <div className={'row'}>
+                        <div className={'col-4'}>
+                            <InputForm
+                                seed={this.state.seed}
+                                handleSeed={this.handleSeed}
+                                handleGeneratePop={this.handleGeneratePop}
+                                beta={this.state.beta}
+                                handleBeta={this.handleBeta}
+                                alpha={this.state.alpha}
+                                handleAlpha={this.handleAlpha}
+                                variance={this.state.variance}
+                                handleVariance={this.handleVariance}
+                                sampleIdx={this.state.sampleIdx}
+                                handleSampleIdx={this.handleSampleIdx}
+                                hasPopulation={
+                                    this.state.population ? true : false}
+                                populationRegression={
+                                    this.state.populationRegression}
+                                populationVariance={
+                                    this.state.populationVariance}/>
+                        </div>
+                        <div className={'col-4'}>
+                            <div className={'cls-graph-container'}>
+                                <h2>Sampling Distribution Intercept</h2>
+                                <div>
+                                    <InterceptFrequencyGraph
+                                        samples={
+                                            this.state.interceptFreqGraphData}
+                                        interceptCumalativeMean={
+                                            this.state.interceptCumalativeMean[
+                                                this.state.sampleIdx]}/>
+                                </div>
                             </div>
-                            <div className={'cls-arrow cls-arrow-bottom-left'}>
-                                <div className={'arrow-point'}></div>
-                                <div className={'arrow-shaft'}></div>
-                            </div>
-                            <div className={'cls-arrow cls-arrow-bottom'}>
-                                <div className={'arrow-point'}></div>
-                                <div className={'arrow-shaft'}></div>
-                            </div>
-                            <h2>Sample Data</h2>
-                            <div>
-                                <PopulationGraph
-                                    population={this.state.population}
-                                    populationRegression={
-                                        this.state.populationRegression}
-                                    slope={this.state.beta}
-                                    intercept={this.state.alpha}
-                                    sampleIdx={this.state.sampleIdx}/>
+                            <div className={'cls-graph-container'}>
+                                <h2>Sampling Distribution MSE</h2>
+                                <div>
+                                    <VarianceGraph
+                                        samples={
+                                            this.state.varianceFreqGraphData}
+                                        varianceCumalativeMean={
+                                            this.state.varianceCumalativeMean[
+                                                this.state.sampleIdx]}/>
+                                </div>
                             </div>
                         </div>
-                        <div className={'cls-graph-container'}>
-                            <h2>Sampling Distribution Slope</h2>
-                            <div>
-                                <SlopeFrequencyGraph
-                                    samples={this.state.slopeFreqGraphData}
-                                    slopeCumalativeMean={
-                                        this.state.slopeCumalativeMean[
-                                            this.state.sampleIdx]}/>
+                        <div className={'col-4'}>
+                            <div className={`cls-graph-container
+                                cls-population-graph-container`}>
+                                <div className={'cls-arrow cls-arrow-left'}>
+                                    <div className={'arrow-point'}></div>
+                                    <div className={'arrow-shaft'}></div>
+                                </div>
+                                <div className={
+                                    'cls-arrow cls-arrow-bottom-left'}>
+                                    <div className={'arrow-point'}></div>
+                                    <div className={'arrow-shaft'}></div>
+                                </div>
+                                <div className={'cls-arrow cls-arrow-bottom'}>
+                                    <div className={'arrow-point'}></div>
+                                    <div className={'arrow-shaft'}></div>
+                                </div>
+                                <h2>Sample Data</h2>
+                                <div>
+                                    <PopulationGraph
+                                        population={this.state.population}
+                                        populationRegression={
+                                            this.state.populationRegression}
+                                        slope={this.state.beta}
+                                        intercept={this.state.alpha}
+                                        sampleIdx={this.state.sampleIdx}/>
+                                </div>
+                            </div>
+                            <div className={'cls-graph-container'}>
+                                <h2>Sampling Distribution Slope</h2>
+                                <div>
+                                    <SlopeFrequencyGraph
+                                        samples={this.state.slopeFreqGraphData}
+                                        slopeCumalativeMean={
+                                            this.state.slopeCumalativeMean[
+                                                this.state.sampleIdx]}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
-            <hr/>
+                </main>
+                <hr/>
             </>
         );
     }

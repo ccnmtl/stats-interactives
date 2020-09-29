@@ -114,35 +114,35 @@ const Preview = () => (
 
 const Home = () => (
     <>
-    <div className="jumbotron">
-        <div className="container">
-            <h1 className="display-2 hp-title text-center">
-                <span className="stats">Stats</span> Interactives
-            </h1>
-            <h2 className="text-center">
-                Introductory Concepts in Statistics
-            </h2>
+        <div className="jumbotron">
+            <div className="container">
+                <h1 className="display-2 hp-title text-center">
+                    <span className="stats">Stats</span> Interactives
+                </h1>
+                <h2 className="text-center">
+                    Introductory Concepts in Statistics
+                </h2>
+            </div>
         </div>
-    </div>
-    <div className="container">
-        <div className="row">
-            <div className="col-md-12">
-                <p className="lead text-center">
+        <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <p className="lead text-center">
                     StatsInteractives is an initiative specifically designed
                     for Dr. Doru Cojoc&acute;s Quantitative Analysis I course at
                     Columbia SIPA.
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div className="row cardrow">
-            <Preview />
-        </div>
-        <div className="row">
-            <div className="col-md-12 text-center">
-                <h3>
+            <div className="row cardrow">
+                <Preview />
+            </div>
+            <div className="row">
+                <div className="col-md-12 text-center">
+                    <h3>
                     Purpose
-                </h3>
-                <p>
+                    </h3>
+                    <p>
                     The four simulations within this prototype were
                     built to serve a test of effectiveness
                     at improving learning outcomes, address these
@@ -151,86 +151,86 @@ const Home = () => (
                     for their own study and experimentation,
                     and to be used here or elsewhere by
                     embedding or linking to the media directly.
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
-        <hr />
-        <div className="row">
-            <div className="col-md-12 text-center">
-                <h3>
+            <hr />
+            <div className="row">
+                <div className="col-md-12 text-center">
+                    <h3>
                     Accessibility
-                </h3>
-                <p>
+                    </h3>
+                    <p>
                     Columbia University&#39;s Center for Teaching and
                     Learning is committed to making StatsInteractives
                     inclusive and accessible for everyone, including
                     people with disabilities.
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div className="row">
-            <div className="col-md-6 text-center">
-                <h4>
+            <div className="row">
+                <div className="col-md-6 text-center">
+                    <h4>
                     Limitations
-                </h4>
-                <p>
+                    </h4>
+                    <p>
                     Stats Interactive graphically represents theorems
                     to convey a deeper understanding of statistical
                     models. These graphs are not currently accessible
                     to screen readers. If you are a Columbia University
                     student and require assistance, please contact
                     the university&#39;s <br />
-                    <a href="https://health.columbia.edu/content/disability-services">Office of Disability Services</a>.
-                </p>
-            </div>
-            <div className="col-md-6 text-center">
-                <h4>
+                        <a href="https://health.columbia.edu/content/disability-services">Office of Disability Services</a>.
+                    </p>
+                </div>
+                <div className="col-md-6 text-center">
+                    <h4>
                     Assessment Approach
-                </h4>
-                <p>
+                    </h4>
+                    <p>
                     StatsInteractives shows minor violations of
                     the accessibility
                     standards and was tested with the
                     following tools.
-                </p>
-                <p>
-                    <a href="https://www.deque.com/axe/">Axe</a>, web accessibility testing tool by <a href="https://www.deque.com/">Deque Systems</a>
-                </p>
-                <p>
-                    <a href="https://www.apple.com/accessibility/mac/vision/">VoiceOver</a>, the screen reader by Apple
-                </p>
-                <p>
-                    <a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>, an open-source, automated auditor by Google
-                </p>
-            </div>
-        </div>
-        <hr />
-        <div className="row">
-            <div className="col-md-6 text-center">
-                <h3>
-                    Project Credits
-                </h3>
-                <p>
-                    <b>Nick Buonincontri</b>, Development<br />
-                    <b>Kerri O&#39;Connell</b>, Project Management<br />
-                    <b>Marc Raymond</b>, Experience Design<br />
-                    <b>Mike Tarnow</b>, Learning Design
-                </p>
-            </div>
-            <div className="col-md-6 text-center">
-                <h3>
-                    License
-                </h3>
-                <div>
-                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+                    </p>
+                    <p>
+                        <a href="https://www.deque.com/axe/">Axe</a>, web accessibility testing tool by <a href="https://www.deque.com/">Deque Systems</a>
+                    </p>
+                    <p>
+                        <a href="https://www.apple.com/accessibility/mac/vision/">VoiceOver</a>, the screen reader by Apple
+                    </p>
+                    <p>
+                        <a href="https://developers.google.com/web/tools/lighthouse/">Lighthouse</a>, an open-source, automated auditor by Google
+                    </p>
                 </div>
-                <p>
+            </div>
+            <hr />
+            <div className="row">
+                <div className="col-md-6 text-center">
+                    <h3>
+                    Project Credits
+                    </h3>
+                    <p>
+                        <b>Nick Buonincontri</b>, Development<br />
+                        <b>Kerri O&#39;Connell</b>, Project Management<br />
+                        <b>Marc Raymond</b>, Experience Design<br />
+                        <b>Mike Tarnow</b>, Learning Design
+                    </p>
+                </div>
+                <div className="col-md-6 text-center">
+                    <h3>
+                    License
+                    </h3>
+                    <div>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+                    </div>
+                    <p>
                     This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <hr/>
+        <hr/>
     </>
 );
 
