@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "watch-test": "nodemon --watch src --verbose -x 'make test'",
-    "serve": "webpack-dev-server --mode development",
+    "serve": "webpack serve --mode development",
     "cypress:run": "cypress run",
     "cypress:test": "start-server-and-test serve http://localhost:3000 cypress:run",
     "cypress:open": "cypress open",
@@ -62,7 +62,7 @@
     "react-test-renderer": "~16.14.0",
     "react-transition-group": "~4.4.1",
     "rheostat": "~4.1.1",
-    "sass-loader": "~10.0.0",
+    "sass-loader": "~10.1.0",
     "seedrandom": "~3.0.1",
     "style-loader": "~2.0.0",
     "victory": "~35.3.0"
