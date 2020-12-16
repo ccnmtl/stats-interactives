@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "watch-test": "nodemon --watch src --verbose -x 'make test'",
-    "serve": "webpack-dev-server --mode development",
+    "serve": "webpack serve --mode development",
     "cypress:run": "cypress run",
     "cypress:test": "start-server-and-test serve http://localhost:3000 cypress:run",
     "cypress:open": "cypress open",
