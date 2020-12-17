@@ -43,7 +43,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            options: {
+                            postcssOptions: {
                                 plugins: function() {
                                     return [
                                         require('precss'),
