@@ -48,7 +48,7 @@
     "bootstrap": "~4.5.0",
     "css-loader": "~5.0.1",
     "enzyme": "~3.11.0",
-    "jStat": "~1.8.6",
+    "jstat": "~1.9.4",
     "jest": "~26.6.0",
     "mathjs": "~8.1.0",
     "node-sass": "~5.0.0",
