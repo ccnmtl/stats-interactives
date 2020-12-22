@@ -24,12 +24,17 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules)/,
-                loader: ['babel-loader']
-            },
-            {
-                test: /\.jsx?$/,
-                exclude: /(node_modules)/,
-                loader: ['babel-loader', 'eslint-loader']
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react']
+                        }
+                    },
+                    {
+                        loader: 'eslint-loader'
+                    }
+                ]
             },
             {
                 test: /\.(scss)$/,
@@ -43,7 +48,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            options: {
+                            postcssOptions: {
                                 plugins: function() {
                                     return [
                                         require('precss'),

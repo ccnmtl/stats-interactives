@@ -9,7 +9,7 @@ it('Checks links to the interactives from the homepage', function() {
         '/sampling-distribution-regression',
     ].map(function(url){
         cy.visit(baseUrl);
+        cy.wait(500);
         cy.get('a[href="' + url + '"]').click();
-    })
+    });
 });
-
