@@ -15,7 +15,7 @@
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "stage": "webpack --mode development",
-    "prod": "webpack --env.prod"
+    "prod": "webpack --mode production"
   },
   "author": "Nick Buonincontri",
   "license": "ISC",
