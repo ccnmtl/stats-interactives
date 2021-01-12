@@ -13,7 +13,5 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: npm install
       - run: npm install
-      - name: Build with Makefile
-        run: make test
+      - run: make test
