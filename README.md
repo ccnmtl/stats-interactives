@@ -1,5 +1,5 @@
 # Stats Interactives
 
-[![Build Status](https://travis-ci.org/ccnmtl/stats-interactives.svg?branch=master)](https://travis-ci.org/ccnmtl/stats-interactives)
+[![Actions Status](https://github.com/ccnmtl/stats-interactives/workflows/build-and-test/badge.svg)](https://github.com/ccnmtl/stats-interactives/actions) ()
 
 Stats interactives
