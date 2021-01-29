@@ -42,7 +42,7 @@
     "webpack-dev-server": "~3.11.0"
   },
   "dependencies": {
-    "@sentry/browser": "^5.15.5",
+    "@sentry/browser": "^6.0.2",
     "autoprefixer": "~10.2.3",
     "babel-core": "~7.0.0-bridge.0",
     "bootstrap": "~4.6.0",
