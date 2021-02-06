@@ -37,8 +37,8 @@
     "file-loader": "~6.2.0",
     "nodemon": "~2.0.4",
     "start-server-and-test": "^1.10.0",
-    "webpack": "~5.19.0",
-    "webpack-cli": "~4.4.0",
+    "webpack": "~5.21.0",
+    "webpack-cli": "~4.5.0",
     "webpack-dev-server": "~3.11.0"
   },
   "dependencies": {
@@ -53,7 +53,7 @@
     "mathjs": "~8.1.0",
     "node-sass": "~5.0.0",
     "postcss": "8.2.4",
-    "postcss-loader": "~4.2.0",
+    "postcss-loader": "~5.0.0",
     "prop-types": "~15.7.2",
     "react": "~16.14.0",
     "react-dom": "~16.14.0",
