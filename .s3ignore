@@ -12,7 +12,7 @@ Makefile
 package*
 cypress.json
 cypress/*
-.dependabot
+.dependabot/*
 .eslintrc.json
-.github
-jestconfig.js
+.github/*
+jest.config.js
