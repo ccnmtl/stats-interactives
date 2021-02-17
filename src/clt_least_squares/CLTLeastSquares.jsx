@@ -10,7 +10,7 @@ import { findLinearRegression, createScatterPlotHistogram,
     unpackData} from  '../utils';
 
 var seedrandom = require('seedrandom');
-var jStat = require('jStat').jStat;
+var jStat = require('jstat').jStat;
 import { create, all } from 'mathjs';
 let config = {
     matrix: 'Array'

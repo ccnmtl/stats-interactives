@@ -17,7 +17,7 @@ import { SampleRangeSlider } from './SampleRangeSlider';
 import { normalBarHeight, exponentialBarHeight } from './populations';
 
 var seedrandom = require('seedrandom');
-var jStat = require('jStat').jStat;
+var jStat = require('jstat').jStat;
 
 export const MIN_BIN = -18;
 export const MAX_BIN = 18;

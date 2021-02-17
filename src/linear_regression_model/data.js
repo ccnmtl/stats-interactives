@@ -4,7 +4,7 @@ let config = {
 };
 const math = create(all, config);
 
-var jStat = require('jStat').jStat;
+var jStat = require('jstat').jStat;
 
 /* Smoking Frequency Matrix
  *
