@@ -10,3 +10,9 @@ Makefile
 *.mk
 *.md
 package*
+cypress.json
+cypress/*
+.dependabot/*
+.eslintrc.json
+.github/*
+jest.config.js
