@@ -50,9 +50,9 @@
     "enzyme": "~3.11.0",
     "jStat": "~1.7.1",
     "jest": "~26.6.0",
-    "mathjs": "~9.3.0",
+    "mathjs": "~9.4.2",
     "node-sass": "~6.0.0",
-    "postcss": "8.2.14",
+    "postcss": "8.3.2",
     "postcss-loader": "~6.1.0",
     "prop-types": "~15.7.2",
     "react": "~16.14.0",
@@ -63,10 +63,10 @@
     "react-test-renderer": "~16.14.0",
     "react-transition-group": "~4.4.1",
     "rheostat": "~4.1.1",
-    "sass-loader": "~11.1.1",
+    "sass-loader": "~12.1.0",
     "seedrandom": "~3.0.1",
     "style-loader": "~2.0.0",
-    "victory": "~35.6.3"
+    "victory": "~35.8.5"
   },
   "jest": {
     "moduleFileExtensions": [
