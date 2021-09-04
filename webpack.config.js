@@ -11,8 +11,9 @@ module.exports = {
         publicPath: "/dist/",
     },
     devServer: {
-        inline: true,
-        contentBase: './',
+        static: {
+            directory: './'
+        },
         port: 3000,
         historyApiFallback: true,
     },
