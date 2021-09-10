@@ -11,8 +11,9 @@ module.exports = {
         publicPath: "/dist/",
     },
     devServer: {
-        inline: true,
-        contentBase: './',
+        static: {
+            directory: './'
+        },
         port: 3000,
         historyApiFallback: true,
     },
@@ -65,17 +66,7 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                disable: true,
-                                outputPath: 'images/',
-                                name: '[name].[ext]',
-                                emitFile: true
-                            }
-                        }
-                    ]
+                type: 'asset/resource'
             }
         ]
     },
