@@ -119,8 +119,10 @@ export const PopulationForm  = (
                                         <i className="fas fa-question-circle">
                                         </i>
                                     </sup>}>
-                                    <span>The average of the square distances
-                                        from the mean of the population.</span>
+                                    <span>
+                                        The square root of the average square
+                                        distance from the mean.
+                                    </span>
                                 </Tooltip>
                             </div>
                             <div className="form-row slider-labels">
