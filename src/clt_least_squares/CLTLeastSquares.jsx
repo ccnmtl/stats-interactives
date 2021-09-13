@@ -201,10 +201,11 @@ export class CLTLeastSquares extends Component {
         );
         let interceptFreqGraphData = interceptFreq.slice(
             0, this.state.sampleIdx + 1);
-        let interceptCumalativeMean = populationSlopes.map((val, idx, arr) => {
-            return math.round(
-                math.mean(arr.slice(0, idx + 1)), 2);
-        });
+        let interceptCumalativeMean = populationIntercepts.map(
+            (val, idx, arr) => {
+                return math.round(
+                    math.mean(arr.slice(0, idx + 1)), 2);
+            });
 
         let populationVariance = this.getPopulationVariance(
             population, populationRegression);
