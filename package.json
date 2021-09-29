@@ -36,7 +36,7 @@
     "eslint-plugin-security": "~1.4.0",
     "nodemon": "~2.0.4",
     "start-server-and-test": "^1.10.0",
-    "webpack": "~5.54.0",
+    "webpack": "~5.55.1",
     "webpack-cli": "~4.8.0",
     "webpack-dev-server": "~4.3.0"
   },
