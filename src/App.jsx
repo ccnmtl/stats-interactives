@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Nav } from './Nav';
 import { CentralLimitGraph } from './central_limit_theorem/CentralLimitGraph';
 import { LinearRegressionModel } from
-    './linear_regression_model/LinearRegressionModel';
+'./linear_regression_model/LinearRegressionModel';
 import { LeastSquares } from './estimation_least_squares/LeastSquares';
 import { CLTLeastSquares } from './clt_least_squares/CLTLeastSquares';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
