@@ -36,22 +36,22 @@
     "eslint-plugin-security": "~1.4.0",
     "nodemon": "~2.0.4",
     "start-server-and-test": "^1.10.0",
-    "webpack": "~5.52.0",
-    "webpack-cli": "~4.8.0",
-    "webpack-dev-server": "~4.1.0"
+    "webpack": "~5.56.1",
+    "webpack-cli": "~4.9.0",
+    "webpack-dev-server": "~4.3.0"
   },
   "dependencies": {
     "@sentry/browser": "^6.0.2",
     "autoprefixer": "~10.3.0",
     "babel-core": "~7.0.0-bridge.0",
     "bootstrap": "~4.6.0",
-    "css-loader": "~6.2.0",
+    "css-loader": "~6.3.0",
     "enzyme": "~3.11.0",
     "jStat": "~1.8.0",
-    "jest": "~27.1.0",
-    "mathjs": "~9.4.2",
+    "jest": "~27.2.0",
+    "mathjs": "~9.5.0",
     "node-sass": "~6.0.0",
-    "postcss": "8.3.6",
+    "postcss": "8.3.9",
     "postcss-loader": "~6.1.0",
     "prop-types": "~15.7.2",
     "react": "~16.14.0",
@@ -64,8 +64,8 @@
     "rheostat": "~4.1.1",
     "sass-loader": "~12.1.0",
     "seedrandom": "~3.0.1",
-    "style-loader": "~3.2.1",
-    "victory": "~35.10.0"
+    "style-loader": "~3.3.0",
+    "victory": "~36.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
