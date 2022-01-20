@@ -47,7 +47,7 @@
     "enzyme": "~3.11.0",
     "jStat": "~1.7.1",
     "jest": "~27.4.1",
-    "mathjs": "~10.0.2",
+    "mathjs": "~10.1.0",
     "node-sass": "~7.0.1",
     "postcss": "8.4.4",
     "postcss-loader": "~6.2.0",
