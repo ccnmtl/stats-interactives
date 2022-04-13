@@ -22,3 +22,7 @@ a.navbar-brand {
 	text-transform: uppercase;
 	color: white;
 }
+
+iframe#webpack-dev-server-client-overlay {
+    display: none;
+}
