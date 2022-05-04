@@ -16,12 +16,12 @@ module.exports = {
         },
         port: 3000,
         historyApiFallback: true,
+        watchOptions: {
+            ignored: /node_modules/
+        }
     },
     resolve: {
         extensions: ['*', '.js', '.jsx']
-    },
-    watchOptions: {
-        ignored: /node_modules/,
     },
     module: {
         rules: [
