@@ -15,7 +15,7 @@
     "eslint": "eslint src/*.jsx",
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "stage": "webpack --mode development",
+    "stage": "webpack --mode production",
     "prod": "webpack --mode production"
   },
   "author": "Nick Buonincontri",
