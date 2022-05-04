@@ -7,7 +7,7 @@
     "test": "jest",
     "watch-test": "nodemon --watch src --verbose -x 'make test'",
     "serve": "webpack serve --mode development",
-    "serve-prod": "webpack serve --mode production",
+    "serve-prod": "webpack serve --mode production --no-live-reload --no-hot",
     "cypress:run": "cypress run",
     "cypress:test": "start-server-and-test serve-prod http://localhost:3000 cypress:run",
     "cypress:open": "cypress open",
