@@ -21,8 +21,7 @@ module.exports = {
         extensions: ['*', '.js', '.jsx']
     },
     watchOptions: {
-        ignored: /node_modules/,
-        poll: 24*60*60*1000
+        ignored: path.resolve(__dirname, 'node_modules')
     },
     module: {
         rules: [
