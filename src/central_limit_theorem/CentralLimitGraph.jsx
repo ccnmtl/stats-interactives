@@ -4,7 +4,7 @@ let config = {
     matrix: 'Array'
 };
 const math = create(all, config);
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import {
     createHistogramArray, getHistogramMaxima,
     createScatterPlotHistogram } from '../utils.js';
