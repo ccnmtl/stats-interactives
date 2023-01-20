@@ -4,20 +4,17 @@
  */
 
 import React, { Component } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 
-ReactGA.initialize('UA-51144540-29', {
-    testMode: process.env.NODE_ENV === 'test',
-});
-ReactGA.set({ anonymizeIp: true })
+const options = {
+    gtagOptions: {anonymizeIp: true},
+    testMode: process.env.NODE_ENV === 'test'
+}
+ReactGA.initialize('G-VX2F4J3PWZ', options);
 
 export default function withTracker(WrappedComponent, options = {}) {
     const trackPage = (page) => {
-        ReactGA.set({
-            page,
-            ...options
-        });
-        ReactGA.pageview(page);
+        ReactGA.send({ hitType: "pageview", page: page, ...options });
     };
 
     const HOC = class extends Component {
