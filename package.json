@@ -34,7 +34,7 @@
     "eslint-plugin-security": "~1.7.0",
     "jest-environment-jsdom": "29.4.0",
     "nodemon": "~2.0.4",
-    "start-server-and-test": "^1.10.0",
+    "start-server-and-test": "^2.0.0",
     "webpack": "~5.75.0",
     "webpack-cli": "~5.0.0",
     "webpack-dev-server": "~4.11.0"
