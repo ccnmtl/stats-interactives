@@ -65,5 +65,10 @@
     },
     "globals": {
         "require": false
-    }
+    },
+    "settings": {
+        "react": {
+          "version": "detect"
+        }
+      }
 }
