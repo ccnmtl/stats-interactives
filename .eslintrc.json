@@ -18,7 +18,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:security/recommended",
+        "plugin:security/recommended-legacy",
         "plugin:cypress/recommended"
     ],  
     "rules": {
