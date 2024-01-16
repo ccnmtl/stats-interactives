@@ -61,7 +61,7 @@
     "react-test-renderer": "~16.14.0",
     "react-transition-group": "~4.4.1",
     "rheostat": "~4.1.1",
-    "sass-loader": "~13.3.0",
+    "sass-loader": "~14.0.0",
     "seedrandom": "~3.0.1",
     "style-loader": "~3.3.0",
     "victory": "~36.8.1"
