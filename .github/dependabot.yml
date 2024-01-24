@@ -46,3 +46,8 @@ updates:
   - dependency-name: mathjs
     versions:
     - 9.1.0
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
