@@ -64,6 +64,6 @@
     "sass-loader": "~14.1.0",
     "seedrandom": "~3.0.1",
     "style-loader": "~3.3.0",
-    "victory": "~36.8.1"
+    "victory": "~36.9.0"
   }
 }
