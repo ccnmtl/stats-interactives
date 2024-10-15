@@ -23,7 +23,7 @@
   "devDependencies": {
     "@babel/core": "~7.25.2",
     "@babel/preset-env": "~7.25.0",
-    "@babel/preset-react": "~7.24.1",
+    "@babel/preset-react": "~7.25.7",
     "@babel/eslint-parser": "^7.18.2",
     "babel-loader": "~9.2.1",
     "cheerio": "1.0.0-rc.3",
