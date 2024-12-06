@@ -30,7 +30,7 @@
     "cypress": "^13.2.0",
     "enzyme-adapter-react-16": "~1.15.2",
     "eslint": "~8.57.0",
-    "eslint-plugin-cypress": "^3.0.0",
+    "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-security": "~3.0.0",
     "jest": "~28.1.1",
