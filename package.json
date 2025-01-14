@@ -51,7 +51,7 @@
     "jStat": "~1.7.1",
     "mathjs": "~14.0.0",
     "node-sass": "~9.0.0",
-    "postcss": "8.4.31",
+    "postcss": "8.5.0",
     "postcss-loader": "~8.1.0",
     "prop-types": "~15.8.1",
     "react": "~16.14.0",
