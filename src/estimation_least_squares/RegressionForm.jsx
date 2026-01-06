@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rheostat from 'rheostat';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { Tooltip } from '../utility_components/Tooltip';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
@@ -10,9 +11,9 @@ let config = {
 };
 const math = create(all, config);
 
-export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
+export const RegressionForm = ({ seed, handleSeed, handleGeneratePop,
     slope, intercept, handleSlope, handleIntercept, handleShowBestFit,
-    reset, hasPopulation, beta, alpha, showBestFit, isAssessment}) => {
+    reset, hasPopulation, beta, alpha, showBestFit, isAssessment }) => {
     const hndlSeed = (e) => {
         handleSeed(e.target.value);
     };
@@ -44,9 +45,9 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 close to the OLS prediction equation, which is
                                 the prediction line which minimizes the sum of
                                 squared residuals.
-                            {!isAssessment && 'You can see the OLS prediction '
-                                + 'equation by clicking on the Toggle Best Fit '
-                                + 'button below.'}
+                                {!isAssessment && 'You can see the OLS prediction '
+                                    + 'equation by clicking on the Toggle Best Fit '
+                                    + 'button below.'}
                             </p>
                         </div>
                         <div className="form-row">
@@ -66,12 +67,12 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                 id="seed"
                                 className={
                                     seed ? 'form-control is-valid' :
-                                        'form-control' }
+                                        'form-control'}
                                 value={seed}
                                 onChange={hndlSeed}
                                 placeholder={
                                     'Enter a seed to generate a sample'}
-                                autoFocus required/>
+                                autoFocus required />
                         </div>
                         <div className="form-group">
                             <div className="form-row">
@@ -79,132 +80,128 @@ export const RegressionForm = ({seed, handleSeed, handleGeneratePop,
                                     disabled={seed ? false : true}
                                     id="generate-population"
                                     type="submit"
-                                    value="Generate Samples"/>
+                                    value="Generate Samples" />
                             </div>
                         </div>
                     </div>
                 </fieldset>
             </form>
-            { hasPopulation &&
-            <form onSubmit={(e) => {e.preventDefault();}}
-                className={'was-validated'}
-                id={'ls-estimation-form'} noValidate>
-                <fieldset>
-                    <div className={'form-group'}>
-                        <div className={'form-row flex-nowrap'}>
-                            <label htmlFor={'slope'}>
-                                Slope:
-                            </label>
-                            <NumericField
-                                id={'slope'}
-                                className={'form-control form-control-sm'}
-                                min={-5}
-                                max={5}
-                                value={math.round(slope, 2)}
-                                step={0.01}
-                                onChange={handleSlope} />
-                            <Tooltip tooltip={
-                                <sup>
-                                    <i className="fas fa-question-circle">
-                                    </i>
-                                </sup>}>
-                                <InlineMath>
-                                    {String.raw`b_0`}
-                                </InlineMath>
-                            </Tooltip>
-                            <div className='invalid-feedback'>
-                                Please enter a value between -5 and 5.
+            {hasPopulation &&
+                <form onSubmit={(e) => { e.preventDefault(); }}
+                    className={'was-validated'}
+                    id={'ls-estimation-form'} noValidate>
+                    <fieldset>
+                        <div className={'form-group'}>
+                            <div className={'form-row flex-nowrap'}>
+                                <label htmlFor={'slope'}>
+                                    Slope:
+                                </label>
+                                <NumericField
+                                    id={'slope'}
+                                    className={'form-control form-control-sm'}
+                                    min={-5}
+                                    max={5}
+                                    value={math.round(slope, 2)}
+                                    step={0.01}
+                                    onChange={handleSlope} />
+                                <Tooltip tooltip={
+                                    <sup>
+                                        <i className="fas fa-question-circle">
+                                        </i>
+                                    </sup>}>
+                                    <InlineMath>
+                                        {String.raw`b_0`}
+                                    </InlineMath>
+                                </Tooltip>
+                                <div className='invalid-feedback'>
+                                    Please enter a value between -5 and 5.
+                                </div>
+                                {showBestFit &&
+                                    <span className={'best-fit-label'}>
+                                        Best Fit Slope: {math.round(beta, 2)}
+                                    </span>}
                             </div>
-                            {showBestFit &&
-                                <span className={'best-fit-label'}>
-                                    Best Fit Slope: {math.round(beta, 2)}
-                                </span>}
-                        </div>
-                        <div className={'form-row'}>
-                            <div style={{ height: '50px', width: '100%'}}>
-                                <Rheostat
-                                    min={0}
-                                    max={999}
-                                    values={[(slope * 100) + 500]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleSlope(
-                                            (sliderState.values[0] * 0.01) - 5);
-                                    }} />
+                            <div className={'form-row'}>
+                                <div style={{ height: '50px', width: '100%' }}>
+                                    <Slider
+                                        min={-5}
+                                        max={5}
+                                        step={0.01}
+                                        value={slope}
+                                        onChange={handleSlope} />
+                                </div>
                             </div>
-                        </div>
-                        <div className={'form-row flex-nowrap'}>
-                            <label htmlFor={'intercept'}>
-                                Intercept:
-                            </label>
-                            <NumericField
-                                id={'intercept'}
-                                className={'form-control form-control-sm'}
-                                min={-4}
-                                max={4}
-                                step={0.01}
-                                value={math.round(intercept, 2)}
-                                onChange={handleIntercept} />
-                            <Tooltip tooltip={
-                                <sup>
-                                    <i className="fas fa-question-circle">
-                                    </i>
-                                </sup>}>
-                                <InlineMath>
-                                    {String.raw`b_1`}
-                                </InlineMath>
-                            </Tooltip>
-                            <div className='invalid-feedback'>
-                                Please enter a value between -4 and 4.
+                            <div className={'form-row flex-nowrap'}>
+                                <label htmlFor={'intercept'}>
+                                    Intercept:
+                                </label>
+                                <NumericField
+                                    id={'intercept'}
+                                    className={'form-control form-control-sm'}
+                                    min={-4}
+                                    max={4}
+                                    step={0.01}
+                                    value={math.round(intercept, 2)}
+                                    onChange={handleIntercept} />
+                                <Tooltip tooltip={
+                                    <sup>
+                                        <i className="fas fa-question-circle">
+                                        </i>
+                                    </sup>}>
+                                    <InlineMath>
+                                        {String.raw`b_1`}
+                                    </InlineMath>
+                                </Tooltip>
+                                <div className='invalid-feedback'>
+                                    Please enter a value between -4 and 4.
+                                </div>
+                                {showBestFit &&
+                                    <span className={'best-fit-label'}>
+                                        Best Fit Intercept: {
+                                            math.round(alpha, 2)}
+                                    </span>}
                             </div>
-                            {showBestFit &&
-                                <span className={'best-fit-label'}>
-                                    Best Fit Intercept: {
-                                        math.round(alpha, 2)}
-                                </span>}
-                        </div>
-                        <div className={'form-row'}>
-                            <div style={{ height: '50px', width: '100%'}}>
-                                <Rheostat
-                                    min={0}
-                                    max={799}
-                                    values={[(intercept * 100) + 400]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleIntercept(
-                                            (sliderState.values[0] * 0.01) - 4);
-                                    }} />
+                            <div className={'form-row'}>
+                                <div style={{ height: '50px', width: '100%' }}>
+                                    <Slider
+                                        min={-4}
+                                        max={4}
+                                        step={0.01}
+                                        value={intercept}
+                                        onChange={handleIntercept} />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
             }
             {hasPopulation &&
-            <form onSubmit={(e) => {e.preventDefault();}}
-                className="needs-validation" noValidate >
-                <fieldset>
-                    <div className="form-group">
+                <form onSubmit={(e) => { e.preventDefault(); }}
+                    className="needs-validation" noValidate >
+                    <fieldset>
                         <div className="form-group">
-                            {!isAssessment &&
-                            <div className="form-row">
-                                <input className="btn btn-primary btn-block"
-                                    disabled={!hasPopulation}
-                                    id="generate-population"
-                                    type="submit"
-                                    onClick={hndlBestFit}
-                                    value="Toggle Best Fit"/>
-                            </div>}
-                            <div className="form-row">
-                                <input className="btn btn-danger btn-block"
-                                    disabled={!hasPopulation}
-                                    id="generate-population"
-                                    type="submit"
-                                    onClick={hndlReset}
-                                    value="Reset"/>
+                            <div className="form-group">
+                                {!isAssessment &&
+                                    <div className="form-row">
+                                        <input className="btn btn-primary btn-block"
+                                            disabled={!hasPopulation}
+                                            id="generate-population"
+                                            type="submit"
+                                            onClick={hndlBestFit}
+                                            value="Toggle Best Fit" />
+                                    </div>}
+                                <div className="form-row">
+                                    <input className="btn btn-danger btn-block"
+                                        disabled={!hasPopulation}
+                                        id="generate-population"
+                                        type="submit"
+                                        onClick={hndlReset}
+                                        value="Reset" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
             }
         </>
     );

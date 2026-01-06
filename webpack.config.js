@@ -12,7 +12,10 @@ module.exports = {
     },
     devServer: {
         static: {
-            directory: './'
+            directory: './',
+            watch: {
+                ignored: [/node_modules/, /dist/, /\.git/],
+            },
         },
         port: 3000,
         historyApiFallback: true,
@@ -21,7 +24,7 @@ module.exports = {
         extensions: ['*', '.js', '.jsx']
     },
     watchOptions: {
-        ignored: path.resolve(__dirname, 'node_modules')
+        ignored: /node_modules/,
     },
     module: {
         rules: [
@@ -32,7 +35,9 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['@babel/preset-env', '@babel/preset-react']
+                            presets: ['@babel/preset-env', ['@babel/preset-react', {
+                                runtime: 'automatic'
+                            }]]
                         }
                     }
                 ]
@@ -50,7 +55,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: function() {
+                                plugins: function () {
                                     return [
                                         require('precss'),
                                         require('autoprefixer')
@@ -62,6 +67,13 @@ module.exports = {
                     {
                         loader: 'sass-loader'
                     }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
                 ]
             },
             {

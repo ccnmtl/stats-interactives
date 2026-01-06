@@ -1,30 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rheostat from 'rheostat';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { NumericField } from '../utility_components/NumericField';
 import { InlineMath } from 'react-katex';
 import { Tooltip } from '../utility_components/Tooltip';
 
 const getTaxRateFromIdx = (val) => {
-    let taxRateIdx = Math.floor((val)/ 20);
+    let taxRateIdx = Math.floor((val) / 20);
     switch (taxRateIdx) {
-    case 0:
-        return '3';
-    case 1:
-        return '5';
-    case 2:
-        return '7';
-    case 3:
-        return '7.5';
-    default:
-        return '';
+        case 0:
+            return '3';
+        case 1:
+            return '5';
+        case 2:
+            return '7';
+        case 3:
+            return '7.5';
+        default:
+            return '';
     }
 };
 
-export const TaxRateSlider = ({taxRateIdx,
-    handleTaxRateIdx, y_i, mean, epsilon, isStateA}) => {
+export const TaxRateSlider = ({ taxRateIdx,
+    handleTaxRateIdx, y_i, mean, epsilon, isStateA }) => {
     return (
-        <form onSubmit={(e) => {e.preventDefault();}}
+        <form onSubmit={(e) => { e.preventDefault(); }}
             className="tax-rate-slider was-validated"
             noValidate={true} >
             <fieldset>
@@ -39,13 +40,13 @@ export const TaxRateSlider = ({taxRateIdx,
                             cigarettes at different levels of cigarette tax
                             rates. The average number of cigarettes consumed by
                             smokers who face a given cigarette sales tax&nbsp;
-                        <InlineMath>
-                            {String.raw`(x)`}
-                        </InlineMath>
+                            <InlineMath>
+                                {String.raw`(x)`}
+                            </InlineMath>
                             &nbsp;is given by the formula &nbsp;
-                        <InlineMath>
-                            {String.raw`\mu_y=29 - 2 \cdot x`}
-                        </InlineMath>
+                            <InlineMath>
+                                {String.raw`\mu_y=29 - 2 \cdot x`}
+                            </InlineMath>
                             . A given smoker might smoke more or less
                             than another smoker who faces the same tax rate due
                             to other factors (income, age, education, etc.)
@@ -73,7 +74,8 @@ export const TaxRateSlider = ({taxRateIdx,
                                     max={80}
                                     value={(taxRateIdx + 1)}
                                     onChange={(val) => {
-                                        handleTaxRateIdx(val -1);}}/>
+                                        handleTaxRateIdx(val - 1);
+                                    }} />
                                 <div className='invalid-feedback'>
                                     The number entered is outside the
                                     range of the dataset.
@@ -85,34 +87,35 @@ export const TaxRateSlider = ({taxRateIdx,
                                     </sup>}>
                                     <span>Represents a single smoker in the tax
                                         data, used to index into&nbsp;
-                                    <InlineMath>
-                                        {String.raw`y`}
-                                    </InlineMath></span>
+                                        <InlineMath>
+                                            {String.raw`y`}
+                                        </InlineMath></span>
                                 </Tooltip>
                             </label>
                             <div id={'observation-slider'}
-                                style={{ height: '50px',
+                                style={{
+                                    height: '50px',
                                     width: '100%',
                                     paddingLeft: '8.5em',
                                     marginTop: '-1.55em',
-                                    marginBottom: '1em'}}>
-                                <Rheostat
+                                    marginBottom: '1em'
+                                }}>
+                                <Slider
                                     min={1}
                                     max={80}
-                                    values={[taxRateIdx + 1]}
-                                    onValuesUpdated={(sliderState) => {
-                                        handleTaxRateIdx(
-                                            sliderState.values[0] - 1);
+                                    step={1}
+                                    value={taxRateIdx + 1}
+                                    onChange={(val) => {
+                                        handleTaxRateIdx(val - 1);
                                     }} />
                             </div>
                         </div>
                     </div>
                     <div className="form-row tax-rate-data-row">
                         <div className={isStateA ? ('col-6') : ('col-12') +
-                                ' tax-rate-datum'}>
+                            ' tax-rate-datum'}>
                             <InlineMath>
-                                {String.raw`x_{${taxRateIdx + 1}} = ${
-                                    getTaxRateFromIdx(taxRateIdx)}`}
+                                {String.raw`x_{${taxRateIdx + 1}} = ${getTaxRateFromIdx(taxRateIdx)}`}
                             </InlineMath>
                             <Tooltip tooltip={
                                 <sup>
@@ -124,7 +127,7 @@ export const TaxRateSlider = ({taxRateIdx,
                             </Tooltip>
                         </div>
                         <div className={isStateA ? ('col-6') : ('col-12') +
-                                ' tax-rate-datum'}>
+                            ' tax-rate-datum'}>
                             <InlineMath>
                                 {String.raw`y_{${taxRateIdx + 1}} = ${y_i}`}
                             </InlineMath>
@@ -140,7 +143,7 @@ export const TaxRateSlider = ({taxRateIdx,
                     </div>
                     <div className="form-row tax-rate-data-row">
                         <div className={isStateA ? ('col-6') : ('col-12') +
-                                ' tax-rate-datum'}>
+                            ' tax-rate-datum'}>
                             <InlineMath>
                                 {/* eslint-disable-next-line */}
                                 {String.raw`\mu_Y = 29 - 2 \cdot ${getTaxRateFromIdx(taxRateIdx)} = ${mean}`}
@@ -154,7 +157,7 @@ export const TaxRateSlider = ({taxRateIdx,
                             </Tooltip>
                         </div>
                         <div className={isStateA ? ('col-6') : ('col-12') +
-                                ' tax-rate-datum'}>
+                            ' tax-rate-datum'}>
                             <InlineMath>
                                 {/* eslint-disable-next-line */}
                                 {String.raw`\varepsilon_{${taxRateIdx + 1}} = ${epsilon}`}
@@ -181,14 +184,14 @@ export const TaxRateSlider = ({taxRateIdx,
                                 every week. The formula above shows the effect
                                 of cigarette sales taxes on the average number
                                 of cigarettes smoked &nbsp;
-                            <InlineMath>
-                                {String.raw`\mu_y`}
-                            </InlineMath>,
+                                <InlineMath>
+                                    {String.raw`\mu_y`}
+                                </InlineMath>,
                                 as well as the individual deviations from that
                                 average due to other factors &nbsp;
-                            <InlineMath>
-                                {String.raw`\varepsilon_i`}
-                            </InlineMath>.
+                                <InlineMath>
+                                    {String.raw`\varepsilon_i`}
+                                </InlineMath>.
                             </p>
                             <p>Notice the axes on this scatter plot are
                                 reversed, so that the explanatory variable is on

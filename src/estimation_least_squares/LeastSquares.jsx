@@ -5,7 +5,8 @@ import { Nav } from '../Nav.jsx';
 import { RegressionForm } from './RegressionForm';
 import { RegressionGraph } from './RegressionGraph';
 import { ErrorGraph } from './ErrorGraph';
-import { findLinearRegression, calculateSSE} from  '../utils';
+import { findLinearRegression, calculateSSE } from '../utils';
+import { generatePopulation, validatePopulation } from './logic';
 
 var seedrandom = require('seedrandom');
 
@@ -23,15 +24,14 @@ export class LeastSquares extends Component {
         this.handleIntercept = this.handleIntercept.bind(this);
         this.getEstimatedSSEOpacity = this.getEstimatedSSEOpacity.bind(this);
         this.handleShowBestFit = this.handleShowBestFit.bind(this);
-        this.generatePopulation = this.generatePopulation.bind(this);
-        this.validatePopulation= this.validatePopulation.bind(this);
+        this.handleShowBestFit = this.handleShowBestFit.bind(this);
         this.reset = this.reset.bind(this);
 
         /* eslint-disable */
         // This guard condition is needed to pass tests, as the location
         // object isn't passed on render in the test suite
         let isAssessment = false;
-        if (typeof(this.props.location) !== 'undefined'){
+        if (typeof (this.props.location) !== 'undefined') {
             isAssessment = this.props.location.pathname === '/least-squares-estimation-assessment';
         }
         /* eslint-enable */
@@ -61,34 +61,7 @@ export class LeastSquares extends Component {
             seed: seed,
         });
     }
-    generatePopulation() {
-        let len = 6;
-        let min = -4;
-        let max = 4;
 
-        let scale = max - min;
-        let offset = min;
-        return [...Array(len)].map(() => {
-            return [(Math.random() * scale) + offset,
-                (Math.random() * scale) + offset];
-        });
-    }
-    validatePopulation(population, alpha, beta, optimalSSE) {
-        // Population Constraints
-        const minSSE = 3;
-        const maxSSE = 15;
-        const minSlope = -5;
-        const maxSlope = 5;
-        const minIntercept = -4;
-        const maxIntercept = 4;
-
-        if (minSlope <= beta && beta <= maxSlope &&
-            minIntercept <= alpha && alpha <= maxIntercept &&
-            minSSE <= optimalSSE && optimalSSE <= maxSSE) {
-            return true;
-        }
-        return false;
-    }
     handleGeneratePop() {
         ReactGA.event({
             category: this.state.isAssessment ?
@@ -98,7 +71,7 @@ export class LeastSquares extends Component {
         });
         let seed = this.state.isAssessment ?
             this.state.seed + 'IHeartStatistics' : this.state.seed;
-        seedrandom(seed, {global: true});
+        seedrandom(seed, { global: true });
 
         let population = [];
         let beta = null;
@@ -109,16 +82,16 @@ export class LeastSquares extends Component {
         let populationTrials = 0;
         /*eslint-disable-next-line no-constant-condition*/
         while (true) {
-            population = this.generatePopulation();
+            population = generatePopulation();
 
             [beta, alpha] = findLinearRegression(population);
-            bestFitFunc = (x) => {return beta * x + alpha;};
+            bestFitFunc = (x) => { return beta * x + alpha; };
             optimalSSE = calculateSSE(population, bestFitFunc);
 
             populationTrials += 1;
             // Rerun the loop until we get a population that
             // conforms to the required constraints.
-            if (this.validatePopulation(
+            if (validatePopulation(
                 population, alpha, beta, optimalSSE)) {
                 break;
             }
@@ -159,7 +132,7 @@ export class LeastSquares extends Component {
             label: 'Change Slope',
             value: val,
         });
-        let regressionFunc = (x) => {return val * x + this.state.intercept;};
+        let regressionFunc = (x) => { return val * x + this.state.intercept; };
         let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
         let errorSize = estimatedSSE / ERROR_GRAPH_X;
@@ -180,7 +153,7 @@ export class LeastSquares extends Component {
             label: 'Change Intercept',
             value: val,
         });
-        let regressionFunc = (x) => {return this.state.slope * x + val;};
+        let regressionFunc = (x) => { return this.state.slope * x + val; };
         let estimatedSSE = calculateSSE(
             this.state.population, regressionFunc);
         let errorSize = estimatedSSE / ERROR_GRAPH_X;
@@ -212,7 +185,7 @@ export class LeastSquares extends Component {
     render() {
         return (
             <>
-                <Nav/>
+                <Nav />
                 <main className='container'>
                     <h1>Estimation of Least Squares</h1>
                     <div className={'row'}>
@@ -232,7 +205,7 @@ export class LeastSquares extends Component {
                                 reset={this.reset}
                                 isAssessment={this.state.isAssessment}
                                 hasPopulation={
-                                    this.state.population ? true : false}/>
+                                    this.state.population ? true : false} />
                         </div>
                         <div className={'col-8'}>
                             <div className={'ls-graph-container'}>
@@ -244,7 +217,7 @@ export class LeastSquares extends Component {
                                         regressionFunc={
                                             this.state.regressionFunc}
                                         bestFitFunc={this.state.bestFitFunc}
-                                        showBestFit={this.state.showBestFit}/>
+                                        showBestFit={this.state.showBestFit} />
                                 </div>
                                 <div className={
                                     'graph-container ls-error-graph'}>
@@ -256,7 +229,7 @@ export class LeastSquares extends Component {
                                         estimatedSSE={this.state.estimatedSSE}
                                         optimalSSE={this.state.optimalSSE}
                                         estimatedSSEOpacity={
-                                            this.state.estimatedSSEOpacity}/>
+                                            this.state.estimatedSSEOpacity} />
                                 </div>
                             </div>
                         </div>

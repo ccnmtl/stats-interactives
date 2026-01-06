@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rheostat from 'rheostat';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { NumericField } from '../utility_components/NumericField';
 import { Tooltip } from '../utility_components/Tooltip';
 
-export const SampleRangeSlider = ({numberOfSamples,
+export const SampleRangeSlider = ({ numberOfSamples,
     sampleMeansIdx, handleSampleMeansIdx, sampleSize, activeSampleMean,
-    observationIdx, observationData, handleObservationIdx}) => {
+    observationIdx, observationData, handleObservationIdx }) => {
     return (
         <>
             <form className="sample-range-slider was-validated">
@@ -36,25 +37,23 @@ export const SampleRangeSlider = ({numberOfSamples,
                                 </sup>}>
                                 <span>
                                     Slide to see each observation in a sample on
-                                    top graph;<br/>
+                                    top graph;<br />
                                     the current observation is shown in yellow.
                                 </span>
                             </Tooltip>
                         </div>
                     </div>
                     <div className="form-row slider-no-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
+                        <div style={{ height: '50px', width: '100%' }}>
+                            <Slider
                                 min={1}
                                 max={sampleSize}
-                                values={[observationIdx ?
-                                    observationIdx : 1]}
+                                step={1}
+                                value={observationIdx ?
+                                    observationIdx : 1}
                                 disabled={observationIdx ?
                                     false : true}
-                                onValuesUpdated={(sliderState) => {
-                                    handleObservationIdx(
-                                        sliderState.values[0]);
-                                }} />
+                                onChange={handleObservationIdx} />
                         </div>
                     </div>
                 </fieldset>
@@ -82,25 +81,23 @@ export const SampleRangeSlider = ({numberOfSamples,
                                     </i>
                                 </sup>}>
                                 <span>Slide to see a different sample on top
-                                    graph, as well as the distribution of <br/>
+                                    graph, as well as the distribution of <br />
                                     sample means up to the current sample (shown
                                     in yellow) on bottom graph.</span>
                             </Tooltip>
                         </div>
                     </div>
                     <div className="form-row slider-no-labels">
-                        <div style={{ height: '50px', width: '100%'}}>
-                            <Rheostat
+                        <div style={{ height: '50px', width: '100%' }}>
+                            <Slider
                                 disabled={sampleMeansIdx ?
                                     false : true}
                                 min={1}
                                 max={numberOfSamples}
-                                values={[sampleMeansIdx ?
-                                    sampleMeansIdx : 1]}
-                                onValuesUpdated={(sliderState) => {
-                                    handleSampleMeansIdx(
-                                        sliderState.values[0]);
-                                }} />
+                                step={1}
+                                value={sampleMeansIdx ?
+                                    sampleMeansIdx : 1}
+                                onChange={handleSampleMeansIdx} />
                         </div>
                     </div>
                 </fieldset>
