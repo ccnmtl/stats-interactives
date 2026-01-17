@@ -5,7 +5,10 @@ import { Nav } from '../Nav.jsx';
 import { RegressionForm } from './RegressionForm';
 import { RegressionGraph } from './RegressionGraph';
 import { ErrorGraph } from './ErrorGraph';
-import { findLinearRegression, calculateSSE} from  '../utils';
+import {
+    findLinearRegression, calculateSSE,
+    generateLeastSquaresPopulation, validateLeastSquaresPopulation
+} from  '../utils';
 
 var seedrandom = require('seedrandom');
 
@@ -23,8 +26,6 @@ export class LeastSquares extends Component {
         this.handleIntercept = this.handleIntercept.bind(this);
         this.getEstimatedSSEOpacity = this.getEstimatedSSEOpacity.bind(this);
         this.handleShowBestFit = this.handleShowBestFit.bind(this);
-        this.generatePopulation = this.generatePopulation.bind(this);
-        this.validatePopulation= this.validatePopulation.bind(this);
         this.reset = this.reset.bind(this);
 
         /* eslint-disable */
@@ -61,34 +62,7 @@ export class LeastSquares extends Component {
             seed: seed,
         });
     }
-    generatePopulation() {
-        let len = 6;
-        let min = -4;
-        let max = 4;
 
-        let scale = max - min;
-        let offset = min;
-        return [...Array(len)].map(() => {
-            return [(Math.random() * scale) + offset,
-                (Math.random() * scale) + offset];
-        });
-    }
-    validatePopulation(population, alpha, beta, optimalSSE) {
-        // Population Constraints
-        const minSSE = 3;
-        const maxSSE = 15;
-        const minSlope = -5;
-        const maxSlope = 5;
-        const minIntercept = -4;
-        const maxIntercept = 4;
-
-        if (minSlope <= beta && beta <= maxSlope &&
-            minIntercept <= alpha && alpha <= maxIntercept &&
-            minSSE <= optimalSSE && optimalSSE <= maxSSE) {
-            return true;
-        }
-        return false;
-    }
     handleGeneratePop() {
         ReactGA.event({
             category: this.state.isAssessment ?
@@ -109,7 +83,7 @@ export class LeastSquares extends Component {
         let populationTrials = 0;
         /*eslint-disable-next-line no-constant-condition*/
         while (true) {
-            population = this.generatePopulation();
+            population = generateLeastSquaresPopulation();
 
             [beta, alpha] = findLinearRegression(population);
             bestFitFunc = (x) => {return beta * x + alpha;};
@@ -118,7 +92,7 @@ export class LeastSquares extends Component {
             populationTrials += 1;
             // Rerun the loop until we get a population that
             // conforms to the required constraints.
-            if (this.validatePopulation(
+            if (validateLeastSquaresPopulation(
                 population, alpha, beta, optimalSSE)) {
                 break;
             }
