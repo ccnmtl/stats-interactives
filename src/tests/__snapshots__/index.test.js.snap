@@ -1,154 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Nav elements render as expected 1`] = `
-Array [
+<DocumentFragment>
   <nav
-    className="navbar navbar-expand-lg navbar-dark"
+    class="navbar navbar-expand-lg navbar-dark"
   >
     <a
-      className="navbar-brand"
+      class="navbar-brand"
       href="/"
-      onClick={[Function]}
     >
       <span
-        className="stats"
+        class="stats"
       >
         Stats
       </span>
       Interactives
       <span
-        className="beta"
+        class="beta"
       >
          Beta
       </span>
     </a>
     <div
-      className="navbar-nav-scroll"
+      class="navbar-nav-scroll"
     >
       <ul
-        className="navbar-nav bd-navbar-nav flex-row"
+        class="navbar-nav bd-navbar-nav flex-row"
       >
         <li
-          className="nav-item"
+          class="nav-item"
         >
           <a
-            className="nav-link"
+            class="nav-link"
             href="/"
-            onClick={[Function]}
           >
             ← Back to the Collection
           </a>
         </li>
       </ul>
     </div>
-  </nav>,
+  </nav>
   <div
-    className="container"
+    class="container"
   >
     <div
       aria-hidden="true"
-      className="alert alert-danger d-block d-xl-none view-only"
+      class="alert alert-danger d-block d-xl-none view-only"
       role="alert"
     >
       Stats Interactives are optimized for larger screens. Please switch to a desktop computer, or expand your browser size.
     </div>
-  </div>,
-]
+  </div>
+</DocumentFragment>
 `;
 
 exports[`Preview elements render as expected 1`] = `
-Array [
+<DocumentFragment>
   <div
-    className="card col-md-3 graphcards"
+    class="card col-md-3 graphcards"
   >
     <div
-      className="card-body"
+      class="card-body"
     >
       <h2
-        className="card-title"
+        class="card-title"
       >
         <a
           href="/central-limit-theorem"
-          onClick={[Function]}
         >
           The Central Limit Theorem
         </a>
       </h2>
       <p
-        className="card-text"
+        class="card-text"
       >
         The Central Limit Theorem establishes that, under some conditions, the mean of a sample drawn from a population follows a normal sampling distribution, even when the distribution of the population itself is not normally distributed.
       </p>
     </div>
-  </div>,
+  </div>
   <div
-    className="card col-md-3 graphcards"
+    class="card col-md-3 graphcards"
   >
     <div
-      className="card-body"
+      class="card-body"
     >
       <h2
-        className="card-title"
+        class="card-title"
       >
         <a
           href="/linear-regression-model"
-          onClick={[Function]}
         >
           Linear Regression Model
         </a>
       </h2>
       <p
-        className="card-text"
+        class="card-text"
       >
         A linear regression model assumes that the mean of the response variable is affected by the explanatory variables and that individual observations vary around the mean due to other factors.
       </p>
     </div>
-  </div>,
+  </div>
   <div
-    className="card col-md-3 graphcards"
+    class="card col-md-3 graphcards"
   >
     <div
-      className="card-body"
+      class="card-body"
     >
       <h2
-        className="card-title"
+        class="card-title"
       >
         <a
           href="/least-squares-estimation"
-          onClick={[Function]}
         >
           Least Squares Estimation
         </a>
       </h2>
       <p
-        className="card-text"
+        class="card-text"
       >
         Regressions are used to predict the average values in a data set. The difference between the actual value of an observation and the average value predicted by the regression is called a residual. An ordinary least squares regression minimizes the sum of squares of residuals.
       </p>
     </div>
-  </div>,
+  </div>
   <div
-    className="card col-md-3 graphcards"
+    class="card col-md-3 graphcards"
   >
     <div
-      className="card-body"
+      class="card-body"
     >
       <h2
-        className="card-title"
+        class="card-title"
       >
         <a
           href="/sampling-distribution-regression"
-          onClick={[Function]}
         >
           Sampling Distribution of Regression Coefficients
         </a>
       </h2>
       <p
-        className="card-text"
+        class="card-text"
       >
         Regression coefficients, like other sample statistics, are random variables with sampling distributions. Under certain conditions, they are unbiased estimators for the parameters of the regression model. Their standard deviation is directly proportional to the standard deviation of the disturbances.
       </p>
     </div>
-  </div>,
-]
+  </div>
+</DocumentFragment>
 `;

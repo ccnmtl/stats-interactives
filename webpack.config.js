@@ -12,7 +12,8 @@ module.exports = {
     },
     devServer: {
         static: {
-            directory: './'
+            directory: './',
+            watch: false
         },
         port: 3000,
         historyApiFallback: true,
@@ -21,7 +22,8 @@ module.exports = {
         extensions: ['*', '.js', '.jsx']
     },
     watchOptions: {
-        ignored: path.resolve(__dirname, 'node_modules')
+        ignored: /node_modules/,
+        poll: 1000
     },
     module: {
         rules: [

@@ -180,3 +180,29 @@ export const unpackData = (data, index) => {
     // returns a flattened array
     return data.map((val) => {return val[index];});
 };
+
+export const generateLeastSquaresPopulation = (len = 6, min = -4, max = 4) => {
+    let scale = max - min;
+    let offset = min;
+    return [...Array(len)].map(() => {
+        return [(Math.random() * scale) + offset,
+            (Math.random() * scale) + offset];
+    });
+};
+
+export const validateLeastSquaresPopulation = (population, alpha, beta, optimalSSE) => {
+    // Population Constraints
+    const minSSE = 3;
+    const maxSSE = 15;
+    const minSlope = -5;
+    const maxSlope = 5;
+    const minIntercept = -4;
+    const maxIntercept = 4;
+
+    if (minSlope <= beta && beta <= maxSlope &&
+        minIntercept <= alpha && alpha <= maxIntercept &&
+        minSSE <= optimalSSE && optimalSSE <= maxSSE) {
+        return true;
+    }
+    return false;
+};
